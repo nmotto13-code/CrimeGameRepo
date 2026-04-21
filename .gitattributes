@@ -1,0 +1,5 @@
+ios_build/**/*.a filter=lfs diff=lfs merge=lfs -text
+ios_build/**/*.framework/** filter=lfs diff=lfs merge=lfs -text
+ios_build/**/*.dylib filter=lfs diff=lfs merge=lfs -text
+ios_build/**/*.png filter=lfs diff=lfs merge=lfs -text
+ios_build/Data/** filter=lfs diff=lfs merge=lfs -text
