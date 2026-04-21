@@ -1,0 +1,144 @@
+================================================================================
+POCKET CASEBOOK: CONTRADICTION ENGINE — CHAT CONTEXT
+Last Updated: 2026-04-20
+================================================================================
+
+PROJECT OVERVIEW
+----------------
+Unity 6 (6000.x LTS) iOS-first mobile mystery game.
+Primary working directory: C:\Users\blued\OneDrive\Desktop\CrimeGame
+
+Two editor menu commands drive everything:
+  1. Casebook → Generate Starter Cases   (creates/updates ScriptableObjects)
+  2. Casebook → Build Scene              (rebuilds CaseScene.unity from scratch)
+Then Press Play to test.
+
+ARCHITECTURE SUMMARY
+--------------------
+- CaseData ScriptableObject → EvidenceData / ClaimData / HotspotData
+- CaseLoader.LoadCase() wires everything at runtime
+- EvidenceDiscoverySystem tracks found evidence, populates Evidence tab
+- MagnifyingGlass (on ScenePanel) detects hotspot proximity via screen-distance
+- HotspotController.TriggerDiscovery() → registers evidence + opens detail panel
+- TabController manages 4 tabs: Brief(0) Scene(1) Evidence(2) Solve(3)
+- ContradictionEvaluator handles claim selection and correct/wrong evaluation
+
+NAV STRUCTURE
+-------------
+BRIEF | SCENE | EVIDENCE | SOLVE
+  0       1        2         3
+
+CASE 001 — "The Missing Watch"
+------------------------------
+Evidence:
+  E001 Coroner Report     → displayMode: Document  → generic_document.png
+  E002 Stopped Wall Clock → displayMode: Default   → case001_e002_wall_clock.png
+  E003 Security Log       → displayMode: Terminal  → generic_terminal.png
+  E004 Visitor Badge      → displayMode: Keycard   → generic_keycard.png
+  E005 Watch Box (Empty)  → displayMode: Default   → case001_e005_watch_box.png
+
+Hotspots (normalized x=left→right, y=bottom→top):
+  H001 (0.30, 0.60) → E002 Wall Clock
+  H002 (0.70, 0.40) → E005 Watch Box
+  H003 (0.50, 0.30) → E001 Coroner Report
+  H004 (0.65, 0.55) → E003 Security Log
+  H005 (0.20, 0.25) → E004 Visitor Badge
+
+Contradiction: CL001 Marcus Vane claims midnight — badge shows 10:15 PM exit.
+
+================================================================================
+RECENT EDITS (last 5 sessions)
+================================================================================
+
+[EDIT 1] Evidence tab card — vertical layout redesign + detail panel anchor fix
+  Files: Assets/Scripts/UI/EvidenceCardUI.cs
+         Assets/Scripts/Editor/SceneBuilder.cs
+         Assets/Scripts/UI/EvidenceDetailPanel.cs
+  - EvidenceCardUI: added descriptionText field, populated in Initialize()
+  - BuildEvidenceCardPrefab() completely rewritten:
+      Root: VLG + ContentSizeFitter(vertical=PreferredSize) + LayoutElement(flexibleWidth)
+      ├── Highlight (ignoreLayout=true, StretchFull, enabled=false)
+      ├── ImageRegion (220px fixed height, full width, Image preserveAspect)
+      └── InfoRegion (VLG + CSF, padding 14/14/12/14, spacing 8)
+          ├── NameText (30px bold, 52px tall)
+          ├── Separator (1px line)
+          ├── DescriptionText (21px, wraps to content via CSF)
+          ├── Separator (1px line)
+          ├── RelevanceLabel (17px dim, 26px)
+          └── TagsText (20px blue, 36px)
+  - Scroll content height bumped: 3000 → 6000 (tall cards no longer clipped)
+  - Detail panel anchor bug fixed — desc (0.24-0.46) and tags (0.16-0.24) no longer overlap
+  - Detail panel buttons moved up: 0.01-0.10 → 0.02-0.13
+  - EvidenceDetailPanel.Show(): hides plain descriptionText for text-mode evidence
+    (text-mode uses textModeBody overlay instead; no duplication)
+
+[EDIT 2] EvidenceDisplayMode enum — NEW FILE
+  File: Assets/Scripts/Data/EvidenceDisplayMode.cs
+  Added enum: Default, Document, Terminal, Keycard
+  Drives which visual mode EvidenceDetailPanel uses when showing evidence.
+
+[EDIT 2] EvidenceData + EvidenceDetailPanel — Text Mode Overlay
+  Files: Assets/Scripts/Data/EvidenceData.cs
+         Assets/Scripts/UI/EvidenceDetailPanel.cs
+  - Added `public EvidenceDisplayMode displayMode` field to EvidenceData
+  - Added [Header("Text Mode")] fields: textModeRoot, textModeBg, textModeBody
+  - Show() now toggles viewer vs textModeRoot based on displayMode
+  - ApplyTextMode() styles text per mode:
+      Document → dark sepia ink  (0.18, 0.11, 0.04)
+      Terminal → bright green    (0.18, 0.95, 0.28)
+      Keycard  → navy blue       (0.08, 0.18, 0.52)
+  - Enhance button hidden for text-mode evidence
+
+[EDIT 3] SceneBuilder — TextModeView + Hotspot tap target + Strip removal
+  File: Assets/Scripts/Editor/SceneBuilder.cs
+  - Added TextModeView GO as sibling of ViewerArea in EvidenceDetailPanel:
+      Same anchors (0.44–0.89 height), RawImage bg + TMP_Text body
+      Wired into detailComp: textModeRoot, textModeBg, textModeBody
+  - Removed FoundEvidenceStrip entirely from ScenePanel
+  - SceneImage offsetMin.y: 115 → 0  (fills full panel below counter bar)
+  - SceneHotspotContainer offsetMin.y: 115 → 0
+  - Hotspot prefab: added transparent Image (color alpha=0) for tap raycast
+  - Hotspot sizeDelta: 100×100 → 160×160 (larger detection area)
+  - Removed foundEvidenceCardPrefab from build + wiring
+  - discoverySystem wiring: removed foundEvidenceContent + foundEvidenceCardPrefab
+
+[EDIT 4] CaseGeneratorEditor — Formatted text content for text-mode evidence
+  File: Assets/Scripts/Editor/CaseGeneratorEditor.cs
+  - MakeEvidence() gained `EvidenceDisplayMode displayMode` parameter
+  - E001 Coroner Report: formatted as typed medical report with header/dividers
+  - E003 Security Log:   formatted as terminal log with > prompts and event lines
+  - E004 Visitor Badge:  formatted as corporate keycard layout
+  - All 5 evidence items now have hotspots (H003/H004/H005 added for E001/E003/E004)
+
+[EDIT 5] EvidenceDiscoverySystem + ToolsController — Strip removal cleanup
+  Files: Assets/Scripts/Core/EvidenceDiscoverySystem.cs
+         Assets/Scripts/Tools/ToolsController.cs
+  - EvidenceDiscoverySystem: removed foundEvidenceContent + foundEvidenceCardPrefab
+    fields. RegisterEvidenceFound() now only populates the Evidence tab.
+  - ToolsController.ApplyCrossCheck(): switched from FindObjectsByType<FoundEvidenceCard>
+    to FindObjectsByType<EvidenceCardUI> so cross-check highlights Evidence tab cards.
+
+================================================================================
+KNOWN POSITIONS TO VERIFY IN-GAME
+================================================================================
+Hotspot normalized positions for Case 001 are approximate guesses.
+After running in Play mode, adjust nx/ny in CaseGeneratorEditor.BuildCase001()
+if any hotspot lands in the wrong visual location on the background image.
+
+  H001 Wall Clock:     (0.30, 0.60) — left side of room, upper half
+  H002 Watch Box:      (0.70, 0.40) — right side, mid height
+  H003 Coroner Report: (0.50, 0.30) — center desk area, lower
+  H004 Security Log:   (0.65, 0.55) — right-center, mid
+  H005 Visitor Badge:  (0.20, 0.25) — left side, lower
+
+================================================================================
+CURRENT WORKFLOW REMINDER
+================================================================================
+1. Make code changes
+2. Casebook → Generate Starter Cases
+3. Casebook → Build Scene
+4. Press Play
+5. Tap SCENE tab → hold finger/mouse over hotspot areas to discover evidence
+   (or tap directly — transparent Image added to hotspot root for tap fallback)
+6. Tap EVIDENCE tab → tap any card to open detail panel
+================================================================================

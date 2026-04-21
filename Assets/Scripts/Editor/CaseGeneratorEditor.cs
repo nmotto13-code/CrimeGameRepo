@@ -66,7 +66,8 @@ namespace CasebookGame.Editor
         }
 
         static EvidenceData MakeEvidence(string caseId, string eid, string name, string desc,
-            EvidenceTag[] tags, EvidenceTag[] enhanceTags = null)
+            EvidenceTag[] tags, EvidenceTag[] enhanceTags = null, string spritePath = null,
+            EvidenceDisplayMode displayMode = EvidenceDisplayMode.Default)
         {
             string path = $"{EVIDENCE_PATH}/{caseId}_{eid}.asset";
             var existing = AssetDatabase.LoadAssetAtPath<EvidenceData>(path);
@@ -75,12 +76,15 @@ namespace CasebookGame.Editor
                 existing = ScriptableObject.CreateInstance<EvidenceData>();
                 AssetDatabase.CreateAsset(existing, path);
             }
-            existing.evidenceId = eid;
-            existing.displayName = name;
+            existing.evidenceId   = eid;
+            existing.displayName  = name;
             existing.descriptionText = desc;
             existing.tags = new List<EvidenceTag>(tags);
             existing.tagsUnlockedOnEnhance = enhanceTags != null
                 ? new List<EvidenceTag>(enhanceTags) : new List<EvidenceTag>();
+            existing.displayMode = displayMode;
+            if (spritePath != null)
+                existing.imageSprite = LoadSprite(spritePath);
             EditorUtility.SetDirty(existing);
             return existing;
         }
@@ -115,60 +119,149 @@ namespace CasebookGame.Editor
             return Sprite.Create(tex, new Rect(0, 0, 2, 2), Vector2.one * 0.5f);
         }
 
+        // Load a sprite from a project path, auto-converting the texture importer if needed.
+        static Sprite LoadSprite(string path)
+        {
+            if (string.IsNullOrEmpty(path)) return null;
+            var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            if (sprite != null) return sprite;
+            var importer = AssetImporter.GetAtPath(path) as TextureImporter;
+            if (importer == null) return null;
+            importer.textureType      = TextureImporterType.Sprite;
+            importer.spriteImportMode = SpriteImportMode.Single;
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+            return AssetDatabase.LoadAssetAtPath<Sprite>(path);
+        }
+
+        // Try a list of paths in order, returning the first sprite found.
+        static Sprite LoadSpriteAny(params string[] paths)
+        {
+            foreach (var p in paths) { var s = LoadSprite(p); if (s != null) return s; }
+            return null;
+        }
+
         // ══════════════════════════════════════════════════════════════
         // CASE 001 — "The Missing Watch" (time contradiction)
+        // Sprite paths based on AI_Asset_Prompts.txt
         // ══════════════════════════════════════════════════════════════
         static void BuildCase001()
         {
+            // Shared sprite paths
+            const string DOC      = "Assets/Sprites/Evidence/shared/generic_document.png";
+            const string TERMINAL = "Assets/Sprites/Evidence/shared/generic_terminal.png";
+            const string KEYCARD  = "Assets/Sprites/Evidence/shared/generic_keycard.png";
+
             var c = GetOrCreate("Case_001");
-            c.caseId = "Case_001";
-            c.title = "The Missing Watch";
-            c.briefText = "Victor Hale was found dead in his study at 11:45 PM. His antique pocket watch is missing. " +
-                          "His assistant claims he last saw Victor alive at midnight — yet the coroner sets death no later than 11 PM.";
+            c.caseId  = "Case_001";
+            c.title   = "The Missing Watch";
+            c.briefText =
+                "Victor Hale was found dead in his study at 11:45 PM. His antique pocket watch is missing.\n\n" +
+                "The wall clock stopped during a struggle — but the hour it froze on contradicts " +
+                "everything his assistant claims about that night.\n\n" +
+                "Search the scene. Find the evidence. Expose the lie.";
+
+            // Assign scene background — handle possible double-extension from save error
+            c.sceneBackground = LoadSpriteAny(
+                "Assets/Sprites/Backgrounds/case001_study.jpg",
+                "Assets/Sprites/Backgrounds/case001_study.png.jpg",
+                "Assets/Sprites/Backgrounds/case001_study.png");
 
             c.evidence = new List<EvidenceData>
             {
-                MakeEvidence("C001","E001","Coroner Report",
-                    "Time of death estimated between 10:30 PM and 11:00 PM based on body temperature.",
-                    new[]{ EvidenceTag.TIME, EvidenceTag.PHYSICAL }),
-                MakeEvidence("C001","E002","Stopped Wall Clock",
-                    "The study wall clock stopped at 10:47 PM. Face shows impact cracks.",
-                    new[]{ EvidenceTag.TIME, EvidenceTag.OBJECT }),
-                MakeEvidence("C001","E003","Security Log",
-                    "Front door keypad log: last entry at 10:32 PM (Victor Hale's code).",
-                    new[]{ EvidenceTag.TIME, EvidenceTag.ACCESS, EvidenceTag.DIGITAL }),
-                MakeEvidence("C001","E004","Assistant's Visitor Badge",
-                    "Badge swipe shows assistant left the building at 10:15 PM.",
-                    new[]{ EvidenceTag.TIME, EvidenceTag.ACCESS, EvidenceTag.ALIBI }),
-                MakeEvidence("C001","E005","Watch Box (Empty)",
-                    "Victor's monogrammed watch box found open on the desk. Watch absent.",
-                    new[]{ EvidenceTag.OBJECT, EvidenceTag.PHYSICAL }),
+                MakeEvidence("C001", "E001", "Coroner Report",
+                    "OFFICE OF THE CORONER — Case #2241\n" +
+                    "─────────────────────────────────\n" +
+                    "DECEASED:  Victor Hale\n" +
+                    "TIME OF DEATH:  22:30 – 23:00\n\n" +
+                    "Cause: blunt force trauma to occipital region.\n" +
+                    "Lividity and body temperature consistent with\n" +
+                    "death between 10:30 PM and 11:00 PM.\n\n" +
+                    "Watch absent from wrist at time of discovery.\n" +
+                    "─────────────────────────────────\n" +
+                    "Filed: Dr. E. Marsh, Chief Medical Examiner",
+                    new[] { EvidenceTag.TIME, EvidenceTag.PHYSICAL },
+                    spritePath: DOC, displayMode: EvidenceDisplayMode.Document),
+
+                MakeEvidence("C001", "E002", "Stopped Wall Clock",
+                    "Antique mahogany wall clock. Glass face cracked from radial impact at lower left.\n" +
+                    "Hands frozen at 10:47 PM — consistent with being struck during a violent struggle.",
+                    new[] { EvidenceTag.TIME, EvidenceTag.OBJECT },
+                    spritePath: "Assets/Sprites/Evidence/case001_e002_wall_clock.png"),
+
+                MakeEvidence("C001", "E003", "Security Log",
+                    "HALE ESTATE — DOOR ACCESS LOG\n" +
+                    "══════════════════════════════\n" +
+                    "> SYSTEM ONLINE  [22:00:01]\n\n" +
+                    "> EVENT  22:15:04\n" +
+                    "  CODE 4492  [M.VANE / ASSISTANT]\n" +
+                    "  ACTION: EXIT — FRONT DOOR\n\n" +
+                    "> EVENT  22:51:33\n" +
+                    "  CODE 4492  [M.VANE / ASSISTANT]\n" +
+                    "  ACTION: ENTRY — FRONT DOOR\n\n" +
+                    "> NO FURTHER EVENTS LOGGED\n" +
+                    "══════════════════════════════",
+                    new[] { EvidenceTag.TIME, EvidenceTag.ACCESS, EvidenceTag.DIGITAL },
+                    spritePath: TERMINAL, displayMode: EvidenceDisplayMode.Terminal),
+
+                MakeEvidence("C001", "E004", "Assistant's Visitor Badge",
+                    "HALE INDUSTRIES\n" +
+                    "VISITOR ACCESS BADGE\n" +
+                    "────────────────────\n" +
+                    "NAME:   MARCUS VANE\n" +
+                    "ROLE:   ASSISTANT\n" +
+                    "CODE:   4492\n\n" +
+                    "OUT-SCAN\n" +
+                    "22:15  —  FRONT DOOR\n\n" +
+                    "Building security confirms\n" +
+                    "badge exit before struggle.",
+                    new[] { EvidenceTag.TIME, EvidenceTag.ACCESS, EvidenceTag.ALIBI },
+                    spritePath: KEYCARD, displayMode: EvidenceDisplayMode.Keycard),
+
+                MakeEvidence("C001", "E005", "Watch Box (Empty)",
+                    "Victor Hale's antique Patek Philippe presentation box. Dark mahogany exterior, " +
+                    "burgundy velvet lining. The center indentation shows the watch was here recently — " +
+                    "the velvet is uncompressed at the edges. Now empty.",
+                    new[] { EvidenceTag.OBJECT, EvidenceTag.PHYSICAL },
+                    spritePath: "Assets/Sprites/Evidence/case001_e005_watch_box.png"),
             };
 
             c.claims = new List<ClaimData>
             {
-                MakeClaim("C001","CL001","Marcus Vane (Assistant)",
-                    "I last saw Mr. Hale at midnight. He was fine — I handed him his evening tea.",
-                    new[]{ EvidenceTag.TIME, EvidenceTag.ALIBI }),
-                MakeClaim("C001","CL002","Eva Mercer (Housekeeper)",
-                    "I heard footsteps upstairs around 10:30. I thought it was Mr. Hale going to bed early.",
-                    new[]{ EvidenceTag.TIME, EvidenceTag.PHYSICAL }, isRedHerring: true),
-                MakeClaim("C001","CL003","Detective Frost",
-                    "The clock stopped when it was knocked off the mantle — probably during a struggle.",
-                    new[]{ EvidenceTag.TIME, EvidenceTag.OBJECT }, isRedHerring: true),
+                MakeClaim("C001", "CL001", "Marcus Vane (Assistant)",
+                    "I last saw Mr. Hale at midnight. He was perfectly fine — I handed him his evening " +
+                    "brandy and left through the front door. I was gone before anything happened.",
+                    new[] { EvidenceTag.TIME, EvidenceTag.ALIBI }),
+
+                MakeClaim("C001", "CL002", "Eva Mercer (Housekeeper)",
+                    "I heard movement upstairs around half past ten. I assumed it was Mr. Hale " +
+                    "retiring early. I thought nothing of it at the time.",
+                    new[] { EvidenceTag.TIME, EvidenceTag.PHYSICAL }, isRedHerring: true),
+
+                MakeClaim("C001", "CL003", "Detective Frost (Reporting Officer)",
+                    "The clock stopped when it was knocked from the mantle — almost certainly during " +
+                    "a struggle. The crack pattern is consistent with a heavy object or a fall.",
+                    new[] { EvidenceTag.TIME, EvidenceTag.OBJECT }, isRedHerring: true),
             };
 
             c.contradictoryClaimId = "CL001";
-            c.primaryEvidenceIdA = "E001";
-            c.primaryEvidenceIdB = "E004";
-            c.explanationText = "Marcus claims he saw Victor at midnight. The coroner places death before 11 PM " +
-                                "and Marcus's own badge shows he left the building at 10:15 PM — " +
-                                "he couldn't have been there at midnight.";
+            c.primaryEvidenceIdA   = "E001";   // Coroner places death before 11 PM
+            c.primaryEvidenceIdB   = "E004";   // Badge shows Marcus left at 10:15 PM
+            c.explanationText =
+                "Marcus Vane claims he was with Victor at midnight and left through the front door. " +
+                "But his own badge records show he exited at 10:15 PM — before the wall clock stopped at 10:47 PM. " +
+                "The security log then shows his code re-entering at 10:51 PM, four minutes after the clock froze. " +
+                "He left, returned, and was present when Victor died. His claim of 'midnight' is impossible.";
 
+            // Hotspot positions from AI_Asset_Prompts.txt:
+            // H001 — Wall Clock: ~30% from left, 60% from bottom
+            // H002 — Watch Box:  ~70% from left, 40% from bottom
             c.hotspots = new List<HotspotData>
             {
-                MakeHotspot("H001", 0.3f, 0.6f, "E002", "Wall Clock"),
-                MakeHotspot("H002", 0.7f, 0.4f, "E005", "Watch Box"),
+                MakeHotspot("H001", 0.30f, 0.60f, "E002", "Wall Clock"),
+                MakeHotspot("H002", 0.70f, 0.40f, "E005", "Watch Box"),
+                MakeHotspot("H003", 0.50f, 0.30f, "E001", "Coroner Report"),
+                MakeHotspot("H004", 0.65f, 0.55f, "E003", "Security Log"),
+                MakeHotspot("H005", 0.20f, 0.25f, "E004", "Visitor Badge"),
             };
 
             c.toolConfig = new ToolConfig();

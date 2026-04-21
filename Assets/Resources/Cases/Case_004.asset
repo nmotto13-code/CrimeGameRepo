@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_004
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  caseId: Case_004
+  title: Parking Garage Ticket
+  briefText: Sasha Novak claims she drove her sedan to Riverside Medical at 1 PM
+    for a checkup. The parking garage ticket and plate reader disagree with the medical
+    center's lobby cam.
+  sceneBackground: {fileID: 0}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.5, y: 0.55}
+    radius: 0.06
+    evidenceId: E001
+    hotspotLabel: Parking Ticket
+  evidence:
+  - {fileID: 11400000, guid: e6f39b55f39be2b4c8883b3d61c183d0, type: 2}
+  - {fileID: 11400000, guid: 867b6979ce51d0f4a83eaae3ee719e16, type: 2}
+  - {fileID: 11400000, guid: 85ac920dd2dbbc64fbdda50d77604842, type: 2}
+  - {fileID: 11400000, guid: 5d51fa07313fb58429c0afc783605aa0, type: 2}
+  - {fileID: 11400000, guid: 0581ddea0ef203947b5f08965d6bbafe, type: 2}
+  claims:
+  - {fileID: 11400000, guid: a2cec00fbbc6e7c44916b14dee3b6ed5, type: 2}
+  - {fileID: 11400000, guid: a41fec4961fe4664caf5d58709c95989, type: 2}
+  - {fileID: 11400000, guid: 8489e0dd74213f4499f8a8e341de31a4, type: 2}
+  contradictoryClaimId: CL001
+  explanationText: "Sasha's card was charged at a fuel station 12 km east at 1:22
+    PM, yet her car's plate shows it in the Riverside garage from 12:48\u20131:55
+    PM. Her car cannot be in two places simultaneously. Someone else drove her vehicle
+    \u2014 or she planted the ticket."
+  primaryEvidenceIdA: E005
+  primaryEvidenceIdB: E001
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

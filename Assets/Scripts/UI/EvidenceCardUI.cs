@@ -11,10 +11,11 @@ namespace CasebookGame.UI
     /// </summary>
     public class EvidenceCardUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        [SerializeField] Image thumbnail;
+        [SerializeField] Image    thumbnail;
         [SerializeField] TMP_Text nameText;
+        [SerializeField] TMP_Text descriptionText;
         [SerializeField] TMP_Text tagsText;
-        [SerializeField] Image crossCheckHighlight;
+        [SerializeField] Image    crossCheckHighlight;
 
         EvidenceData data;
         GameObject dragProxy;
@@ -32,8 +33,9 @@ namespace CasebookGame.UI
         public void Initialize(EvidenceData evidenceData)
         {
             data = evidenceData;
-            if (thumbnail) thumbnail.sprite = evidenceData.imageSprite;
-            if (nameText) nameText.text = evidenceData.displayName;
+            if (thumbnail)        thumbnail.sprite        = evidenceData.imageSprite;
+            if (nameText)         nameText.text           = evidenceData.displayName;
+            if (descriptionText)  descriptionText.text    = evidenceData.descriptionText;
             RefreshTags();
             SetHighlight(false);
         }

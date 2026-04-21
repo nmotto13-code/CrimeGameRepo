@@ -13,6 +13,7 @@ namespace CasebookGame.Data
 
         [Header("Visuals")]
         public Sprite imageSprite;
+        public EvidenceDisplayMode displayMode;
 
         [Header("Tags")]
         public List<EvidenceTag> tags = new List<EvidenceTag>();

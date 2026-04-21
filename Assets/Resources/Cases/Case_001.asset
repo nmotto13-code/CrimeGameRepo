@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_001
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  caseId: Case_001
+  title: The Missing Watch
+  briefText: "Victor Hale was found dead in his study at 11:45 PM. His antique pocket
+    watch is missing.\n\nThe wall clock stopped during a struggle \u2014 but the
+    hour it froze on contradicts everything his assistant claims about that night.\n\nSearch
+    the scene. Find the evidence. Expose the lie."
+  sceneBackground: {fileID: 21300000, guid: e1b974c77f157db4486cc27937f8d6db, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.3, y: 0.6}
+    radius: 0.06
+    evidenceId: E002
+    hotspotLabel: Wall Clock
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.4}
+    radius: 0.06
+    evidenceId: E005
+    hotspotLabel: Watch Box
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.3}
+    radius: 0.06
+    evidenceId: E001
+    hotspotLabel: Coroner Report
+  - hotspotId: H004
+    normalizedPosition: {x: 0.65, y: 0.55}
+    radius: 0.06
+    evidenceId: E003
+    hotspotLabel: Security Log
+  - hotspotId: H005
+    normalizedPosition: {x: 0.2, y: 0.25}
+    radius: 0.06
+    evidenceId: E004
+    hotspotLabel: Visitor Badge
+  evidence:
+  - {fileID: 11400000, guid: e68be79e9ce304540a94233ab7257971, type: 2}
+  - {fileID: 11400000, guid: 17a49b7b06f1e474e8714d2f13c40354, type: 2}
+  - {fileID: 11400000, guid: c23bd81d874c3bc4fb6620b8cfade605, type: 2}
+  - {fileID: 11400000, guid: cfee76087cae5834bb253927f307324d, type: 2}
+  - {fileID: 11400000, guid: 026ba2620782d974c8ecc4b99fd9f00b, type: 2}
+  claims:
+  - {fileID: 11400000, guid: 4f8823fe2dd668145b825cee108f9c7a, type: 2}
+  - {fileID: 11400000, guid: 43a3b318dd9649a40a5206f64f7ddbf2, type: 2}
+  - {fileID: 11400000, guid: c155c1ef04fb05e4dbeff8f8ebbe0c0a, type: 2}
+  contradictoryClaimId: CL001
+  explanationText: "Marcus Vane claims he was with Victor at midnight and left through
+    the front door. But his own badge records show he exited at 10:15 PM \u2014 before
+    the wall clock stopped at 10:47 PM. The security log then shows his code re-entering
+    at 10:51 PM, four minutes after the clock froze. He left, returned, and was present
+    when Victor died. His claim of 'midnight' is impossible."
+  primaryEvidenceIdA: E001
+  primaryEvidenceIdB: E004
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

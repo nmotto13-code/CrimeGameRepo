@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_008
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  caseId: Case_008
+  title: Train Platform
+  briefText: "Suspect Carl Duval says he boarded the 6:30 PM express to Alton and
+    couldn't have been near the warehouse. Two TIME-tagged pieces of evidence tell
+    a different story \u2014 use Timeline Snap on the board."
+  sceneBackground: {fileID: 0}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.4, y: 0.45}
+    radius: 0.06
+    evidenceId: E001
+    hotspotLabel: Train Ticket
+  evidence:
+  - {fileID: 11400000, guid: 3eeae22bd8d683343918964dac4be342, type: 2}
+  - {fileID: 11400000, guid: cb2951a2c1dbf7448abbcdc4205f4aa6, type: 2}
+  - {fileID: 11400000, guid: 17a2585a57c72904d8251b432ccaaa9e, type: 2}
+  - {fileID: 11400000, guid: 065cbae08191587498647f744556ad14, type: 2}
+  - {fileID: 11400000, guid: d3f689fe49955e14b86c577cc0ff6814, type: 2}
+  claims:
+  - {fileID: 11400000, guid: c10bb27181f62f4429005ac4ecf2c733, type: 2}
+  - {fileID: 11400000, guid: 5bf723a4257ea0b4fb39ea475a0b5853, type: 2}
+  - {fileID: 11400000, guid: be929e3c8dc1d3c4da3ea4ce2a5d2110, type: 2}
+  contradictoryClaimId: CL001
+  explanationText: "Carl claims he boarded the 6:30 PM train. The train departed
+    at 6:31 PM, but the warehouse sensor triggered at 6:34 PM \u2014 3 minutes after
+    the train left, and 18 minutes from the station. Carl cannot be on a moving train
+    and triggering a warehouse sensor simultaneously."
+  primaryEvidenceIdA: E001
+  primaryEvidenceIdB: E002
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

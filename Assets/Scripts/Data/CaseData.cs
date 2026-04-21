@@ -29,6 +29,10 @@ namespace CasebookGame.Data
         [Tooltip("Second evidence referenced in explanation")]
         public string primaryEvidenceIdB;
 
+        [Header("Scoring")]
+        public int   basePoints       = 500;
+        public float timeLimitSeconds = 0f;  // 0 = no limit, elapsed tracked silently
+
         [Header("Tool Overrides")]
         public ToolConfig toolConfig = new ToolConfig();
     }

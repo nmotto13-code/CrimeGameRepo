@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd38127d486d794aa9fa20d4ed0bb10, type: 3}
+  m_Name: C009_E005
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.EvidenceData
+  evidenceId: E005
+  displayName: Witness (Class Member)
+  descriptionText: 'Class attendee arrived at 7 PM: ''The studio was dark. I assumed
+    it was cancelled.'''
+  imageSprite: {fileID: 0}
+  displayMode: 0
+  tags: 0000000006000000
+  enhanceOverlayMaskSprite: {fileID: 0}
+  tagsUnlockedOnEnhance: 

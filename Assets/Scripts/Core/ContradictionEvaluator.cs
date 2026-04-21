@@ -10,7 +10,9 @@ namespace CasebookGame.Core
         CaseData currentCase;
         string selectedClaimId;
         bool awaitingSelection = false;
+        int  wrongGuessCount   = 0;
 
+        public int WrongGuessCount => wrongGuessCount;
         public System.Action<bool, string> OnEvaluationComplete;
 
         void Awake()
@@ -19,13 +21,17 @@ namespace CasebookGame.Core
             Instance = this;
         }
 
-        public void SetCase(CaseData caseData) => currentCase = caseData;
+        public void SetCase(CaseData caseData)
+        {
+            currentCase     = caseData;
+            wrongGuessCount = 0;
+        }
 
         public void BeginSubmit()
         {
-            if (currentCase == null) return;
+            if (currentCase == null || awaitingSelection) return;
             awaitingSelection = true;
-            UI.TabController.Instance?.SwitchToTab(2); // Claims tab
+            UI.TabController.Instance?.SwitchToTab(3);
             UI.ClaimCardUI.OnClaimTapped += HandleClaimSelected;
         }
 
@@ -36,6 +42,7 @@ namespace CasebookGame.Core
             UI.ClaimCardUI.OnClaimTapped -= HandleClaimSelected;
 
             bool correct = claimId == currentCase.contradictoryClaimId;
+            if (!correct) wrongGuessCount++;
             OnEvaluationComplete?.Invoke(correct, currentCase.explanationText);
         }
 

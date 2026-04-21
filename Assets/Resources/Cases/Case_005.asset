@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_005
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  caseId: Case_005
+  title: Stairwell Footprints
+  briefText: "A witness claims they chased a suspect down an outdoor staircase during
+    heavy rain. The forensics team found crisp, undisturbed dust prints \u2014 but
+    it rained for 3 hours that evening."
+  sceneBackground: {fileID: 0}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.45, y: 0.6}
+    radius: 0.06
+    evidenceId: E002
+    hotspotLabel: Footprints
+  evidence:
+  - {fileID: 11400000, guid: dd2d45d74c7a8b849a5bdc2c990e2f38, type: 2}
+  - {fileID: 11400000, guid: 99e534bb45290b94caf58c2a78957fd1, type: 2}
+  - {fileID: 11400000, guid: 3e8dc412006dec64290e0ab4661ae174, type: 2}
+  - {fileID: 11400000, guid: f85d381be61c3774f8e2e3de74963e35, type: 2}
+  - {fileID: 11400000, guid: 008e0c28f5edc514f856431dc03f6a9a, type: 2}
+  claims:
+  - {fileID: 11400000, guid: 96b9ceb05cb8e244caa670cc6aa89670, type: 2}
+  - {fileID: 11400000, guid: 66a9b3998c0ef614eb4794c91773e724, type: 2}
+  - {fileID: 11400000, guid: 8a3f3a6166063ab4aa9b8bdc0916ff09, type: 2}
+  contradictoryClaimId: CL001
+  explanationText: "Petra claims the chase happened at 7:30 PM in pouring rain. The
+    staircase is uncovered \u2014 any prints made at 7:30 PM would have been washed
+    away by the rain that lasted until 9:15 PM. The dry, crisp dust prints prove
+    the footsteps happened AFTER the rain stopped, not during it."
+  primaryEvidenceIdA: E001
+  primaryEvidenceIdB: E002
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

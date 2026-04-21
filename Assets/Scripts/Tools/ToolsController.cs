@@ -8,10 +8,6 @@ using CasebookGame.UI;
 
 namespace CasebookGame.Tools
 {
-    /// <summary>
-    /// Manages all three tools: Cross-Check, Enhance, Timeline Snap.
-    /// Tracks charges / cooldowns and drives UI button state.
-    /// </summary>
     public class ToolsController : MonoBehaviour
     {
         public static ToolsController Instance { get; private set; }
@@ -20,13 +16,15 @@ namespace CasebookGame.Tools
         [SerializeField] Button crossCheckButton;
         [SerializeField] TMP_Text crossCheckChargesText;
         int crossCheckCharges;
+        bool crossCheckModeActive;
+        public bool IsCrossCheckModeActive => crossCheckModeActive;
 
         [Header("Enhance Tool")]
         [SerializeField] Button enhanceButton;
         [SerializeField] TMP_Text enhanceCooldownText;
         float enhanceCooldownSeconds;
-        float enhanceCooldownRemaining = 0f;
-        bool enhanceOnCooldown = false;
+        float enhanceCooldownRemaining;
+        bool enhanceOnCooldown;
 
         [Header("Timeline Snap Tool")]
         [SerializeField] Button timelineSnapButton;
@@ -35,9 +33,7 @@ namespace CasebookGame.Tools
         [SerializeField] TMP_Text timelineSnapResultText;
         int timelineSnapCharges;
 
-        [Header("Visual Feedback")]
-        [SerializeField] Color chargesAvailableColor = Color.white;
-        [SerializeField] Color chargesEmptyColor = new Color(0.4f, 0.4f, 0.4f);
+        static readonly Color ActiveModeColor = new Color(1f, 0.90f, 0.15f, 1f);
 
         void Awake()
         {
@@ -51,47 +47,54 @@ namespace CasebookGame.Tools
 
         public void InitializeTools(ToolConfig config)
         {
-            crossCheckCharges = config.crossCheckCharges;
+            crossCheckCharges      = config.crossCheckCharges;
             enhanceCooldownSeconds = config.enhanceCooldownSeconds;
-            timelineSnapCharges = config.timelineSnapCharges;
+            timelineSnapCharges    = config.timelineSnapCharges;
             enhanceCooldownRemaining = 0f;
-            enhanceOnCooldown = false;
-
+            enhanceOnCooldown      = false;
+            crossCheckModeActive   = false;
             RefreshAllUI();
         }
 
         void Update()
         {
-            if (enhanceOnCooldown)
+            if (!enhanceOnCooldown) return;
+            enhanceCooldownRemaining -= Time.deltaTime;
+            if (enhanceCooldownRemaining <= 0f)
             {
-                enhanceCooldownRemaining -= Time.deltaTime;
-                if (enhanceCooldownRemaining <= 0f)
-                {
-                    enhanceCooldownRemaining = 0f;
-                    enhanceOnCooldown = false;
-                }
-                UpdateEnhanceUI();
+                enhanceCooldownRemaining = 0f;
+                enhanceOnCooldown = false;
             }
+            UpdateEnhanceUI();
         }
 
-        // ── Tool A: Cross-Check ────────────────────────────────────────
+        // ── Cross-Check ────────────────────────────────────────────────
 
         void OnCrossCheckPressed()
         {
-            // No claim context here — requires a claim to be selected via ClaimCardUI
-            Debug.Log("[ToolsController] Cross-Check pressed. Long-press a claim card to use it in context.");
+            if (crossCheckCharges <= 0) return;
+
+            crossCheckModeActive = !crossCheckModeActive;
+
+            // Switch to Solve tab so the player can tap a claim
+            if (crossCheckModeActive)
+                TabController.Instance?.SwitchToTab(3);
+
+            RefreshCrossCheckUI();
         }
 
+        // Called by ClaimCardUI when cross-check mode is active and a claim is tapped.
         public void ApplyCrossCheck(ClaimData claim)
         {
             if (crossCheckCharges <= 0) return;
+            crossCheckModeActive = false;
             crossCheckCharges--;
             RefreshCrossCheckUI();
 
-            // Find all evidence cards and highlight those matching claim's referenced tags
+            // Highlight Evidence-tab cards that share tags with this claim
             int highlighted = 0;
-            var cards = FindObjectsOfType<EvidenceCardUI>();
-            foreach (var card in cards)
+            var evidenceCards = FindObjectsByType<UI.EvidenceCardUI>(FindObjectsSortMode.None);
+            foreach (var card in evidenceCards)
             {
                 bool match = false;
                 if (card.Data != null)
@@ -101,17 +104,30 @@ namespace CasebookGame.Tools
                 if (match) highlighted++;
             }
 
-            // Show "Potential Conflict" marker if any highlighted (simple log for now; extend with popup)
+            // Switch to Evidence tab so the player sees the highlighted cards
             if (highlighted > 0)
-                Debug.Log($"[CrossCheck] {highlighted} evidence items potentially conflict with '{claim.speakerName}'s claim.");
+                UI.TabController.Instance?.SwitchToTab(2);
+
+            Debug.Log($"[CrossCheck] {highlighted} found evidence items linked to '{claim.speakerName}'.");
         }
 
-        // ── Tool B: Enhance ────────────────────────────────────────────
+        public void CancelCrossCheckMode()
+        {
+            crossCheckModeActive = false;
+            RefreshCrossCheckUI();
+        }
+
+        // ── Enhance ────────────────────────────────────────────────────
 
         void OnEnhancePressed()
         {
-            // Pressing toolbar button triggers enhance on currently open detail panel evidence
-            UI.EvidenceDetailPanel.Instance?.gameObject.SendMessage("OnEnhanceTapped", SendMessageOptions.DontRequireReceiver);
+            var panel = EvidenceDetailPanel.Instance;
+            if (panel == null || panel.CurrentEvidence == null)
+            {
+                Debug.Log("[Enhance] Open an evidence item in the Scene tab first.");
+                return;
+            }
+            panel.TriggerEnhance();
         }
 
         public bool CanEnhance() => !enhanceOnCooldown;
@@ -120,12 +136,12 @@ namespace CasebookGame.Tools
         {
             if (enhanceOnCooldown) return;
             evidence.ApplyEnhance();
-            enhanceOnCooldown = true;
+            enhanceOnCooldown        = true;
             enhanceCooldownRemaining = enhanceCooldownSeconds;
             UpdateEnhanceUI();
         }
 
-        // ── Tool C: Timeline Snap ──────────────────────────────────────
+        // ── Timeline Snap ──────────────────────────────────────────────
 
         void OnTimelineSnapPressed()
         {
@@ -141,7 +157,6 @@ namespace CasebookGame.Tools
             timelineSnapCharges--;
             RefreshTimelineSnapUI();
 
-            // Simple heuristic: check description texts for conflicting time strings
             var a = timePinned[0];
             var b = timePinned[1];
             bool conflict = DetectTimeConflict(a, b);
@@ -153,12 +168,8 @@ namespace CasebookGame.Tools
 
         bool DetectTimeConflict(EvidenceData a, EvidenceData b)
         {
-            // Data-driven: if both are TIME-tagged, flag as conflict (designer sets up cases so this is meaningful)
-            // In a full implementation, parse actual time values from evidence metadata
-            var gm = GameManager.Instance;
-            if (gm?.CurrentCase == null) return false;
-            // Conflict exists if the solution references either of these two evidence items
-            var sol = gm.CurrentCase;
+            var sol = Core.GameManager.Instance?.CurrentCase;
+            if (sol == null) return false;
             return (a.evidenceId == sol.primaryEvidenceIdA || a.evidenceId == sol.primaryEvidenceIdB)
                 && (b.evidenceId == sol.primaryEvidenceIdA || b.evidenceId == sol.primaryEvidenceIdB);
         }
@@ -170,10 +181,6 @@ namespace CasebookGame.Tools
             {
                 timelineSnapResultPopup.SetActive(true);
                 StartCoroutine(HideTimelineResultAfter(4f));
-            }
-            else
-            {
-                Debug.Log($"[TimelineSnap] {msg}");
             }
         }
 
@@ -195,7 +202,22 @@ namespace CasebookGame.Tools
         void RefreshCrossCheckUI()
         {
             if (crossCheckChargesText) crossCheckChargesText.text = $"{crossCheckCharges}";
-            UpdateButtonColor(crossCheckButton, crossCheckCharges > 0);
+            if (crossCheckButton)
+            {
+                var img = crossCheckButton.GetComponent<Image>();
+                if (img)
+                {
+                    if (crossCheckModeActive)
+                        img.color = ActiveModeColor;
+                    else
+                    {
+                        var c = img.color;
+                        c.a = crossCheckCharges > 0 ? 1f : 0.35f;
+                        img.color = c;
+                    }
+                }
+                crossCheckButton.interactable = crossCheckCharges > 0;
+            }
         }
 
         void UpdateEnhanceUI()
@@ -204,21 +226,25 @@ namespace CasebookGame.Tools
                 enhanceCooldownText.text = enhanceOnCooldown
                     ? $"{Mathf.CeilToInt(enhanceCooldownRemaining)}s"
                     : "READY";
-            UpdateButtonColor(enhanceButton, !enhanceOnCooldown);
+            SetButtonAlpha(enhanceButton, !enhanceOnCooldown);
+            if (enhanceButton) enhanceButton.interactable = !enhanceOnCooldown;
         }
 
         void RefreshTimelineSnapUI()
         {
             if (timelineSnapChargesText) timelineSnapChargesText.text = $"{timelineSnapCharges}";
-            UpdateButtonColor(timelineSnapButton, timelineSnapCharges > 0);
+            SetButtonAlpha(timelineSnapButton, timelineSnapCharges > 0);
+            if (timelineSnapButton) timelineSnapButton.interactable = timelineSnapCharges > 0;
         }
 
-        void UpdateButtonColor(Button btn, bool available)
+        static void SetButtonAlpha(Button btn, bool available)
         {
             if (!btn) return;
             var img = btn.GetComponent<Image>();
-            if (img) img.color = available ? chargesAvailableColor : chargesEmptyColor;
-            btn.interactable = available;
+            if (!img) return;
+            var c = img.color;
+            c.a = available ? 1f : 0.35f;
+            img.color = c;
         }
     }
 }

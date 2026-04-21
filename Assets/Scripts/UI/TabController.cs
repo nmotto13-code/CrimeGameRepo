@@ -54,11 +54,24 @@ namespace CasebookGame.UI
 
             for (int i = 0; i < tabButtons.Count; i++)
             {
+                // Preserve the button's designed color — only adjust alpha so the tab
+                // highlight doesn't stomp the palette set in the scene builder.
                 var img = tabButtons[i].GetComponent<Image>();
-                if (img) img.color = i == currentTab ? activeTabColor : inactiveTabColor;
+                if (img)
+                {
+                    var c = img.color;
+                    c.a = i == currentTab ? 1f : 0.45f;
+                    img.color = c;
+                }
 
                 var lbl = tabButtons[i].GetComponentInChildren<TMP_Text>();
-                if (lbl) lbl.fontStyle = i == currentTab ? FontStyles.Bold : FontStyles.Normal;
+                if (lbl)
+                {
+                    lbl.fontStyle = i == currentTab ? FontStyles.Bold : FontStyles.Normal;
+                    var tc = lbl.color;
+                    tc.a = i == currentTab ? 1f : 0.5f;
+                    lbl.color = tc;
+                }
             }
         }
 

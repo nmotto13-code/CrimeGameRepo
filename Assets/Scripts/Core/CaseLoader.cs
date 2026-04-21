@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using TMPro;
 using CasebookGame.Data;
 using CasebookGame.UI;
-using CasebookGame.Tools;
 
 namespace CasebookGame.Core
 {
@@ -49,16 +48,29 @@ namespace CasebookGame.Core
             SetupEvidence(caseData);
             SetupClaims(caseData);
             SetupHotspots(caseData);
+            EvidenceDiscoverySystem.Instance?.StartInvestigation(caseData);
 
-            ToolsController.Instance?.InitializeTools(caseData.toolConfig);
             ContradictionEvaluator.Instance?.SetCase(caseData);
             BoardController.Instance?.ClearBoard();
+            ScoringSystem.Instance?.StartCase(caseData);  // must be last — timer starts here
+
+            // Force immediate layout rebuild so claim cards appear on first rendered frame.
+            Canvas.ForceUpdateCanvases();
+            if (claimsListParent is RectTransform cRT)
+                UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(cRT);
         }
 
         void SetupBackground(CaseData d)
         {
-            if (sceneBackground && d.sceneBackground)
+            if (!sceneBackground) return;
+            if (d.sceneBackground)
+            {
                 sceneBackground.sprite = d.sceneBackground;
+                sceneBackground.color  = Color.white;
+                // Hide the "no image" placeholder text when a real sprite is present
+                var placeholder = sceneBackground.transform.Find("NoImagePlaceholder");
+                if (placeholder) placeholder.gameObject.SetActive(false);
+            }
         }
 
         void SetupBrief(CaseData d)
@@ -94,17 +106,18 @@ namespace CasebookGame.Core
             if (!hotspotParent || !hotspotPrefab) return;
             ClearChildren(hotspotParent);
 
-            var layerRect = hotspotLayerRect ? hotspotLayerRect
-                          : hotspotParent.GetComponent<RectTransform>();
-            if (!layerRect) return;
-
             foreach (var hotspot in d.hotspots)
             {
                 var go = Instantiate(hotspotPrefab, hotspotParent);
                 var rt = go.GetComponent<RectTransform>();
-                float x = hotspot.normalizedPosition.x * layerRect.rect.width - layerRect.rect.width * 0.5f;
-                float y = hotspot.normalizedPosition.y * layerRect.rect.height - layerRect.rect.height * 0.5f;
-                rt.anchoredPosition = new Vector2(x, y);
+
+                // Use anchors so position is correct even when the parent panel is inactive
+                // (inactive RectTransforms report rect.width/height = 0, breaking pixel math).
+                rt.anchorMin = hotspot.normalizedPosition;
+                rt.anchorMax = hotspot.normalizedPosition;
+                rt.pivot     = new Vector2(0.5f, 0.5f);
+                rt.anchoredPosition = Vector2.zero;
+
                 go.GetComponent<HotspotController>()?.Initialize(hotspot);
             }
         }

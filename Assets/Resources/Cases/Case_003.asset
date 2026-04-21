@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_003
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  caseId: Case_003
+  title: Coffee Shop Alibi
+  briefText: "Art appraiser Theo Grant claims he was sipping espresso at Caf\xE9
+    Lumi\xE8re when the Harwick Gallery was robbed at 3:10 PM. The caf\xE9 is 40
+    minutes across town. His receipt tells a different story."
+  sceneBackground: {fileID: 0}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.4, y: 0.6}
+    radius: 0.06
+    evidenceId: E001
+    hotspotLabel: Receipt on Table
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.3}
+    radius: 0.06
+    evidenceId: E002
+    hotspotLabel: Alarm Panel
+  evidence:
+  - {fileID: 11400000, guid: 0acad95ec9565e648906fd3a6bd4375e, type: 2}
+  - {fileID: 11400000, guid: 62ca50f1ed6bafc4da6ce202ad54a380, type: 2}
+  - {fileID: 11400000, guid: e0e8f2f99e467164487fa235005cfa2f, type: 2}
+  - {fileID: 11400000, guid: 582e525bb074110458bbbb8dac7e8f54, type: 2}
+  - {fileID: 11400000, guid: b00b25c33bf8c8e45a0ec04c19709ead, type: 2}
+  claims:
+  - {fileID: 11400000, guid: 035b166e7aeeb8448b091cd820c45eae, type: 2}
+  - {fileID: 11400000, guid: dc6cce4b0dcdbaa47a441c608323a8cc, type: 2}
+  - {fileID: 11400000, guid: 51a706d2854556a449cd8200a2820432, type: 2}
+  contradictoryClaimId: CL001
+  explanationText: "Theo's receipt shows he paid at the caf\xE9 at 3:05 PM, yet the
+    gallery alarm triggered at 3:08 PM \u2014 only 3 minutes later. The caf\xE9 is
+    a minimum 38 minutes away. He could not have been at both locations. His alibi
+    is physically impossible."
+  primaryEvidenceIdA: E001
+  primaryEvidenceIdB: E003
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

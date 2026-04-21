@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd38127d486d794aa9fa20d4ed0bb10, type: 3}
+  m_Name: C001_E001
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.EvidenceData
+  evidenceId: E001
+  displayName: Coroner Report
+  descriptionText: "OFFICE OF THE CORONER \u2014 Case #2241\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nDECEASED: 
+    Victor Hale\nTIME OF DEATH:  22:30 \u2013 23:00\n\nCause: blunt force trauma
+    to occipital region.\nLividity and body temperature consistent with\ndeath between
+    10:30 PM and 11:00 PM.\n\nWatch absent from wrist at time of discovery.\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nFiled:
+    Dr. E. Marsh, Chief Medical Examiner"
+  imageSprite: {fileID: 21300000, guid: e8a76af7c2c7dcb40a97faf498d4c138, type: 3}
+  displayMode: 1
+  tags: 0000000009000000
+  enhanceOverlayMaskSprite: {fileID: 0}
+  tagsUnlockedOnEnhance: 

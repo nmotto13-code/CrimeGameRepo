@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd38127d486d794aa9fa20d4ed0bb10, type: 3}
+  m_Name: C002_E004
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.EvidenceData
+  evidenceId: E004
+  displayName: Vault Door Seal
+  descriptionText: 'Re-lock time stamp: 2:22 PM. Vault was open for ~5 minutes.'
+  imageSprite: {fileID: 0}
+  displayMode: 0
+  tags: 0000000005000000
+  enhanceOverlayMaskSprite: {fileID: 0}
+  tagsUnlockedOnEnhance: 

@@ -22,14 +22,20 @@ namespace CasebookGame.UI
             button?.onClick.AddListener(OnClick);
         }
 
+        void Start()
+        {
+            // Listen for evaluation triggered by either SUBMIT or ANALYSE
+            if (ContradictionEvaluator.Instance != null)
+                ContradictionEvaluator.Instance.OnEvaluationComplete += OnEvaluated;
+        }
+
         void OnClick()
         {
             if (!awaitingSelection)
             {
                 awaitingSelection = true;
-                SetState("TAP A CLAIM", awaitingColor);
+                SetState("CANCEL", awaitingColor);
                 ContradictionEvaluator.Instance?.BeginSubmit();
-                ContradictionEvaluator.Instance.OnEvaluationComplete += OnEvaluated;
             }
             else
             {
@@ -43,7 +49,12 @@ namespace CasebookGame.UI
         {
             awaitingSelection = false;
             SetState("SUBMIT", idleColor);
-            ContradictionEvaluator.Instance.OnEvaluationComplete -= OnEvaluated;
+        }
+
+        void OnDestroy()
+        {
+            if (ContradictionEvaluator.Instance)
+                ContradictionEvaluator.Instance.OnEvaluationComplete -= OnEvaluated;
         }
 
         void SetState(string lbl, Color c)

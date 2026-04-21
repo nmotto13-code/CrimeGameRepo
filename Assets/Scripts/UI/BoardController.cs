@@ -25,6 +25,19 @@ namespace CasebookGame.UI
             foreach (var slot in slots) slot.Clear();
         }
 
+        public bool HasFreeSlot => slots.Exists(s => s.PinnedEvidence == null);
+
+        public bool IsPinned(EvidenceData evidence) =>
+            slots.Exists(s => s.PinnedEvidence == evidence);
+
+        public bool TryPinToFirstFreeSlot(EvidenceData evidence)
+        {
+            if (IsPinned(evidence)) return false;
+            foreach (var slot in slots)
+                if (slot.TryPin(evidence)) return true;
+            return false;
+        }
+
         public List<EvidenceData> GetPinnedEvidence()
         {
             var list = new List<EvidenceData>();

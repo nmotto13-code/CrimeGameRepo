@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_007
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  caseId: Case_007
+  title: Neighbor Testimony
+  briefText: "Neighbor Greta Lowe says she heard loud music from apartment 4B at
+    10 PM \u2014 proving the resident was home. But the resident's smart speaker
+    app log shows something different."
+  sceneBackground: {fileID: 0}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.5, y: 0.5}
+    radius: 0.06
+    evidenceId: E001
+    hotspotLabel: Smart Speaker
+  evidence:
+  - {fileID: 11400000, guid: 5f4fe81a3f9e40e4f912dc187e256910, type: 2}
+  - {fileID: 11400000, guid: d13e420c21d0f5e4a8b6dc8c220d22de, type: 2}
+  - {fileID: 11400000, guid: b05baf308eba638489facd9887b57800, type: 2}
+  - {fileID: 11400000, guid: fdbf892bfe461fe488b40a0e8fbfecb4, type: 2}
+  - {fileID: 11400000, guid: bef8ee1eeae728249a934b50c9b23b60, type: 2}
+  claims:
+  - {fileID: 11400000, guid: 0c7d5b246789b5540a2c367f472299c0, type: 2}
+  - {fileID: 11400000, guid: 83704b5c518f1fd45b6df14d0aa65e94, type: 2}
+  - {fileID: 11400000, guid: a9a858d41e7c31447be352794c165429, type: 2}
+  contradictoryClaimId: CL001
+  explanationText: "Greta claims she heard music from 4B at 10 PM. But the smart
+    speaker log shows audio stopped at 8:42 PM and the wifi log shows the resident's
+    phone disconnected from home at 8:55 PM. The speaker was silent at 10 PM \u2014
+    Greta's testimony is impossible."
+  primaryEvidenceIdA: E001
+  primaryEvidenceIdB: E002
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_010
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  caseId: Case_010
+  title: Gallery Opening
+  briefText: "Art dealer Simon Rowe says he spent the full evening at the Aldene
+    Gallery opening. Three separate pieces of evidence each chip away at this alibi
+    \u2014 converging on one impossible claim."
+  sceneBackground: {fileID: 0}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.3, y: 0.5}
+    radius: 0.06
+    evidenceId: E001
+    hotspotLabel: Sign-In Desk
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.6}
+    radius: 0.06
+    evidenceId: E002
+    hotspotLabel: Valet Ticket
+  evidence:
+  - {fileID: 11400000, guid: cfc6be5f33e37e849afe0c9bec5989ed, type: 2}
+  - {fileID: 11400000, guid: 751e4754aef70ce48b158dfb33158df2, type: 2}
+  - {fileID: 11400000, guid: 4b2740a6831c55c48a83d58bfef33887, type: 2}
+  - {fileID: 11400000, guid: 213049ad08707f24596a09b525faf50f, type: 2}
+  - {fileID: 11400000, guid: 6d43c94b2acd5cb45a5d6dd5d58a3bcd, type: 2}
+  - {fileID: 11400000, guid: 065f2d54281b08447800ca4bcc529f63, type: 2}
+  claims:
+  - {fileID: 11400000, guid: 47943c5273880d741862296be4142d8f, type: 2}
+  - {fileID: 11400000, guid: e48a93b38096ff4429b42575ea187857, type: 2}
+  - {fileID: 11400000, guid: 2736e6e3dea05de48b920c8423058f2b, type: 2}
+  - {fileID: 11400000, guid: f70acfb2dcd727148a43659bdbeced31, type: 2}
+  contradictoryClaimId: CL001
+  explanationText: "Simon claims he stayed all evening. His valet ticket shows his
+    car left at 8:22 PM \u2014 nearly 3 hours before closing. Press photos confirm
+    he vanished from sight after 8 PM. The warehouse break-in occurred at 9:15 PM,
+    giving Simon time to drive there after retrieving his car. He was not at the
+    gallery all night."
+  primaryEvidenceIdA: E002
+  primaryEvidenceIdB: E005
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

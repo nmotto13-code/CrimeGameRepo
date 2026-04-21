@@ -69,3 +69,6 @@ crashlytics-build.properties
 
 # macOS
 .DS_Store
+
+# iOS build output — too large for git, rebuilt by GitHub Actions
+ios_build/
