@@ -19,8 +19,8 @@ workflows:
     scripts:
       - name: Set build number
         script: |
-          BUILD_NUMBER=$(($PROJECT_BUILD_NUMBER))
-          agvtool new-version -all $BUILD_NUMBER
+          cd ios_build
+          agvtool new-version -all $PROJECT_BUILD_NUMBER
 
       - name: Build Xcode archive
         script: |
