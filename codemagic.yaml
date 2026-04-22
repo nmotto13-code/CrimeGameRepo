@@ -32,7 +32,8 @@ workflows:
             -archivePath "/tmp/PocketCasebook.xcarchive" \
             CODE_SIGN_STYLE=Manual \
             PROVISIONING_PROFILE_SPECIFIER="PocketCasebook_Prov" \
-            CODE_SIGN_IDENTITY="Apple Distribution"
+            CODE_SIGN_IDENTITY="Apple Distribution" \
+            PRODUCT_BUNDLE_IDENTIFIER="com.pocketcase.app"
 
       - name: Export IPA
         script: |
