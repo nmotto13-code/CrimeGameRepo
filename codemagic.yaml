@@ -1,0 +1,50 @@
+workflows:
+  ios-testflight:
+    name: iOS TestFlight
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.pocketcase.app
+      vars:
+        XCODE_PROJECT: "ios_build/Unity-iPhone.xcodeproj"
+        XCODE_SCHEME: "Unity-iPhone"
+        BUNDLE_ID: "com.pocketcase.app"
+
+    scripts:
+      - name: Set build number
+        script: |
+          BUILD_NUMBER=$(($PROJECT_BUILD_NUMBER))
+          agvtool new-version -all $BUILD_NUMBER
+
+      - name: Build Xcode archive
+        script: |
+          xcodebuild archive \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -configuration Release \
+            -archivePath "$CM_BUILD_DIR/PocketCasebook.xcarchive" \
+            CODE_SIGN_STYLE=Manual \
+            PROVISIONING_PROFILE_SPECIFIER="PocketCasebook_Prov" \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
+            | xcpretty
+
+      - name: Export IPA
+        script: |
+          xcodebuild -exportArchive \
+            -archivePath "$CM_BUILD_DIR/PocketCasebook.xcarchive" \
+            -exportPath "$CM_BUILD_DIR/ipa" \
+            -exportOptionsPlist "ExportOptions.plist"
+
+    artifacts:
+      - $CM_BUILD_DIR/ipa/*.ipa
+      - $CM_BUILD_DIR/PocketCasebook.xcarchive
+
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        beta_groups:
+          - Internal Testers
