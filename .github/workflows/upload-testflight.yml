@@ -15,23 +15,14 @@ jobs:
         with:
           lfs: true
 
-      - name: Install App Store Connect API key
-        env:
-          APP_STORE_CONNECT_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_KEY_BASE64 }}
-          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
-        run: |
-          mkdir -p ~/.appstoreconnect/private_keys
-          echo "$APP_STORE_CONNECT_KEY_BASE64" | base64 --decode \
-            > ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8
-
       - name: Upload IPA to TestFlight
         env:
-          APP_STORE_CONNECT_KEY_ID:    ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
-          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APPLE_ID:        ${{ secrets.APPLE_ID }}
+          APP_SPECIFIC_PW: ${{ secrets.APP_SPECIFIC_PW }}
         run: |
           xcrun altool --upload-app \
             --type ios \
             --file PocketCasebook.ipa \
-            --apiKey "$APP_STORE_CONNECT_KEY_ID" \
-            --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID" \
+            --username "$APPLE_ID" \
+            --password "$APP_SPECIFIC_PW" \
             --verbose
