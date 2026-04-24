@@ -13,14 +13,15 @@ namespace CasebookGame.Core
     public class MagnifyingGlass : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
     {
         [Header("Visual")]
-        [SerializeField] RectTransform glassVisual;   // circle image, child of canvas root
-        [SerializeField] Image         glassRing;     // outer ring — tints when over a hotspot
-        [SerializeField] Color         idleColor      = new Color(0.95f, 0.80f, 0.20f, 0.85f);
-        [SerializeField] Color         activeColor    = new Color(0.20f, 0.90f, 0.40f, 1.00f);
+        [SerializeField] RectTransform glassVisual;
+        [SerializeField] Image         glassRing;
+        [SerializeField] Color         idleColor    = new Color(0.95f, 0.80f, 0.20f, 0.85f);
+        [SerializeField] Color         activeColor  = new Color(0.20f, 0.90f, 0.40f, 1.00f);
+        [SerializeField] Vector2       visualOffset = new Vector2(0f, 90f); // floats above finger
 
         [Header("Detection")]
-        [SerializeField] float dwellTime    = 0.5f;   // seconds hovering to trigger discovery
-        [SerializeField] float searchRadius = 90f;    // screen-pixel radius
+        [SerializeField] float dwellTime    = 0.5f;
+        [SerializeField] float searchRadius = 90f;
 
         Canvas  rootCanvas;
         bool    isHeld;
@@ -109,7 +110,7 @@ namespace CasebookGame.Core
                     ? null : rootCanvas.worldCamera;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 rootCanvas.GetComponent<RectTransform>(), screenPos, cam, out Vector2 local);
-            glassVisual.anchoredPosition = local;
+            glassVisual.anchoredPosition = local + visualOffset;
         }
 
         float ScreenDistance(HotspotController h)
