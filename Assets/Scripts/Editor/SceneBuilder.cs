@@ -439,6 +439,204 @@ namespace CasebookGame.Editor
             var enhDetailBtn = MakeActionButton(detailCard, "EnhanceBtn", "ENHANCE", new Color(0.9f, 0.7f, 0.1f),
                 new Vector2(0.70f, 0.02f), new Vector2(0.97f, 0.13f));
 
+            // ── Home Screen ────────────────────────────────────────────
+            var homeScreenGo = new GameObject("HomeScreen");
+            homeScreenGo.transform.SetParent(canvasGo.transform, false);
+            StretchFull(homeScreenGo);
+            homeScreenGo.AddComponent<Image>().color = new Color(0.06f, 0.06f, 0.10f, 0.98f);
+
+            var hsVLG = homeScreenGo.AddComponent<VerticalLayoutGroup>();
+            hsVLG.childControlHeight    = true;
+            hsVLG.childControlWidth     = true;
+            hsVLG.childForceExpandWidth = true;
+            hsVLG.padding               = new RectOffset(60, 60, 200, 120);
+            hsVLG.spacing               = 32;
+
+            var hsLogoTxt = MakeText(homeScreenGo, "LogoText", "POCKET CASEBOOK", 64, FontStyles.Bold,
+                new Color(0.95f, 0.80f, 0.20f));
+            hsLogoTxt.alignment = TextAlignmentOptions.Center;
+            hsLogoTxt.gameObject.AddComponent<LayoutElement>().preferredHeight = 100;
+
+            var hsSubTxt = MakeText(homeScreenGo, "SubtitleText", "Contradiction Engine", 32, FontStyles.Normal,
+                new Color(0.65f, 0.65f, 0.70f));
+            hsSubTxt.alignment = TextAlignmentOptions.Center;
+            hsSubTxt.gameObject.AddComponent<LayoutElement>().preferredHeight = 50;
+
+            // Spacer
+            var hsSpacer = new GameObject("Spacer");
+            hsSpacer.transform.SetParent(homeScreenGo.transform, false);
+            hsSpacer.AddComponent<LayoutElement>().flexibleHeight = 1;
+
+            var selectCaseBtn = MakeActionButton(homeScreenGo, "SelectCaseBtn", "SELECT A CASE",
+                new Color(0.90f, 0.50f, 0.10f), Vector2.zero, Vector2.zero);
+            selectCaseBtn.gameObject.AddComponent<LayoutElement>().preferredHeight = 100;
+
+            var viewProfileBtn = MakeActionButton(homeScreenGo, "ViewProfileBtn", "VIEW USER PROFILE",
+                new Color(0.22f, 0.45f, 0.75f), Vector2.zero, Vector2.zero);
+            viewProfileBtn.gameObject.AddComponent<LayoutElement>().preferredHeight = 100;
+
+            // ── Case Select Panel ──────────────────────────────────────
+            var caseSelectGo = new GameObject("CaseSelectPanel");
+            caseSelectGo.transform.SetParent(canvasGo.transform, false);
+            StretchFull(caseSelectGo);
+            caseSelectGo.AddComponent<Image>().color = new Color(0.06f, 0.06f, 0.10f, 0.98f);
+            caseSelectGo.SetActive(false);
+
+            // Header bar
+            var csHeaderGo = new GameObject("CSHeader");
+            csHeaderGo.transform.SetParent(caseSelectGo.transform, false);
+            var csHeaderRT = csHeaderGo.AddComponent<RectTransform>();
+            csHeaderRT.anchorMin = new Vector2(0, 1); csHeaderRT.anchorMax = new Vector2(1, 1);
+            csHeaderRT.pivot     = new Vector2(0.5f, 1f);
+            csHeaderRT.anchoredPosition = Vector2.zero;
+            csHeaderRT.sizeDelta = new Vector2(0, 100);
+            csHeaderGo.AddComponent<Image>().color = new Color(0.12f, 0.12f, 0.20f);
+            var csHeaderHLG = csHeaderGo.AddComponent<HorizontalLayoutGroup>();
+            csHeaderHLG.childControlHeight    = true; csHeaderHLG.childControlWidth     = true;
+            csHeaderHLG.childForceExpandHeight = true; csHeaderHLG.childForceExpandWidth = false;
+            csHeaderHLG.padding  = new RectOffset(20, 20, 0, 0);
+            csHeaderHLG.spacing  = 12;
+
+            var csTitleTxt = MakeText(csHeaderGo, "CSTitle", "SELECT A CASE", 36, FontStyles.Bold,
+                new Color(0.95f, 0.88f, 0.65f));
+            csTitleTxt.alignment = TextAlignmentOptions.MidlineLeft;
+            csTitleTxt.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
+
+            var csBackBtn = MakeActionButton(csHeaderGo, "BackBtn", "← BACK",
+                new Color(0.30f, 0.30f, 0.42f), Vector2.zero, Vector2.zero);
+            csBackBtn.gameObject.AddComponent<LayoutElement>().preferredWidth = 140;
+
+            // Scroll view for case list
+            var csScrollGo = new GameObject("CaseScrollView");
+            csScrollGo.transform.SetParent(caseSelectGo.transform, false);
+            var csScrollRT = csScrollGo.AddComponent<RectTransform>();
+            csScrollRT.anchorMin = Vector2.zero; csScrollRT.anchorMax = Vector2.one;
+            csScrollRT.offsetMin = new Vector2(0, 0); csScrollRT.offsetMax = new Vector2(0, -100);
+            var csScroll = csScrollGo.AddComponent<ScrollRect>();
+            csScroll.horizontal = false;
+
+            var csViewportGo = new GameObject("Viewport");
+            csViewportGo.transform.SetParent(csScrollGo.transform, false);
+            StretchFull(csViewportGo);
+            csViewportGo.AddComponent<Image>().color = Color.clear;
+            csViewportGo.AddComponent<Mask>().showMaskGraphic = false;
+            csScroll.viewport = csViewportGo.GetComponent<RectTransform>();
+
+            var csContentGo = new GameObject("Content");
+            csContentGo.transform.SetParent(csViewportGo.transform, false);
+            var csContentRT = csContentGo.AddComponent<RectTransform>();
+            csContentRT.anchorMin = new Vector2(0, 1); csContentRT.anchorMax = new Vector2(1, 1);
+            csContentRT.pivot     = new Vector2(0.5f, 1f);
+            csContentRT.offsetMin = Vector2.zero; csContentRT.offsetMax = Vector2.zero;
+            var csVLG = csContentGo.AddComponent<VerticalLayoutGroup>();
+            csVLG.childControlHeight    = true; csVLG.childControlWidth     = true;
+            csVLG.childForceExpandWidth = true;
+            csVLG.spacing = 4; csVLG.padding = new RectOffset(12, 12, 12, 12);
+            var csCSF = csContentGo.AddComponent<ContentSizeFitter>();
+            csCSF.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            csScroll.content  = csContentRT;
+
+            // ── Account Panel ──────────────────────────────────────────
+            var accountGo = new GameObject("AccountPanel");
+            accountGo.transform.SetParent(canvasGo.transform, false);
+            StretchFull(accountGo);
+            accountGo.AddComponent<Image>().color = new Color(0.06f, 0.06f, 0.10f, 0.98f);
+            accountGo.SetActive(false);
+
+            // Account header
+            var acHeaderGo = new GameObject("ACHeader");
+            acHeaderGo.transform.SetParent(accountGo.transform, false);
+            var acHeaderRT = acHeaderGo.AddComponent<RectTransform>();
+            acHeaderRT.anchorMin = new Vector2(0, 1); acHeaderRT.anchorMax = new Vector2(1, 1);
+            acHeaderRT.pivot     = new Vector2(0.5f, 1f);
+            acHeaderRT.anchoredPosition = Vector2.zero;
+            acHeaderRT.sizeDelta = new Vector2(0, 100);
+            acHeaderGo.AddComponent<Image>().color = new Color(0.12f, 0.12f, 0.20f);
+            var acHeaderHLG = acHeaderGo.AddComponent<HorizontalLayoutGroup>();
+            acHeaderHLG.childControlHeight    = true; acHeaderHLG.childControlWidth     = true;
+            acHeaderHLG.childForceExpandHeight = true; acHeaderHLG.childForceExpandWidth = false;
+            acHeaderHLG.padding = new RectOffset(20, 20, 0, 0); acHeaderHLG.spacing = 12;
+
+            var acTitleTxt = MakeText(acHeaderGo, "ACTitle", "ACCOUNT", 36, FontStyles.Bold,
+                new Color(0.95f, 0.88f, 0.65f));
+            acTitleTxt.alignment = TextAlignmentOptions.MidlineLeft;
+            acTitleTxt.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
+
+            var acBackBtn = MakeActionButton(acHeaderGo, "ACBackBtn", "← BACK",
+                new Color(0.30f, 0.30f, 0.42f), Vector2.zero, Vector2.zero);
+            acBackBtn.gameObject.AddComponent<LayoutElement>().preferredWidth = 140;
+
+            // Account tab bar
+            var acTabBarGo = new GameObject("ACTabBar");
+            acTabBarGo.transform.SetParent(accountGo.transform, false);
+            var acTabBarRT = acTabBarGo.AddComponent<RectTransform>();
+            acTabBarRT.anchorMin = new Vector2(0, 1); acTabBarRT.anchorMax = new Vector2(1, 1);
+            acTabBarRT.pivot     = new Vector2(0.5f, 1f);
+            acTabBarRT.anchoredPosition = new Vector2(0, -100);
+            acTabBarRT.sizeDelta = new Vector2(0, 70);
+            acTabBarGo.AddComponent<Image>().color = new Color(0.10f, 0.10f, 0.16f);
+            var acTabHLG = acTabBarGo.AddComponent<HorizontalLayoutGroup>();
+            acTabHLG.childControlHeight    = true; acTabHLG.childControlWidth     = true;
+            acTabHLG.childForceExpandHeight = true; acTabHLG.childForceExpandWidth = true;
+
+            var infoTabBtn    = MakeTabButton(acTabBarGo, "InfoTabBtn",    "INFO");
+            var resultsTabBtn = MakeTabButton(acTabBarGo, "ResultsTabBtn", "CASE RESULTS");
+
+            // Account content area (below header + tab bar = 170px from top)
+            var acContentGo = new GameObject("ACContent");
+            acContentGo.transform.SetParent(accountGo.transform, false);
+            var acContentRT = acContentGo.AddComponent<RectTransform>();
+            acContentRT.anchorMin = Vector2.zero; acContentRT.anchorMax = Vector2.one;
+            acContentRT.offsetMin = Vector2.zero; acContentRT.offsetMax = new Vector2(0, -170);
+
+            // ── INFO tab panel ─────────────────────────────────────────
+            var infoPanel = MakePanel(acContentGo, "InfoPanel", C_BG);
+            var infoPanelVLG = infoPanel.AddComponent<VerticalLayoutGroup>();
+            infoPanelVLG.padding              = new RectOffset(40, 40, 40, 40);
+            infoPanelVLG.spacing              = 20;
+            infoPanelVLG.childControlHeight   = true;
+            infoPanelVLG.childControlWidth    = true;
+            infoPanelVLG.childForceExpandWidth = true;
+
+            var infoHeaderTxt = MakeText(infoPanel, "InfoHeader", "PLAYER STATS", 34, FontStyles.Bold,
+                new Color(0.90f, 0.50f, 0.10f));
+            infoHeaderTxt.gameObject.AddComponent<LayoutElement>().preferredHeight = 60;
+
+            var totalScoreTxt     = MakeStatRow(infoPanel, "Total Score",     "0");
+            var casesCompletedTxt = MakeStatRow(infoPanel, "Cases Completed", "0");
+            var perfectSolvesTxt  = MakeStatRow(infoPanel, "Perfect Solves",  "0");
+
+            // ── CASE RESULTS tab panel ─────────────────────────────────
+            var resultsPanel = MakePanel(acContentGo, "CaseResultsPanel", C_BG);
+            resultsPanel.SetActive(false);
+
+            var resScrollGo = new GameObject("ResultsScrollView");
+            resScrollGo.transform.SetParent(resultsPanel.transform, false);
+            StretchFull(resScrollGo);
+            var resScroll = resScrollGo.AddComponent<ScrollRect>();
+            resScroll.horizontal = false;
+
+            var resViewportGo = new GameObject("Viewport");
+            resViewportGo.transform.SetParent(resScrollGo.transform, false);
+            StretchFull(resViewportGo);
+            resViewportGo.AddComponent<Image>().color = Color.clear;
+            resViewportGo.AddComponent<Mask>().showMaskGraphic = false;
+            resScroll.viewport = resViewportGo.GetComponent<RectTransform>();
+
+            var resContentGo = new GameObject("Content");
+            resContentGo.transform.SetParent(resViewportGo.transform, false);
+            var resContentRT = resContentGo.AddComponent<RectTransform>();
+            resContentRT.anchorMin = new Vector2(0, 1); resContentRT.anchorMax = new Vector2(1, 1);
+            resContentRT.pivot     = new Vector2(0.5f, 1f);
+            resContentRT.offsetMin = Vector2.zero; resContentRT.offsetMax = Vector2.zero;
+            var resVLG = resContentGo.AddComponent<VerticalLayoutGroup>();
+            resVLG.childControlHeight    = true; resVLG.childControlWidth     = true;
+            resVLG.childForceExpandWidth = true;
+            resVLG.spacing = 4; resVLG.padding = new RectOffset(12, 12, 12, 12);
+            var resCSF = resContentGo.AddComponent<ContentSizeFitter>();
+            resCSF.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            resScroll.content  = resContentRT;
+
             // ── Systems GameObject ─────────────────────────────────────
             var systemsGo = new GameObject("Systems");
 
@@ -451,6 +649,10 @@ namespace CasebookGame.Editor
 
             var tabCtrl    = tabContentGo.AddComponent<TabController>();
             var detailComp = detailPanelGo.AddComponent<EvidenceDetailPanel>();
+
+            var homeCtrl    = homeScreenGo.AddComponent<HomeScreenController>();
+            var caseSelCtrl = homeScreenGo.AddComponent<CaseSelectController>();
+            var accountCtrl = accountGo.AddComponent<AccountScreenController>();
 
             // ── Wire serialized fields ─────────────────────────────────
 
@@ -518,6 +720,34 @@ namespace CasebookGame.Editor
                 so.FindProperty("investigationHintText").objectReferenceValue = invHintTxt;
                 so.FindProperty("evidenceTabParent").objectReferenceValue     = evidenceTabContent.transform;
                 so.FindProperty("evidenceTabCardPrefab").objectReferenceValue = evidenceCardPrefab;
+            });
+
+            Wire(homeCtrl, so => {
+                so.FindProperty("homePanel").objectReferenceValue       = homeScreenGo;
+                so.FindProperty("caseSelectPanel").objectReferenceValue = caseSelectGo;
+                so.FindProperty("accountPanel").objectReferenceValue    = accountGo;
+                so.FindProperty("selectCaseBtn").objectReferenceValue   = selectCaseBtn;
+                so.FindProperty("viewProfileBtn").objectReferenceValue  = viewProfileBtn;
+            });
+
+            Wire(caseSelCtrl, so => {
+                so.FindProperty("panel").objectReferenceValue      = caseSelectGo;
+                so.FindProperty("listParent").objectReferenceValue = csContentGo.transform;
+                so.FindProperty("closeBtn").objectReferenceValue   = csBackBtn;
+                so.FindProperty("homeScreen").objectReferenceValue = homeCtrl;
+            });
+
+            Wire(accountCtrl, so => {
+                so.FindProperty("accountPanel").objectReferenceValue    = accountGo;
+                so.FindProperty("infoPanel").objectReferenceValue       = infoPanel;
+                so.FindProperty("resultsPanel").objectReferenceValue    = resultsPanel;
+                so.FindProperty("closeBtn").objectReferenceValue        = acBackBtn;
+                so.FindProperty("infoTabBtn").objectReferenceValue      = infoTabBtn;
+                so.FindProperty("resultsTabBtn").objectReferenceValue   = resultsTabBtn;
+                so.FindProperty("totalScoreText").objectReferenceValue     = totalScoreTxt;
+                so.FindProperty("casesCompletedText").objectReferenceValue = casesCompletedTxt;
+                so.FindProperty("perfectSolvesText").objectReferenceValue  = perfectSolvesTxt;
+                so.FindProperty("resultsListParent").objectReferenceValue  = resContentGo.transform;
             });
 
             // Load cases from Resources and assign to GameManager
@@ -886,6 +1116,42 @@ namespace CasebookGame.Editor
             lbl.raycastTarget = false;
             StretchFull(lbl.gameObject, new Vector2(4, 4));
             return go;
+        }
+
+        // Returns the value TMP_Text (right side) so controllers can update it.
+        static TMP_Text MakeStatRow(GameObject parent, string labelStr, string valueStr)
+        {
+            var rowGo = new GameObject($"Stat_{labelStr}");
+            rowGo.transform.SetParent(parent.transform, false);
+            var le = rowGo.AddComponent<LayoutElement>();
+            le.preferredHeight = 72;
+            le.flexibleWidth   = 1;
+            rowGo.AddComponent<Image>().color = new Color(0.12f, 0.12f, 0.20f);
+
+            var hlg = rowGo.AddComponent<HorizontalLayoutGroup>();
+            hlg.childControlHeight    = true; hlg.childControlWidth     = true;
+            hlg.childForceExpandHeight = true; hlg.childForceExpandWidth = false;
+            hlg.padding = new RectOffset(24, 24, 0, 0); hlg.spacing = 12;
+
+            var lGo  = new GameObject("Label");
+            lGo.transform.SetParent(rowGo.transform, false);
+            var lTxt = lGo.AddComponent<TextMeshProUGUI>();
+            lTxt.text      = labelStr;
+            lTxt.fontSize  = 28;
+            lTxt.color     = new Color(0.75f, 0.75f, 0.80f);
+            lGo.AddComponent<LayoutElement>().flexibleWidth = 1;
+
+            var vGo  = new GameObject("Value");
+            vGo.transform.SetParent(rowGo.transform, false);
+            var vTxt = vGo.AddComponent<TextMeshProUGUI>();
+            vTxt.text      = valueStr;
+            vTxt.fontSize  = 28;
+            vTxt.fontStyle = FontStyles.Bold;
+            vTxt.color     = new Color(0.95f, 0.88f, 0.65f);
+            vTxt.alignment = TextAlignmentOptions.Right;
+            vGo.AddComponent<LayoutElement>().preferredWidth = 200;
+
+            return vTxt;
         }
 
         static Button MakeActionButton(GameObject parent, string name, string label, Color color,
