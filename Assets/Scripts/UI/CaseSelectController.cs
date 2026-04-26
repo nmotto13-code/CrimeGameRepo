@@ -13,7 +13,6 @@ namespace CasebookGame.UI
         [SerializeField] Button     closeBtn;
         [SerializeField] HomeScreenController homeScreen;
 
-        [Header("Row prefab built at runtime")]
         [SerializeField] Color rowColor      = new Color(0.16f, 0.16f, 0.24f);
         [SerializeField] Color rowHoverColor = new Color(0.22f, 0.22f, 0.34f);
 
@@ -37,14 +36,12 @@ namespace CasebookGame.UI
                 var caseData = cases[i];
                 int index    = i;
 
+                // Row — fixed height, anchor-based children (avoids VLG sizing issues at runtime)
                 var rowGo = new GameObject($"CaseRow_{i}");
                 rowGo.transform.SetParent(listParent, false);
-
-                var rowRT  = rowGo.AddComponent<RectTransform>();
-                rowRT.sizeDelta = new Vector2(0, 120);
-                var rowLE  = rowGo.AddComponent<LayoutElement>();
-                rowLE.preferredHeight = 120;
-                rowLE.flexibleWidth   = 1;
+                var rowRT = rowGo.AddComponent<RectTransform>();
+                rowRT.sizeDelta = new Vector2(0, 110);
+                rowGo.AddComponent<LayoutElement>().preferredHeight = 110;
 
                 var rowImg = rowGo.AddComponent<Image>();
                 rowImg.color = rowColor;
@@ -58,47 +55,62 @@ namespace CasebookGame.UI
                 rowBtn.colors = colors;
                 rowBtn.onClick.AddListener(() => SelectCase(caseData, index));
 
-                var vlg = rowGo.AddComponent<VerticalLayoutGroup>();
-                vlg.padding              = new RectOffset(20, 20, 16, 12);
-                vlg.spacing              = 4;
-                vlg.childControlHeight   = true;
-                vlg.childControlWidth    = true;
-                vlg.childForceExpandWidth = true;
-
+                // Title — top half of row
                 var titleGo  = new GameObject("Title");
                 titleGo.transform.SetParent(rowGo.transform, false);
+                var titleRT  = titleGo.AddComponent<RectTransform>();
+                titleRT.anchorMin = new Vector2(0, 0.48f);
+                titleRT.anchorMax = new Vector2(1, 1f);
+                titleRT.offsetMin = new Vector2(20, 0);
+                titleRT.offsetMax = new Vector2(-20, -10);
                 var titleTxt = titleGo.AddComponent<TextMeshProUGUI>();
                 titleTxt.text      = caseData.title;
-                titleTxt.fontSize  = 30;
-                titleTxt.fontStyle = TMPro.FontStyles.Bold;
+                titleTxt.fontSize  = 28;
+                titleTxt.fontStyle = FontStyles.Bold;
                 titleTxt.color     = new Color(0.95f, 0.88f, 0.65f);
-                titleGo.AddComponent<LayoutElement>().preferredHeight = 44;
+                titleTxt.alignment = TextAlignmentOptions.BottomLeft;
 
+                // Brief — bottom half of row
                 var briefGo  = new GameObject("Brief");
                 briefGo.transform.SetParent(rowGo.transform, false);
+                var briefRT  = briefGo.AddComponent<RectTransform>();
+                briefRT.anchorMin = new Vector2(0, 0f);
+                briefRT.anchorMax = new Vector2(1, 0.48f);
+                briefRT.offsetMin = new Vector2(20, 8);
+                briefRT.offsetMax = new Vector2(-20, 0);
                 var briefTxt = briefGo.AddComponent<TextMeshProUGUI>();
-                briefTxt.text                = caseData.briefText?.Length > 80
-                                             ? caseData.briefText[..80] + "…"
-                                             : caseData.briefText;
-                briefTxt.fontSize            = 22;
-                briefTxt.color               = new Color(0.70f, 0.70f, 0.75f);
-                briefTxt.textWrappingMode    = TMPro.TextWrappingModes.Normal;
-                briefGo.AddComponent<LayoutElement>().flexibleHeight = 1;
+                briefTxt.text             = caseData.briefText?.Length > 80
+                                          ? caseData.briefText[..80] + "…"
+                                          : caseData.briefText;
+                briefTxt.fontSize         = 20;
+                briefTxt.color            = new Color(0.70f, 0.70f, 0.75f);
+                briefTxt.textWrappingMode = TextWrappingModes.NoWrap;
+                briefTxt.overflowMode     = TextOverflowModes.Ellipsis;
+                briefTxt.alignment        = TextAlignmentOptions.TopLeft;
 
-                // Best score badge
+                // Best score badge — top-right corner
                 int best = PlayerProfile.GetCaseBestScore(caseData.caseId);
                 if (best > 0)
                 {
                     var scoreGo  = new GameObject("BestScore");
                     scoreGo.transform.SetParent(rowGo.transform, false);
+                    var scoreRT  = scoreGo.AddComponent<RectTransform>();
+                    scoreRT.anchorMin = new Vector2(0.6f, 0.52f);
+                    scoreRT.anchorMax = new Vector2(1f, 1f);
+                    scoreRT.offsetMin = Vector2.zero;
+                    scoreRT.offsetMax = new Vector2(-16, -10);
                     var scoreTxt = scoreGo.AddComponent<TextMeshProUGUI>();
-                    scoreTxt.text      = $"Best: {best:N0} pts";
+                    scoreTxt.text      = $"★ {best:N0}";
                     scoreTxt.fontSize  = 20;
                     scoreTxt.color     = new Color(0.40f, 0.90f, 0.50f);
-                    scoreTxt.alignment = TMPro.TextAlignmentOptions.Right;
-                    scoreGo.AddComponent<LayoutElement>().preferredHeight = 28;
+                    scoreTxt.alignment = TextAlignmentOptions.BottomRight;
                 }
             }
+
+            // Force layout recalculation so all rows size correctly
+            Canvas.ForceUpdateCanvases();
+            if (listParent is RectTransform listRT)
+                LayoutRebuilder.ForceRebuildLayoutImmediate(listRT);
         }
 
         void SelectCase(CaseData caseData, int index)
