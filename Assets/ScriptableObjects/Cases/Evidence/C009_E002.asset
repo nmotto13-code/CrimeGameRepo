@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Keycard Entry Log
   descriptionText: "Nadia's keycard: entered back staff corridor at 7:04 PM \u2014
     near locker room."
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: 3212532625b185448ba3876721496900, type: 3}
   displayMode: 0
   tags: 0000000005000000
   enhanceOverlayMaskSprite: {fileID: 0}

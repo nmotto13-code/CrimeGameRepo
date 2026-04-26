@@ -15,7 +15,7 @@ MonoBehaviour:
   evidenceId: E002
   displayName: Warehouse Sensor
   descriptionText: 'Motion sensor at warehouse loading dock: triggered 6:34 PM.'
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: 3212532625b185448ba3876721496900, type: 3}
   displayMode: 0
   tags: 0000000008000000
   enhanceOverlayMaskSprite: {fileID: 0}

@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Vault Access Log
   descriptionText: 'Log entry: Vault opened 2:17 PM. Key A: Lena Park. Key B: Desmond
     Ault.'
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: 3212532625b185448ba3876721496900, type: 3}
   displayMode: 0
   tags: 000000000500000008000000
   enhanceOverlayMaskSprite: {fileID: 0}

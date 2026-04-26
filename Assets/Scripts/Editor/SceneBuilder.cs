@@ -518,8 +518,7 @@ namespace CasebookGame.Editor
             var csViewportGo = new GameObject("Viewport");
             csViewportGo.transform.SetParent(csScrollGo.transform, false);
             StretchFull(csViewportGo);
-            csViewportGo.AddComponent<Image>().color = Color.clear;
-            csViewportGo.AddComponent<Mask>().showMaskGraphic = false;
+            csViewportGo.AddComponent<RectMask2D>();
             csScroll.viewport = csViewportGo.GetComponent<RectTransform>();
 
             var csContentGo = new GameObject("Content");
@@ -619,8 +618,7 @@ namespace CasebookGame.Editor
             var resViewportGo = new GameObject("Viewport");
             resViewportGo.transform.SetParent(resScrollGo.transform, false);
             StretchFull(resViewportGo);
-            resViewportGo.AddComponent<Image>().color = Color.clear;
-            resViewportGo.AddComponent<Mask>().showMaskGraphic = false;
+            resViewportGo.AddComponent<RectMask2D>();
             resScroll.viewport = resViewportGo.GetComponent<RectTransform>();
 
             var resContentGo = new GameObject("Content");

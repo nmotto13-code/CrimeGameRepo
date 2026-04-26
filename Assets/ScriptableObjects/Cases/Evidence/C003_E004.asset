@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Gallery CCTV Timestamp
   descriptionText: Blurred figure enters gallery side door at 3:07 PM. Same build
     as Theo Grant.
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: ce6c2fef370f5994cb6c6e75ebf971de, type: 3}
   displayMode: 0
   tags: 000000000300000008000000
   enhanceOverlayMaskSprite: {fileID: 0}

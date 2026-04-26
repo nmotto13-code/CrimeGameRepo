@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Elevator Log
   descriptionText: 'Elevator RFID: Resident''s fob accessed lobby level at 9:03 PM
     (departing).'
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: 3212532625b185448ba3876721496900, type: 3}
   displayMode: 0
   tags: 0000000005000000
   enhanceOverlayMaskSprite: {fileID: 0}

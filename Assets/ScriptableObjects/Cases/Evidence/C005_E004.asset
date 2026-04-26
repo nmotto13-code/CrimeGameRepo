@@ -15,7 +15,7 @@ MonoBehaviour:
   evidenceId: E004
   displayName: Witness Statement Timestamp
   descriptionText: 'Emergency call made by witness: 7:34 PM (during the rain window).'
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: e8a76af7c2c7dcb40a97faf498d4c138, type: 3}
   displayMode: 0
   tags: 00000000
   enhanceOverlayMaskSprite: {fileID: 0}

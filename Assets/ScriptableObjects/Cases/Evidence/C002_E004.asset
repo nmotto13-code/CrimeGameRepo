@@ -15,7 +15,7 @@ MonoBehaviour:
   evidenceId: E004
   displayName: Vault Door Seal
   descriptionText: 'Re-lock time stamp: 2:22 PM. Vault was open for ~5 minutes.'
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: e8a76af7c2c7dcb40a97faf498d4c138, type: 3}
   displayMode: 0
   tags: 0000000005000000
   enhanceOverlayMaskSprite: {fileID: 0}

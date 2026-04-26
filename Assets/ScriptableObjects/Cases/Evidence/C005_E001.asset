@@ -15,7 +15,7 @@ MonoBehaviour:
   evidenceId: E001
   displayName: Weather Report
   descriptionText: "City meteorological station: heavy rain 6:00 PM \u2013 9:15 PM."
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: e8a76af7c2c7dcb40a97faf498d4c138, type: 3}
   displayMode: 0
   tags: 0000000007000000
   enhanceOverlayMaskSprite: {fileID: 0}
