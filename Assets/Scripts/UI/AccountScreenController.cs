@@ -5,10 +5,9 @@ using CasebookGame.Core;
 
 namespace CasebookGame.UI
 {
-    public class AccountScreenController : MonoBehaviour
+    public class AccountScreenController : BaseScreen
     {
         [Header("Panels")]
-        [SerializeField] GameObject accountPanel;
         [SerializeField] GameObject infoPanel;
         [SerializeField] GameObject resultsPanel;
         [SerializeField] Button     closeBtn;
@@ -28,19 +27,33 @@ namespace CasebookGame.UI
         static readonly Color TAB_ACTIVE   = new Color(0.90f, 0.50f, 0.10f);
         static readonly Color TAB_INACTIVE = new Color(0.30f, 0.30f, 0.40f);
 
+        public override ScreenId ScreenId => ScreenId.Account;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            closeBtn?.onClick.AddListener(() =>
+                NavigationManager.Instance?.Pop(TransitionType.SlideRight));
+            infoTabBtn?.onClick.AddListener(() => ShowTab(info: true));
+            resultsTabBtn?.onClick.AddListener(() => ShowTab(info: false));
+        }
+
         void Start()
         {
-            closeBtn.onClick.AddListener(() => accountPanel.SetActive(false));
-            infoTabBtn.onClick.AddListener(() => ShowTab(info: true));
-            resultsTabBtn.onClick.AddListener(() => ShowTab(info: false));
             ShowTab(info: true);
+        }
+
+        public override void OnScreenEnter()
+        {
+            gameObject.SetActive(true);
+            Refresh();
         }
 
         public void Refresh()
         {
-            totalScoreText.text     = $"{PlayerProfile.GetTotalScore():N0}";
-            casesCompletedText.text = $"{PlayerProfile.GetCasesCompleted()}";
-            perfectSolvesText.text  = $"{PlayerProfile.GetPerfectSolves()}";
+            if (totalScoreText)     totalScoreText.text     = $"{PlayerProfile.GetTotalScore():N0}";
+            if (casesCompletedText) casesCompletedText.text = $"{PlayerProfile.GetCasesCompleted()}";
+            if (perfectSolvesText)  perfectSolvesText.text  = $"{PlayerProfile.GetPerfectSolves()}";
 
             PopulateResults();
             ShowTab(info: true);
@@ -48,8 +61,8 @@ namespace CasebookGame.UI
 
         void ShowTab(bool info)
         {
-            infoPanel.SetActive(info);
-            resultsPanel.SetActive(!info);
+            infoPanel?.SetActive(info);
+            resultsPanel?.SetActive(!info);
 
             SetTabActive(infoTabBtn,    info);
             SetTabActive(resultsTabBtn, !info);
@@ -57,14 +70,16 @@ namespace CasebookGame.UI
 
         static void SetTabActive(Button btn, bool active)
         {
-            var img = btn.GetComponent<Image>();
+            var img = btn?.GetComponent<Image>();
             if (img) img.color = active ? TAB_ACTIVE : TAB_INACTIVE;
-            var txt = btn.GetComponentInChildren<TMP_Text>();
+            var txt = btn?.GetComponentInChildren<TMP_Text>();
             if (txt) txt.color = active ? Color.white : new Color(0.70f, 0.70f, 0.75f);
         }
 
         void PopulateResults()
         {
+            if (resultsListParent == null) return;
+
             foreach (Transform child in resultsListParent)
                 Destroy(child.gameObject);
 
@@ -92,7 +107,6 @@ namespace CasebookGame.UI
                 hlg.childControlWidth    = true;
                 hlg.childForceExpandHeight = true;
 
-                // Case title (left, flexible)
                 var nameGo  = new GameObject("CaseName");
                 nameGo.transform.SetParent(rowGo.transform, false);
                 var nameTxt = nameGo.AddComponent<TextMeshProUGUI>();
@@ -103,18 +117,15 @@ namespace CasebookGame.UI
                 nameTxt.textWrappingMode = TMPro.TextWrappingModes.Normal;
                 nameGo.AddComponent<LayoutElement>().flexibleWidth = 1;
 
-                // Score + perfect badge (right, fixed)
                 var scoreGo  = new GameObject("Score");
                 scoreGo.transform.SetParent(rowGo.transform, false);
                 var scoreTxt = scoreGo.AddComponent<TextMeshProUGUI>();
-                bool perfect = PlayerProfile.GetPerfectSolves() > 0;
                 scoreTxt.text      = $"{best:N0} pts";
                 scoreTxt.fontSize  = 26;
                 scoreTxt.fontStyle = TMPro.FontStyles.Bold;
                 scoreTxt.color     = new Color(0.40f, 0.90f, 0.50f);
                 scoreTxt.alignment = TMPro.TextAlignmentOptions.Right;
-                var scoreLE = scoreGo.AddComponent<LayoutElement>();
-                scoreLE.preferredWidth = 180;
+                scoreGo.AddComponent<LayoutElement>().preferredWidth = 180;
             }
 
             if (!anyResult)

@@ -21,8 +21,20 @@ namespace CasebookGame.Core
 
         void Awake()
         {
-            nextCaseButton?.onClick.AddListener(() => { Hide(); GameManager.Instance.NextCase(); });
-            retryButton?.onClick.AddListener(() => { Hide(); GameManager.Instance.RetryCase(); });
+            nextCaseButton?.onClick.AddListener(() =>
+            {
+                Hide();
+                GameManager.Instance.NextCase();
+                NavigationManager.Instance?.PopToRootImmediate();
+                NavigationManager.Instance?.Push(ScreenId.Game, TransitionType.None);
+            });
+            retryButton?.onClick.AddListener(() =>
+            {
+                Hide();
+                GameManager.Instance.RetryCase();
+                NavigationManager.Instance?.PopToRootImmediate();
+                NavigationManager.Instance?.Push(ScreenId.Game, TransitionType.None);
+            });
         }
 
         void Start()

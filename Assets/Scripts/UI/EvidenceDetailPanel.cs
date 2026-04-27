@@ -26,6 +26,7 @@ namespace CasebookGame.UI
 
         EvidenceData currentEvidence;
         public EvidenceData CurrentEvidence => currentEvidence;
+        public bool IsOpen => panel != null && panel.activeSelf;
 
         void Awake()
         {
@@ -94,7 +95,7 @@ namespace CasebookGame.UI
             }
         }
 
-        void Hide()
+        public void Hide()
         {
             panel?.SetActive(false);
             currentEvidence = null;

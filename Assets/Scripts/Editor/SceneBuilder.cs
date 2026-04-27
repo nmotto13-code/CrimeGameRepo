@@ -77,9 +77,18 @@ namespace CasebookGame.Editor
             var bgGo  = MakeImage(canvasGo, "Background", C_BG);
             StretchFull(bgGo);
 
+            // ── GameScreen wrapper — groups all in-game UI so SetActive hides everything ──
+            var gameScreenGo = new GameObject("GameScreen");
+            gameScreenGo.transform.SetParent(canvasGo.transform, false);
+            StretchFull(gameScreenGo);
+            gameScreenGo.AddComponent<Image>().color = Color.clear;
+            var gameScreenCtrl = gameScreenGo.AddComponent<GameScreenController>();
+            // GameScreen starts hidden; HomeScreen is shown first
+            gameScreenGo.SetActive(false);
+
             // ── Tab bar — anchored top strip, scales with Canvas Scaler ──
             var tabBarGo = new GameObject("TabBar");
-            tabBarGo.transform.SetParent(canvasGo.transform, false);
+            tabBarGo.transform.SetParent(gameScreenGo.transform, false);
             var tabBarRT  = tabBarGo.AddComponent<RectTransform>();
             tabBarRT.anchorMin        = new Vector2(0, 1);
             tabBarRT.anchorMax        = new Vector2(1, 1);
@@ -98,9 +107,13 @@ namespace CasebookGame.Editor
             var evidenceBtn = MakeTabButton(tabBarGo, "EvidenceBtn", "EVIDENCE");
             var solveBtn    = MakeTabButton(tabBarGo, "SolveBtn",    "SOLVE");
 
+            // Hamburger — right-pinned, fixed width, opens in-game menu
+            var hamburgerGo = MakeSimpleButton(tabBarGo, "HamburgerBtn", "≡", new Color(0.25f, 0.25f, 0.38f));
+            hamburgerGo.AddComponent<LayoutElement>().preferredWidth = 80;
+
             // ── Tab content (between tab bar and tools bar) ────────────
             var tabContentGo = new GameObject("TabContent");
-            tabContentGo.transform.SetParent(canvasGo.transform, false);
+            tabContentGo.transform.SetParent(gameScreenGo.transform, false);
             var tabContentRT    = tabContentGo.AddComponent<RectTransform>();
             tabContentRT.anchorMin = new Vector2(0, 0);
             tabContentRT.anchorMax = new Vector2(1, 1);
@@ -188,9 +201,9 @@ namespace CasebookGame.Editor
             sceneHotspotRT.anchorMin = Vector2.zero; sceneHotspotRT.anchorMax = Vector2.one;
             sceneHotspotRT.offsetMin = new Vector2(0, 0); sceneHotspotRT.offsetMax = new Vector2(0, -56);
 
-            // ── Magnifying glass visual (child of canvas root, floats on top) ──
+            // ── Magnifying glass visual (child of GameScreen, floats on top of scene) ──
             var glassVisualGo = new GameObject("GlassVisual");
-            glassVisualGo.transform.SetParent(canvasGo.transform, false);
+            glassVisualGo.transform.SetParent(gameScreenGo.transform, false);
             var glassVisualRT = glassVisualGo.AddComponent<RectTransform>();
             glassVisualRT.sizeDelta = new Vector2(140, 140);
             glassVisualRT.anchorMin = glassVisualRT.anchorMax = new Vector2(0.5f, 0.5f);
@@ -309,7 +322,7 @@ namespace CasebookGame.Editor
 
             // ── Submit button (bottom 80 px) ───────────────────────────
             var submitGo = new GameObject("SubmitButton");
-            submitGo.transform.SetParent(canvasGo.transform, false);
+            submitGo.transform.SetParent(gameScreenGo.transform, false);
             var submitRT = submitGo.AddComponent<RectTransform>();
             submitRT.anchorMin        = new Vector2(0, 0);
             submitRT.anchorMax        = new Vector2(1, 0);
@@ -439,9 +452,15 @@ namespace CasebookGame.Editor
             var enhDetailBtn = MakeActionButton(detailCard, "EnhanceBtn", "ENHANCE", new Color(0.9f, 0.7f, 0.1f),
                 new Vector2(0.70f, 0.02f), new Vector2(0.97f, 0.13f));
 
+            // ── SafeAreaRoot — wraps all navigation screens, respects iPhone notch/home bar ──
+            var safeAreaRoot = new GameObject("SafeAreaRoot");
+            safeAreaRoot.transform.SetParent(canvasGo.transform, false);
+            StretchFull(safeAreaRoot);
+            safeAreaRoot.AddComponent<SafeAreaFitter>();
+
             // ── Home Screen ────────────────────────────────────────────
             var homeScreenGo = new GameObject("HomeScreen");
-            homeScreenGo.transform.SetParent(canvasGo.transform, false);
+            homeScreenGo.transform.SetParent(safeAreaRoot.transform, false);
             StretchFull(homeScreenGo);
             homeScreenGo.AddComponent<Image>().color = new Color(0.06f, 0.06f, 0.10f, 0.98f);
 
@@ -477,7 +496,7 @@ namespace CasebookGame.Editor
 
             // ── Case Select Panel ──────────────────────────────────────
             var caseSelectGo = new GameObject("CaseSelectPanel");
-            caseSelectGo.transform.SetParent(canvasGo.transform, false);
+            caseSelectGo.transform.SetParent(safeAreaRoot.transform, false);
             StretchFull(caseSelectGo);
             caseSelectGo.AddComponent<Image>().color = new Color(0.06f, 0.06f, 0.10f, 0.98f);
             caseSelectGo.SetActive(false);
@@ -537,7 +556,7 @@ namespace CasebookGame.Editor
 
             // ── Account Panel ──────────────────────────────────────────
             var accountGo = new GameObject("AccountPanel");
-            accountGo.transform.SetParent(canvasGo.transform, false);
+            accountGo.transform.SetParent(safeAreaRoot.transform, false);
             StretchFull(accountGo);
             accountGo.AddComponent<Image>().color = new Color(0.06f, 0.06f, 0.10f, 0.98f);
             accountGo.SetActive(false);
@@ -635,6 +654,62 @@ namespace CasebookGame.Editor
             resCSF.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
             resScroll.content  = resContentRT;
 
+            // ── In-Game Menu Panel (slide-in overlay, inside SafeAreaRoot) ──
+            var inGameMenuGo = new GameObject("InGameMenuPanel");
+            inGameMenuGo.transform.SetParent(safeAreaRoot.transform, false);
+            StretchFull(inGameMenuGo);
+            inGameMenuGo.AddComponent<Image>().color = new Color(0f, 0f, 0f, 0.82f);
+            inGameMenuGo.SetActive(false);
+
+            var menuCardGo = MakeImage(inGameMenuGo, "MenuCard", C_PANEL);
+            var mcRT = menuCardGo.GetComponent<RectTransform>();
+            mcRT.anchorMin = new Vector2(0.10f, 0.25f); mcRT.anchorMax = new Vector2(0.90f, 0.82f);
+            mcRT.offsetMin = Vector2.zero;               mcRT.offsetMax = Vector2.zero;
+
+            var menuTitle = MakeText(menuCardGo, "MenuTitle", "GAME MENU", 36, FontStyles.Bold,
+                new Color(0.95f, 0.80f, 0.20f));
+            menuTitle.alignment = TextAlignmentOptions.Center;
+            var mtRT = menuTitle.gameObject.GetComponent<RectTransform>();
+            mtRT.anchorMin = new Vector2(0, 0.82f); mtRT.anchorMax = new Vector2(1, 1);
+            mtRT.offsetMin = new Vector2(20, 0);    mtRT.offsetMax = new Vector2(-20, -8);
+
+            var resumeMenuBtn = MakeActionButton(menuCardGo, "ResumeBtn", "RESUME INVESTIGATION",
+                new Color(0.20f, 0.65f, 0.40f), new Vector2(0.08f, 0.58f), new Vector2(0.92f, 0.74f));
+            var caseSelectMenuBtn = MakeActionButton(menuCardGo, "CaseSelectBtn", "SELECT CASE",
+                new Color(0.22f, 0.45f, 0.75f), new Vector2(0.08f, 0.38f), new Vector2(0.92f, 0.54f));
+            var homeMenuBtn = MakeActionButton(menuCardGo, "HomeBtn", "MAIN MENU",
+                new Color(0.55f, 0.18f, 0.18f), new Vector2(0.08f, 0.18f), new Vector2(0.92f, 0.34f));
+
+            var inGameMenuCtrl = inGameMenuGo.AddComponent<InGameMenuController>();
+
+            // ── Confirm Dialog — added last so it renders above everything ──
+            var confirmGo = new GameObject("ConfirmDialog");
+            confirmGo.transform.SetParent(safeAreaRoot.transform, false);
+            StretchFull(confirmGo);
+            confirmGo.AddComponent<Image>().color = new Color(0f, 0f, 0f, 0.75f);
+            confirmGo.SetActive(false);
+
+            var dialogCard = MakeImage(confirmGo, "DialogCard", C_PANEL);
+            var dCardRT = dialogCard.GetComponent<RectTransform>();
+            dCardRT.anchorMin = new Vector2(0.07f, 0.32f); dCardRT.anchorMax = new Vector2(0.93f, 0.68f);
+            dCardRT.offsetMin = Vector2.zero;               dCardRT.offsetMax = Vector2.zero;
+
+            var dialogMsgTxt = MakeText(dialogCard, "MessageText",
+                "Leaving now will lose your current progress.\n\nAre you sure?",
+                28, FontStyles.Normal);
+            dialogMsgTxt.textWrappingMode = TextWrappingModes.Normal;
+            dialogMsgTxt.alignment        = TextAlignmentOptions.Center;
+            var dmRT = dialogMsgTxt.gameObject.GetComponent<RectTransform>();
+            dmRT.anchorMin = new Vector2(0.05f, 0.45f); dmRT.anchorMax = new Vector2(0.95f, 0.95f);
+            dmRT.offsetMin = Vector2.zero;               dmRT.offsetMax = Vector2.zero;
+
+            var dialogConfirmBtn = MakeActionButton(dialogCard, "ConfirmBtn", "LEAVE",
+                new Color(0.80f, 0.22f, 0.22f), new Vector2(0.04f, 0.06f), new Vector2(0.46f, 0.38f));
+            var dialogCancelBtn  = MakeActionButton(dialogCard, "CancelBtn", "STAY",
+                new Color(0.22f, 0.55f, 0.22f), new Vector2(0.54f, 0.06f), new Vector2(0.96f, 0.38f));
+
+            var confirmDialogComp = confirmGo.AddComponent<ConfirmDialog>();
+
             // ── Systems GameObject ─────────────────────────────────────
             var systemsGo = new GameObject("Systems");
 
@@ -644,12 +719,13 @@ namespace CasebookGame.Editor
             var results         = systemsGo.AddComponent<ResultsController>();
             var discoverySystem = systemsGo.AddComponent<EvidenceDiscoverySystem>();
             var scoringSystem   = systemsGo.AddComponent<ScoringSystem>();
+            var navMgr          = systemsGo.AddComponent<NavigationManager>();
 
             var tabCtrl    = tabContentGo.AddComponent<TabController>();
             var detailComp = detailPanelGo.AddComponent<EvidenceDetailPanel>();
 
             var homeCtrl    = homeScreenGo.AddComponent<HomeScreenController>();
-            var caseSelCtrl = homeScreenGo.AddComponent<CaseSelectController>();
+            var caseSelCtrl = caseSelectGo.AddComponent<CaseSelectController>();
             var accountCtrl = accountGo.AddComponent<AccountScreenController>();
 
             // ── Wire serialized fields ─────────────────────────────────
@@ -721,22 +797,16 @@ namespace CasebookGame.Editor
             });
 
             Wire(homeCtrl, so => {
-                so.FindProperty("homePanel").objectReferenceValue       = homeScreenGo;
-                so.FindProperty("caseSelectPanel").objectReferenceValue = caseSelectGo;
-                so.FindProperty("accountPanel").objectReferenceValue    = accountGo;
-                so.FindProperty("selectCaseBtn").objectReferenceValue   = selectCaseBtn;
-                so.FindProperty("viewProfileBtn").objectReferenceValue  = viewProfileBtn;
+                so.FindProperty("selectCaseBtn").objectReferenceValue = selectCaseBtn;
+                so.FindProperty("viewProfileBtn").objectReferenceValue = viewProfileBtn;
             });
 
             Wire(caseSelCtrl, so => {
-                so.FindProperty("panel").objectReferenceValue      = caseSelectGo;
                 so.FindProperty("listParent").objectReferenceValue = csContentGo.transform;
                 so.FindProperty("closeBtn").objectReferenceValue   = csBackBtn;
-                so.FindProperty("homeScreen").objectReferenceValue = homeCtrl;
             });
 
             Wire(accountCtrl, so => {
-                so.FindProperty("accountPanel").objectReferenceValue    = accountGo;
                 so.FindProperty("infoPanel").objectReferenceValue       = infoPanel;
                 so.FindProperty("resultsPanel").objectReferenceValue    = resultsPanel;
                 so.FindProperty("closeBtn").objectReferenceValue        = acBackBtn;
@@ -746,6 +816,32 @@ namespace CasebookGame.Editor
                 so.FindProperty("casesCompletedText").objectReferenceValue = casesCompletedTxt;
                 so.FindProperty("perfectSolvesText").objectReferenceValue  = perfectSolvesTxt;
                 so.FindProperty("resultsListParent").objectReferenceValue  = resContentGo.transform;
+            });
+
+            Wire(gameScreenCtrl, so => {
+                so.FindProperty("hamburgerBtn").objectReferenceValue = hamburgerGo.GetComponent<Button>();
+            });
+
+            Wire(inGameMenuCtrl, so => {
+                so.FindProperty("resumeBtn").objectReferenceValue      = resumeMenuBtn;
+                so.FindProperty("caseSelectBtn").objectReferenceValue  = caseSelectMenuBtn;
+                so.FindProperty("homeBtn").objectReferenceValue        = homeMenuBtn;
+            });
+
+            Wire(confirmDialogComp, so => {
+                so.FindProperty("messageText").objectReferenceValue = dialogMsgTxt;
+                so.FindProperty("confirmBtn").objectReferenceValue  = dialogConfirmBtn;
+                so.FindProperty("cancelBtn").objectReferenceValue   = dialogCancelBtn;
+            });
+
+            Wire(navMgr, so => {
+                so.FindProperty("homeScreen").objectReferenceValue      = homeCtrl;
+                so.FindProperty("caseSelectScreen").objectReferenceValue = caseSelCtrl;
+                so.FindProperty("accountScreen").objectReferenceValue   = accountCtrl;
+                so.FindProperty("gameScreen").objectReferenceValue      = gameScreenCtrl;
+                so.FindProperty("inGameMenuScreen").objectReferenceValue = inGameMenuCtrl;
+                so.FindProperty("confirmDialog").objectReferenceValue   = confirmDialogComp;
+                so.FindProperty("canvasRT").objectReferenceValue        = canvasGo.GetComponent<RectTransform>();
             });
 
             // Load cases from Resources and assign to GameManager

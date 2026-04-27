@@ -6,24 +6,32 @@ using CasebookGame.Data;
 
 namespace CasebookGame.UI
 {
-    public class CaseSelectController : MonoBehaviour
+    public class CaseSelectController : BaseScreen
     {
-        [SerializeField] GameObject panel;
-        [SerializeField] Transform  listParent;
-        [SerializeField] Button     closeBtn;
-        [SerializeField] HomeScreenController homeScreen;
+        [SerializeField] Transform listParent;
+        [SerializeField] Button    closeBtn;
 
         [SerializeField] Color rowColor      = new Color(0.16f, 0.16f, 0.24f);
         [SerializeField] Color rowHoverColor = new Color(0.22f, 0.22f, 0.34f);
 
+        public override ScreenId ScreenId => ScreenId.CaseSelect;
+
         bool populated;
 
-        void Start()
+        protected override void Awake()
         {
-            closeBtn.onClick.AddListener(() => panel.SetActive(false));
+            base.Awake();
+            closeBtn?.onClick.AddListener(() =>
+                NavigationManager.Instance?.Pop(TransitionType.SlideRight));
         }
 
-        public void Populate()
+        public override void OnScreenEnter()
+        {
+            gameObject.SetActive(true);
+            Populate();
+        }
+
+        void Populate()
         {
             if (populated) return;
             populated = true;
@@ -32,10 +40,8 @@ namespace CasebookGame.UI
             if (cases == null) { Debug.LogError("[CaseSelect] availableCases is null"); return; }
             Debug.Log($"[CaseSelect] Building {cases.Length} rows, listParent={listParent?.name}");
 
-            // Grab font from any existing TMP in the scene so we know it's valid
             var existingTMP = FindFirstObjectByType<TextMeshProUGUI>();
             TMP_FontAsset font = existingTMP != null ? existingTMP.font : null;
-            Debug.Log($"[CaseSelect] Font source: {(font != null ? font.name : "NULL — no TMP found in scene")}");
 
             for (int i = 0; i < cases.Length; i++)
             {
@@ -63,10 +69,9 @@ namespace CasebookGame.UI
                 rowBtn.colors = colors;
                 rowBtn.onClick.AddListener(() => SelectCase(caseData, index));
 
-                // Single TMP per row — rich text for title + brief, avoids child layout issues
-                var textGo  = new GameObject("RowText");
+                var textGo = new GameObject("RowText");
                 textGo.transform.SetParent(rowGo.transform, false);
-                var textRT  = textGo.AddComponent<RectTransform>();
+                var textRT = textGo.AddComponent<RectTransform>();
                 textRT.anchorMin = Vector2.zero;
                 textRT.anchorMax = Vector2.one;
                 textRT.offsetMin = new Vector2(20, 10);
@@ -84,23 +89,18 @@ namespace CasebookGame.UI
                 tmp.textWrappingMode = TextWrappingModes.Normal;
                 tmp.overflowMode     = TextOverflowModes.Ellipsis;
                 tmp.raycastTarget    = false;
-
-                Debug.Log($"[CaseSelect] Row {i} done. textRT anchors={textRT.anchorMin}-{textRT.anchorMax} font={tmp.font?.name}");
             }
 
             Canvas.ForceUpdateCanvases();
             if (listParent is RectTransform listRT)
-            {
                 LayoutRebuilder.ForceRebuildLayoutImmediate(listRT);
-                Debug.Log($"[CaseSelect] listParent size after rebuild: {listRT.rect.size}");
-            }
         }
 
         void SelectCase(CaseData caseData, int index)
         {
-            panel.SetActive(false);
-            homeScreen.EnterGame();
+            NavigationManager.Instance?.PopToRootImmediate();
             GameManager.Instance?.LoadCaseByIndex(index);
+            NavigationManager.Instance?.Push(ScreenId.Game, TransitionType.FadeUp);
         }
     }
 }

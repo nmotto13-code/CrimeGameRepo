@@ -4,36 +4,20 @@ using CasebookGame.Core;
 
 namespace CasebookGame.UI
 {
-    public class HomeScreenController : MonoBehaviour
+    public class HomeScreenController : BaseScreen
     {
-        [SerializeField] GameObject homePanel;
-        [SerializeField] GameObject caseSelectPanel;
-        [SerializeField] GameObject accountPanel;
-
         [SerializeField] Button selectCaseBtn;
         [SerializeField] Button viewProfileBtn;
 
-        void Start()
-        {
-            selectCaseBtn.onClick.AddListener(OpenCaseSelect);
-            viewProfileBtn.onClick.AddListener(OpenAccount);
-        }
+        public override ScreenId ScreenId => ScreenId.Home;
 
-        void OpenCaseSelect()
+        protected override void Awake()
         {
-            caseSelectPanel.SetActive(true);
-            GetComponent<CaseSelectController>()?.Populate();
-        }
-
-        void OpenAccount()
-        {
-            accountPanel.SetActive(true);
-            GetComponentInChildren<AccountScreenController>(true)?.Refresh();
-        }
-
-        public void EnterGame()
-        {
-            homePanel.SetActive(false);
+            base.Awake();
+            selectCaseBtn?.onClick.AddListener(() =>
+                NavigationManager.Instance?.Push(ScreenId.CaseSelect, TransitionType.SlideLeft));
+            viewProfileBtn?.onClick.AddListener(() =>
+                NavigationManager.Instance?.Push(ScreenId.Account, TransitionType.SlideLeft));
         }
     }
 }
