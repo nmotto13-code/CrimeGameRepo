@@ -100,6 +100,7 @@ namespace CasebookGame.UI
         {
             NavigationManager.Instance?.PopToRootImmediate();
             GameManager.Instance?.LoadCaseByIndex(index);
+            GameScreenController.Instance?.ResetEntryState();
             NavigationManager.Instance?.Push(ScreenId.Game, TransitionType.FadeUp);
         }
     }

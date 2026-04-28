@@ -35,8 +35,10 @@ namespace CasebookGame.Core
 
         void Start()
         {
-            // Boot into HomeScreen — it should already be active from SceneBuilder
+            // Boot into HomeScreen — active by default from SceneBuilder
             _stack.Push(homeScreen);
+            homeScreen.gameObject.SetActive(true);
+            EnsureCanvasGroup(homeScreen, 1f);
             homeScreen.OnScreenEnter();
         }
 
@@ -66,7 +68,7 @@ namespace CasebookGame.Core
             }
             else
             {
-                StartCoroutine(DoTransition(prev, next, transition));
+                StartCoroutine(DoTransition(next, prev, transition));
             }
         }
 
@@ -87,7 +89,7 @@ namespace CasebookGame.Core
             }
             else
             {
-                StartCoroutine(DoTransition(incoming, outgoing, FlipTransition(transition), popMode: true));
+                StartCoroutine(DoTransition(incoming, outgoing, transition, popMode: true));
             }
         }
 
@@ -235,7 +237,9 @@ namespace CasebookGame.Core
             if (outgoing != null)
             {
                 outgoing.RT.anchoredPosition = Vector2.zero;
-                outgoing.gameObject.SetActive(false);
+                // Keep Game screen alive — InGameMenu overlays it rather than replacing it
+                if (outgoing.ScreenId != ScreenId.Game)
+                    outgoing.gameObject.SetActive(false);
             }
             if (incoming != null)
                 incoming.RT.anchoredPosition = Vector2.zero;

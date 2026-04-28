@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using CasebookGame.Core;
+using CasebookGame.UI;
 
 namespace CasebookGame.Core
 {
@@ -26,6 +27,7 @@ namespace CasebookGame.Core
                 Hide();
                 GameManager.Instance.NextCase();
                 NavigationManager.Instance?.PopToRootImmediate();
+                GameScreenController.Instance?.ResetEntryState();
                 NavigationManager.Instance?.Push(ScreenId.Game, TransitionType.None);
             });
             retryButton?.onClick.AddListener(() =>
@@ -33,6 +35,7 @@ namespace CasebookGame.Core
                 Hide();
                 GameManager.Instance.RetryCase();
                 NavigationManager.Instance?.PopToRootImmediate();
+                GameScreenController.Instance?.ResetEntryState();
                 NavigationManager.Instance?.Push(ScreenId.Game, TransitionType.None);
             });
         }
