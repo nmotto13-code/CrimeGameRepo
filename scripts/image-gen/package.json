@@ -1,0 +1,16 @@
+{
+  "name": "casebook-image-gen",
+  "version": "1.0.0",
+  "description": "DALL-E 3 image generation pipeline for Pocket Casebook evidence sprites",
+  "main": "generate.js",
+  "type": "module",
+  "scripts": {
+    "generate": "node generate.js",
+    "generate:all": "node generate.js --all",
+    "generate:review": "node generate.js --all --output output"
+  },
+  "dependencies": {
+    "openai": "^4.77.0",
+    "dotenv": "^16.4.5"
+  }
+}
