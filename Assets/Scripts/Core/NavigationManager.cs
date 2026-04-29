@@ -24,8 +24,10 @@ namespace CasebookGame.Core
         readonly Stack<BaseScreen> _stack        = new();
         bool                       _transitioning;
 
-        public bool IsInGame =>
-            _stack.Count > 0 && _stack.Peek().ScreenId == ScreenId.Game;
+        public bool IsInGame
+        {
+            get { foreach (var s in _stack) if (s.ScreenId == ScreenId.Game) return true; return false; }
+        }
 
         void Awake()
         {
@@ -97,12 +99,16 @@ namespace CasebookGame.Core
         {
             if (_transitioning) return;
 
-            // Unwind the stack, notify each screen exiting
+            // Unwind the stack — hide intermediate screens immediately, animate only the last one out
             BaseScreen outgoing = null;
             while (_stack.Count > 1)
             {
-                outgoing = _stack.Pop();
-                outgoing.OnScreenExit();
+                var s = _stack.Pop();
+                s.OnScreenExit();
+                if (_stack.Count > 1)
+                    s.gameObject.SetActive(false); // intermediate — hide now
+                else
+                    outgoing = s;                  // last popped — will animate out
             }
 
             var incoming = _stack.Peek();
@@ -214,10 +220,13 @@ namespace CasebookGame.Core
             const float DURATION = 0.22f;
             float t = 0f;
 
-            // Place incoming off-screen
+            // Place incoming off-screen — skip if it's already active and centered (overlay case)
             if (incoming != null)
             {
-                incoming.RT.anchoredPosition = new Vector2(width * -dir, 0);
+                bool alreadyInPlace = incoming.gameObject.activeSelf
+                                   && incoming.RT.anchoredPosition == Vector2.zero;
+                if (!alreadyInPlace)
+                    incoming.RT.anchoredPosition = new Vector2(width * -dir, 0);
                 EnsureCanvasGroup(incoming, 1f);
             }
 
