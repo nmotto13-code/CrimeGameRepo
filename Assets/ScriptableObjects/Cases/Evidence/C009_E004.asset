@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Victim's Locker
   descriptionText: 'Locker 114: lock forced. Victim''s wallet missing. Locker near
     staff corridor.'
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: 8cb873e1b4346ea4c8af14833de1133e, type: 3}
   displayMode: 0
   tags: 0500000009000000
   enhanceOverlayMaskSprite: {fileID: 0}

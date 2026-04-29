@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Photo Evidence
   descriptionText: "Press photographer's images timestamped: Simon in background
     at 7:10 PM \u2014 not seen in any shots after 8 PM."
-  imageSprite: {fileID: 21300000, guid: ce6c2fef370f5994cb6c6e75ebf971de, type: 3}
+  imageSprite: {fileID: 21300000, guid: 00d50924234e672222bec1bbcddd0566, type: 3}
   displayMode: 0
   tags: 000000000300000008000000
   enhanceOverlayMaskSprite: {fileID: 0}

@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Office CCTV Still
   descriptionText: 'Still from office cam: Lena Park visible at her desk at 2:00
     PM, 2:10 PM, 2:30 PM. No footage between 2:10 and 2:30.'
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: e1a28e4ed4fb3dbd871b2b310d747a58, type: 3}
   displayMode: 0
   tags: 0000000008000000
   enhanceOverlayMaskSprite: {fileID: 0}

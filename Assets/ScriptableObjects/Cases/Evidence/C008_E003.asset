@@ -15,7 +15,7 @@ MonoBehaviour:
   evidenceId: E003
   displayName: Train Platform Camera
   descriptionText: 'Platform cam: Train departs 6:31 PM. Carl Duval NOT visible boarding.'
-  imageSprite: {fileID: 21300000, guid: ce6c2fef370f5994cb6c6e75ebf971de, type: 3}
+  imageSprite: {fileID: 21300000, guid: 850d7b04e2c577fd9a1f8c219587290c, type: 3}
   displayMode: 0
   tags: 000000000300000008000000
   enhanceOverlayMaskSprite: {fileID: 0}

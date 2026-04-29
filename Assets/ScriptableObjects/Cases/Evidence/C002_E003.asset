@@ -15,7 +15,7 @@ MonoBehaviour:
   evidenceId: E003
   displayName: Biometric Keypad Log
   descriptionText: Lena Park's thumbprint authenticated at vault keypad at 2:16 PM.
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: b526cfe8321c073d6440b89b34915ee1, type: 3}
   displayMode: 0
   tags: 050000000800000003000000
   enhanceOverlayMaskSprite: {fileID: 0}

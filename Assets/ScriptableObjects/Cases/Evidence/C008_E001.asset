@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Train Ticket
   descriptionText: 'Ticket: Carl Duval. 6:30 PM Alton Express. Purchased digitally
     at 6:29 PM.'
-  imageSprite: {fileID: 21300000, guid: 365ead6387d07c94eb55884cf58eb3ef, type: 3}
+  imageSprite: {fileID: 21300000, guid: 19cd4f984505a2439268e54b0b291a2f, type: 3}
   displayMode: 0
   tags: 0000000008000000
   enhanceOverlayMaskSprite: {fileID: 0}

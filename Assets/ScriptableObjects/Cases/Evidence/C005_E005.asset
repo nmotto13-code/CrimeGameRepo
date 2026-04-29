@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Suspect's Boots
   descriptionText: 'Boots recovered: size 10, treads match staircase prints. But
     boots are dry.'
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: 215b16ea69ca65a3a2c2477378a81326, type: 3}
   displayMode: 0
   tags: 0900000002000000
   enhanceOverlayMaskSprite: {fileID: 0}

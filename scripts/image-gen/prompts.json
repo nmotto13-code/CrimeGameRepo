@@ -24,25 +24,25 @@
       "id": "C003_E004",
       "name": "Gallery CCTV Timestamp",
       "case": "C003",
-      "prompt": "grainy colour CCTV still image of an art gallery side entrance corridor, a blurred figure in dark clothing entering through a door, timestamp overlay in corner reading 3:07 PM, fish-eye wide-angle lens distortion, low-light security camera aesthetic, slightly washed-out colours"
+      "prompt": "grainy colour CCTV still image of an art gallery side entrance corridor, a blurred figure in dark clothing entering through a door, glowing green digital timestamp bar along the bottom edge, fish-eye wide-angle lens distortion, low-light security camera aesthetic, slightly washed-out colours, no legible text"
     },
     {
       "id": "C004_E001",
       "name": "Parking Ticket",
       "case": "C004",
-      "prompt": "hospital parking garage paper ticket stub, bold header text for a medical garage, entry time stamped 12:48 PM and exit 1:55 PM, barcode stripe across the bottom, slightly bent and creased as if taken from a wallet, clean clinical lighting"
+      "prompt": "hospital parking garage paper ticket stub photographed on a dark surface, printed rows of thermal text too small to read, barcode stripe across the bottom, bold logo area at top, slightly bent and creased as if taken from a wallet, clean clinical overhead lighting, focus on paper texture and document shape"
     },
     {
       "id": "C004_E002",
       "name": "Medical Lobby Cam",
       "case": "C004",
-      "prompt": "hospital reception lobby CCTV frame, completely empty of people, reception desk and waiting chairs visible, bright fluorescent overhead lighting, timestamp overlay, security camera colour footage, institutional clinical atmosphere"
+      "prompt": "hospital reception lobby CCTV frame, completely empty of people, reception desk and waiting chairs visible, bright fluorescent overhead lighting, glowing digital timestamp bar along the bottom, security camera colour footage with slight scan-line effect, institutional clinical atmosphere, no legible text"
     },
     {
       "id": "C004_E005",
       "name": "Fuel Station Receipt",
       "case": "C004",
-      "prompt": "petrol station thermal receipt, fuel pump icon printed on it, transaction amount visible, card number partially visible, timestamp 1:22 PM, name of a rural petrol station at top, receipt slightly greasy and crumpled from a jacket pocket"
+      "prompt": "crumpled petrol station thermal receipt on a dark surface, fuel pump icon graphic at the top, rows of printed thermal text too small to read, slightly greasy paper texture, harsh spotlight from above, focus on document shape and texture not text content"
     },
     {
       "id": "C005_E002",
@@ -66,25 +66,25 @@
       "id": "C006_E004",
       "name": "Previous Stop Receipt",
       "case": "C006",
-      "prompt": "carbon-copy delivery route manifest sheet on slightly yellowed paper with blue carbon imprint, handwritten signature on a numbered line, typed timestamp showing 4:48 PM, clipboard clip mark at the top, documentary realism"
+      "prompt": "carbon-copy delivery route manifest sheet on slightly yellowed paper, blue carbon-imprint rows of typed text too small to read, a single handwritten ink signature on one numbered line, clipboard metal clip visible at the top, soft overhead light, focus on paper texture and handwriting not text content"
     },
     {
       "id": "C007_E001",
       "name": "Smart Speaker Log",
       "case": "C007",
-      "prompt": "close-up of a smartphone screen showing a smart home companion app activity log, dark minimal UI, list of audio playback events, one entry at 8:42 PM highlighted in amber reading playback ended, no entries after it, slight screen glare"
+      "prompt": "close-up of a smartphone screen showing a dark-themed smart home app, vertical list of activity log rows with small icons and blurred illegible text, one row highlighted amber standing out from the rest, bottom of the list empty with no further entries, soft screen glow in a dark room"
     },
     {
       "id": "C007_E005",
       "name": "Victim's Phone",
       "case": "C007",
-      "prompt": "cracked smartphone lying on a dark surface, screen lit showing lock screen with a missed call notification at 9:17 PM, screen cracked across one corner, dim ambient room light, moody low-key lighting"
+      "prompt": "cracked smartphone lying face-up on a dark wooden surface, screen glowing showing a lock screen with a missed call notification badge and phone icon, spider-web crack across one corner of the glass, dim moody ambient light from one side, no legible text visible"
     },
     {
       "id": "C008_E001",
       "name": "Train Ticket",
       "case": "C008",
-      "prompt": "smartphone screen showing a digital train e-ticket for a 6:30 PM express departure, passenger name printed, large QR code centred, purchase timestamp 6:29 PM shown in small text, clean transit app UI design, slight screen brightness glare"
+      "prompt": "close-up of a smartphone screen displaying a digital train e-ticket app, large black QR code dominating the centre of the screen, minimalist transit app design, dark background with white card area, slight screen brightness glare, focus on QR code shape not surrounding text"
     },
     {
       "id": "C008_E003",
@@ -96,7 +96,7 @@
       "id": "C009_E003",
       "name": "Studio Cam",
       "case": "C009",
-      "prompt": "wide-angle CCTV of an empty spin cycling studio, rows of stationary exercise bikes visible, no people present, three timestamp overlays superimposed at 7:00 PM 7:05 PM and 7:10 PM, bright gym lighting, slight fish-eye distortion"
+      "prompt": "wide-angle CCTV composite of an empty spin cycling studio shown three times side by side as a triptych of sequential freeze-frames, rows of stationary exercise bikes, no people, glowing digital timestamp bars along the bottom of each frame, bright gym fluorescent lighting, fish-eye distortion, no legible text"
     },
     {
       "id": "C009_E004",
@@ -108,7 +108,7 @@
       "id": "C010_E002",
       "name": "Valet Parking Ticket",
       "case": "C010",
-      "prompt": "upscale premium valet parking slip on thick cream card stock, gold foil embossed art gallery logo at top, vehicle listed as a luxury car, time-out stamp reading 8:22 PM, clean minimalist design, photographed flat on dark marble surface"
+      "prompt": "upscale premium valet parking claim ticket on thick cream card stock photographed flat on dark marble, gold foil embossed decorative crest at the top, a large circular red ink timestamp stamp in the centre, printed rows of text too small to read, clean minimalist luxury design, dramatic side lighting"
     },
     {
       "id": "C010_E003",

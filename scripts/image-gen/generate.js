@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import { GoogleGenAI } from '@google/genai';
 import fs from 'fs';
 import path from 'path';
 import https from 'https';
@@ -7,37 +8,51 @@ import 'dotenv/config';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// ── Config ─────────────────────────────────────────────────────────────────
+// ── Config ──────────────────────────────────────────────────────────────────
 
-const UNITY_OUTPUT  = path.resolve(__dirname, '../../Assets/Sprites/Evidence');
-const LOCAL_OUTPUT  = path.resolve(__dirname, 'output');
-const PROMPTS_FILE  = path.resolve(__dirname, 'prompts.json');
+const UNITY_OUTPUT = path.resolve(__dirname, '../../Assets/Sprites/Evidence');
+const LOCAL_OUTPUT = path.resolve(__dirname, 'output');
+const PROMPTS_FILE = path.resolve(__dirname, 'prompts.json');
 
-const MODEL   = 'dall-e-3';
-const SIZE    = '1024x1024';
-const QUALITY = 'standard'; // 'hd' for higher quality at 2× cost
+// OpenAI settings
+const OPENAI_MODEL   = 'dall-e-3';
+const OPENAI_SIZE    = '1024x1024';
+const OPENAI_QUALITY = 'standard'; // or 'hd'
 
-const COST_PER_IMAGE = { standard: 0.04, hd: 0.08 };
+// Google settings
+const GOOGLE_MODEL_IMAGEN  = 'imagen-4.0-generate-001';
+const GOOGLE_MODEL_GEMINI  = 'gemini-2.5-flash-image';
+
+const COST = {
+  openai: { standard: 0.04, hd: 0.08 },
+  google: 0.04,
+};
 
 // ── CLI args ────────────────────────────────────────────────────────────────
 //
-//  node generate.js                        — interactive: list all, pick one
-//  node generate.js C003_E001              — generate single ID
-//  node generate.js --case C003            — generate all evidence for case C003
-//  node generate.js --all                  — generate entire prompts.json
-//  node generate.js --all --unity          — output directly to Assets/Sprites/Evidence/
-//  node generate.js --all --force          — re-generate even if file exists
-//  node generate.js --all --dry-run        — print what would be generated + cost, don't call API
+//  node generate.js                             interactive list
+//  node generate.js C003_E001                   single item
+//  node generate.js --case C003                 all for one case
+//  node generate.js --all                       everything missing
+//  node generate.js --all --provider google     use Google Imagen 3
+//  node generate.js --all --provider openai     use DALL-E 3 (default)
+//  node generate.js --all --unity               write to Assets/Sprites/Evidence/
+//  node generate.js --all --force               regenerate existing files
+//  node generate.js --all --dry-run             preview cost, no API calls
 //
 // ────────────────────────────────────────────────────────────────────────────
 
-const args    = process.argv.slice(2);
-const flagAll    = args.includes('--all');
-const flagUnity  = args.includes('--unity');
-const flagForce  = args.includes('--force');
-const flagDry    = args.includes('--dry-run');
-const caseFlag   = args[args.indexOf('--case') + 1];
-const singleId   = args.find(a => !a.startsWith('--') && a !== caseFlag);
+const args     = process.argv.slice(2);
+const flagAll  = args.includes('--all');
+const flagUnity = args.includes('--unity');
+const flagForce = args.includes('--force');
+const flagDry   = args.includes('--dry-run');
+
+const providerArg = args.includes('--provider') ? args[args.indexOf('--provider') + 1] : 'openai';
+const provider    = ['google', 'openai'].includes(providerArg) ? providerArg : 'openai';
+
+const caseFlag = args.includes('--case') ? args[args.indexOf('--case') + 1] : undefined;
+const singleId = args.find(a => !a.startsWith('--') && a !== caseFlag && a !== providerArg);
 
 const outputDir = flagUnity ? UNITY_OUTPUT : LOCAL_OUTPUT;
 
@@ -49,7 +64,7 @@ function buildFullPrompt(item) {
   return `${stylePrefix}, ${item.prompt}`;
 }
 
-// ── Select which items to generate ───────────────────────────────────────────
+// ── Select targets ────────────────────────────────────────────────────────────
 
 let targets = [];
 
@@ -63,34 +78,32 @@ if (singleId) {
   targets = [item];
 } else if (caseFlag) {
   targets = allPrompts.filter(e => e.case.toLowerCase() === caseFlag.toLowerCase());
-  if (!targets.length) {
-    console.error(`\n  ERROR: No prompts found for case "${caseFlag}"\n`);
-    process.exit(1);
-  }
+  if (!targets.length) { console.error(`\n  ERROR: No prompts for case "${caseFlag}"\n`); process.exit(1); }
 } else if (flagAll) {
   targets = allPrompts;
 } else {
-  // Interactive list mode — show what's available and exit with usage hint
+  // Interactive list
   console.log('\n  Available evidence IDs:\n');
   allPrompts.forEach(e => {
     const exists = fs.existsSync(path.join(outputDir, `${e.id}.png`));
     console.log(`  ${exists ? '✓' : '○'} ${e.id.padEnd(12)} ${e.name} (${e.case})`);
   });
   console.log('\n  Usage:');
-  console.log('    node generate.js C003_E001          generate single item');
-  console.log('    node generate.js --case C003        generate all for case 3');
-  console.log('    node generate.js --all              generate everything missing');
-  console.log('    node generate.js --all --force      regenerate everything');
-  console.log('    node generate.js --all --dry-run    preview cost, no API calls\n');
+  console.log('    node generate.js C003_E001                    single item');
+  console.log('    node generate.js --case C003                  all for case 3');
+  console.log('    node generate.js --all                        everything missing');
+  console.log('    node generate.js --all --provider google      use Google Imagen 3');
+  console.log('    node generate.js --all --force                regenerate all');
+  console.log('    node generate.js --all --dry-run              preview cost only\n');
   process.exit(0);
 }
 
-// Skip already-generated files unless --force
+// Skip existing unless --force
 if (!flagForce) {
   const before = targets.length;
   targets = targets.filter(e => !fs.existsSync(path.join(outputDir, `${e.id}.png`)));
   const skipped = before - targets.length;
-  if (skipped > 0) console.log(`  Skipping ${skipped} already-generated file(s). Use --force to regenerate.`);
+  if (skipped > 0) console.log(`\n  Skipping ${skipped} already-generated file(s). Use --force to regenerate.`);
 }
 
 if (!targets.length) {
@@ -98,21 +111,23 @@ if (!targets.length) {
   process.exit(0);
 }
 
-// ── Cost estimate ─────────────────────────────────────────────────────────────
+// ── Validate env ──────────────────────────────────────────────────────────────
 
-const cost = (targets.length * COST_PER_IMAGE[QUALITY]).toFixed(2);
-console.log(`\n  Generating ${targets.length} image(s) at ${QUALITY} quality → ~$${cost} USD`);
-console.log(`  Output: ${outputDir}\n`);
-
-// ── Validate env (only needed for actual generation) ─────────────────────────
-
-if (!process.env.OPENAI_API_KEY) {
-  console.error('\n  ERROR: OPENAI_API_KEY not set.');
-  console.error('  Copy .env.example → .env and add your key.\n');
-  process.exit(1);
+if (provider === 'openai' && !process.env.OPENAI_API_KEY) {
+  console.error('\n  ERROR: OPENAI_API_KEY not set in .env\n'); process.exit(1);
+}
+if (provider === 'google' && !process.env.GOOGLE_API_KEY) {
+  console.error('\n  ERROR: GOOGLE_API_KEY not set in .env\n'); process.exit(1);
 }
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// ── Cost estimate ─────────────────────────────────────────────────────────────
+
+const costPer  = provider === 'google' ? COST.google : COST.openai[OPENAI_QUALITY];
+const totalCost = (targets.length * costPer).toFixed(2);
+
+console.log(`\n  Provider: ${provider === 'google' ? 'Google Imagen 4 / Gemini Flash fallback' : 'OpenAI DALL-E 3'}`);
+console.log(`  Generating ${targets.length} image(s) → ~$${totalCost} USD`);
+console.log(`  Output: ${outputDir}\n`);
 
 if (flagDry) {
   targets.forEach((e, i) => {
@@ -123,11 +138,15 @@ if (flagDry) {
   process.exit(0);
 }
 
-// ── Ensure output directory exists ────────────────────────────────────────────
+// ── Ensure output dir ─────────────────────────────────────────────────────────
 
 fs.mkdirSync(outputDir, { recursive: true });
 
-// ── Generate ──────────────────────────────────────────────────────────────────
+// ── Provider: OpenAI ──────────────────────────────────────────────────────────
+
+const openaiClient = provider === 'openai'
+  ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+  : null;
 
 function downloadImage(url, destPath) {
   return new Promise((resolve, reject) => {
@@ -135,33 +154,73 @@ function downloadImage(url, destPath) {
     https.get(url, res => {
       res.pipe(file);
       file.on('finish', () => file.close(resolve));
-    }).on('error', err => {
-      fs.unlink(destPath, () => {});
-      reject(err);
-    });
+    }).on('error', err => { fs.unlink(destPath, () => {}); reject(err); });
   });
 }
 
-async function generateOne(item, index, total) {
-  const label   = `[${index + 1}/${total}] ${item.id} — ${item.name}`;
-  const outPath = path.join(outputDir, `${item.id}.png`);
-  const prompt  = buildFullPrompt(item);
+async function generateOpenAI(item, outPath) {
+  const response = await openaiClient.images.generate({
+    model:   OPENAI_MODEL,
+    prompt:  buildFullPrompt(item),
+    n:       1,
+    size:    OPENAI_SIZE,
+    quality: OPENAI_QUALITY,
+  });
+  await downloadImage(response.data[0].url, outPath);
+}
 
-  process.stdout.write(`  ${label} … `);
+// ── Provider: Google Imagen 3 ─────────────────────────────────────────────────
 
+const googleClient = provider === 'google'
+  ? new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY })
+  : null;
+
+async function generateGoogle(item, outPath) {
+  const prompt = buildFullPrompt(item);
+
+  // Try Imagen 3 first (requires billing); fall back to Gemini Flash (free tier)
   try {
-    const response = await client.images.generate({
-      model:   MODEL,
+    const response = await googleClient.models.generateImages({
+      model:  GOOGLE_MODEL_IMAGEN,
       prompt,
-      n:       1,
-      size:    SIZE,
-      quality: QUALITY,
+      config: { numberOfImages: 1, outputMimeType: 'image/png' },
+    });
+    const b64 = response.generatedImages?.[0]?.image?.imageBytes;
+    if (!b64) throw new Error('No image bytes in Imagen response');
+    fs.writeFileSync(outPath, Buffer.from(b64, 'base64'));
+  } catch (err) {
+    // Fall back if Imagen is unavailable (not on paid plan, or not found)
+    const isUnavailable = err.message.includes('NOT_FOUND') || err.message.includes('not found')
+                       || err.message.includes('paid') || err.message.includes('upgrade')
+                       || err.message.includes('INVALID_ARGUMENT');
+    if (!isUnavailable) throw err;
+
+    // Fall back to Gemini 2.0 Flash image generation (free tier)
+    process.stdout.write('(Imagen unavailable, using Gemini Flash) ');
+    const response = await googleClient.models.generateContent({
+      model:    GOOGLE_MODEL_GEMINI,
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      config:   { responseModalities: ['IMAGE', 'TEXT'] },
     });
 
-    const imageUrl = response.data[0].url;
-    await downloadImage(imageUrl, outPath);
+    const parts    = response.candidates?.[0]?.content?.parts ?? [];
+    const imgPart  = parts.find(p => p.inlineData?.mimeType?.startsWith('image/'));
+    if (!imgPart) throw new Error('No image returned from Gemini Flash');
+    fs.writeFileSync(outPath, Buffer.from(imgPart.inlineData.data, 'base64'));
+  }
+}
+
+// ── Generate loop ─────────────────────────────────────────────────────────────
+
+async function generateOne(item, index, total) {
+  const outPath = path.join(outputDir, `${item.id}.png`);
+  process.stdout.write(`  [${index + 1}/${total}] ${item.id} — ${item.name} … `);
+
+  try {
+    if (provider === 'google') await generateGoogle(item, outPath);
+    else                        await generateOpenAI(item, outPath);
     console.log('✓ saved');
-    return { id: item.id, status: 'ok', path: outPath };
+    return { id: item.id, status: 'ok' };
   } catch (err) {
     console.log('✗ FAILED');
     console.error(`     ${err.message}`);
@@ -171,12 +230,8 @@ async function generateOne(item, index, total) {
 
 async function run() {
   const results = [];
-
   for (let i = 0; i < targets.length; i++) {
-    const result = await generateOne(targets[i], i, targets.length);
-    results.push(result);
-
-    // Small pause between requests to avoid rate-limit spikes
+    results.push(await generateOne(targets[i], i, targets.length));
     if (i < targets.length - 1) await new Promise(r => setTimeout(r, 500));
   }
 
@@ -192,15 +247,10 @@ async function run() {
 
   if (!flagUnity && ok > 0) {
     console.log(`\n  Images saved to: scripts/image-gen/output/`);
-    console.log('  Review them, then re-run with --unity to copy to Assets/Sprites/Evidence/');
-    console.log('  or manually drag them into Unity.\n');
+    console.log('  Review, then re-run with --unity to copy to Assets/Sprites/Evidence/\n');
   } else if (flagUnity && ok > 0) {
-    console.log(`\n  Images saved directly to Assets/Sprites/Evidence/`);
-    console.log('  Run "Casebook → Wire Case Backgrounds" in Unity to assign sprites.\n');
+    console.log(`\n  Images saved to Assets/Sprites/Evidence/ — run "Casebook → Wire Case Backgrounds" in Unity.\n`);
   }
 }
 
-run().catch(err => {
-  console.error('\n  Fatal error:', err.message);
-  process.exit(1);
-});
+run().catch(err => { console.error('\n  Fatal error:', err.message); process.exit(1); });
