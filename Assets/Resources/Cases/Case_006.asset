@@ -17,7 +17,7 @@ MonoBehaviour:
   briefText: A courier claims he delivered a package to the Orin estate between 2
     and 4 PM. The estate owner says no one arrived. Enhance the delivery photo for
     the hidden timestamp.
-  sceneBackground: {fileID: 0}
+  sceneBackground: {fileID: 21300000, guid: 9f85f74bccb6e264f9215c4f397fbbbd, type: 3}
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.5, y: 0.4}
@@ -41,6 +41,8 @@ MonoBehaviour:
     claimed window."
   primaryEvidenceIdA: E004
   primaryEvidenceIdB: E001
+  basePoints: 500
+  timeLimitSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

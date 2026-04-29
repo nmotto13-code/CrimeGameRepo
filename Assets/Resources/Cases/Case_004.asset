@@ -17,7 +17,7 @@ MonoBehaviour:
   briefText: Sasha Novak claims she drove her sedan to Riverside Medical at 1 PM
     for a checkup. The parking garage ticket and plate reader disagree with the medical
     center's lobby cam.
-  sceneBackground: {fileID: 0}
+  sceneBackground: {fileID: 21300000, guid: 20ecefaab16e2d2499435efd9304218f, type: 3}
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.5, y: 0.55}
@@ -41,6 +41,8 @@ MonoBehaviour:
     \u2014 or she planted the ticket."
   primaryEvidenceIdA: E005
   primaryEvidenceIdB: E001
+  basePoints: 500
+  timeLimitSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

@@ -17,7 +17,7 @@ MonoBehaviour:
   briefText: "Suspect Carl Duval says he boarded the 6:30 PM express to Alton and
     couldn't have been near the warehouse. Two TIME-tagged pieces of evidence tell
     a different story \u2014 use Timeline Snap on the board."
-  sceneBackground: {fileID: 0}
+  sceneBackground: {fileID: 21300000, guid: 19a14b1d9fa32a140939758f57ce8d6a, type: 3}
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.4, y: 0.45}
@@ -41,6 +41,8 @@ MonoBehaviour:
     and triggering a warehouse sensor simultaneously."
   primaryEvidenceIdA: E001
   primaryEvidenceIdB: E002
+  basePoints: 500
+  timeLimitSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

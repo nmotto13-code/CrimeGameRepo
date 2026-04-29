@@ -45,6 +45,8 @@ MonoBehaviour:
     corridor door at 2:14 PM. She was physically present at the vault.
   primaryEvidenceIdA: E001
   primaryEvidenceIdB: E003
+  basePoints: 500
+  timeLimitSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

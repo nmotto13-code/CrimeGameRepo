@@ -63,6 +63,8 @@ MonoBehaviour:
     when Victor died. His claim of 'midnight' is impossible."
   primaryEvidenceIdA: E001
   primaryEvidenceIdB: E004
+  basePoints: 500
+  timeLimitSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

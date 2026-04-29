@@ -17,7 +17,7 @@ MonoBehaviour:
   briefText: "Neighbor Greta Lowe says she heard loud music from apartment 4B at
     10 PM \u2014 proving the resident was home. But the resident's smart speaker
     app log shows something different."
-  sceneBackground: {fileID: 0}
+  sceneBackground: {fileID: 21300000, guid: 9d13895c64aae3142936b26865fb3784, type: 3}
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.5, y: 0.5}
@@ -41,6 +41,8 @@ MonoBehaviour:
     Greta's testimony is impossible."
   primaryEvidenceIdA: E001
   primaryEvidenceIdB: E002
+  basePoints: 500
+  timeLimitSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

@@ -17,7 +17,7 @@ MonoBehaviour:
   briefText: Fitness instructor Nadia Clare claims she was teaching a 7 PM spin class
     when a client's locker was raided. The gym's keycard system and class booking
     log disagree.
-  sceneBackground: {fileID: 0}
+  sceneBackground: {fileID: 21300000, guid: 5d39b50713daf434d8cd2912997a87eb, type: 3}
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.5, y: 0.5}
@@ -41,6 +41,8 @@ MonoBehaviour:
     near the locker room."
   primaryEvidenceIdA: E001
   primaryEvidenceIdB: E003
+  basePoints: 500
+  timeLimitSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

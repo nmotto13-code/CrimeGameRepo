@@ -17,7 +17,7 @@ MonoBehaviour:
   briefText: "Art dealer Simon Rowe says he spent the full evening at the Aldene
     Gallery opening. Three separate pieces of evidence each chip away at this alibi
     \u2014 converging on one impossible claim."
-  sceneBackground: {fileID: 0}
+  sceneBackground: {fileID: 21300000, guid: 2e9d4cb992a2b60479b0d5bc59049700, type: 3}
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.3, y: 0.5}
@@ -49,6 +49,8 @@ MonoBehaviour:
     gallery all night."
   primaryEvidenceIdA: E002
   primaryEvidenceIdB: E005
+  basePoints: 500
+  timeLimitSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

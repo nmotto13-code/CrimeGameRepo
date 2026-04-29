@@ -18,6 +18,8 @@ namespace CasebookGame.UI
 
         void Apply()
         {
+            if (_rt == null) _rt = (RectTransform)transform;
+
             var safeArea = Screen.safeArea;
             if (safeArea == _lastSafeArea) return;
             _lastSafeArea = safeArea;

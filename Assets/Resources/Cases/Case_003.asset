@@ -17,7 +17,7 @@ MonoBehaviour:
   briefText: "Art appraiser Theo Grant claims he was sipping espresso at Caf\xE9
     Lumi\xE8re when the Harwick Gallery was robbed at 3:10 PM. The caf\xE9 is 40
     minutes across town. His receipt tells a different story."
-  sceneBackground: {fileID: 0}
+  sceneBackground: {fileID: 21300000, guid: d29747a2b884e8341ad26c0eb2ef2429, type: 3}
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.4, y: 0.6}
@@ -46,6 +46,8 @@ MonoBehaviour:
     is physically impossible."
   primaryEvidenceIdA: E001
   primaryEvidenceIdB: E003
+  basePoints: 500
+  timeLimitSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

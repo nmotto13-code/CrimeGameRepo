@@ -17,7 +17,7 @@ MonoBehaviour:
   briefText: "A witness claims they chased a suspect down an outdoor staircase during
     heavy rain. The forensics team found crisp, undisturbed dust prints \u2014 but
     it rained for 3 hours that evening."
-  sceneBackground: {fileID: 0}
+  sceneBackground: {fileID: 21300000, guid: edadbc2d6c57e324db441e2e70e4e920, type: 3}
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.45, y: 0.6}
@@ -41,6 +41,8 @@ MonoBehaviour:
     the footsteps happened AFTER the rain stopped, not during it."
   primaryEvidenceIdA: E001
   primaryEvidenceIdB: E002
+  basePoints: 500
+  timeLimitSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12
