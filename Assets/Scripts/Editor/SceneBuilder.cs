@@ -209,10 +209,9 @@ namespace CasebookGame.Editor
             glassVisualRT.anchorMin = glassVisualRT.anchorMax = new Vector2(0.5f, 0.5f);
             glassVisualGo.SetActive(false);
 
-            // Circular outer ring — uses built-in Knob sprite (white circle, tinted gold)
-            var circleSpr    = Resources.GetBuiltinResource<Sprite>("UI/Skin/Knob.psd");
+            // Circular outer ring — procedural circle sprite (Knob.psd removed in Unity 6)
             var glassRingImg = glassVisualGo.AddComponent<Image>();
-            glassRingImg.sprite        = circleSpr;
+            glassRingImg.sprite        = MakeCircleSprite();
             glassRingImg.color         = new Color(0.95f, 0.80f, 0.20f, 1.0f);
             glassRingImg.raycastTarget = false;
 
@@ -1142,6 +1141,24 @@ namespace CasebookGame.Editor
         // ══════════════════════════════════════════════════════════════
         // UTILITY HELPERS
         // ══════════════════════════════════════════════════════════════
+
+        static Sprite MakeCircleSprite(int size = 128)
+        {
+            var tex     = new Texture2D(size, size, TextureFormat.RGBA32, false);
+            float r     = size / 2f;
+            var pixels  = new Color32[size * size];
+            for (int y = 0; y < size; y++)
+            for (int x = 0; x < size; x++)
+            {
+                float dx = x - r + 0.5f, dy = y - r + 0.5f;
+                pixels[y * size + x] = dx * dx + dy * dy <= r * r
+                    ? new Color32(255, 255, 255, 255)
+                    : new Color32(0, 0, 0, 0);
+            }
+            tex.SetPixels32(pixels);
+            tex.Apply();
+            return Sprite.Create(tex, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f));
+        }
 
         static GameObject MakePanel(GameObject parent, string name, Color color)
         {
