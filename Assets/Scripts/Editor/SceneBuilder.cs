@@ -222,7 +222,7 @@ namespace CasebookGame.Editor
             lensDarkRT.anchorMax = new Vector2(0.90f, 0.90f);
             lensDarkRT.offsetMin = Vector2.zero; lensDarkRT.offsetMax = Vector2.zero;
             var lensDarkImg = lensDarkGo.GetComponent<Image>();
-            lensDarkImg.sprite        = circleSpr;
+            lensDarkImg.sprite        = MakeCircleSprite();
             lensDarkImg.raycastTarget = false;
 
             // Subtle lens glint — small ellipse in upper-left quadrant
@@ -233,7 +233,7 @@ namespace CasebookGame.Editor
             shineRT.offsetMin = Vector2.zero; shineRT.offsetMax = Vector2.zero;
             shineRT.localEulerAngles = new Vector3(0f, 0f, 25f);
             var shineImg = shineGo.GetComponent<Image>();
-            shineImg.sprite        = circleSpr;
+            shineImg.sprite        = MakeCircleSprite();
             shineImg.raycastTarget = false;
 
             // Handle — thin rotated rectangle, pivoting from ring edge
