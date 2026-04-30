@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using CasebookGame.Data;
 
@@ -28,6 +29,7 @@ namespace CasebookGame.Core
             if (availableCases == null || availableCases.Length == 0)
                 availableCases = Resources.LoadAll<CaseData>("Cases");
 
+            SortAvailableCases();
             LoadCurrentCase();
         }
 
@@ -46,6 +48,33 @@ namespace CasebookGame.Core
             if (index < 0 || index >= availableCases.Length) return;
             currentCaseIndex = index;
             LoadCurrentCase();
+        }
+
+        public int IndexOfCase(string caseId)
+        {
+            if (availableCases == null || string.IsNullOrWhiteSpace(caseId))
+                return -1;
+
+            for (int i = 0; i < availableCases.Length; i++)
+            {
+                if (availableCases[i] != null && availableCases[i].caseId == caseId)
+                    return i;
+            }
+
+            return -1;
+        }
+
+        void SortAvailableCases()
+        {
+            if (availableCases == null)
+                return;
+
+            availableCases = availableCases
+                .Where(c => c != null)
+                .OrderBy(c => c.caseId)
+                .ToArray();
+
+            currentCaseIndex = Mathf.Clamp(currentCaseIndex, 0, Mathf.Max(0, availableCases.Length - 1));
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using TMPro;
 using CasebookGame.Data;
+using CasebookGame.Tools;
 
 namespace CasebookGame.Core
 {
@@ -20,6 +21,10 @@ namespace CasebookGame.Core
         public int LastEvidenceBonus { get; private set; }
         public int LastTimeBonus     { get; private set; }
         public int LastMultiplier    { get; private set; }
+        public int LastStarsEarned   { get; private set; }
+        public int LastXpAwarded     { get; private set; }
+        public float LastElapsedSeconds { get; private set; }
+        public bool LastPerfectSolve { get; private set; }
 
         float    caseStartTime;
         int      evidenceFoundCount;
@@ -48,6 +53,10 @@ namespace CasebookGame.Core
             evidenceFoundCount = 0;
             timeExpired        = false;
             timerActive        = caseData.timeLimitSeconds > 0f;
+            LastStarsEarned    = 0;
+            LastXpAwarded      = 0;
+            LastElapsedSeconds = 0f;
+            LastPerfectSolve   = false;
 
             if (timerText) timerText.gameObject.SetActive(timerActive);
         }
@@ -94,6 +103,7 @@ namespace CasebookGame.Core
             int evidenceBonus = evidenceFoundCount * 100;
 
             float elapsed = Time.realtimeSinceStartup - caseStartTime;
+            LastElapsedSeconds = elapsed;
             int timeBonus = 0;
             if (currentCase.timeLimitSeconds > 0f)
             {
@@ -113,9 +123,34 @@ namespace CasebookGame.Core
             LastMultiplier    = multiplier;
             LastCaseScore     = total;
 
+            bool noWrongGuesses = wrongGuesses == 0;
+            bool allEvidenceFound = EvidenceDiscoverySystem.Instance != null && EvidenceDiscoverySystem.Instance.IsAllFound;
+            bool earnedUnderParStar = currentCase.thirdStarRequirement == ThirdStarRequirementType.UnderParTime
+                && ProgressionRules.EarnedThirdStar(currentCase, allEvidenceFound, elapsed);
+            int starsEarned = ProgressionRules.CalculateStars(currentCase, true, noWrongGuesses, allEvidenceFound, elapsed);
+            int masteryXpValue = ProgressionRules.CalculateCaseMasteryXpValue(starsEarned);
+
+            LastStarsEarned = starsEarned;
+            LastPerfectSolve = starsEarned >= 3;
+
             OnScoreCalculated?.Invoke(basePoints, evidenceBonus, timeBonus, multiplier);
 
-            PlayerProfile.AddCaseResult(currentCase.caseId, total, wrongGuesses == 0);
+            var update = PlayerProfile.RegisterCaseCompletion(new CaseCompletionSummary
+            {
+                caseId = currentCase.caseId,
+                score = total,
+                solved = true,
+                noWrongGuesses = noWrongGuesses,
+                allEvidenceFound = allEvidenceFound,
+                noToolsUsed = ToolsController.Instance == null || !ToolsController.Instance.WasAnyToolUsedThisCase,
+                elapsedSeconds = elapsed,
+                starsEarned = starsEarned,
+                earnedUnderParStar = earnedUnderParStar,
+                earnedPerfectSolve = starsEarned >= 3,
+                masteryXpValue = masteryXpValue
+            });
+
+            LastXpAwarded = update.XpGained;
         }
 
         void OnDestroy()

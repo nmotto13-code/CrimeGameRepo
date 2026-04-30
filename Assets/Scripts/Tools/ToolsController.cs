@@ -32,8 +32,11 @@ namespace CasebookGame.Tools
         [SerializeField] GameObject timelineSnapResultPopup;
         [SerializeField] TMP_Text timelineSnapResultText;
         int timelineSnapCharges;
+        bool toolUsedThisCase;
 
         static readonly Color ActiveModeColor = new Color(1f, 0.90f, 0.15f, 1f);
+
+        public bool WasAnyToolUsedThisCase => toolUsedThisCase;
 
         void Awake()
         {
@@ -53,6 +56,7 @@ namespace CasebookGame.Tools
             enhanceCooldownRemaining = 0f;
             enhanceOnCooldown      = false;
             crossCheckModeActive   = false;
+            toolUsedThisCase       = false;
             RefreshAllUI();
         }
 
@@ -89,6 +93,7 @@ namespace CasebookGame.Tools
             if (crossCheckCharges <= 0) return;
             crossCheckModeActive = false;
             crossCheckCharges--;
+            toolUsedThisCase = true;
             RefreshCrossCheckUI();
 
             // Highlight Evidence-tab cards that share tags with this claim
@@ -136,6 +141,7 @@ namespace CasebookGame.Tools
         {
             if (enhanceOnCooldown) return;
             evidence.ApplyEnhance();
+            toolUsedThisCase       = true;
             enhanceOnCooldown        = true;
             enhanceCooldownRemaining = enhanceCooldownSeconds;
             UpdateEnhanceUI();
@@ -155,6 +161,7 @@ namespace CasebookGame.Tools
             }
 
             timelineSnapCharges--;
+            toolUsedThisCase = true;
             RefreshTimelineSnapUI();
 
             var a = timePinned[0];

@@ -69,3 +69,8 @@ crashlytics-build.properties
 
 # macOS
 .DS_Store
+
+# Local tooling and credentials
+.plastic/
+scripts/deploy/.env
+scripts/deploy/node_modules/

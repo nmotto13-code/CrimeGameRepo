@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using CasebookGame.Data;
+using CasebookGame.Tools;
 using CasebookGame.UI;
 
 namespace CasebookGame.Core
@@ -49,6 +50,7 @@ namespace CasebookGame.Core
             SetupClaims(caseData);
             SetupHotspots(caseData);
             EvidenceDiscoverySystem.Instance?.StartInvestigation(caseData);
+            ToolsController.Instance?.InitializeTools(caseData.toolConfig);
 
             ContradictionEvaluator.Instance?.SetCase(caseData);
             BoardController.Instance?.ClearBoard();

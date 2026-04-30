@@ -1,0 +1,298 @@
+================================================================================
+  POCKET CASEBOOK: CONTRADICTION ENGINE
+  AI Image Generation Prompts — Cases 001 & 002
+  Save file as: Assets/Sprites/Backgrounds/case00X_[name].jpg
+                Assets/Sprites/Evidence/case00X_e00Y_[name].png
+================================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ASSET STRATEGY OVERVIEW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Three categories of evidence:
+
+  [AI-GENERATE]   Physical objects / photographs / scene items
+                  → Need a real image. Generate on transparent background (PNG).
+                  → These are shown in the EvidenceDetailPanel's viewer area.
+
+  [UNITY UI]      Documents, logs, digital readouts, text records
+                  → Can be rendered entirely in Unity as styled text panels.
+                  → No image needed. The description text IS the evidence.
+                  → Use a generic "paper document" or "terminal screen" sprite
+                     (one reusable sprite for all documents across all cases).
+
+  [REUSE]         Generic object (receipt, keycard, badge) that can be shared
+                  across multiple cases with a different UI text overlay.
+
+RECOMMENDED SHARED SPRITES TO GENERATE ONCE (reusable across all 10 cases):
+  generic_document.png     — aged paper, slightly yellowed, blank, no text
+  generic_terminal.png     — dark screen with subtle scan lines, no text
+  generic_cctv_still.png   — grainy black-and-white, timestamp bar, no content
+  generic_keycard.png      — blank white corporate ID card, chip slot visible
+  generic_receipt.png      — thermal paper strip, blank, slight curl at bottom
+  generic_evidence_bag.png — clear plastic evidence bag, sealed, blank label
+
+Save these in: Assets/Sprites/Evidence/shared/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  CASE 001 — "THE MISSING WATCH"
+  Victor Hale's Study | Noir, 1940s-inspired | Time Contradiction
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BACKGROUND SCENE
+  Filename : case001_study.jpg
+  Status   : ✅ YOU ALREADY HAVE THIS — the noir detective office image
+  Action   : Save your existing JPG as Assets/Sprites/Backgrounds/case001_study.jpg
+             Run Casebook → Import Assets to auto-assign it to Case_001
+
+  ── If you want a second version or a higher-res regeneration:
+  Prompt (Leonardo AI, Stable Diffusion, or Midjourney):
+    "Interior of a 1940s noir detective study at night. Dark oak desk covered in
+    papers and an open leather briefcase. Antique green banker's lamp casting warm
+    amber light. Wall lined with bookshelves. Empty clock-hook visible on the wall.
+    Deep shadows in the corners. Oil painting quality, detailed, moody. No text.
+    Portrait orientation 9:16."
+  Style tokens: noir, 1940s detective, amber light, deep shadows, cinematic
+
+──────────────────────────────────────────────────────────────────────────────
+EVIDENCE SPRITES
+──────────────────────────────────────────────────────────────────────────────
+
+E001 — Coroner Report
+  Filename  : case001_e001_coroner_report.png
+  Category  : [REUSE generic_document] — use generic_document.png
+  Reason    : This is a text document. Unity renders the description text
+              directly in the detail panel. No unique image needed.
+              Assign generic_document.png as the sprite.
+
+E002 — Stopped Wall Clock
+  Filename  : case001_e002_wall_clock.png
+  Category  : [AI-GENERATE] — unique physical object, specific damage
+  Transparent background: YES (isolate the clock, no background)
+
+  Prompt:
+    "Antique wooden wall clock, ornate dark mahogany frame, roman numeral face,
+    hands stopped at 10:47. Glass cover cracked from a radial impact point at
+    the lower left. Dusty. Isolated on pure transparent background. Photorealistic,
+    detailed, overhead product shot lighting."
+  Notes: The crack is the key visual detail the player notices.
+  Size: 512x512 or 1024x1024 square PNG with transparency
+
+E003 — Security Log
+  Filename  : case001_e003_security_log.png
+  Category  : [REUSE generic_terminal] — use generic_terminal.png
+  Reason    : Digital keypad readout. Unity text overlay shows the log entries.
+
+E004 — Assistant's Visitor Badge
+  Filename  : case001_e004_visitor_badge.png
+  Category  : [REUSE generic_keycard] — use generic_keycard.png
+  Reason    : Standard ID badge. The key detail (badge swipe time 10:15 PM)
+              is shown in the description text. One generic badge sprite covers this.
+  Alternative: Generate a specific version if you want it to feel premium:
+
+  Optional Prompt:
+    "Corporate visitor ID badge, white laminated plastic card, magstripe on the
+    back, lanyard hole at top, slight wear at the corners. No text visible on the
+    front. Isolated on transparent background. Photorealistic."
+
+E005 — Watch Box (Empty)
+  Filename  : case001_e005_watch_box.png
+  Category  : [AI-GENERATE] — unique prop, key visual (emptiness is the clue)
+  Transparent background: YES
+
+  Prompt:
+    "Open antique watch presentation box, dark mahogany wood exterior, velvet-lined
+    interior in deep burgundy, the center watch indentation empty. Brass hinges
+    visible. Interior slightly faded. Isolated on transparent background.
+    Photorealistic, top-down view, product lighting, sharp focus."
+  Notes: The empty indentation is the narrative payoff. Make it obvious.
+  Size: 512x512 PNG with transparency
+
+HOTSPOT VISUALS FOR CASE 001
+  Scene has 2 hotspots:
+    H001 — Wall Clock (E002) at ~30% left, 60% from bottom of scene
+    H002 — Watch Box (E005) at ~70% left, 40% from bottom of scene
+  The clock position should correspond to where a clock would hang above the desk.
+  The watch box should be on the desk surface area.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  CASE 002 — "LOCKED ROOM RECEIPT"
+  Aldmore Bank Vault | Corporate, Cold, Fluorescent | Access Contradiction
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BACKGROUND SCENE
+  Filename : case002_bank.jpg
+  Category : [AI-GENERATE] — full scene background (JPG, no transparency needed)
+
+  Prompt (Leonardo AI recommended for style locking):
+    "Interior of a modern bank vault corridor. Thick circular vault door ajar
+    on the right, polished steel with locking bolts visible. Fluorescent overhead
+    lighting, cold white. Smooth grey concrete walls. Biometric keypad panel on
+    the left wall with a glowing green LED. Slight reflections on the polished
+    floor. No people. Photorealistic, ultra-detailed. Portrait 9:16."
+  Style tokens: corporate cold, modern security, vault, fluorescent, grey
+  Save as: Assets/Sprites/Backgrounds/case002_bank.jpg
+
+──────────────────────────────────────────────────────────────────────────────
+EVIDENCE SPRITES
+──────────────────────────────────────────────────────────────────────────────
+
+E001 — Vault Access Log
+  Filename  : case002_e001_vault_log.png
+  Category  : [REUSE generic_terminal] — digital readout, use terminal sprite
+  Reason    : The log entries (timestamps, names) are shown as Unity text.
+              A glowing terminal / computer screen generic sprite works perfectly.
+
+E002 — Office CCTV Still
+  Filename  : case002_e002_cctv_still.png
+  Category  : [AI-GENERATE] — specific visual (missing footage gap is the clue)
+  Transparent background: NO (this is a framed camera screenshot)
+
+  Prompt:
+    "Security camera still image, grainy black and white footage, shows an office
+    desk from a ceiling-mounted camera angle. An empty ergonomic office chair behind
+    the desk. Fluorescent ceiling lights visible. Timestamp bar at the bottom
+    (no readable text). CRT scan lines overlay. Photorealistic CCTV aesthetic."
+  Notes: The EMPTY chair is the critical visual — the person is NOT there
+         despite claiming to be. This image shows the gap in coverage.
+  Size: 800x600 or 1024x768 (landscape, 4:3 like a real security cam)
+  Save as PNG (no transparency, black border acts as the frame)
+
+E003 — Biometric Keypad Log
+  Filename  : case002_e003_biometric_keypad.png
+  Category  : [AI-GENERATE] — physical object, the smoking gun location evidence
+  Transparent background: YES
+
+  Prompt:
+    "Modern biometric fingerprint scanner and keypad, black rectangular device,
+    mounted on a wall. Small LED status light glowing amber. Metallic keypad below
+    the scanner. Sleek corporate design. Isolated on transparent background.
+    Photorealistic, product photography lighting."
+  Notes: This represents WHERE Lena's thumb was scanned. The device itself
+         being identifiable as a vault-corridor device helps sell the contradiction.
+  Size: 512x1024 portrait PNG with transparency
+
+E004 — Vault Door Seal
+  Filename  : case002_e004_vault_seal.png
+  Category  : [REUSE generic_document] — this is effectively a printed timestamp record
+  Reason    : The re-lock timestamp (2:22 PM) is the key data shown in Unity text.
+              A generic document sprite covers it, or:
+
+  Optional unique prompt:
+    "Close-up of a thick vault door edge showing the re-lock mechanism, a small
+    digital display embedded in the steel frame showing a timestamp readout.
+    Cold metallic steel, polished chrome bolts. Isolated on dark background.
+    Photorealistic, macro lens."
+
+E005 — Lena's Keycard
+  Filename  : case002_e005_lena_keycard.png
+  Category  : [REUSE generic_keycard] — standard corporate access card
+  Reason    : The data (corridor scan at 2:14 PM) is in the description text.
+              The generic keycard sprite works. Both Case 001 E004 and this
+              use the same sprite — that's fine and saves generation time.
+
+HOTSPOT VISUALS FOR CASE 002
+  Scene has 2 hotspots:
+    H001 — Vault Door (E001) at ~50% left, 50% from bottom of scene
+    H002 — Biometric Pad (E003) at ~20% left, 70% from bottom of scene
+  The vault door should be the dominant central element.
+  The biometric pad should be on the left wall.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  GENERATION TOOLS & SETTINGS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BACKGROUNDS (full scenes, JPG is fine):
+  Tool: Leonardo AI (app.leonardo.ai)
+  Model: Leonardo Diffusion XL or Kino XL
+  Dimensions: 1080 × 1920 (portrait, matches our CanvasScaler)
+  Steps: 30+, Guidance 7-8
+  Lock style: Use "Image to Image" with the noir office photo as style reference
+              to keep consistent visual tone across all cases (30-40% influence)
+
+EVIDENCE OBJECTS on transparent background (PNG):
+  Tool: Stable Diffusion (locally) or Adobe Firefly (Generative Fill trick)
+  Method A — Stable Diffusion:
+    Model: Realistic Vision 5.0 or DreamShaper
+    Prompt suffix always add: "isolated on pure white background, product photography"
+    Then in Photoshop/GIMP: Select by color (white) → Delete → Export PNG
+  Method B — Adobe Firefly / Photoshop:
+    Generate the object, use "Remove Background" (one click in Photoshop 2024+)
+  Method C — remove.bg (free tier):
+    Generate anywhere, upload to remove.bg, download as transparent PNG
+
+CCTV / SECURITY STILLS (no transparency):
+  Tool: Midjourney or Leonardo
+  Prompt style: "--style raw --ar 4:3" in Midjourney
+  Add: "security camera footage, 1990s CCTV, grainy, black and white, scanlines"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  COMPLETE EVIDENCE ASSET PLAN — ALL 10 CASES
+  (Quick reference: what to generate vs reuse)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Case | Evidence          | Type           | Asset
+-----|-------------------|----------------|----------------------------------
+C001 | Coroner Report    | UNITY UI       | → generic_document.png
+C001 | Wall Clock        | AI-GENERATE    | case001_e002_wall_clock.png ⭐
+C001 | Security Log      | UNITY UI       | → generic_terminal.png
+C001 | Visitor Badge     | REUSE          | → generic_keycard.png
+C001 | Watch Box         | AI-GENERATE    | case001_e005_watch_box.png ⭐
+C002 | Vault Access Log  | UNITY UI       | → generic_terminal.png
+C002 | CCTV Still        | AI-GENERATE    | case002_e002_cctv_still.png ⭐
+C002 | Biometric Keypad  | AI-GENERATE    | case002_e003_biometric_keypad.png ⭐
+C002 | Vault Door Seal   | UNITY UI       | → generic_document.png
+C002 | Lena's Keycard    | REUSE          | → generic_keycard.png
+C003 | Café Receipt      | REUSE          | → generic_receipt.png
+C003 | Gallery Alarm Log | UNITY UI       | → generic_terminal.png
+C003 | Transit Map       | AI-GENERATE    | case003_e003_transit_map.png ⭐
+C003 | Gallery CCTV      | REUSE          | → generic_cctv_still.png
+C003 | Credit Card Stmt  | REUSE          | → generic_document.png
+C004 | Parking Ticket    | REUSE          | → generic_receipt.png (or ticket)
+C004 | Medical Lobby Cam | REUSE          | → generic_cctv_still.png
+C004 | Plate Reader Log  | UNITY UI       | → generic_terminal.png
+C004 | Appointment Record| UNITY UI       | → generic_document.png
+C004 | Fuel Station Rcpt | REUSE          | → generic_receipt.png
+C005 | Weather Report    | UNITY UI       | → generic_document.png
+C005 | Forensic Photos   | AI-GENERATE    | case005_e002_footprints.png ⭐
+C005 | Staircase Note    | UNITY UI       | → generic_document.png
+C005 | Witness Timestamp | UNITY UI       | → generic_document.png
+C005 | Suspect's Boots   | AI-GENERATE    | case005_e005_boots.png ⭐
+C006 | Delivery Photo    | AI-GENERATE    | case006_e001_delivery_photo.png ⭐
+C006 | Courier Log       | UNITY UI       | → generic_document.png
+C006 | Gate Camera       | REUSE          | → generic_cctv_still.png
+C006 | Previous Stop Rcp | REUSE          | → generic_receipt.png
+C006 | Weather Station   | UNITY UI       | → generic_document.png
+C007 | Smart Speaker     | AI-GENERATE    | case007_e001_smart_speaker.png ⭐
+C007 | Greta Statement   | UNITY UI       | → generic_document.png
+C007 | Building Wifi Log | UNITY UI       | → generic_terminal.png
+C007 | Elevator Log      | UNITY UI       | → generic_terminal.png
+C007 | Victim's Phone    | AI-GENERATE    | case007_e005_phone.png ⭐
+C008 | Train Ticket      | REUSE          | → generic_receipt.png (or ticket)
+C008 | Warehouse Sensor  | UNITY UI       | → generic_terminal.png
+C008 | Platform Camera   | REUSE          | → generic_cctv_still.png
+C008 | Warehouse Location| AI-GENERATE    | case008_e004_map.png ⭐
+C008 | Conductor Log     | UNITY UI       | → generic_document.png
+C009 | Class Booking     | UNITY UI       | → generic_terminal.png
+C009 | Keycard Entry     | UNITY UI       | → generic_terminal.png
+C009 | Studio Cam        | REUSE          | → generic_cctv_still.png
+C009 | Victim's Locker   | AI-GENERATE    | case009_e004_locker.png ⭐
+C009 | Witness Statement | UNITY UI       | → generic_document.png
+C010 | Guest Sign-In     | REUSE          | → generic_document.png
+C010 | Valet Ticket      | REUSE          | → generic_receipt.png
+C010 | Photo Evidence    | REUSE          | → generic_cctv_still.png
+C010 | Rival's Statement | UNITY UI       | → generic_document.png
+C010 | Warehouse Report  | UNITY UI       | → generic_document.png
+C010 | Gallery Sommelier | UNITY UI       | → generic_document.png
+
+TOTALS:
+  Unique AI generates (⭐):   13 images
+  Shared/reusable sprites:    6 generic images to generate ONCE
+  Unity UI (no image needed): ~26 evidence items
+
+PRIORITY ORDER FOR GENERATION:
+  1. Backgrounds (1 per case × 10 cases = 10 JPGs — biggest visual impact)
+  2. Six shared generic sprites (document, terminal, cctv, keycard, receipt, evidence bag)
+  3. Unique ⭐ items in order of case priority
+
+================================================================================

@@ -33,7 +33,14 @@ namespace CasebookGame.Data
         public int   basePoints       = 500;
         public float timeLimitSeconds = 0f;  // 0 = no limit, elapsed tracked silently
 
+        [Header("Star Mastery")]
+        public ThirdStarRequirementType thirdStarRequirement = ThirdStarRequirementType.AllEvidenceDiscovered;
+        [Min(0f)] public float thirdStarParSeconds = 0f;
+
         [Header("Tool Overrides")]
         public ToolConfig toolConfig = new ToolConfig();
+
+        public float GetThirdStarParSeconds() =>
+            thirdStarParSeconds > 0f ? thirdStarParSeconds : timeLimitSeconds;
     }
 }

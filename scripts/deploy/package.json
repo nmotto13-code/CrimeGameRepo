@@ -1,0 +1,12 @@
+{
+  "name": "pocket-casebook-deploy",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "deploy": "node deploy.js",
+    "deploy:test": "node deploy.js --build"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}

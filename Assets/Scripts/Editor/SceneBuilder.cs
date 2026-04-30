@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -28,16 +29,24 @@ namespace CasebookGame.Editor
         // ── Entry point ────────────────────────────────────────────────
 
         [MenuItem("Casebook/Build Scene")]
-        public static void BuildScene()
+        public static void BuildScene() => BuildSceneInternal(showDialog: !Application.isBatchMode);
+
+        public static int BuildSceneForAutomation() => BuildSceneInternal(showDialog: false);
+
+        static int BuildSceneInternal(bool showDialog)
         {
             if (Application.isPlaying)
             {
-                EditorUtility.DisplayDialog("Stop Play Mode", "Exit Play Mode before building the scene.", "OK");
-                return;
+                if (showDialog)
+                    EditorUtility.DisplayDialog("Stop Play Mode", "Exit Play Mode before building the scene.", "OK");
+                else
+                    Debug.LogError("[SceneBuilder] Cannot build scene while Play Mode is active.");
+                return 0;
             }
 
             EnsureFolder("Assets/Scenes");
             EnsureFolder(PREFABS_PATH);
+            ProgressionAssetBootstrapper.EnsureDefaultDepartmentAssets();
 
             // Build prefabs first (referenced by CaseLoader)
             var evidenceCardPrefab = BuildEvidenceCardPrefab();
@@ -844,7 +853,10 @@ namespace CasebookGame.Editor
             });
 
             // Load cases from Resources and assign to GameManager
-            var cases = Resources.LoadAll<CaseData>("Cases");
+            var cases = Resources.LoadAll<CaseData>("Cases")
+                .Where(c => c != null)
+                .OrderBy(c => c.caseId)
+                .ToArray();
             Wire(gm, so => {
                 var prop = so.FindProperty("availableCases");
                 prop.arraySize = cases.Length;
@@ -856,13 +868,17 @@ namespace CasebookGame.Editor
             EditorSceneManager.SaveScene(scene, SCENE_PATH);
             AssetDatabase.Refresh();
 
-            EditorUtility.DisplayDialog("Scene Built",
-                $"CaseScene.unity saved to Assets/Scenes/\n\n" +
-                $"{cases.Length} case(s) loaded into GameManager.\n\n" +
-                "Press Play to test Case 001.",
-                "Let's Go");
+            if (showDialog)
+            {
+                EditorUtility.DisplayDialog("Scene Built",
+                    $"CaseScene.unity saved to Assets/Scenes/\n\n" +
+                    $"{cases.Length} case(s) loaded into GameManager.\n\n" +
+                    "Press Play to test Case 001.",
+                    "Let's Go");
+            }
 
             Debug.Log($"[SceneBuilder] Done — {cases.Length} cases wired.");
+            return cases.Length;
         }
 
         // ══════════════════════════════════════════════════════════════

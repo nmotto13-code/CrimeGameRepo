@@ -10,7 +10,8 @@
     "generate:review": "node generate.js --all --output output"
   },
   "dependencies": {
-    "openai": "^4.77.0",
-    "dotenv": "^16.4.5"
+    "@google/genai": "^1.50.1",
+    "dotenv": "^16.4.5",
+    "openai": "^4.77.0"
   }
 }
