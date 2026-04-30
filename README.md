@@ -91,3 +91,13 @@ Cases are data-only — no new scenes or code needed:
 2. Player Settings → Bundle ID: `com.yourname.pocketcasebook`
 3. Orientation: Portrait only
 4. Target minimum iOS: 15.0
+
+## TestFlight Deploy
+
+Use the scripted deploy flow in `scripts/deploy/README.md`.
+
+Short version:
+1. Increment `ProjectSettings/ProjectSettings.asset` under `buildNumber.iPhone`
+2. Commit and push the build-number bump with your other changes
+3. Run `node deploy.js` from `scripts/deploy`
+4. Monitor the upload workflow in GitHub Actions until it turns green
