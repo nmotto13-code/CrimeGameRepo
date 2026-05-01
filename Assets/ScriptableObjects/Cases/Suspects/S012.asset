@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
+  m_Name: S012
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
+  schemaVersion: 1
+  suspectId: S012
+  displayName: Renata Bell
+  portraitSprite: {fileID: 0}
+  bio: Director of the Larkspur Civic Hall donor program. Skilled at public-facing
+    charm, less skilled at keeping duplicate financial trails aligned.
+  traits:
+  - charismatic
+  - defensive
+  - detail selective
+  knownAssociates:
+  - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
+  linkedCaseIds:
+  - Case_011
+  - Case_020
+  credibilityScore: 41
+  notes: Initial fraud suspect whose sloppy second print run helps open the Glass
+    Ledger arc.

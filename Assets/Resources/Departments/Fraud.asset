@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e15d889c5b46d29d2f3c7a1b2e2022, type: 3}
+  m_Name: Fraud
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.DepartmentData
+  departmentId: 6
+  displayName: Fraud
+  requiredRank: 1
+  requiredStarsCount: 0
+  caseIds:
+  - Case_011
+  - Case_012
+  - Case_013
+  - Case_014
+  - Case_015
+  - Case_016
+  - Case_017
+  - Case_018
+  - Case_019
+  - Case_020

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
+  m_Name: S014
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
+  schemaVersion: 1
+  suspectId: S014
+  displayName: Lyle Mercer
+  portraitSprite: {fileID: 0}
+  bio: A harbor-market logistics clerk who always has an explanation for missing
+    stock, open lockers, and nighttime access pings.
+  traits:
+  - evasive
+  - practical
+  - habitual liar
+  knownAssociates:
+  - {fileID: 11400000, guid: 790d07ec3cba7784f96d00e256107c02, type: 2}
+  - {fileID: 11400000, guid: d1b6ccb667fbd8a41b5a32b4b36c9aa4, type: 2}
+  linkedCaseIds:
+  - Case_012
+  - Case_019
+  credibilityScore: 22
+  notes: Reappears deeper in the fraud arc, showing the same alibi pattern in two
+    separate schemes.

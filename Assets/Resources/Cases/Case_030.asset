@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_030
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 1
+  caseId: Case_030
+  title: The Hollow Desk
+  briefText: The reporter's trail ends on an overnight records-floor sweep. Desk
+    sergeant Inez Farrow says she never reopened the archive after sunset. Evidence
+    from both departments ties her desk to the leak, Mira's broker network, and the
+    vanished case routes.
+  sceneBackground: {fileID: 21300000, guid: 2a85a502d9ba0383a66fe33ba8ef93ca, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.25, y: 0.65}
+    radius: 0.06
+    evidenceId: C030_E001
+    hotspotLabel: Recorder Shelf
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.7}
+    radius: 0.06
+    evidenceId: C030_E002
+    hotspotLabel: Desk Console
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.35}
+    radius: 0.06
+    evidenceId: C030_E003
+    hotspotLabel: Map Drawer
+  - hotspotId: H004
+    normalizedPosition: {x: 0.2, y: 0.3}
+    radius: 0.06
+    evidenceId: C030_E004
+    hotspotLabel: Cleaning Cart Mirror
+  - hotspotId: H005
+    normalizedPosition: {x: 0.75, y: 0.4}
+    radius: 0.06
+    evidenceId: C030_E005
+    hotspotLabel: Transfer Tube Rack
+  evidence:
+  - {fileID: 11400000, guid: 31bfeb203e3631d4ea90306d2184a4c2, type: 2}
+  - {fileID: 11400000, guid: e7a4b1a388b64cb4d8eaf909d8d46311, type: 2}
+  - {fileID: 11400000, guid: c1859ea2cbcc23e46b0542ff30cf0e4d, type: 2}
+  - {fileID: 11400000, guid: 3974ca259dc134846b3b5612fb876539, type: 2}
+  - {fileID: 11400000, guid: e49141cd747a4644da9c074c8ed502ae, type: 2}
+  - {fileID: 11400000, guid: 7cdafac6fde39894da0928beeaa2b2eb, type: 2}
+  - {fileID: 11400000, guid: 9506b5f2cb417c7439b174e9a9252a52, type: 2}
+  claims:
+  - {fileID: 11400000, guid: e46a60288321b7d45aa0340265ef3561, type: 2}
+  - {fileID: 11400000, guid: fb0a2ec4144bf1a41b644c806f2ee25e, type: 2}
+  - {fileID: 11400000, guid: cd5f0cae1964e654e8aeb75fbc2ff513, type: 2}
+  - {fileID: 11400000, guid: cf5569cd5d799ab4983aee2ca07ba910, type: 2}
+  - {fileID: 11400000, guid: f6686e20317a6a449a018673d35b4cbf, type: 2}
+  involvedSuspects:
+  - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
+  - {fileID: 11400000, guid: 95255e4bcc5af5f469c6020a378f71ac, type: 2}
+  - {fileID: 11400000, guid: 2444cde7130f88c458b6ad0e4012fb02, type: 2}
+  - {fileID: 11400000, guid: 40763f81f4e4def4fbcfe6dbee159dd2, type: 2}
+  interrogationNodes:
+  - {fileID: 11400000, guid: bf83fc79291c0f34f83220ec24fa8eea, type: 2}
+  - {fileID: 11400000, guid: 7c91f5c395f39db4a82cbad45eef0a06, type: 2}
+  - {fileID: 11400000, guid: 0c17e321a387c5a47b47444a6b50ed92, type: 2}
+  contradictoryClaimId: C030_CL001
+  explanationText: Inez says the floor stayed locked, but C030_E002 logs her credentials
+    reopening the archive at 11:18 PM and C030_E004 shows her in the corridor mirror
+    carrying a transfer tube and key wallet. She reopened the records floor and moved
+    restricted case routes herself.
+  primaryEvidenceIdA: C030_E002
+  primaryEvidenceIdB: C030_E004
+  basePoints: 750
+  timeLimitSeconds: 480
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

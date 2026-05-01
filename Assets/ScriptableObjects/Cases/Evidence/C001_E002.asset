@@ -17,7 +17,7 @@ MonoBehaviour:
   descriptionText: "Antique mahogany wall clock. Glass face cracked from radial impact
     at lower left.\nHands frozen at 10:47 PM \u2014 consistent with being struck
     during a violent struggle."
-  imageSprite: {fileID: 21300000, guid: 8216ba235c56c174685f395d0bdf9421, type: 3}
+  imageSprite: {fileID: 21300000, guid: 9fb156b78ef95a83e7987f200952b1bb, type: 3}
   displayMode: 0
   tags: 0000000002000000
   enhanceOverlayMaskSprite: {fileID: 0}

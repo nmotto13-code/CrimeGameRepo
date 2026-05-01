@@ -6,6 +6,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using TMPro;
 using CasebookGame.Core;
 using CasebookGame.UI;
@@ -19,6 +20,7 @@ namespace CasebookGame.Editor
     {
         const string SCENE_PATH   = "Assets/Scenes/CaseScene.unity";
         const string PREFABS_PATH = "Assets/Prefabs";
+        static string _lastHierarchySnapshot;
 
         // Palette
         static readonly Color C_BG      = new Color(0.08f, 0.08f, 0.12f);
@@ -30,6 +32,25 @@ namespace CasebookGame.Editor
 
         [MenuItem("Casebook/Build Scene")]
         public static void BuildScene() => BuildSceneInternal(showDialog: !Application.isBatchMode);
+
+        [MenuItem("Casebook/Verify Scene Builder Determinism")]
+        public static void VerifySceneBuilderDeterminism()
+        {
+            BuildSceneInternal(showDialog: false);
+            string firstSnapshot = _lastHierarchySnapshot;
+
+            BuildSceneInternal(showDialog: false);
+            string secondSnapshot = _lastHierarchySnapshot;
+
+            if (firstSnapshot == secondSnapshot)
+            {
+                Debug.Log("[SceneBuilder] Determinism check passed. Two consecutive builds produced identical scene hierarchies.");
+                return;
+            }
+
+            string diff = DescribeHierarchyDifference(firstSnapshot, secondSnapshot);
+            Debug.LogError($"[SceneBuilder] Determinism check failed.\n{diff}");
+        }
 
         public static int BuildSceneForAutomation() => BuildSceneInternal(showDialog: false);
 
@@ -345,6 +366,60 @@ namespace CasebookGame.Editor
             StretchFull(submitLabel.gameObject);
             var submitComp = submitGo.AddComponent<SubmitButton>();
 
+            var interrogationPanelGo = MakePanel(canvasGo, "InterrogationPanel", new Color(0, 0, 0, 0.92f));
+            StretchFull(interrogationPanelGo);
+            interrogationPanelGo.SetActive(false);
+
+            var interrogationCardGo = MakeImage(interrogationPanelGo, "InterrogationCard", C_PANEL);
+            var icRT = interrogationCardGo.GetComponent<RectTransform>();
+            icRT.anchorMin = new Vector2(0.06f, 0.08f); icRT.anchorMax = new Vector2(0.94f, 0.92f);
+            icRT.offsetMin = Vector2.zero; icRT.offsetMax = Vector2.zero;
+
+            var interrogationTitleTxt = MakeText(interrogationCardGo, "TitleText", "INTERROGATION", 40, FontStyles.Bold,
+                new Color(0.95f, 0.80f, 0.20f));
+            var itRT = interrogationTitleTxt.gameObject.GetComponent<RectTransform>();
+            itRT.anchorMin = new Vector2(0.08f, 0.88f); itRT.anchorMax = new Vector2(0.92f, 0.97f);
+            itRT.offsetMin = Vector2.zero; itRT.offsetMax = Vector2.zero;
+
+            var interrogationProgressTxt = MakeText(interrogationCardGo, "ProgressText", "QUESTION 1/1", 22, FontStyles.Bold,
+                new Color(0.70f, 0.70f, 0.78f));
+            var ipRT = interrogationProgressTxt.gameObject.GetComponent<RectTransform>();
+            ipRT.anchorMin = new Vector2(0.08f, 0.83f); ipRT.anchorMax = new Vector2(0.92f, 0.88f);
+            ipRT.offsetMin = Vector2.zero; ipRT.offsetMax = Vector2.zero;
+
+            var interrogationPromptTxt = MakeText(interrogationCardGo, "PromptText", "", 30, FontStyles.Normal);
+            interrogationPromptTxt.textWrappingMode = TextWrappingModes.Normal;
+            interrogationPromptTxt.alignment = TextAlignmentOptions.Center;
+            var iqRT = interrogationPromptTxt.gameObject.GetComponent<RectTransform>();
+            iqRT.anchorMin = new Vector2(0.08f, 0.56f); iqRT.anchorMax = new Vector2(0.92f, 0.80f);
+            iqRT.offsetMin = Vector2.zero; iqRT.offsetMax = Vector2.zero;
+
+            var interrogationFeedbackTxt = MakeText(interrogationCardGo, "FeedbackText", "Choose the line to push.", 22,
+                FontStyles.Italic, new Color(0.84f, 0.84f, 0.90f));
+            interrogationFeedbackTxt.textWrappingMode = TextWrappingModes.Normal;
+            interrogationFeedbackTxt.alignment = TextAlignmentOptions.Center;
+            var ifRT = interrogationFeedbackTxt.gameObject.GetComponent<RectTransform>();
+            ifRT.anchorMin = new Vector2(0.08f, 0.48f); ifRT.anchorMax = new Vector2(0.92f, 0.54f);
+            ifRT.offsetMin = Vector2.zero; ifRT.offsetMax = Vector2.zero;
+
+            var responseABtn = MakeActionButton(interrogationCardGo, "ResponseAButton", "",
+                new Color(0.18f, 0.22f, 0.32f), new Vector2(0.08f, 0.30f), new Vector2(0.92f, 0.42f));
+            var responseATxt = responseABtn.GetComponentInChildren<TextMeshProUGUI>();
+            responseATxt.fontSize = 24;
+            responseATxt.textWrappingMode = TextWrappingModes.Normal;
+
+            var responseBBtn = MakeActionButton(interrogationCardGo, "ResponseBButton", "",
+                new Color(0.18f, 0.22f, 0.32f), new Vector2(0.08f, 0.16f), new Vector2(0.92f, 0.28f));
+            var responseBTxt = responseBBtn.GetComponentInChildren<TextMeshProUGUI>();
+            responseBTxt.fontSize = 24;
+            responseBTxt.textWrappingMode = TextWrappingModes.Normal;
+
+            var responseCBtn = MakeActionButton(interrogationCardGo, "ResponseCButton", "",
+                new Color(0.18f, 0.22f, 0.32f), new Vector2(0.08f, 0.02f), new Vector2(0.92f, 0.14f));
+            var responseCTxt = responseCBtn.GetComponentInChildren<TextMeshProUGUI>();
+            responseCTxt.fontSize = 24;
+            responseCTxt.textWrappingMode = TextWrappingModes.Normal;
+
             // ── Result panel (fullscreen, hidden) ─────────────────────
             var resultPanelGo = MakePanel(canvasGo, "ResultPanel", new Color(0, 0, 0, 0.88f));
             StretchFull(resultPanelGo);
@@ -470,37 +545,126 @@ namespace CasebookGame.Editor
             var homeScreenGo = new GameObject("HomeScreen");
             homeScreenGo.transform.SetParent(safeAreaRoot.transform, false);
             StretchFull(homeScreenGo);
-            homeScreenGo.AddComponent<Image>().color = new Color(0.06f, 0.06f, 0.10f, 0.98f);
+            homeScreenGo.AddComponent<Image>().color = new Color(0.05f, 0.05f, 0.09f, 1f);
 
             var hsVLG = homeScreenGo.AddComponent<VerticalLayoutGroup>();
             hsVLG.childControlHeight    = true;
             hsVLG.childControlWidth     = true;
             hsVLG.childForceExpandWidth = true;
-            hsVLG.padding               = new RectOffset(60, 60, 200, 120);
-            hsVLG.spacing               = 32;
+            hsVLG.padding               = new RectOffset(40, 40, 80, 80);
+            hsVLG.spacing               = 20;
 
-            var hsLogoTxt = MakeText(homeScreenGo, "LogoText", "POCKET CASEBOOK", 64, FontStyles.Bold,
-                new Color(0.95f, 0.80f, 0.20f));
-            hsLogoTxt.alignment = TextAlignmentOptions.Center;
-            hsLogoTxt.gameObject.AddComponent<LayoutElement>().preferredHeight = 100;
+            // ── Brand block ──────────────────────────────────────────
+            var hsBrandGo = new GameObject("BrandBlock");
+            hsBrandGo.transform.SetParent(homeScreenGo.transform, false);
+            var hsBrandVLG = hsBrandGo.AddComponent<VerticalLayoutGroup>();
+            hsBrandVLG.childControlHeight    = true;
+            hsBrandVLG.childControlWidth     = true;
+            hsBrandVLG.childForceExpandWidth = true;
+            hsBrandVLG.spacing = 10;
+            hsBrandGo.AddComponent<LayoutElement>().preferredHeight = 230;
 
-            var hsSubTxt = MakeText(homeScreenGo, "SubtitleText", "Contradiction Engine", 32, FontStyles.Normal,
-                new Color(0.65f, 0.65f, 0.70f));
-            hsSubTxt.alignment = TextAlignmentOptions.Center;
-            hsSubTxt.gameObject.AddComponent<LayoutElement>().preferredHeight = 50;
+            var hsEyebrow = MakeText(hsBrandGo, "Eyebrow", "CRIME CITY", 28, FontStyles.Bold,
+                new Color(0.70f, 0.60f, 0.35f));
+            hsEyebrow.alignment = TextAlignmentOptions.Center;
+            hsEyebrow.characterSpacing = 10f;
+            hsEyebrow.gameObject.AddComponent<LayoutElement>().preferredHeight = 44;
 
-            // Spacer
-            var hsSpacer = new GameObject("Spacer");
-            hsSpacer.transform.SetParent(homeScreenGo.transform, false);
-            hsSpacer.AddComponent<LayoutElement>().flexibleHeight = 1;
+            var hsTitleTxt = MakeText(hsBrandGo, "TitleText", "DETECTIVE", 82, FontStyles.Bold,
+                new Color(0.98f, 0.82f, 0.22f));
+            hsTitleTxt.alignment = TextAlignmentOptions.Center;
+            hsTitleTxt.gameObject.AddComponent<LayoutElement>().preferredHeight = 110;
 
-            var selectCaseBtn = MakeActionButton(homeScreenGo, "SelectCaseBtn", "SELECT A CASE",
-                new Color(0.90f, 0.50f, 0.10f), Vector2.zero, Vector2.zero);
-            selectCaseBtn.gameObject.AddComponent<LayoutElement>().preferredHeight = 100;
+            // Amber accent divider
+            var hsDivGo = new GameObject("AccentDivider");
+            hsDivGo.transform.SetParent(hsBrandGo.transform, false);
+            var hsDivLE = hsDivGo.AddComponent<LayoutElement>();
+            hsDivLE.preferredHeight = 3; hsDivLE.flexibleWidth = 1;
+            hsDivGo.AddComponent<Image>().color = new Color(0.98f, 0.72f, 0.15f, 0.5f);
 
-            var viewProfileBtn = MakeActionButton(homeScreenGo, "ViewProfileBtn", "VIEW USER PROFILE",
-                new Color(0.22f, 0.45f, 0.75f), Vector2.zero, Vector2.zero);
-            viewProfileBtn.gameObject.AddComponent<LayoutElement>().preferredHeight = 100;
+            var hsEngineLabel = MakeText(hsBrandGo, "EngineLabel", "CONTRADICTION ENGINE", 22, FontStyles.Normal,
+                new Color(0.45f, 0.45f, 0.55f));
+            hsEngineLabel.alignment = TextAlignmentOptions.Center;
+            hsEngineLabel.characterSpacing = 5f;
+            hsEngineLabel.gameObject.AddComponent<LayoutElement>().preferredHeight = 36;
+
+            // ── Mid spacer ──────────────────────────────────────────
+            var hsMidSpacer = new GameObject("MidSpacer");
+            hsMidSpacer.transform.SetParent(homeScreenGo.transform, false);
+            hsMidSpacer.AddComponent<LayoutElement>().flexibleHeight = 1;
+
+            // ── Investigate — primary CTA ────────────────────────────
+            var investigateBtn = MakeActionButton(homeScreenGo, "InvestigateBtn", "INVESTIGATE  →",
+                new Color(0.92f, 0.52f, 0.08f), Vector2.zero, Vector2.zero);
+            var invLE = investigateBtn.gameObject.AddComponent<LayoutElement>();
+            invLE.preferredHeight = 90;
+            investigateBtn.GetComponentInChildren<TextMeshProUGUI>().fontSize = 30;
+
+            // ── Secondary row: Profile + All Cases ───────────────────
+            var hsSecRowGo = new GameObject("SecondaryRow");
+            hsSecRowGo.transform.SetParent(homeScreenGo.transform, false);
+            var hsSecHLG = hsSecRowGo.AddComponent<HorizontalLayoutGroup>();
+            hsSecHLG.childControlHeight    = true; hsSecHLG.childControlWidth     = true;
+            hsSecHLG.childForceExpandHeight = true; hsSecHLG.childForceExpandWidth = true;
+            hsSecHLG.spacing = 16;
+            hsSecRowGo.AddComponent<LayoutElement>().preferredHeight = 72;
+
+            var viewProfileBtn = MakeActionButton(hsSecRowGo, "ViewProfileBtn", "VIEW PROFILE",
+                new Color(0.20f, 0.38f, 0.68f), Vector2.zero, Vector2.zero);
+            viewProfileBtn.GetComponentInChildren<TextMeshProUGUI>().fontSize = 24;
+
+            var testCasesBtn = MakeActionButton(hsSecRowGo, "TestCasesBtn", "ALL CASES",
+                new Color(0.18f, 0.18f, 0.28f), Vector2.zero, Vector2.zero);
+            testCasesBtn.GetComponentInChildren<TextMeshProUGUI>().fontSize = 24;
+
+            // ── Dev section: quick-jump to individual cases ──────────
+            var hsDevLabelTxt = MakeText(homeScreenGo, "DevLabel", "— DEV: QUICK CASE JUMP —", 20,
+                FontStyles.Normal, new Color(0.35f, 0.35f, 0.45f));
+            hsDevLabelTxt.alignment = TextAlignmentOptions.Center;
+            hsDevLabelTxt.gameObject.AddComponent<LayoutElement>().preferredHeight = 28;
+
+            // Horizontal scroll view for case-jump buttons
+            var hsDevScrollGo = new GameObject("DevCaseScroll");
+            hsDevScrollGo.transform.SetParent(homeScreenGo.transform, false);
+            var hsDevScrollLE = hsDevScrollGo.AddComponent<LayoutElement>();
+            hsDevScrollLE.preferredHeight = 96;
+            var hsDevScroll = hsDevScrollGo.AddComponent<ScrollRect>();
+            hsDevScroll.horizontal = true; hsDevScroll.vertical = false;
+
+            var hsDevViewport = new GameObject("Viewport");
+            hsDevViewport.transform.SetParent(hsDevScrollGo.transform, false);
+            StretchFull(hsDevViewport);
+            hsDevViewport.AddComponent<RectMask2D>();
+            hsDevScroll.viewport = hsDevViewport.GetComponent<RectTransform>();
+
+            var hsDevContent = new GameObject("Content");
+            hsDevContent.transform.SetParent(hsDevViewport.transform, false);
+            var hsDevContentRT = hsDevContent.AddComponent<RectTransform>();
+            hsDevContentRT.anchorMin = new Vector2(0, 0); hsDevContentRT.anchorMax = new Vector2(0, 1);
+            hsDevContentRT.pivot = new Vector2(0, 0.5f);
+            hsDevContentRT.anchoredPosition = Vector2.zero;
+            var hsDevHLG = hsDevContent.AddComponent<HorizontalLayoutGroup>();
+            hsDevHLG.childControlHeight    = true; hsDevHLG.childControlWidth     = true;
+            hsDevHLG.childForceExpandHeight = true;
+            hsDevHLG.spacing = 8; hsDevHLG.padding = new RectOffset(4, 4, 4, 4);
+            hsDevContent.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+            hsDevScroll.content = hsDevContentRT;
+
+            // Generate one button per new case (C011-C030)
+            var caseJumpBtns = new Button[20];
+            var caseJumpIds  = new string[20];
+            for (int ci = 0; ci < 20; ci++)
+            {
+                string cid   = $"Case_{ci + 11:D3}";
+                string label = $"C{ci + 11:D3}";
+                var jBtn = MakeActionButton(hsDevContent, $"Jump_{cid}", label,
+                    new Color(0.15f, 0.15f, 0.25f), Vector2.zero, Vector2.zero);
+                jBtn.gameObject.AddComponent<LayoutElement>().preferredWidth = 88;
+                var jTxt = jBtn.GetComponentInChildren<TextMeshProUGUI>();
+                jTxt.fontSize = 20;
+                caseJumpBtns[ci] = jBtn;
+                caseJumpIds[ci]  = cid;
+            }
 
             // ── Case Select Panel ──────────────────────────────────────
             var caseSelectGo = new GameObject("CaseSelectPanel");
@@ -682,13 +846,78 @@ namespace CasebookGame.Editor
             mtRT.offsetMin = new Vector2(20, 0);    mtRT.offsetMax = new Vector2(-20, -8);
 
             var resumeMenuBtn = MakeActionButton(menuCardGo, "ResumeBtn", "RESUME INVESTIGATION",
-                new Color(0.20f, 0.65f, 0.40f), new Vector2(0.08f, 0.58f), new Vector2(0.92f, 0.74f));
+                new Color(0.20f, 0.65f, 0.40f), new Vector2(0.08f, 0.66f), new Vector2(0.92f, 0.80f));
+            var dossierMenuBtn = MakeActionButton(menuCardGo, "DossierBtn", "SUSPECT DOSSIER",
+                new Color(0.52f, 0.36f, 0.18f), new Vector2(0.08f, 0.48f), new Vector2(0.92f, 0.62f));
             var caseSelectMenuBtn = MakeActionButton(menuCardGo, "CaseSelectBtn", "SELECT CASE",
-                new Color(0.22f, 0.45f, 0.75f), new Vector2(0.08f, 0.38f), new Vector2(0.92f, 0.54f));
+                new Color(0.22f, 0.45f, 0.75f), new Vector2(0.08f, 0.30f), new Vector2(0.92f, 0.44f));
             var homeMenuBtn = MakeActionButton(menuCardGo, "HomeBtn", "MAIN MENU",
-                new Color(0.55f, 0.18f, 0.18f), new Vector2(0.08f, 0.18f), new Vector2(0.92f, 0.34f));
+                new Color(0.55f, 0.18f, 0.18f), new Vector2(0.08f, 0.12f), new Vector2(0.92f, 0.26f));
 
             var inGameMenuCtrl = inGameMenuGo.AddComponent<InGameMenuController>();
+
+            var dossierGo = new GameObject("DossierPanel");
+            dossierGo.transform.SetParent(safeAreaRoot.transform, false);
+            StretchFull(dossierGo);
+            dossierGo.AddComponent<Image>().color = new Color(0.05f, 0.05f, 0.09f, 0.98f);
+            dossierGo.SetActive(false);
+
+            var dossierHeaderGo = new GameObject("DossierHeader");
+            dossierHeaderGo.transform.SetParent(dossierGo.transform, false);
+            var dossierHeaderRT = dossierHeaderGo.AddComponent<RectTransform>();
+            dossierHeaderRT.anchorMin = new Vector2(0, 1); dossierHeaderRT.anchorMax = new Vector2(1, 1);
+            dossierHeaderRT.pivot = new Vector2(0.5f, 1f);
+            dossierHeaderRT.anchoredPosition = Vector2.zero;
+            dossierHeaderRT.sizeDelta = new Vector2(0, 100);
+            dossierHeaderGo.AddComponent<Image>().color = new Color(0.12f, 0.12f, 0.20f);
+            var dossierHeaderHLG = dossierHeaderGo.AddComponent<HorizontalLayoutGroup>();
+            dossierHeaderHLG.childControlHeight = true; dossierHeaderHLG.childControlWidth = true;
+            dossierHeaderHLG.childForceExpandHeight = true; dossierHeaderHLG.childForceExpandWidth = false;
+            dossierHeaderHLG.padding = new RectOffset(20, 20, 0, 0); dossierHeaderHLG.spacing = 12;
+
+            var dossierTitleTxt = MakeText(dossierHeaderGo, "TitleText", "SUSPECT DOSSIER", 36, FontStyles.Bold,
+                new Color(0.95f, 0.88f, 0.65f));
+            dossierTitleTxt.alignment = TextAlignmentOptions.MidlineLeft;
+            dossierTitleTxt.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
+
+            var dossierBackBtn = MakeActionButton(dossierHeaderGo, "BackBtn", "BACK",
+                new Color(0.30f, 0.30f, 0.42f), Vector2.zero, Vector2.zero);
+            dossierBackBtn.gameObject.AddComponent<LayoutElement>().preferredWidth = 140;
+
+            var dossierScrollGo = new GameObject("DossierScrollView");
+            dossierScrollGo.transform.SetParent(dossierGo.transform, false);
+            var dossierScrollRT = dossierScrollGo.AddComponent<RectTransform>();
+            dossierScrollRT.anchorMin = Vector2.zero; dossierScrollRT.anchorMax = Vector2.one;
+            dossierScrollRT.offsetMin = Vector2.zero; dossierScrollRT.offsetMax = new Vector2(0, -100);
+            var dossierScroll = dossierScrollGo.AddComponent<ScrollRect>();
+            dossierScroll.horizontal = false;
+
+            var dossierViewportGo = new GameObject("Viewport");
+            dossierViewportGo.transform.SetParent(dossierScrollGo.transform, false);
+            StretchFull(dossierViewportGo);
+            dossierViewportGo.AddComponent<RectMask2D>();
+            dossierScroll.viewport = dossierViewportGo.GetComponent<RectTransform>();
+
+            var dossierContentGo = new GameObject("Content");
+            dossierContentGo.transform.SetParent(dossierViewportGo.transform, false);
+            var dossierContentRT = dossierContentGo.AddComponent<RectTransform>();
+            dossierContentRT.anchorMin = new Vector2(0, 1); dossierContentRT.anchorMax = new Vector2(1, 1);
+            dossierContentRT.pivot = new Vector2(0.5f, 1f);
+            dossierContentRT.offsetMin = Vector2.zero; dossierContentRT.offsetMax = Vector2.zero;
+            var dossierContentVLG = dossierContentGo.AddComponent<VerticalLayoutGroup>();
+            dossierContentVLG.childControlHeight = true; dossierContentVLG.childControlWidth = true;
+            dossierContentVLG.childForceExpandWidth = true; dossierContentVLG.spacing = 10;
+            dossierContentVLG.padding = new RectOffset(18, 18, 18, 18);
+            var dossierContentCSF = dossierContentGo.AddComponent<ContentSizeFitter>();
+            dossierContentCSF.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            dossierScroll.content = dossierContentRT;
+
+            var dossierEmptyTxt = MakeText(dossierViewportGo, "EmptyStateText", "No suspects linked to this case yet.",
+                24, FontStyles.Normal, new Color(0.70f, 0.70f, 0.78f));
+            dossierEmptyTxt.alignment = TextAlignmentOptions.Center;
+            StretchFull(dossierEmptyTxt.gameObject, new Vector2(40, 120));
+
+            var dossierCtrl = dossierGo.AddComponent<DossierScreenController>();
 
             // ── Confirm Dialog — added last so it renders above everything ──
             var confirmGo = new GameObject("ConfirmDialog");
@@ -726,6 +955,7 @@ namespace CasebookGame.Editor
             var evaluator       = systemsGo.AddComponent<ContradictionEvaluator>();
             var results         = systemsGo.AddComponent<ResultsController>();
             var discoverySystem = systemsGo.AddComponent<EvidenceDiscoverySystem>();
+            var interrogation   = systemsGo.AddComponent<InterrogationFlowController>();
             var scoringSystem   = systemsGo.AddComponent<ScoringSystem>();
             var navMgr          = systemsGo.AddComponent<NavigationManager>();
 
@@ -768,6 +998,16 @@ namespace CasebookGame.Editor
                 so.FindProperty("resultHeaderBg").objectReferenceValue   = resultHeaderBgGo.GetComponent<Image>();
             });
 
+            Wire(interrogation, so => {
+                so.FindProperty("panel").objectReferenceValue = interrogationPanelGo;
+                so.FindProperty("titleText").objectReferenceValue = interrogationTitleTxt;
+                so.FindProperty("progressText").objectReferenceValue = interrogationProgressTxt;
+                so.FindProperty("promptText").objectReferenceValue = interrogationPromptTxt;
+                so.FindProperty("feedbackText").objectReferenceValue = interrogationFeedbackTxt;
+                SetObjectArray(so, "responseButtons", responseABtn, responseBBtn, responseCBtn);
+                SetObjectArray(so, "responseLabels", responseATxt, responseBTxt, responseCTxt);
+            });
+
             Wire(scoringSystem, so => {
                 so.FindProperty("timerText").objectReferenceValue = timerTxt;
             });
@@ -805,8 +1045,11 @@ namespace CasebookGame.Editor
             });
 
             Wire(homeCtrl, so => {
-                so.FindProperty("selectCaseBtn").objectReferenceValue = selectCaseBtn;
+                so.FindProperty("investigateBtn").objectReferenceValue = investigateBtn;
                 so.FindProperty("viewProfileBtn").objectReferenceValue = viewProfileBtn;
+                so.FindProperty("testCasesBtn").objectReferenceValue   = testCasesBtn;
+                SetObjectArray(so, "caseJumpBtns", caseJumpBtns);
+                SetStringArray(so, "caseJumpIds",  caseJumpIds);
             });
 
             Wire(caseSelCtrl, so => {
@@ -832,8 +1075,15 @@ namespace CasebookGame.Editor
 
             Wire(inGameMenuCtrl, so => {
                 so.FindProperty("resumeBtn").objectReferenceValue      = resumeMenuBtn;
+                so.FindProperty("dossierBtn").objectReferenceValue     = dossierMenuBtn;
                 so.FindProperty("caseSelectBtn").objectReferenceValue  = caseSelectMenuBtn;
                 so.FindProperty("homeBtn").objectReferenceValue        = homeMenuBtn;
+            });
+
+            Wire(dossierCtrl, so => {
+                so.FindProperty("listParent").objectReferenceValue = dossierContentGo.transform;
+                so.FindProperty("closeBtn").objectReferenceValue = dossierBackBtn;
+                so.FindProperty("emptyStateText").objectReferenceValue = dossierEmptyTxt;
             });
 
             Wire(confirmDialogComp, so => {
@@ -848,6 +1098,7 @@ namespace CasebookGame.Editor
                 so.FindProperty("accountScreen").objectReferenceValue   = accountCtrl;
                 so.FindProperty("gameScreen").objectReferenceValue      = gameScreenCtrl;
                 so.FindProperty("inGameMenuScreen").objectReferenceValue = inGameMenuCtrl;
+                so.FindProperty("dossierScreen").objectReferenceValue   = dossierCtrl;
                 so.FindProperty("confirmDialog").objectReferenceValue   = confirmDialogComp;
                 so.FindProperty("canvasRT").objectReferenceValue        = canvasGo.GetComponent<RectTransform>();
             });
@@ -867,6 +1118,7 @@ namespace CasebookGame.Editor
             // ── Save scene ─────────────────────────────────────────────
             EditorSceneManager.SaveScene(scene, SCENE_PATH);
             AssetDatabase.Refresh();
+            _lastHierarchySnapshot = CaptureHierarchySnapshot(scene);
 
             if (showDialog)
             {
@@ -1410,6 +1662,50 @@ namespace CasebookGame.Editor
             prop.arraySize = items.Length;
             for (int i = 0; i < items.Length; i++)
                 prop.GetArrayElementAtIndex(i).objectReferenceValue = items[i];
+        }
+
+        static void SetStringArray(SerializedObject so, string propName, string[] items)
+        {
+            var prop = so.FindProperty(propName);
+            prop.arraySize = items.Length;
+            for (int i = 0; i < items.Length; i++)
+                prop.GetArrayElementAtIndex(i).stringValue = items[i];
+        }
+
+        static string CaptureHierarchySnapshot(Scene scene)
+        {
+            var lines = new List<string>();
+            foreach (var root in scene.GetRootGameObjects())
+                AppendHierarchy(root.transform, 0, lines);
+            return string.Join("\n", lines);
+        }
+
+        static void AppendHierarchy(Transform transform, int depth, List<string> lines)
+        {
+            string components = string.Join(",", transform.GetComponents<Component>()
+                .Where(component => component != null)
+                .Select(component => component.GetType().Name));
+            lines.Add($"{new string(' ', depth * 2)}{transform.name} [{components}]");
+
+            for (int i = 0; i < transform.childCount; i++)
+                AppendHierarchy(transform.GetChild(i), depth + 1, lines);
+        }
+
+        static string DescribeHierarchyDifference(string firstSnapshot, string secondSnapshot)
+        {
+            var firstLines = (firstSnapshot ?? string.Empty).Split('\n');
+            var secondLines = (secondSnapshot ?? string.Empty).Split('\n');
+            int max = Mathf.Max(firstLines.Length, secondLines.Length);
+
+            for (int i = 0; i < max; i++)
+            {
+                string first = i < firstLines.Length ? firstLines[i] : "<missing>";
+                string second = i < secondLines.Length ? secondLines[i] : "<missing>";
+                if (first != second)
+                    return $"First mismatch at line {i + 1}.\nBuild A: {first}\nBuild B: {second}";
+            }
+
+            return "Snapshots differ, but no line-level mismatch was found.";
         }
 
         static void EnsureFolder(string path)

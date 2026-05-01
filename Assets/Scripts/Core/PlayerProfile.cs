@@ -33,6 +33,11 @@ namespace CasebookGame.Core
         public static int GetCaseStars(string caseId) =>
             GetOrCreateCaseProgress(caseId).bestStars;
 
+        public static bool HasSolvedCase(string caseId) =>
+            !string.IsNullOrWhiteSpace(caseId) && (
+                GetCaseStars(caseId) > 0 ||
+                GetCaseStars(NormalizeImportedCaseId(caseId)) > 0);
+
         public static int GetXp()
         {
             EnsureSaveLoaded();
@@ -257,6 +262,17 @@ namespace CasebookGame.Core
                 PlayerPrefs.SetInt(KEY_PERFECT_SOLVES, GetPerfectSolves() + 1);
 
             PlayerPrefs.Save();
+        }
+
+        static string NormalizeImportedCaseId(string caseId)
+        {
+            if (string.IsNullOrWhiteSpace(caseId) || caseId.StartsWith("Case_", StringComparison.OrdinalIgnoreCase))
+                return caseId;
+
+            if (caseId.Length == 4 && caseId[0] == 'C' && int.TryParse(caseId[1..], out _))
+                return $"Case_{caseId[1..]}";
+
+            return caseId;
         }
 
         static bool RegisterDailySolve(string caseId)

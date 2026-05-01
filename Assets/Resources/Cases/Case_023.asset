@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_023
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 1
+  caseId: Case_023
+  title: Bluebird Encore
+  briefText: 'Singer Sera Bloom vanishes after a midnight set. Her promoter says
+    she went straight to the rideshare rank, but an enhanced backstage image reveals
+    a marina wristband and a familiar contact waiting in the shadows: Mira Voss.'
+  sceneBackground: {fileID: 21300000, guid: 2ec955dd05d13343f039dbe0d448ac81, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.25, y: 0.65}
+    radius: 0.06
+    evidenceId: C023_E001
+    hotspotLabel: Backstage Polaroid
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.7}
+    radius: 0.06
+    evidenceId: C023_E002
+    hotspotLabel: Ride Desk
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.35}
+    radius: 0.06
+    evidenceId: C023_E004
+    hotspotLabel: Mirror Station
+  - hotspotId: H004
+    normalizedPosition: {x: 0.2, y: 0.3}
+    radius: 0.06
+    evidenceId: C023_E005
+    hotspotLabel: Dock Ramp Camera
+  evidence:
+  - {fileID: 11400000, guid: adf227e750767a84e91b8cf6d7cde00a, type: 2}
+  - {fileID: 11400000, guid: 05dd6390f8f8a34488677280d439cc97, type: 2}
+  - {fileID: 11400000, guid: b6c7e21939ffe154ca015aa5a958256c, type: 2}
+  - {fileID: 11400000, guid: a6848af75c764b246a6a546153d7cf51, type: 2}
+  - {fileID: 11400000, guid: 753e375a1f475524abe15016e6d59958, type: 2}
+  claims:
+  - {fileID: 11400000, guid: f4f6bf856dbd4874cbdd109582ecfde7, type: 2}
+  - {fileID: 11400000, guid: a8b143f84dfcd2c4d9dd841b5e89d3c0, type: 2}
+  - {fileID: 11400000, guid: 140aa36a807e87e42b41b18200742997, type: 2}
+  - {fileID: 11400000, guid: d719f1dbcbc06cc41a8e521c9e51a00f, type: 2}
+  involvedSuspects:
+  - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
+  - {fileID: 11400000, guid: aef450a7d83a8f4499e228c2a844a9fb, type: 2}
+  interrogationNodes: []
+  contradictoryClaimId: C023_CL001
+  explanationText: The promoter says Sera went straight to the rideshare rank, but
+    C023_E004 places her turning toward the loading exit with the hidden marina wristband
+    visible and C023_E005 shows her leaving dockside with a woman matching Mira.
+    She did not head for the taxi queue.
+  primaryEvidenceIdA: C023_E004
+  primaryEvidenceIdB: C023_E005
+  basePoints: 500
+  timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

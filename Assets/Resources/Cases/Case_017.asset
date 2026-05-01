@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_017
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 1
+  caseId: Case_017
+  title: Split Batch
+  briefText: Transit treasury analyst Devin March says rebate vouchers were mailed
+    in one sealed batch. Serial gaps and parcel-weight records suggest a second run
+    slipped out after the official post drop.
+  sceneBackground: {fileID: 21300000, guid: 42d10577e374338356f8f7e739898ede, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.25, y: 0.65}
+    radius: 0.06
+    evidenceId: C017_E001
+    hotspotLabel: Voucher Roll Drawer
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.7}
+    radius: 0.06
+    evidenceId: C017_E002
+    hotspotLabel: Mailroom Scale
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.35}
+    radius: 0.06
+    evidenceId: C017_E003
+    hotspotLabel: Dispatch Cage Camera
+  - hotspotId: H004
+    normalizedPosition: {x: 0.2, y: 0.3}
+    radius: 0.06
+    evidenceId: C017_E004
+    hotspotLabel: Sorter Tray
+  evidence:
+  - {fileID: 11400000, guid: 99432540cbf34af44aa97d8f318aec25, type: 2}
+  - {fileID: 11400000, guid: f7ae9871ba2e7634db2a36caccfb8ff1, type: 2}
+  - {fileID: 11400000, guid: 471cd3075754d004dbbfcc48a13db486, type: 2}
+  - {fileID: 11400000, guid: 373dc4ea231a4b34eaf8a8ad4c56513e, type: 2}
+  - {fileID: 11400000, guid: 227ed818b5f194a4aa4982221379f422, type: 2}
+  claims:
+  - {fileID: 11400000, guid: 5760a0c789e432f44aee54b5d027e70e, type: 2}
+  - {fileID: 11400000, guid: 473c5920afffac44e8042c1c176529e0, type: 2}
+  - {fileID: 11400000, guid: b1ad2659efa53b046b80f0241b2f3a18, type: 2}
+  - {fileID: 11400000, guid: 7bcd9545ed47f2d46a27ca07133c7215, type: 2}
+  involvedSuspects:
+  - {fileID: 11400000, guid: d1b6ccb667fbd8a41b5a32b4b36c9aa4, type: 2}
+  interrogationNodes: []
+  contradictoryClaimId: C017_CL001
+  explanationText: Devin says there was only one sealed mailing, but C017_E001 shows
+    a missing serial span that could supply a second bundle and C017_E002 shows the
+    first parcel was too light to contain the full run. A second batch was separated
+    and hidden.
+  primaryEvidenceIdA: C017_E001
+  primaryEvidenceIdB: C017_E002
+  basePoints: 500
+  timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
+  toolConfig:
+    crossCheckCharges: 3
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

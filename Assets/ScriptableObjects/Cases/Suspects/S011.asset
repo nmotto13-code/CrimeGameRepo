@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
+  m_Name: S011
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
+  schemaVersion: 1
+  suspectId: S011
+  displayName: Mira Voss
+  portraitSprite: {fileID: 0}
+  bio: An independent compliance consultant who moves easily between donor boards,
+    galleries, and transport ledgers. Behind the polished surface, she brokers cleaned-up
+    paper trails and quietly trades access to sensitive records.
+  traits:
+  - composed
+  - observant
+  - social engineer
+  - financially fluent
+  knownAssociates:
+  - {fileID: 11400000, guid: 790d07ec3cba7784f96d00e256107c02, type: 2}
+  - {fileID: 11400000, guid: 7723cce1cc0da03448433f5c5fa2a2d7, type: 2}
+  - {fileID: 11400000, guid: 2444cde7130f88c458b6ad0e4012fb02, type: 2}
+  linkedCaseIds:
+  - Case_011
+  - Case_013
+  - Case_018
+  - Case_019
+  - Case_020
+  - Case_023
+  - Case_028
+  - Case_029
+  - Case_030
+  credibilityScore: 34
+  notes: Recurring suspect and witness across both arcs. C020 reveals her true role
+    as a fixer. C030 confirms she relied on an internal records leak rather than
+    direct control of the disappearances.

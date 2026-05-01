@@ -6,6 +6,9 @@ namespace CasebookGame.Data
     [CreateAssetMenu(fileName = "New Claim", menuName = "Casebook/Claim Data")]
     public class ClaimData : ScriptableObject
     {
+        [Header("Schema")]
+        [Min(0)] public int schemaVersion = CaseSchemaVersions.Current;
+
         [Header("Identity")]
         public string claimId;
         public string speakerName;

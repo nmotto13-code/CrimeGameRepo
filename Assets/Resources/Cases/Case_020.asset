@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_020
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 1
+  caseId: Case_020
+  title: The Glass Ledger
+  briefText: The fraud ring's master ledger surfaces inside a sealed annex. Mira
+    Voss claims she only polished summaries and never touched the original ledger.
+    The annex trail finally exposes her real role and escalates the still-unseen
+    internal leak.
+  sceneBackground: {fileID: 21300000, guid: 7ee71db89f0b05179000e3cf096e4aa5, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.25, y: 0.65}
+    radius: 0.06
+    evidenceId: C020_E001
+    hotspotLabel: Courier Lockbox
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.7}
+    radius: 0.06
+    evidenceId: C020_E002
+    hotspotLabel: Visitor Pass Desk
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.35}
+    radius: 0.06
+    evidenceId: C020_E003
+    hotspotLabel: Ledger Shelf
+  - hotspotId: H004
+    normalizedPosition: {x: 0.2, y: 0.3}
+    radius: 0.06
+    evidenceId: C020_E004
+    hotspotLabel: Freight Elevator Monitor
+  - hotspotId: H005
+    normalizedPosition: {x: 0.75, y: 0.4}
+    radius: 0.06
+    evidenceId: C020_E006
+    hotspotLabel: Seal Fragment Tray
+  evidence:
+  - {fileID: 11400000, guid: 712a0429e1dcb2d49b16ad5255435ba9, type: 2}
+  - {fileID: 11400000, guid: 137ec4dfe737ae3489edc2ec7d6ce76b, type: 2}
+  - {fileID: 11400000, guid: 360f24b8fef9bf24d945b20e1a32bab5, type: 2}
+  - {fileID: 11400000, guid: af6fd84716ee36d4dbff945994a82b22, type: 2}
+  - {fileID: 11400000, guid: 9ee3b1f1f25b43143be566271bbb3d9a, type: 2}
+  - {fileID: 11400000, guid: 064e3136813802e469805158df990f1d, type: 2}
+  - {fileID: 11400000, guid: c56f570abece96c4f9e264bdcb587413, type: 2}
+  claims:
+  - {fileID: 11400000, guid: d2bd781b5ac5395498482ec6e9139c85, type: 2}
+  - {fileID: 11400000, guid: 416767cc0d83e6b4e8454f8d0ec4f9a0, type: 2}
+  - {fileID: 11400000, guid: 43175174463b6744f95445aec9e6cd8b, type: 2}
+  - {fileID: 11400000, guid: ae912b4af4afb2a47aee4fbcd6c60775, type: 2}
+  - {fileID: 11400000, guid: e3f0eecb27008584182ab9293582c43a, type: 2}
+  involvedSuspects:
+  - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
+  - {fileID: 11400000, guid: 5ba7b12cb4196f24a9d8bf6300bc4d90, type: 2}
+  - {fileID: 11400000, guid: 790d07ec3cba7784f96d00e256107c02, type: 2}
+  interrogationNodes:
+  - {fileID: 11400000, guid: 9efd3c577ebe8a44f88b11e503e66826, type: 2}
+  - {fileID: 11400000, guid: adf7b64bd9a3b9e489b78b06ac18520f, type: 2}
+  contradictoryClaimId: C020_CL001
+  explanationText: Mira's denial collapses because C020_E004 places her inside the
+    annex carrying the narrow lockbox, and C020_E006 matches the broken archive seal
+    to residue found with her replacement workbook. She handled the original Glass
+    Ledger directly, not just the summaries.
+  primaryEvidenceIdA: C020_E004
+  primaryEvidenceIdB: C020_E006
+  basePoints: 750
+  timeLimitSeconds: 420
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
+  toolConfig:
+    crossCheckCharges: 3
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

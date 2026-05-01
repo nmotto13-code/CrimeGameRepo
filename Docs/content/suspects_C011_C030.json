@@ -1,0 +1,202 @@
+[
+  {
+    "suspectId": "S011",
+    "displayName": "Mira Voss",
+    "bio": "An independent compliance consultant who moves easily between donor boards, galleries, and transport ledgers. Behind the polished surface, she brokers cleaned-up paper trails and quietly trades access to sensitive records.",
+    "traits": ["composed", "observant", "social engineer", "financially fluent"],
+    "knownAssociates": ["S013", "S018", "S029"],
+    "linkedCaseIds": ["C011", "C013", "C018", "C019", "C020", "C023", "C028", "C029", "C030"],
+    "credibilityScore": 0.34,
+    "notes": "Recurring suspect and witness across both arcs. C020 reveals her true role as a fixer. C030 confirms she relied on an internal records leak rather than direct control of the disappearances."
+  },
+  {
+    "suspectId": "S012",
+    "displayName": "Renata Bell",
+    "bio": "Director of the Larkspur Civic Hall donor program. Skilled at public-facing charm, less skilled at keeping duplicate financial trails aligned.",
+    "traits": ["charismatic", "defensive", "detail selective"],
+    "knownAssociates": ["S011"],
+    "linkedCaseIds": ["C011", "C020"],
+    "credibilityScore": 0.41,
+    "notes": "Initial fraud suspect whose sloppy second print run helps open the Glass Ledger arc."
+  },
+  {
+    "suspectId": "S013",
+    "displayName": "Owen Kade",
+    "bio": "A print broker and document finisher who handles boutique jobs for galleries, private estates, and anyone willing to pay for a convincing duplicate.",
+    "traits": ["crafty", "vain", "risk tolerant"],
+    "knownAssociates": ["S011", "S018"],
+    "linkedCaseIds": ["C013", "C020"],
+    "credibilityScore": 0.29,
+    "notes": "Useful connector between forged provenance work and Mira Voss's ledger-cleaning network."
+  },
+  {
+    "suspectId": "S014",
+    "displayName": "Lyle Mercer",
+    "bio": "A harbor-market logistics clerk who always has an explanation for missing stock, open lockers, and nighttime access pings.",
+    "traits": ["evasive", "practical", "habitual liar"],
+    "knownAssociates": ["S013", "S019"],
+    "linkedCaseIds": ["C012", "C019"],
+    "credibilityScore": 0.22,
+    "notes": "Reappears deeper in the fraud arc, showing the same alibi pattern in two separate schemes."
+  },
+  {
+    "suspectId": "S015",
+    "displayName": "Priya Sorn",
+    "bio": "Operations lead at a boutique payment startup. Expert enough to hide manual action behind automated language, until the device trail is examined closely.",
+    "traits": ["technical", "controlled", "image conscious"],
+    "knownAssociates": ["S011"],
+    "linkedCaseIds": ["C014"],
+    "credibilityScore": 0.38,
+    "notes": "Good example of the fraud department's digital-trace template."
+  },
+  {
+    "suspectId": "S016",
+    "displayName": "Martin Quill",
+    "bio": "Payroll auditor for a public benefits annex. Presents as methodical and above suspicion while using routine office movement to hide after-hours edits.",
+    "traits": ["methodical", "cold", "bureaucratic"],
+    "knownAssociates": ["S029"],
+    "linkedCaseIds": ["C015"],
+    "credibilityScore": 0.31,
+    "notes": "Introduces a bureaucratic version of fraud before the leak thread becomes explicit."
+  },
+  {
+    "suspectId": "S017",
+    "displayName": "Celia Drax",
+    "bio": "Insurance adjuster known for dramatic field photos and selective timelines. Treats visual evidence as something to compose, not preserve.",
+    "traits": ["performative", "calculating", "unflappable"],
+    "knownAssociates": [],
+    "linkedCaseIds": ["C016"],
+    "credibilityScore": 0.27,
+    "notes": "Her case leans on physical evidence rather than spreadsheets, broadening the fraud department's evidence mix."
+  },
+  {
+    "suspectId": "S018",
+    "displayName": "Tessa Rook",
+    "bio": "A respected appraiser whose seal and opinion can make or break private sales. She has learned how to weaponize that reputation.",
+    "traits": ["polished", "territorial", "precise"],
+    "knownAssociates": ["S011", "S013"],
+    "linkedCaseIds": ["C013"],
+    "credibilityScore": 0.44,
+    "notes": "Positions forged art paperwork as part of the wider ledger-cleaning economy."
+  },
+  {
+    "suspectId": "S019",
+    "displayName": "Devin March",
+    "bio": "Treasury analyst for a transit rebate office. Knows the difference between a missing serial gap and one that can be explained away to a rushed supervisor.",
+    "traits": ["cautious", "organized", "quietly opportunistic"],
+    "knownAssociates": ["S014", "S029"],
+    "linkedCaseIds": ["C017"],
+    "credibilityScore": 0.33,
+    "notes": "Useful midpoint suspect for teaching voucher, batch, and parcel-weight contradictions."
+  },
+  {
+    "suspectId": "S020",
+    "displayName": "Nyla Venn",
+    "bio": "A junior lab assistant who disappears after leaving work with a transit screenshot on her phone and a habit of documenting everything.",
+    "traits": ["careful", "bright", "routine driven"],
+    "knownAssociates": ["S028"],
+    "linkedCaseIds": ["C021"],
+    "credibilityScore": 0.76,
+    "notes": "Missing person profile rather than culprit. Good early dossier entry for the Missing Persons department."
+  },
+  {
+    "suspectId": "S021",
+    "displayName": "Jonah Vale",
+    "bio": "Manager of the Hearthlight Hostel. Friendly in public, inflexible when asked about room access and overnight movement.",
+    "traits": ["guarded", "tidy", "reputation minded"],
+    "knownAssociates": [],
+    "linkedCaseIds": ["C022"],
+    "credibilityScore": 0.35,
+    "notes": "Built to support keycard and hallway-timeline contradictions."
+  },
+  {
+    "suspectId": "S022",
+    "displayName": "Sera Bloom",
+    "bio": "A club singer with a growing local following and a habit of slipping away from handlers the moment a room gets too loud.",
+    "traits": ["restless", "magnetic", "secretive"],
+    "knownAssociates": ["S011"],
+    "linkedCaseIds": ["C023"],
+    "credibilityScore": 0.68,
+    "notes": "Missing person whose backstage movement pulls the recurring suspect into the second arc."
+  },
+  {
+    "suspectId": "S023",
+    "displayName": "Caleb Wren",
+    "bio": "Volunteer search coordinator who likes to be first on scene and first on camera. Comfortable turning search optics into cover.",
+    "traits": ["outdoorsy", "performative", "impatient"],
+    "knownAssociates": ["S026"],
+    "linkedCaseIds": ["C024"],
+    "credibilityScore": 0.46,
+    "notes": "Good template suspect for route, light, and vehicle-track contradictions."
+  },
+  {
+    "suspectId": "S024",
+    "displayName": "Daria Flint",
+    "bio": "A building access technician who understands blind spots, maintenance excuses, and exactly how much most people trust a dead camera.",
+    "traits": ["technical", "dry", "deflective"],
+    "knownAssociates": ["S029"],
+    "linkedCaseIds": ["C025"],
+    "credibilityScore": 0.28,
+    "notes": "Her case showcases the Missing Persons department's enhance-forward surveillance play."
+  },
+  {
+    "suspectId": "S025",
+    "displayName": "Silas Keene",
+    "bio": "Dock foreman on the North Quay cold berths. Acts as if every movement on the pier is routine until someone asks for a sequence of times.",
+    "traits": ["hard edged", "territorial", "weathered"],
+    "knownAssociates": ["S011", "S027"],
+    "linkedCaseIds": ["C026"],
+    "credibilityScore": 0.32,
+    "notes": "Extends the arc toward the waterfront spaces later reused in C028-C030."
+  },
+  {
+    "suspectId": "S026",
+    "displayName": "Tova Rell",
+    "bio": "Counsellor at the Lantern Youth Shelter. Protective, overextended, and increasingly willing to control the story if she thinks the system will fail a witness.",
+    "traits": ["protective", "tired", "morally flexible"],
+    "knownAssociates": ["S023", "S028"],
+    "linkedCaseIds": ["C027"],
+    "credibilityScore": 0.52,
+    "notes": "Her case contains the Missing Persons arc's first overt internal-leak clue."
+  },
+  {
+    "suspectId": "S027",
+    "displayName": "Adrian Crowe",
+    "bio": "Private security contractor who vanishes while tailing a dockside lead linked to Mira's network. Keeps redundant gear caches and minimal trust.",
+    "traits": ["disciplined", "suspicious", "field savvy"],
+    "knownAssociates": ["S011", "S028"],
+    "linkedCaseIds": ["C028"],
+    "credibilityScore": 0.61,
+    "notes": "Missing person dossier entry with strong connective tissue to the fraud arc."
+  },
+  {
+    "suspectId": "S028",
+    "displayName": "Vera Hale",
+    "bio": "Local reporter who follows sealed memos, visitor slips, and copied routing tags long after everyone else stops asking questions.",
+    "traits": ["persistent", "incisive", "fearless"],
+    "knownAssociates": ["S011", "S029"],
+    "linkedCaseIds": ["C029", "C030"],
+    "credibilityScore": 0.71,
+    "notes": "Her disappearance directly forces the final leak reveal."
+  },
+  {
+    "suspectId": "S029",
+    "displayName": "Inez Farrow",
+    "bio": "Desk sergeant and records coordinator with just enough access to move files, pre-print routing slips, and hide the movement inside normal overnight workflow.",
+    "traits": ["contained", "disciplined", "compartmentalized"],
+    "knownAssociates": ["S011", "S030"],
+    "linkedCaseIds": ["C030"],
+    "credibilityScore": 0.19,
+    "notes": "Primary internal leak culprit. Her access explains the restricted-information clues seeded in both department arcs."
+  },
+  {
+    "suspectId": "S030",
+    "displayName": "Gideon Marsh",
+    "bio": "Night archive supervisor for North Quay Civil Archive. Habitually obedient to process, until process leaves him alone with sealed transfer tubes and the wrong questions.",
+    "traits": ["anxious", "procedural", "pliant"],
+    "knownAssociates": ["S029"],
+    "linkedCaseIds": ["C030"],
+    "credibilityScore": 0.47,
+    "notes": "Key secondary dossier entry for the C030 interrogation chain."
+  }
+]

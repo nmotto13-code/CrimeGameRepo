@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd38127d486d794aa9fa20d4ed0bb10, type: 3}
+  m_Name: C018_E006
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.EvidenceData
+  schemaVersion: 1
+  evidenceId: C018_E006
+  displayName: Restricted Brief Snapshot
+  descriptionText: A phone photo of a restricted fraud briefing packet, found in
+    Mira's folder. The subject blocks are visible even though the image is blurred
+    and incomplete.
+  imageSprite: {fileID: 21300000, guid: abbdc50a107ad51364cfc335f366ff81, type: 3}
+  usesPlaceholderSprite: 0
+  displayMode: 0
+  tags: 
+  enhanceOverlayMaskSprite: {fileID: 0}
+  tagsUnlockedOnEnhance: 

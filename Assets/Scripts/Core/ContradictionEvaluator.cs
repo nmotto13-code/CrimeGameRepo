@@ -43,6 +43,13 @@ namespace CasebookGame.Core
 
             bool correct = claimId == currentCase.contradictoryClaimId;
             if (!correct) wrongGuessCount++;
+            if (correct && InterrogationFlowController.Instance != null &&
+                InterrogationFlowController.Instance.TryBegin(currentCase,
+                    () => OnEvaluationComplete?.Invoke(true, currentCase.explanationText)))
+            {
+                return;
+            }
+
             OnEvaluationComplete?.Invoke(correct, currentCase.explanationText);
         }
 

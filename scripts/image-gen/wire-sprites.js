@@ -1,36 +1,75 @@
 /**
  * wire-sprites.js
  *
- * For each generated evidence PNG:
- *   1. Copies it to Assets/Sprites/Evidence/
- *   2. Creates a Unity .meta file (Sprite import settings) with a unique GUID
- *   3. Patches the matching EvidenceData .asset file to reference the new sprite
+ * Evidence:
+ *   1. Copies generated PNGs to Assets/Sprites/Evidence/
+ *   2. Creates Unity .meta files with stable GUID reuse
+ *   3. Patches the matching EvidenceData asset to reference the sprite
+ *
+ * Backgrounds:
+ *   1. Copies generated background images to Assets/Sprites/Backgrounds/
+ *   2. Creates Unity .meta files with stable GUID reuse
+ *   3. Patches the matching CaseData asset sceneBackground reference
  *
  * Usage:
- *   node wire-sprites.js             -- wire all images in output/
- *   node wire-sprites.js C003_E001   -- wire a single item
+ *   node wire-sprites.js
+ *   node wire-sprites.js C003_E001
+ *   node wire-sprites.js --case C011
+ *   node wire-sprites.js --type backgrounds --case C011
+ *   node wire-sprites.js --dry-run
  */
 
-import fs   from 'fs';
+import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const OUTPUT_DIR   = path.resolve(__dirname, 'output');
-const SPRITES_DIR  = path.resolve(__dirname, '../../Assets/Sprites/Evidence');
-const EVIDENCE_DIR = path.resolve(__dirname, '../../Assets/ScriptableObjects/Cases/Evidence');
+const TYPE_CONFIG = {
+  evidence: {
+    outputDir: path.resolve(__dirname, 'output'),
+    spritesDir: path.resolve(__dirname, '../../Assets/Sprites/Evidence'),
+    itemExtensions: ['.png'],
+  },
+  backgrounds: {
+    outputDir: path.resolve(__dirname, 'output-backgrounds'),
+    spritesDir: path.resolve(__dirname, '../../Assets/Sprites/Backgrounds'),
+    itemExtensions: ['.jpg', '.jpeg', '.png'],
+  },
+};
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+const EVIDENCE_DIR = path.resolve(__dirname, '../../Assets/ScriptableObjects/Cases/Evidence');
+const CASE_DIR = path.resolve(__dirname, '../../Assets/Resources/Cases');
+
+const args = process.argv.slice(2);
+function getFlagValue(flagName, fallback) {
+  const index = args.indexOf(flagName);
+  return index >= 0 ? args[index + 1] : fallback;
+}
+
+const typeArg = getFlagValue('--type', 'evidence');
+const type = typeArg === 'backgrounds' ? 'backgrounds' : 'evidence';
+const caseFlag = normalizeCaseCode(getFlagValue('--case'));
+const flagDry = args.includes('--dry-run');
+const ignoredArgs = new Set(['--type', '--case', '--dry-run']);
+if (args.includes('--type')) ignoredArgs.add(typeArg);
+if (args.includes('--case')) ignoredArgs.add(getFlagValue('--case'));
+const singleArg = args.find(arg => !arg.startsWith('--') && !ignoredArgs.has(arg));
+
+const config = TYPE_CONFIG[type];
+
+function normalizeCaseCode(value) {
+  if (!value) return undefined;
+  const match = value.toUpperCase().match(/C?(\d{3})/);
+  return match ? `C${match[1]}` : value.toUpperCase();
+}
 
 function newGuid() {
   return crypto.randomBytes(16).toString('hex');
 }
 
 function makeMeta(guid) {
-  // Minimal Unity TextureImporter meta that imports as Sprite (textureType: 8)
-  // Matches the format used by existing project sprites
   return `fileFormatVersion: 2
 guid: ${guid}
 TextureImporter:
@@ -164,63 +203,143 @@ TextureImporter:
 `;
 }
 
-function patchAsset(assetPath, guid) {
+function patchEvidenceAsset(assetPath, guid) {
   if (!fs.existsSync(assetPath)) {
-    console.log(`    ⚠  asset not found: ${path.basename(assetPath)}`);
-    return false;
+    return { ok: false, reason: `asset not found: ${path.basename(assetPath)}` };
   }
 
-  let content = fs.readFileSync(assetPath, 'utf8');
+  const content = fs.readFileSync(assetPath, 'utf8');
   const newRef = `imageSprite: {fileID: 21300000, guid: ${guid}, type: 3}`;
-
-  // Replace either null ref or any existing sprite ref
   const updated = content
     .replace(/imageSprite: \{fileID: 0\}/, newRef)
     .replace(/imageSprite: \{fileID: 21300000, guid: \w+, type: 3\}/, newRef);
 
   if (updated === content) {
-    console.log(`    ⚠  imageSprite line not found in ${path.basename(assetPath)}`);
-    return false;
+    return { ok: false, reason: `imageSprite line not found in ${path.basename(assetPath)}` };
   }
 
-  fs.writeFileSync(assetPath, updated, 'utf8');
-  return true;
+  if (!flagDry) {
+    fs.writeFileSync(assetPath, updated, 'utf8');
+  }
+
+  return { ok: true };
 }
 
-// ── Main ──────────────────────────────────────────────────────────────────────
+function patchCaseAsset(assetPath, guid) {
+  if (!fs.existsSync(assetPath)) {
+    return { ok: false, reason: `case asset not found: ${path.basename(assetPath)}` };
+  }
 
-fs.mkdirSync(SPRITES_DIR, { recursive: true });
+  const content = fs.readFileSync(assetPath, 'utf8');
+  const newRef = `sceneBackground: {fileID: 21300000, guid: ${guid}, type: 3}`;
+  const updated = content
+    .replace(/sceneBackground: \{fileID: 0\}/, newRef)
+    .replace(/sceneBackground: \{fileID: 21300000, guid: \w+, type: 3\}/, newRef);
 
-const singleArg = process.argv[2];
-const pngFiles  = singleArg
-  ? [`${singleArg.toUpperCase()}.png`]
-  : fs.readdirSync(OUTPUT_DIR).filter(f => f.endsWith('.png'));
+  if (updated === content) {
+    return { ok: false, reason: `sceneBackground line not found in ${path.basename(assetPath)}` };
+  }
 
-if (!pngFiles.length) {
-  console.log('\n  No PNG files found in output/. Run generate.js first.\n');
+  if (!flagDry) {
+    fs.writeFileSync(assetPath, updated, 'utf8');
+  }
+
+  return { ok: true };
+}
+
+function listSourceFiles() {
+  if (!fs.existsSync(config.outputDir)) {
+    return [];
+  }
+
+  const files = fs.readdirSync(config.outputDir)
+    .filter(file => config.itemExtensions.includes(path.extname(file).toLowerCase()));
+
+  if (singleArg) {
+    const needle = singleArg.toLowerCase();
+    return files.filter(file => {
+      const lowerFile = file.toLowerCase();
+      const stem = path.parse(lowerFile).name;
+      return lowerFile === needle || stem === needle || lowerFile.startsWith(`${needle}_`);
+    });
+  }
+
+  if (caseFlag) {
+    const prefix = type === 'backgrounds'
+      ? `case${caseFlag.slice(1).toLowerCase()}_`
+      : `${caseFlag.toUpperCase()}_`;
+
+    return files.filter(file => file.toLowerCase().startsWith(prefix.toLowerCase()));
+  }
+
+  return files;
+}
+
+function getEvidencePlan(file) {
+  const id = path.basename(file, path.extname(file));
+  return {
+    label: id,
+    srcPath: path.join(config.outputDir, file),
+    dstPath: path.join(config.spritesDir, file),
+    assetPath: path.join(EVIDENCE_DIR, `${id}.asset`),
+    patch: patchEvidenceAsset,
+  };
+}
+
+function getBackgroundPlan(file) {
+  const lowerFile = file.toLowerCase();
+  const match = lowerFile.match(/^case(\d{3})_/);
+  if (!match) {
+    return null;
+  }
+
+  const caseNumber = match[1];
+  return {
+    label: `case${caseNumber}`,
+    srcPath: path.join(config.outputDir, file),
+    dstPath: path.join(config.spritesDir, file),
+    assetPath: path.join(CASE_DIR, `Case_${caseNumber}.asset`),
+    patch: patchCaseAsset,
+  };
+}
+
+function getPlan(file) {
+  return type === 'backgrounds' ? getBackgroundPlan(file) : getEvidencePlan(file);
+}
+
+fs.mkdirSync(config.spritesDir, { recursive: true });
+
+const sourceFiles = listSourceFiles();
+
+if (!sourceFiles.length) {
+  console.log(`\n  No source image files found in ${path.relative(__dirname, config.outputDir)}/. Run generate.js first.\n`);
   process.exit(0);
 }
 
-console.log(`\n  Wiring ${pngFiles.length} evidence sprite(s)...\n`);
+console.log(`\n  ${flagDry ? 'Previewing' : 'Wiring'} ${sourceFiles.length} ${type} sprite(s)...\n`);
 
-let ok = 0, failed = 0;
+let ok = 0;
+let failed = 0;
 
-for (const file of pngFiles) {
-  const id        = path.basename(file, '.png');           // e.g. C003_E001
-  const srcPng    = path.join(OUTPUT_DIR, file);
-  const dstPng    = path.join(SPRITES_DIR, file);
-  const dstMeta   = dstPng + '.meta';
-  const assetFile = path.join(EVIDENCE_DIR, `${id}.asset`);
-
-  process.stdout.write(`  ${id} … `);
-
-  if (!fs.existsSync(srcPng)) {
-    console.log('✗ source PNG missing in output/');
-    failed++; continue;
+for (const file of sourceFiles) {
+  const plan = getPlan(file);
+  if (!plan) {
+    console.log(`  ${file} ... ✗ unrecognized filename format`);
+    failed++;
+    continue;
   }
 
-  // Reuse existing GUID if .meta already exists (idempotent re-runs)
+  process.stdout.write(`  ${plan.label} ... `);
+
+  if (!fs.existsSync(plan.srcPath)) {
+    console.log('✗ source image missing');
+    failed++;
+    continue;
+  }
+
+  const dstMeta = `${plan.dstPath}.meta`;
   let guid;
+
   if (fs.existsSync(dstMeta)) {
     const match = fs.readFileSync(dstMeta, 'utf8').match(/^guid: ([a-f0-9]{32})/m);
     guid = match ? match[1] : newGuid();
@@ -228,22 +347,26 @@ for (const file of pngFiles) {
     guid = newGuid();
   }
 
-  fs.copyFileSync(srcPng, dstPng);
-  fs.writeFileSync(dstMeta, makeMeta(guid), 'utf8');
+  if (!flagDry) {
+    fs.copyFileSync(plan.srcPath, plan.dstPath);
+    fs.writeFileSync(dstMeta, makeMeta(guid), 'utf8');
+  }
 
-  const patched = patchAsset(assetFile, guid);
-  if (patched) {
-    console.log(`✓  (guid: ${guid.slice(0, 8)}…)`);
+  const patched = plan.patch(plan.assetPath, guid);
+  if (patched.ok) {
+    console.log(`${flagDry ? '✓ would wire' : '✓ wired'} (guid: ${guid.slice(0, 8)}...)`);
     ok++;
   } else {
+    console.log(`✗ ${patched.reason}`);
     failed++;
   }
 }
 
-console.log(`\n  Done. ${ok} wired, ${failed} failed.\n`);
-if (ok > 0) {
+console.log(`\n  Done. ${ok} ${flagDry ? 'would wire' : 'wired'}, ${failed} failed.\n`);
+
+if (!flagDry && ok > 0) {
   console.log('  Next steps:');
-  console.log('  1. Open Unity — it will auto-import the new sprites');
-  console.log('  2. Run Casebook → Build Scene');
-  console.log('  3. Build and push to device\n');
+  console.log('  1. Open Unity so it imports the updated sprites');
+  console.log('  2. Run Casebook -> Build Scene');
+  console.log('  3. Re-run status.js to confirm links\n');
 }

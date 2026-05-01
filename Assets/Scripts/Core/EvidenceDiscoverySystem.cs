@@ -25,8 +25,11 @@ namespace CasebookGame.Core
         int foundCount;
 
         readonly List<HotspotController> activeHotspots = new();
+        readonly HashSet<string> foundEvidenceIds = new();
+        readonly List<EvidenceData> foundEvidence = new();
 
         public IReadOnlyList<HotspotController> ActiveHotspots => activeHotspots;
+        public IReadOnlyList<EvidenceData> FoundEvidence => foundEvidence;
 
         public System.Action<EvidenceData> OnEvidenceFound;
         public System.Action               OnAllEvidenceFound;
@@ -46,6 +49,8 @@ namespace CasebookGame.Core
         {
             totalEvidence = caseData.evidence.Count;
             foundCount    = 0;
+            foundEvidenceIds.Clear();
+            foundEvidence.Clear();
 
             // Clear previous evidence tab cards
             if (evidenceTabParent)
@@ -66,6 +71,16 @@ namespace CasebookGame.Core
 
         public void RegisterEvidenceFound(EvidenceData evidence)
         {
+            if (evidence == null)
+                return;
+
+            if (!string.IsNullOrWhiteSpace(evidence.evidenceId) && foundEvidenceIds.Contains(evidence.evidenceId))
+                return;
+
+            if (!string.IsNullOrWhiteSpace(evidence.evidenceId))
+                foundEvidenceIds.Add(evidence.evidenceId);
+            foundEvidence.Add(evidence);
+
             foundCount++;
             RefreshCounter();
 
@@ -98,5 +113,19 @@ namespace CasebookGame.Core
         public bool IsAllFound  => foundCount >= totalEvidence;
         public int  FoundCount  => foundCount;
         public int  TotalCount  => totalEvidence;
+
+        public bool HasFoundEvidence(string evidenceId) =>
+            !string.IsNullOrWhiteSpace(evidenceId) && foundEvidenceIds.Contains(evidenceId);
+
+        public bool HasFoundTag(EvidenceTag tag)
+        {
+            foreach (var evidence in foundEvidence)
+            {
+                if (evidence != null && evidence.HasTag(tag))
+                    return true;
+            }
+
+            return false;
+        }
     }
 }

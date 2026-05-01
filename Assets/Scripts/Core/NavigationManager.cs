@@ -6,7 +6,7 @@ using CasebookGame.UI;
 
 namespace CasebookGame.Core
 {
-    public enum ScreenId { Home, CaseSelect, Account, Game, InGameMenu }
+    public enum ScreenId { Home, CaseSelect, Account, Game, InGameMenu, Dossier }
     public enum TransitionType { None, SlideLeft, SlideRight, FadeUp }
 
     public class NavigationManager : MonoBehaviour
@@ -18,6 +18,7 @@ namespace CasebookGame.Core
         [SerializeField] BaseScreen   accountScreen;
         [SerializeField] BaseScreen   gameScreen;
         [SerializeField] BaseScreen   inGameMenuScreen;
+        [SerializeField] BaseScreen   dossierScreen;
         [SerializeField] ConfirmDialog confirmDialog;
         [SerializeField] RectTransform canvasRT;
 
@@ -302,6 +303,7 @@ namespace CasebookGame.Core
             ScreenId.Account    => accountScreen,
             ScreenId.Game       => gameScreen,
             ScreenId.InGameMenu => inGameMenuScreen,
+            ScreenId.Dossier    => dossierScreen,
             _                   => null
         };
 

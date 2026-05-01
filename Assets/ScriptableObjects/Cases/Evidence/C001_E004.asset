@@ -17,7 +17,7 @@ MonoBehaviour:
   descriptionText: "HALE INDUSTRIES\nVISITOR ACCESS BADGE\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nNAME:  
     MARCUS VANE\nROLE:   ASSISTANT\nCODE:   4492\n\nOUT-SCAN\n22:15  \u2014  FRONT
     DOOR\n\nBuilding security confirms\nbadge exit before struggle."
-  imageSprite: {fileID: 21300000, guid: 3d565a89aa9f2ec4a96a713be6a1fabf, type: 3}
+  imageSprite: {fileID: 21300000, guid: 1c890ab27b73a4e9de6ed32d379e3412, type: 3}
   displayMode: 3
   tags: 000000000500000006000000
   enhanceOverlayMaskSprite: {fileID: 0}

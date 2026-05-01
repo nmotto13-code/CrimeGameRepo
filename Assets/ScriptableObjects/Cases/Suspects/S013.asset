@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
+  m_Name: S013
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
+  schemaVersion: 1
+  suspectId: S013
+  displayName: Owen Kade
+  portraitSprite: {fileID: 0}
+  bio: A print broker and document finisher who handles boutique jobs for galleries,
+    private estates, and anyone willing to pay for a convincing duplicate.
+  traits:
+  - crafty
+  - vain
+  - risk tolerant
+  knownAssociates:
+  - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
+  - {fileID: 11400000, guid: 7723cce1cc0da03448433f5c5fa2a2d7, type: 2}
+  linkedCaseIds:
+  - Case_013
+  - Case_020
+  credibilityScore: 29
+  notes: Useful connector between forged provenance work and Mira Voss's ledger-cleaning
+    network.

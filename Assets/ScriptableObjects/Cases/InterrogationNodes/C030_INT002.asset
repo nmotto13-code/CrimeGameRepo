@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 939dab4bae1b4354a88f82b8c650e9d0, type: 3}
+  m_Name: C030_INT002
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.InterrogationNode
+  schemaVersion: 1
+  nodeId: C030_INT002
+  promptText: What proves the internal leak was operational, not accidental paperwork
+    drift?
+  responses:
+  - The same desk-side print chain produced the restricted fraud brief copy and the
+    premature missing-persons routing slip.
+  - The dock barge schedule carried both the annex shelf route and the search grid
+    key.
+  - The bus shelter screenshot from C021 contained the archive floor code.
+  correctResponseIndex: 0
+  unlockConditionTags: 0800000005000000
+  evidenceRequiredIds:
+  - C018_E006
+  - C027_E004
+  - C030_E007

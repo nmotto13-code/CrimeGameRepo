@@ -6,6 +6,9 @@ namespace CasebookGame.Data
     [CreateAssetMenu(fileName = "New Case", menuName = "Casebook/Case Data")]
     public class CaseData : ScriptableObject
     {
+        [Header("Schema")]
+        [Min(0)] public int schemaVersion = CaseSchemaVersions.Current;
+
         [Header("Case Info")]
         public string caseId;
         public string title;
@@ -15,11 +18,17 @@ namespace CasebookGame.Data
         [Header("Hotspots")]
         public List<HotspotData> hotspots = new List<HotspotData>();
 
-        [Header("Evidence (4–7 items)")]
+        [Header("Evidence (4-7 items)")]
         public List<EvidenceData> evidence = new List<EvidenceData>();
 
-        [Header("Claims (3–5 items)")]
+        [Header("Claims (3-5 items)")]
         public List<ClaimData> claims = new List<ClaimData>();
+
+        [Header("Suspects")]
+        public List<SuspectData> involvedSuspects = new List<SuspectData>();
+
+        [Header("Interrogation")]
+        public List<InterrogationNode> interrogationNodes = new List<InterrogationNode>();
 
         [Header("Solution")]
         public string contradictoryClaimId;
@@ -30,7 +39,7 @@ namespace CasebookGame.Data
         public string primaryEvidenceIdB;
 
         [Header("Scoring")]
-        public int   basePoints       = 500;
+        public int basePoints = 500;
         public float timeLimitSeconds = 0f;  // 0 = no limit, elapsed tracked silently
 
         [Header("Star Mastery")]

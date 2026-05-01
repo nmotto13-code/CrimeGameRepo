@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
+  m_Name: S029
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
+  schemaVersion: 1
+  suspectId: S029
+  displayName: Inez Farrow
+  portraitSprite: {fileID: 0}
+  bio: Desk sergeant and records coordinator with just enough access to move files,
+    pre-print routing slips, and hide the movement inside normal overnight workflow.
+  traits:
+  - contained
+  - disciplined
+  - compartmentalized
+  knownAssociates:
+  - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
+  - {fileID: 11400000, guid: 40763f81f4e4def4fbcfe6dbee159dd2, type: 2}
+  linkedCaseIds:
+  - Case_030
+  credibilityScore: 19
+  notes: Primary internal leak culprit. Her access explains the restricted-information
+    clues seeded in both department arcs.

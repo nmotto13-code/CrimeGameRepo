@@ -74,8 +74,9 @@ namespace CasebookGame.Editor
             tcRT.anchorMax = new Vector2(1, 0.85f);
             tcRT.offsetMin = Vector2.zero; tcRT.offsetMax = Vector2.zero;
 
-            var line1 = MakeText(titleContainer, "TitleLine1", "POCKET CASEBOOK", 72, FontStyles.Bold);
-            line1.color = new Color(0.95f, 0.88f, 0.65f);   // warm parchment gold
+            var line1 = MakeText(titleContainer, "TitleLine1", "CRIME CITY: DETECTIVE", 64, FontStyles.Bold);
+            line1.color = new Color(0.98f, 0.82f, 0.22f);   // warm gold
+            line1.characterSpacing = 2f;
             var l1RT = line1.gameObject.GetComponent<RectTransform>();
             l1RT.anchorMin = new Vector2(0, 0.55f); l1RT.anchorMax = new Vector2(1, 1);
             l1RT.offsetMin = new Vector2(40, 0); l1RT.offsetMax = new Vector2(-40, 0);
@@ -105,18 +106,6 @@ namespace CasebookGame.Editor
             tapRT.anchorMin = new Vector2(0.2f, 0.22f);
             tapRT.anchorMax = new Vector2(0.8f, 0.30f);
             tapRT.offsetMin = Vector2.zero; tapRT.offsetMax = Vector2.zero;
-
-            // Case count badge
-            var badgeGo = new GameObject("CaseBadge");
-            badgeGo.transform.SetParent(canvasGo.transform, false);
-            var badgeRT = badgeGo.AddComponent<RectTransform>();
-            badgeRT.anchorMin = new Vector2(0.25f, 0.12f);
-            badgeRT.anchorMax = new Vector2(0.75f, 0.19f);
-            badgeRT.offsetMin = Vector2.zero; badgeRT.offsetMax = Vector2.zero;
-            badgeGo.AddComponent<Image>().color = new Color(0.15f, 0.10f, 0.05f, 0.8f);
-            var badgeTxt = MakeText(badgeGo, "BadgeText", "10 CASE FILES AVAILABLE", 26, FontStyles.Normal);
-            badgeTxt.color = new Color(0.95f, 0.88f, 0.65f);
-            Stretch(badgeTxt.gameObject.GetComponent<RectTransform>());
 
             // TitleScreenController
             var ctrl = canvasGo.AddComponent<TitleScreenController>();

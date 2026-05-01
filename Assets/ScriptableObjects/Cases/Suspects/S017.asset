@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
+  m_Name: S017
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
+  schemaVersion: 1
+  suspectId: S017
+  displayName: Celia Drax
+  portraitSprite: {fileID: 0}
+  bio: Insurance adjuster known for dramatic field photos and selective timelines.
+    Treats visual evidence as something to compose, not preserve.
+  traits:
+  - performative
+  - calculating
+  - unflappable
+  knownAssociates: []
+  linkedCaseIds:
+  - Case_016
+  credibilityScore: 27.000002
+  notes: Her case leans on physical evidence rather than spreadsheets, broadening
+    the fraud department's evidence mix.

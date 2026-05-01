@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_022
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 1
+  caseId: Case_022
+  title: Room 3B
+  briefText: Hostel manager Jonah Vale says a courier checked out before dawn and
+    never came back. Keycard residue and hallway timing suggest the room was re-entered
+    long after the claimed checkout.
+  sceneBackground: {fileID: 21300000, guid: 28450cc7b3fe8185bee22f885d617b2a, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.25, y: 0.65}
+    radius: 0.06
+    evidenceId: C022_E001
+    hotspotLabel: Checkout Desk
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.7}
+    radius: 0.06
+    evidenceId: C022_E002
+    hotspotLabel: Room Reader
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.35}
+    radius: 0.06
+    evidenceId: C022_E005
+    hotspotLabel: Hallway Camera
+  evidence:
+  - {fileID: 11400000, guid: 78b9d323f1c670448bb5abfa67c9c57f, type: 2}
+  - {fileID: 11400000, guid: b960c1b1c0b501141b7a59ced165e48b, type: 2}
+  - {fileID: 11400000, guid: 62e7bd06a3706a042ad594c562e25953, type: 2}
+  - {fileID: 11400000, guid: fdc367fad7fde544e9be35b793e9027c, type: 2}
+  - {fileID: 11400000, guid: b3e35aaca596b194981bf0b1efe955dc, type: 2}
+  claims:
+  - {fileID: 11400000, guid: a84ee7a2fc13d1f469a5f79cb4b6efe1, type: 2}
+  - {fileID: 11400000, guid: e77d9bc80c3fb974a922362a07f50021, type: 2}
+  - {fileID: 11400000, guid: 194e488e3974d7a4ebe27f20784e339d, type: 2}
+  - {fileID: 11400000, guid: b0d71ac079ae1f047863aff069ab2134, type: 2}
+  involvedSuspects:
+  - {fileID: 11400000, guid: b0979a6db06854443b7e34029149b09a, type: 2}
+  interrogationNodes: []
+  contradictoryClaimId: C022_CL001
+  explanationText: Jonah says the guest never returned, but C022_E002 shows a second
+    room-reader contact after dawn and C022_E005 places Jonah himself by the side
+    door later that morning. Room 3B was accessed again after the supposed checkout.
+  primaryEvidenceIdA: C022_E002
+  primaryEvidenceIdB: C022_E005
+  basePoints: 500
+  timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

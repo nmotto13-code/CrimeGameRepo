@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_029
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 1
+  caseId: Case_029
+  title: Silent Draft
+  briefText: Reporter Vera Hale disappears after chasing sealed detective memos.
+    Her editor insists she never made it to the precinct annex, but enhanced audio
+    and vehicle stills point straight to a service entrance tied to the same leak
+    pattern.
+  sceneBackground: {fileID: 21300000, guid: c8bff0eddafcee3ac8c16254e413a6f6, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.25, y: 0.65}
+    radius: 0.06
+    evidenceId: C029_E001
+    hotspotLabel: Voicemail Phone
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.7}
+    radius: 0.06
+    evidenceId: C029_E002
+    hotspotLabel: Dash Cam Board
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.35}
+    radius: 0.06
+    evidenceId: C029_E005
+    hotspotLabel: Recorder Tray
+  - hotspotId: H004
+    normalizedPosition: {x: 0.2, y: 0.3}
+    radius: 0.06
+    evidenceId: C029_E006
+    hotspotLabel: Visitor Stub
+  evidence:
+  - {fileID: 11400000, guid: 90e4bb096a805ff4f825c924ec7028e8, type: 2}
+  - {fileID: 11400000, guid: ab4845856b20a984a8d9978832d89316, type: 2}
+  - {fileID: 11400000, guid: 20cedd32c75be8b4f8825194cdfb1196, type: 2}
+  - {fileID: 11400000, guid: de264f866f4532246bf4cbcaa3c96010, type: 2}
+  - {fileID: 11400000, guid: d4efd837c0437da43b86ab68ef10ddbf, type: 2}
+  - {fileID: 11400000, guid: 8d13270c1d4e356479cdec83f9dd9609, type: 2}
+  claims:
+  - {fileID: 11400000, guid: c6294d43dc836d04bb201664d3b08431, type: 2}
+  - {fileID: 11400000, guid: c09342c600c246949a9fd0f5b8cd9a1f, type: 2}
+  - {fileID: 11400000, guid: 9b302db4016523b43ab0aa1829d411db, type: 2}
+  - {fileID: 11400000, guid: c4b02d4977b40e344a89419558d9ab3b, type: 2}
+  involvedSuspects:
+  - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
+  - {fileID: 11400000, guid: 95255e4bcc5af5f469c6020a378f71ac, type: 2}
+  interrogationNodes: []
+  contradictoryClaimId: C029_CL001
+  explanationText: The editor says Vera never reached the annex, but C029_E002 shows
+    her car at the annex loading bay once the glare is enhanced and C029_E006 matches
+    a same-night visitor stub linked to her satchel. Vera got to the precinct service
+    entrance.
+  primaryEvidenceIdA: C029_E002
+  primaryEvidenceIdB: C029_E006
+  basePoints: 500
+  timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

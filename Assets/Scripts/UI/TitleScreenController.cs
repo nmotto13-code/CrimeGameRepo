@@ -16,10 +16,9 @@ namespace CasebookGame.UI
         [SerializeField] Image vignetteOverlay;      // dark radial gradient image over bg
 
         [Header("Title Text")]
-        [SerializeField] TMP_Text titleLine1;        // "POCKET CASEBOOK"
+        [SerializeField] TMP_Text titleLine1;        // "CRIME CITY: DETECTIVE"
         [SerializeField] TMP_Text titleLine2;        // "CONTRADICTION ENGINE"
         [SerializeField] TMP_Text tapPrompt;         // "TAP TO BEGIN"
-        [SerializeField] TMP_Text versionText;       // "CASE FILES: 10"
 
         [Header("Fade")]
         [SerializeField] CanvasGroup fadeGroup;

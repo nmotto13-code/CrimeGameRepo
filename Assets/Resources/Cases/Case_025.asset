@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_025
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 1
+  caseId: Case_025
+  title: Stairwell Five
+  briefText: A witness vanishes from an office tower. Access tech Daria Flint says
+    the emergency stairwell camera was dead all night, but the dark screen itself
+    holds a reflection worth enhancing.
+  sceneBackground: {fileID: 21300000, guid: ca526b3b196b71f7bfaea16e27208297, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.25, y: 0.65}
+    radius: 0.06
+    evidenceId: C025_E001
+    hotspotLabel: Dead Monitor
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.7}
+    radius: 0.06
+    evidenceId: C025_E002
+    hotspotLabel: Maintenance Ring
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.35}
+    radius: 0.06
+    evidenceId: C025_E003
+    hotspotLabel: Elevator Panel
+  evidence:
+  - {fileID: 11400000, guid: 419fac939f1d91a4aafa96b8547942aa, type: 2}
+  - {fileID: 11400000, guid: 09862bc22d760b949af7cffc278fede2, type: 2}
+  - {fileID: 11400000, guid: 904c092b3c14f8e459d3ed0f934af042, type: 2}
+  - {fileID: 11400000, guid: aea222f817f31824eb135dd3b51545d6, type: 2}
+  - {fileID: 11400000, guid: 16d10d669b0b611428ccc2fe53e913a3, type: 2}
+  claims:
+  - {fileID: 11400000, guid: 9db8e0f7c9ffabf478008681bb2fb1e5, type: 2}
+  - {fileID: 11400000, guid: 83f69a0331920f54ca81a6b4c2570f39, type: 2}
+  - {fileID: 11400000, guid: dfcf477144c82f647b20c4ab700f5560, type: 2}
+  - {fileID: 11400000, guid: aab74c25d98dd4c4caf84ce434c7f9bb, type: 2}
+  involvedSuspects:
+  - {fileID: 11400000, guid: f0929c242d1628741a78678004b3a9b8, type: 2}
+  interrogationNodes: []
+  contradictoryClaimId: C025_CL001
+  explanationText: Daria says the dead camera proves nothing, but C025_E001 hides
+    her reflected badge and timestamp once enhanced, and C025_E003 shows a maintenance
+    override stop on the witness floor during that same window. Stairwell five was
+    active, and Daria was there.
+  primaryEvidenceIdA: C025_E001
+  primaryEvidenceIdB: C025_E003
+  basePoints: 500
+  timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

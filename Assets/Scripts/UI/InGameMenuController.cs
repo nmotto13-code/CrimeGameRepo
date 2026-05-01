@@ -7,6 +7,7 @@ namespace CasebookGame.UI
     public class InGameMenuController : BaseScreen
     {
         [SerializeField] Button resumeBtn;
+        [SerializeField] Button dossierBtn;
         [SerializeField] Button caseSelectBtn;
         [SerializeField] Button homeBtn;
 
@@ -18,6 +19,9 @@ namespace CasebookGame.UI
 
             resumeBtn?.onClick.AddListener(() =>
                 NavigationManager.Instance?.Pop(TransitionType.SlideRight));
+
+            dossierBtn?.onClick.AddListener(() =>
+                NavigationManager.Instance?.Push(ScreenId.Dossier, TransitionType.SlideLeft));
 
             caseSelectBtn?.onClick.AddListener(() =>
                 NavigationManager.Instance?.ConfirmLeaveCase(() =>

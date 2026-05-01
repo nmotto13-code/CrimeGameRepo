@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_024
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 1
+  caseId: Case_024
+  title: False Dawn Search
+  briefText: Volunteer search lead Caleb Wren says the search began at sunrise and
+    found nothing earlier. Enhanced drone stills and gate data show vehicle activity
+    on the trail hours before the official start.
+  sceneBackground: {fileID: 21300000, guid: 13b770d93b18207ad5a1d7ef110ef626, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.25, y: 0.65}
+    radius: 0.06
+    evidenceId: C024_E001
+    hotspotLabel: Drone Case
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.7}
+    radius: 0.06
+    evidenceId: C024_E002
+    hotspotLabel: Grid Map
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.35}
+    radius: 0.06
+    evidenceId: C024_E004
+    hotspotLabel: Trail Gate
+  - hotspotId: H004
+    normalizedPosition: {x: 0.2, y: 0.3}
+    radius: 0.06
+    evidenceId: C024_E003
+    hotspotLabel: Bench Thermos
+  evidence:
+  - {fileID: 11400000, guid: 02800f934467f834aa6c7eb6469e597c, type: 2}
+  - {fileID: 11400000, guid: a17f34f5a514c0145a848c8b6be7f0a7, type: 2}
+  - {fileID: 11400000, guid: 89b2fdfbdc5dce44fad9f00f7024cd1e, type: 2}
+  - {fileID: 11400000, guid: 953c0b0c57230714091bc4ac6418c448, type: 2}
+  - {fileID: 11400000, guid: f5576a64750990145808b2ebd301096b, type: 2}
+  claims:
+  - {fileID: 11400000, guid: e9a50712c3815994abfd1a4375452fdc, type: 2}
+  - {fileID: 11400000, guid: 00e05a5b73e9e2642bdc9fcafab98df2, type: 2}
+  - {fileID: 11400000, guid: 2073b761c2781944cabb1698d3f8925e, type: 2}
+  - {fileID: 11400000, guid: 68cfa704abec6044aa9d1cfc7aceeb79, type: 2}
+  involvedSuspects:
+  - {fileID: 11400000, guid: 1549db9413256e644a5167e8aaa8e8a5, type: 2}
+  interrogationNodes: []
+  contradictoryClaimId: C024_CL001
+  explanationText: Caleb says the search began at sunrise, but C024_E001 already
+    shows his truck at the trailhead in predawn light and C024_E004 logs the gate
+    opening at 4:11 AM. Someone from his side was on the ridge hours early.
+  primaryEvidenceIdA: C024_E001
+  primaryEvidenceIdB: C024_E004
+  basePoints: 500
+  timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

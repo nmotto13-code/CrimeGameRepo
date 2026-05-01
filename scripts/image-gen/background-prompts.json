@@ -1,0 +1,105 @@
+{
+  "stylePrefix": "dark atmospheric detective game location, photorealistic, slightly desaturated, cinematic wide shot, no people visible, no text or UI elements, 9:16 portrait",
+  "backgrounds": [
+    {
+      "id": "case011",
+      "location": "donor_lounge",
+      "prompt": "quiet donor lounge after a fundraising event, round cocktail tables with folded raffle slips, stacked banquet chairs, soft amber wall sconces, polished wood bar at the edge of frame, moody civic-hall atmosphere"
+    },
+    {
+      "id": "case012",
+      "location": "harbor_tea_kiosk",
+      "prompt": "shuttered harbor tea kiosk in a crowded night market, hanging lanterns, folded stools, closed service hatch, damp stone floor reflecting warm light, narrow market corridor atmosphere"
+    },
+    {
+      "id": "case013",
+      "location": "appraisal_room",
+      "prompt": "elegant gallery appraisal room with velvet display pedestal, archival lamp glow, framed art silhouettes, brass tools on a side table, refined after-hours museum atmosphere"
+    },
+    {
+      "id": "case014",
+      "location": "operations_pod",
+      "prompt": "modern fintech operations pod after hours, low glass partitions, empty swivel chairs, glowing monitor light, charging shelf and clean minimalist desks, cool corporate night mood"
+    },
+    {
+      "id": "case015",
+      "location": "payroll_archive",
+      "prompt": "quiet payroll archive room with metal shelving, file boxes, fluorescent ceiling panels, worn linoleum floor, old terminal desk, institutional government office mood"
+    },
+    {
+      "id": "case016",
+      "location": "intake_bay",
+      "prompt": "insurance intake bay with cracked shipping crate, pallet jack, damp concrete floor, inspection light glare, industrial warehouse walls, tense claims-investigation atmosphere"
+    },
+    {
+      "id": "case017",
+      "location": "treasury_office",
+      "prompt": "transit treasury office with sorted mail trays, voucher bundles, scales, green desk lamps, secure administrative counters, restrained municipal finance atmosphere"
+    },
+    {
+      "id": "case018",
+      "location": "conference_suite",
+      "prompt": "glass-walled procurement conference suite, long polished table, neatly stacked folders, city lights beyond blinds, cool overhead lighting, high-stakes boardroom mood"
+    },
+    {
+      "id": "case019",
+      "location": "bay_14",
+      "prompt": "self-storage bay corridor with corrugated metal doors, one unit half open, concrete floor, fluorescent strip lights, stacked boxes and pallet marks, stark rental-facility mood"
+    },
+    {
+      "id": "case020",
+      "location": "records_vault",
+      "prompt": "deep records vault with rolling archive shelves, sealed ledger boxes, brass desk lamp, heavy concrete walls, climate-controlled hush, secretive archival atmosphere"
+    },
+    {
+      "id": "case021",
+      "location": "route_six_platform",
+      "prompt": "city bus platform at night, wet pavement, glowing route sign shapes blurred beyond reading, empty bench shelter, idling bus lights in the distance, lonely urban transit mood"
+    },
+    {
+      "id": "case022",
+      "location": "upper_hall",
+      "prompt": "narrow hostel upper hall with mismatched doors, worn carpet runner, dim sconces, shared bathroom light spilling under a doorway, cramped budget-lodging atmosphere"
+    },
+    {
+      "id": "case023",
+      "location": "backstage",
+      "prompt": "backstage room at a basement music venue, vanity bulbs, tangled audio cables, hanging jackets, battered road cases, saturated club ambience after a performance"
+    },
+    {
+      "id": "case024",
+      "location": "trailhead",
+      "prompt": "mountain trailhead before dawn, gravel turnout, search notice board shapes, pine forest edge, mist over the ridge, cold alpine rescue atmosphere"
+    },
+    {
+      "id": "case025",
+      "location": "service_core",
+      "prompt": "office tower service core with concrete stairwell door, utility panels, elevator access point, harsh fluorescent ceiling light, polished floor reflections, sterile maintenance mood"
+    },
+    {
+      "id": "case026",
+      "location": "locker_row",
+      "prompt": "cold dock locker row with steel lockers, vapor haze, wet concrete, overhead industrial lamps, insulated strip curtains, frigid waterfront warehouse atmosphere"
+    },
+    {
+      "id": "case027",
+      "location": "courtyard",
+      "prompt": "shelter courtyard at night with wooden bench, folded blankets, chain-link fence shadows, faint office light from nearby windows, damp pavement, subdued refuge atmosphere"
+    },
+    {
+      "id": "case028",
+      "location": "service_pier",
+      "prompt": "rain-soaked service pier with bollards, mooring ropes, metal turnstile, harbor water reflecting sodium lights, distant barge silhouette, covert waterfront mood"
+    },
+    {
+      "id": "case029",
+      "location": "annex_desk",
+      "prompt": "annex newsroom desk cluttered with notebooks, recorder batteries, phone charger, task lamp glow, glass partition shadows, investigative late-night office atmosphere"
+    },
+    {
+      "id": "case030",
+      "location": "records_floor",
+      "prompt": "records floor inside a civil archive, long shelf aisles, rolling ladders, transfer tubes, dim overnight desk lamps, procedural institutional darkness"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_026
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 1
+  caseId: Case_026
+  title: Cold Berth
+  briefText: Dock foreman Silas Keene says deckhand Tomas Orr never passed locker
+    row on the night he vanished. Frosted cargo tags and berth pings say the route
+    continued much farther into the dock.
+  sceneBackground: {fileID: 21300000, guid: af3ac725d773548c45c408cae7cc1a5e, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.25, y: 0.65}
+    radius: 0.06
+    evidenceId: C026_E001
+    hotspotLabel: Cargo Tag
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.7}
+    radius: 0.06
+    evidenceId: C026_E002
+    hotspotLabel: Locker Row Photo
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.35}
+    radius: 0.06
+    evidenceId: C026_E003
+    hotspotLabel: Bracelet Reader
+  - hotspotId: H004
+    normalizedPosition: {x: 0.2, y: 0.3}
+    radius: 0.06
+    evidenceId: C026_E004
+    hotspotLabel: Forklift Sheet
+  evidence:
+  - {fileID: 11400000, guid: ae3007afc8d0e2047be8742e595fabe4, type: 2}
+  - {fileID: 11400000, guid: d704bf39974440546935ac3159473ce3, type: 2}
+  - {fileID: 11400000, guid: 2eab98fbaa880fe4297020cc9ec53965, type: 2}
+  - {fileID: 11400000, guid: 467c3e7b5246278439d526abdaa6ee28, type: 2}
+  - {fileID: 11400000, guid: 0f97c689c01a4984db7dac11e5c134f5, type: 2}
+  claims:
+  - {fileID: 11400000, guid: efe5dc060e829cc44a46c162f9c7a3bb, type: 2}
+  - {fileID: 11400000, guid: eecef91c827eb3a459d0ea3525e9763d, type: 2}
+  - {fileID: 11400000, guid: c365502d2f576624da91e2de4163cdf5, type: 2}
+  - {fileID: 11400000, guid: c9899f5bce8ae814dafab5fe15e9738e, type: 2}
+  involvedSuspects:
+  - {fileID: 11400000, guid: 83b33ed6ddd0a7b4cba96d836dfab6c2, type: 2}
+  interrogationNodes: []
+  contradictoryClaimId: C026_CL001
+  explanationText: Silas says Tomas never went beyond locker row, but C026_E001 reveals
+    berth 9C once the frost is enhanced and C026_E003 records Tomas's bracelet pinging
+    that exact berth. The missing deckhand was taken deeper into the dock.
+  primaryEvidenceIdA: C026_E001
+  primaryEvidenceIdB: C026_E003
+  basePoints: 500
+  timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
+  toolConfig:
+    crossCheckCharges: 2
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

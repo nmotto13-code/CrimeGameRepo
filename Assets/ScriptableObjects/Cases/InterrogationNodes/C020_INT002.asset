@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 939dab4bae1b4354a88f82b8c650e9d0, type: 3}
+  m_Name: C020_INT002
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.InterrogationNode
+  schemaVersion: 1
+  nodeId: C020_INT002
+  promptText: What tells us the leak came from inside the bureau, not from public
+    paperwork?
+  responses:
+  - The restricted timing existed only on the internal brief chain tied to Mira's
+    copied materials.
+  - The public invoice packet listed the exact shelf location of the ledger.
+  - The donor receipts from C011 contained the annex route and vault shift code.
+  correctResponseIndex: 0
+  unlockConditionTags: 08000000
+  evidenceRequiredIds:
+  - C018_E006
+  - C020_E005

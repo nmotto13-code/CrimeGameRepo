@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
+  m_Name: S015
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
+  schemaVersion: 1
+  suspectId: S015
+  displayName: Priya Sorn
+  portraitSprite: {fileID: 0}
+  bio: Operations lead at a boutique payment startup. Expert enough to hide manual
+    action behind automated language, until the device trail is examined closely.
+  traits:
+  - technical
+  - controlled
+  - image conscious
+  knownAssociates:
+  - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
+  linkedCaseIds:
+  - Case_014
+  credibilityScore: 38
+  notes: Good example of the fraud department's digital-trace template.

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
+  m_Name: S026
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
+  schemaVersion: 1
+  suspectId: S026
+  displayName: Tova Rell
+  portraitSprite: {fileID: 0}
+  bio: Counsellor at the Lantern Youth Shelter. Protective, overextended, and increasingly
+    willing to control the story if she thinks the system will fail a witness.
+  traits:
+  - protective
+  - tired
+  - morally flexible
+  knownAssociates:
+  - {fileID: 11400000, guid: 1549db9413256e644a5167e8aaa8e8a5, type: 2}
+  - {fileID: 11400000, guid: 95255e4bcc5af5f469c6020a378f71ac, type: 2}
+  linkedCaseIds:
+  - Case_027
+  credibilityScore: 52
+  notes: Her case contains the Missing Persons arc's first overt internal-leak clue.

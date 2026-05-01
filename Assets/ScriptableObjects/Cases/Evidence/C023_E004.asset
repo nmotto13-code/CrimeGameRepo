@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd38127d486d794aa9fa20d4ed0bb10, type: 3}
+  m_Name: C023_E004
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.EvidenceData
+  schemaVersion: 1
+  evidenceId: C023_E004
+  displayName: Dressing Mirror Photo
+  descriptionText: A dressing-mirror snap catches Sera turning toward the loading
+    exit. The reflected wristband and bag strap place her on a different route than
+    the promoter described.
+  imageSprite: {fileID: 21300000, guid: fefb2444e6d3bc91c6da4c113c8a8910, type: 3}
+  usesPlaceholderSprite: 0
+  displayMode: 0
+  tags: 
+  enhanceOverlayMaskSprite: {fileID: 0}
+  tagsUnlockedOnEnhance: 

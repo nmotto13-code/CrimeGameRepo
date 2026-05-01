@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e15d889c5b46d29d2f3c7a1b2e2022, type: 3}
+  m_Name: Missing_Persons
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.DepartmentData
+  departmentId: 7
+  displayName: Missing Persons
+  requiredRank: 1
+  requiredStarsCount: 0
+  caseIds:
+  - Case_021
+  - Case_022
+  - Case_023
+  - Case_024
+  - Case_025
+  - Case_026
+  - Case_027
+  - Case_028
+  - Case_029
+  - Case_030

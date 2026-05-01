@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
+  m_Name: S027
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
+  schemaVersion: 1
+  suspectId: S027
+  displayName: Adrian Crowe
+  portraitSprite: {fileID: 0}
+  bio: Private security contractor who vanishes while tailing a dockside lead linked
+    to Mira's network. Keeps redundant gear caches and minimal trust.
+  traits:
+  - disciplined
+  - suspicious
+  - field savvy
+  knownAssociates:
+  - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
+  - {fileID: 11400000, guid: 95255e4bcc5af5f469c6020a378f71ac, type: 2}
+  linkedCaseIds:
+  - Case_028
+  credibilityScore: 61
+  notes: Missing person dossier entry with strong connective tissue to the fraud
+    arc.

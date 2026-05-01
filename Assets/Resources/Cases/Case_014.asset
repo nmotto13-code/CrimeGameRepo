@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_014
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 1
+  caseId: Case_014
+  title: Refund Loop
+  briefText: A burst of refunds drained a merchant escrow account. Operations lead
+    Priya Sorn says the approvals happened automatically overnight, but manual traces
+    point back to her desk.
+  sceneBackground: {fileID: 21300000, guid: e1776af90e55cf65c42f4ce02c3d1e9c, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.25, y: 0.65}
+    radius: 0.06
+    evidenceId: C014_E001
+    hotspotLabel: Admin Token Cradle
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.7}
+    radius: 0.06
+    evidenceId: C014_E002
+    hotspotLabel: Charging Shelf
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.35}
+    radius: 0.06
+    evidenceId: C014_E005
+    hotspotLabel: Night Shift Sensor
+  evidence:
+  - {fileID: 11400000, guid: 537c450b40f8a154abd2b79fe818b7a8, type: 2}
+  - {fileID: 11400000, guid: 7191939ae9a2cb547828c35b4a8e0a54, type: 2}
+  - {fileID: 11400000, guid: 5cb4a7168dbccda41bcfdb3ff4f697d1, type: 2}
+  - {fileID: 11400000, guid: c48a29dc9a63f3b4f88d9aea4520cc24, type: 2}
+  - {fileID: 11400000, guid: b891a565769162f459f5f5bb85ef1e38, type: 2}
+  claims:
+  - {fileID: 11400000, guid: 6b8d6d6fd3f94cc4481a43b2d8f8e7b1, type: 2}
+  - {fileID: 11400000, guid: d12698268c1fb9d4da4584607bd48823, type: 2}
+  - {fileID: 11400000, guid: f28fe465178a6ed41af98bd4debbe224, type: 2}
+  - {fileID: 11400000, guid: 7839ac3ebb159da4c80f3226d2c9fe17, type: 2}
+  involvedSuspects:
+  - {fileID: 11400000, guid: 10818a9f26f758847989c3590ed8f772, type: 2}
+  interrogationNodes: []
+  contradictoryClaimId: C014_CL001
+  explanationText: Priya says the refunds ran automatically after her phone died,
+    but C014_E001 shows manual token use from her workstation and C014_E002 proves
+    she took a charger after claiming the phone was already dead. The approvals were
+    actively supervised.
+  primaryEvidenceIdA: C014_E001
+  primaryEvidenceIdB: C014_E002
+  basePoints: 500
+  timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
+  toolConfig:
+    crossCheckCharges: 3
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

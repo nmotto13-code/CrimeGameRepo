@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_018
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 1
+  caseId: Case_018
+  title: Restricted Preview
+  briefText: A procurement fraud suspect reacted to a warrant before it was served.
+    Mira Voss says she only reviewed public invoices, but one concealed clue suggests
+    someone inside the bureau leaked restricted timing.
+  sceneBackground: {fileID: 21300000, guid: ab1bcf5ab25face905f00d4784f9ae71, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.25, y: 0.65}
+    radius: 0.06
+    evidenceId: C018_E001
+    hotspotLabel: Invoice Packet
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.7}
+    radius: 0.06
+    evidenceId: C018_E002
+    hotspotLabel: Burner Tablet
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.35}
+    radius: 0.06
+    evidenceId: C018_E004
+    hotspotLabel: Recorder Tray
+  - hotspotId: H004
+    normalizedPosition: {x: 0.2, y: 0.3}
+    radius: 0.06
+    evidenceId: C018_E005
+    hotspotLabel: Courier Envelope
+  - hotspotId: H005
+    normalizedPosition: {x: 0.75, y: 0.4}
+    radius: 0.06
+    evidenceId: C018_E006
+    hotspotLabel: Brief Snapshot
+  evidence:
+  - {fileID: 11400000, guid: c9c6f1daac44490478ac5e32bc9842c9, type: 2}
+  - {fileID: 11400000, guid: cdeac8c675f6b954c975815d7eb6b2ea, type: 2}
+  - {fileID: 11400000, guid: 80d55e51b6b6236428b3fad86b3166ad, type: 2}
+  - {fileID: 11400000, guid: 54cf40d7bfb3aa94f884ce83783aff38, type: 2}
+  - {fileID: 11400000, guid: 230c1de359ec2bb4bab33b60f913e410, type: 2}
+  - {fileID: 11400000, guid: c809ff5f5c8599540bc43cde50155147, type: 2}
+  claims:
+  - {fileID: 11400000, guid: ebb3f7a22bab38f4aa124af8669b0ac1, type: 2}
+  - {fileID: 11400000, guid: a31a866f5fc7fb145b571183d9f0e8f9, type: 2}
+  - {fileID: 11400000, guid: adb1210c00304b04fa5c163d3a8963ae, type: 2}
+  - {fileID: 11400000, guid: 88d9de9967fa2fe4ab15e280f4351844, type: 2}
+  involvedSuspects:
+  - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
+  interrogationNodes: []
+  contradictoryClaimId: C018_CL001
+  explanationText: Mira says she only saw public paperwork, but C018_E002 carries
+    a private calendar reminder aligned to the warrant window and C018_E006 is a
+    covert photo of a restricted fraud briefing packet from inside the department
+    flow. She had leaked advance notice.
+  primaryEvidenceIdA: C018_E002
+  primaryEvidenceIdB: C018_E006
+  basePoints: 500
+  timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
+  toolConfig:
+    crossCheckCharges: 3
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

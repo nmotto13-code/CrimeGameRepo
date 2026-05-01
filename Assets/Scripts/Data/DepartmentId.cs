@@ -7,6 +7,8 @@ namespace CasebookGame.Data
         Homicide = 2,
         Vice = 3,
         Arson = 4,
-        MajorCrimes = 5
+        MajorCrimes = 5,
+        Fraud = 6,
+        MissingPersons = 7,
     }
 }

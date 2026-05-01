@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
+  m_Name: S016
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
+  schemaVersion: 1
+  suspectId: S016
+  displayName: Martin Quill
+  portraitSprite: {fileID: 0}
+  bio: Payroll auditor for a public benefits annex. Presents as methodical and above
+    suspicion while using routine office movement to hide after-hours edits.
+  traits:
+  - methodical
+  - cold
+  - bureaucratic
+  knownAssociates:
+  - {fileID: 11400000, guid: 2444cde7130f88c458b6ad0e4012fb02, type: 2}
+  linkedCaseIds:
+  - Case_015
+  credibilityScore: 31
+  notes: Introduces a bureaucratic version of fraud before the leak thread becomes
+    explicit.

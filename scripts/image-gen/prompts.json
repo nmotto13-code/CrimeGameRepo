@@ -1,7 +1,42 @@
 {
   "stylePrefix": "dark moody detective game evidence photograph, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, no UI chrome or borders, square crop",
-
   "evidence": [
+    {
+      "id": "C001_E001",
+      "name": "Coroner Report",
+      "case": "C001",
+      "prompt": "official coroner report on a dark wooden desk, cream paper with typed sections blurred beyond reading, medical examiner stamp area, subtle bloodless forensic atmosphere, cool desk lamp light, shallow depth of field"
+    },
+    {
+      "id": "C001_E002",
+      "name": "Stopped Wall Clock",
+      "case": "C001",
+      "prompt": "antique mahogany wall clock photographed straight on, cracked glass face with radial impact fracture in the lower left, ornate hands frozen at a specific time, dim study lighting, dust and age visible on the wood"
+    },
+    {
+      "id": "C001_E003",
+      "name": "Security Log",
+      "case": "C001",
+      "prompt": "close-up of a dark security terminal or printed access log showing several time-stamped rows and one re-entry event highlighted, all text illegible, cool monitor glow, noir office atmosphere"
+    },
+    {
+      "id": "C001_E004",
+      "name": "Assistant's Visitor Badge",
+      "case": "C001",
+      "prompt": "corporate visitor access badge on a dark desk, clipped lanyard, barcode strip and ID block layout visible but unreadable, brushed plastic surface, dramatic side lighting"
+    },
+    {
+      "id": "C001_E005",
+      "name": "Watch Box (Empty)",
+      "case": "C001",
+      "prompt": "open antique luxury watch presentation box with dark polished wood exterior and burgundy velvet lining, circular watch indentation empty, moody study lighting, tight forensic product shot"
+    },
+    {
+      "id": "C002_E001",
+      "name": "Vault Access Log",
+      "case": "C002",
+      "prompt": "printed bank vault access log on white paper clipped to a metal board, two authorization columns and timestamp rows blurred beyond reading, faint fluorescent reflection, sterile financial-security atmosphere"
+    },
     {
       "id": "C002_E002",
       "name": "Office CCTV Still",
@@ -15,16 +50,46 @@
       "prompt": "close-up photograph of a printed thermal paper access control log, black text on white paper slightly curled at edges, shows a thumbprint icon symbol and a timestamp reading 2:16 PM, green LED glow from a keypad in the background, shallow depth of field"
     },
     {
+      "id": "C002_E004",
+      "name": "Vault Door Seal",
+      "case": "C002",
+      "prompt": "close-up of a bank vault door security seal and re-lock indicator, tamper strip across heavy steel hardware, small digital timing display blown out and unreadable, cold metallic lighting"
+    },
+    {
+      "id": "C002_E005",
+      "name": "Lena's Keycard",
+      "case": "C002",
+      "prompt": "employee keycard resting beside a corridor card reader, matte plastic badge with magnetic stripe and blurred ID block, green reader light, shallow depth of field, sterile corporate bank hallway mood"
+    },
+    {
       "id": "C003_E001",
       "name": "Cafe Receipt",
       "case": "C003",
       "prompt": "thermal receipt paper from a cafe named Cafe Lumiere, slightly crumpled, printed line items including one espresso and a price, timestamp showing 3:05 PM, small coffee ring stain in one corner, warm ambient light, paper texture visible"
     },
     {
+      "id": "C003_E002",
+      "name": "Gallery Alarm Log",
+      "case": "C003",
+      "prompt": "security alarm printout or terminal screen for an art gallery, several motion sensor rows with one alert event highlighted, all text illegible, cool low-light security office glow"
+    },
+    {
+      "id": "C003_E003",
+      "name": "Transit Map",
+      "case": "C003",
+      "prompt": "folded city transit map spread on a cafe table, route line marked between two distant points with a pen circle, station names blurred and unreadable, warm ambient cafe light, paper texture emphasized"
+    },
+    {
       "id": "C003_E004",
       "name": "Gallery CCTV Timestamp",
       "case": "C003",
       "prompt": "grainy colour CCTV still image of an art gallery side entrance corridor, a blurred figure in dark clothing entering through a door, glowing green digital timestamp bar along the bottom edge, fish-eye wide-angle lens distortion, low-light security camera aesthetic, slightly washed-out colours, no legible text"
+    },
+    {
+      "id": "C003_E005",
+      "name": "Credit Card Statement",
+      "case": "C003",
+      "prompt": "printed card statement or merchant receipt slip on a dark tabletop, one contactless payment icon visible near the transaction row, numbers and merchant details blurred beyond reading, soft moody lighting"
     },
     {
       "id": "C004_E001",
@@ -39,10 +104,28 @@
       "prompt": "hospital reception lobby CCTV frame, completely empty of people, reception desk and waiting chairs visible, bright fluorescent overhead lighting, glowing digital timestamp bar along the bottom, security camera colour footage with slight scan-line effect, institutional clinical atmosphere, no legible text"
     },
     {
+      "id": "C004_E003",
+      "name": "Plate Reader Log",
+      "case": "C004",
+      "prompt": "ANPR traffic camera monitor showing a car rear view frame and adjacent timestamp panel, license plate and text unreadable, clinical surveillance aesthetic, cool garage lighting reflections"
+    },
+    {
+      "id": "C004_E004",
+      "name": "Appointment Record",
+      "case": "C004",
+      "prompt": "medical appointment sheet on a clipboard with one missed-appointment row marked by a bold checkbox or stamp, all text blurred beyond reading, clean clinic lighting, documentary evidence photo"
+    },
+    {
       "id": "C004_E005",
       "name": "Fuel Station Receipt",
       "case": "C004",
       "prompt": "crumpled petrol station thermal receipt on a dark surface, fuel pump icon graphic at the top, rows of printed thermal text too small to read, slightly greasy paper texture, harsh spotlight from above, focus on document shape and texture not text content"
+    },
+    {
+      "id": "C005_E001",
+      "name": "Weather Report",
+      "case": "C005",
+      "prompt": "official weather report printout with rain cloud icons and chart bands across the page, all labels unreadable, paper on a desk under cool office light, investigative close-up"
     },
     {
       "id": "C005_E002",
@@ -51,10 +134,34 @@
       "prompt": "overhead crime-scene photograph of a dusty concrete staircase landing, dry dust on the surface showing clear boot-print impressions, small orange numbered evidence marker placard beside the prints, harsh clinical forensic flash lighting, slightly overexposed"
     },
     {
+      "id": "C005_E003",
+      "name": "Staircase Surface Note",
+      "case": "C005",
+      "prompt": "documentary photograph of an uncovered outdoor concrete staircase landing in rainy weather, slick rough surface texture visible under stark flash, empty scene, harsh night lighting, architectural detail emphasized"
+    },
+    {
+      "id": "C005_E004",
+      "name": "Witness Statement Timestamp",
+      "case": "C005",
+      "prompt": "smartphone call log screen in a dark room, one emergency call row highlighted near the top, text and numbers blurred beyond reading, glass reflections, cool bluish screen glow"
+    },
+    {
       "id": "C005_E005",
       "name": "Suspect's Boots",
       "case": "C005",
       "prompt": "pair of worn dark brown leather work boots size 10 lying on a stainless steel forensic examination table, boot treads clearly visible and completely dry, white paper evidence tag tied to the lace with string, harsh overhead fluorescent laboratory lighting, high-contrast shadows"
+    },
+    {
+      "id": "C006_E001",
+      "name": "Delivery Photo",
+      "case": "C006",
+      "prompt": "courier smartphone photo of an estate front gate under overcast afternoon sky, stone pillars and iron gate centered in frame, neutral daylight, subtle handheld phone-photo perspective"
+    },
+    {
+      "id": "C006_E002",
+      "name": "Courier Dispatch Log",
+      "case": "C006",
+      "prompt": "clipboard with a courier schedule sheet showing many numbered rows and timing boxes blurred beyond reading, one later row circled in pen, dispatch office desk, neutral overhead light, paper texture emphasized"
     },
     {
       "id": "C006_E003",
@@ -69,10 +176,34 @@
       "prompt": "carbon-copy delivery route manifest sheet on slightly yellowed paper, blue carbon-imprint rows of typed text too small to read, a single handwritten ink signature on one numbered line, clipboard metal clip visible at the top, soft overhead light, focus on paper texture and handwriting not text content"
     },
     {
+      "id": "C006_E005",
+      "name": "Weather Station",
+      "case": "C006",
+      "prompt": "weather station cloud cover report on a monitor or printout, graph bands and cloud icons visible but unreadable, cool muted palette, analytical meteorology atmosphere"
+    },
+    {
       "id": "C007_E001",
       "name": "Smart Speaker Log",
       "case": "C007",
       "prompt": "close-up of a smartphone screen showing a dark-themed smart home app, vertical list of activity log rows with small icons and blurred illegible text, one row highlighted amber standing out from the rest, bottom of the list empty with no further entries, soft screen glow in a dark room"
+    },
+    {
+      "id": "C007_E002",
+      "name": "Greta Lowe Statement",
+      "case": "C007",
+      "prompt": "written witness statement on lined paper with a bold quoted passage in the center and signature line at the bottom, all handwriting blurred beyond reading, warm apartment desk lamp light"
+    },
+    {
+      "id": "C007_E003",
+      "name": "Building Wifi Log",
+      "case": "C007",
+      "prompt": "dark router admin screen or printed connectivity log showing one device row and a final ping event highlighted, all text unreadable, moody tech evidence close-up"
+    },
+    {
+      "id": "C007_E004",
+      "name": "Elevator Log",
+      "case": "C007",
+      "prompt": "elevator RFID access log printout beside a resident key fob, brushed metal surface and timestamp columns visible but blurred, fluorescent apartment-building lighting"
     },
     {
       "id": "C007_E005",
@@ -87,10 +218,40 @@
       "prompt": "close-up of a smartphone screen displaying a digital train e-ticket app, large black QR code dominating the centre of the screen, minimalist transit app design, dark background with white card area, slight screen brightness glare, focus on QR code shape not surrounding text"
     },
     {
+      "id": "C008_E002",
+      "name": "Warehouse Sensor",
+      "case": "C008",
+      "prompt": "industrial motion sensor mounted at a warehouse loading dock, small red indicator light active, concrete wall and metal shutter behind, cold evening lighting, surveillance-style composition"
+    },
+    {
       "id": "C008_E003",
       "name": "Train Platform Camera",
       "case": "C008",
       "prompt": "colour CCTV footage of a train platform, train visible on left side of frame mid-departure with motion blur, timestamp 6:31 PM in corner, platform almost entirely empty, fluorescent platform lighting, security camera aesthetic"
+    },
+    {
+      "id": "C008_E004",
+      "name": "Warehouse Location",
+      "case": "C008",
+      "prompt": "city navigation map on a smartphone or printed route sheet showing a station and distant warehouse connected by a route line, labels unreadable, cool transit-themed lighting"
+    },
+    {
+      "id": "C008_E005",
+      "name": "Conductor Log",
+      "case": "C008",
+      "prompt": "train conductor manifest on a clipboard with seat rows and one empty seat entry subtly marked, all text illegible, platform fluorescent light, documentary evidence photo"
+    },
+    {
+      "id": "C009_E001",
+      "name": "Class Booking System",
+      "case": "C009",
+      "prompt": "gym booking system screen with a cancelled evening class row highlighted in a scheduling grid, text unreadable, dark-themed interface, bright fitness-studio monitor glow"
+    },
+    {
+      "id": "C009_E002",
+      "name": "Keycard Entry Log",
+      "case": "C009",
+      "prompt": "staff keycard and access log printout on a locker room counter, one corridor entry event visible in blurred timestamp rows, harsh fluorescent gym lighting"
     },
     {
       "id": "C009_E003",
@@ -105,6 +266,18 @@
       "prompt": "open metal gym locker numbered 114, the padlock hanging off the hasp with visible pry damage and broken shackle, locker interior completely empty, harsh overhead fluorescent gym lighting casting hard shadows, clinical and cold atmosphere"
     },
     {
+      "id": "C009_E005",
+      "name": "Witness (Class Member)",
+      "case": "C009",
+      "prompt": "short witness statement note on paper beside a gym membership card and water bottle cap, handwritten lines blurred beyond reading, cool locker room lighting, candid evidence arrangement"
+    },
+    {
+      "id": "C010_E001",
+      "name": "Guest Sign-In Sheet",
+      "case": "C010",
+      "prompt": "gallery event guest sign-in sheet on a polished reception desk, multiple signature lines with one early arrival row visible, all names unreadable, elegant evening event lighting"
+    },
+    {
       "id": "C010_E002",
       "name": "Valet Parking Ticket",
       "case": "C010",
@@ -115,6 +288,783 @@
       "name": "Photo Evidence",
       "case": "C010",
       "prompt": "press photographer candid shot taken at an upscale art gallery evening event, soft bokeh background of well-dressed guests and artwork on walls, a figure in formal evening dress visible in the mid-ground background, digital timestamp watermark in corner, slight film grain, documentary photojournalism style"
+    },
+    {
+      "id": "C010_E004",
+      "name": "Rival's Statement",
+      "case": "C010",
+      "prompt": "recorded interview note sheet beside a small voice recorder on dark marble, handwritten lines blurred beyond reading, upscale gallery after-hours mood, dramatic side light"
+    },
+    {
+      "id": "C010_E005",
+      "name": "Warehouse Break-in Report",
+      "case": "C010",
+      "prompt": "police incident report folder partly open over a grainy warehouse crime-scene photo, form text unreadable, evidence marker visible in the photograph, stark overhead light"
+    },
+    {
+      "id": "C010_E006",
+      "name": "Gallery Sommelier",
+      "case": "C010",
+      "prompt": "staff statement card or order pad lying beside wine glasses and a bottle on a service bar, handwriting blurred beyond reading, warm gallery reception lighting, elegant documentary composition"
+    },
+    {
+      "id": "C011_E001",
+      "name": "Raffle Receipt Bundle",
+      "case": "C011",
+      "prompt": "stack of duplicate thermal raffle receipts bound with a thin paper band on a dark desk, torn stub gaps visible in the middle, faint coloured batch marks along the paper edge, soft overhead office light, shallow depth of field"
+    },
+    {
+      "id": "C011_E002",
+      "name": "Printer Cleaning Sheet",
+      "case": "C011",
+      "prompt": "smudged printer cleaning sheet with metallic silver ink streaks beside a compact desktop printer, curling paper edges, toner dust scattered on black laminate, cool office lighting, close-up forensic composition"
+    },
+    {
+      "id": "C011_E003",
+      "name": "Volunteer Group Photo",
+      "case": "C011",
+      "prompt": "candid event photograph pinned to a cork board, softly dressed volunteers in the background, unopened paper carton on a side desk in the foreground, warm hall lighting, documentary still with slight film grain"
+    },
+    {
+      "id": "C011_E004",
+      "name": "Garage Exit Ticket",
+      "case": "C011",
+      "prompt": "creased parking garage exit stub on dark concrete, barcode stripe along one edge, red validation stamp shape, slight oil smudge, harsh overhead sodium light, crisp paper texture"
+    },
+    {
+      "id": "C011_E005",
+      "name": "Compliance Memo Sleeve",
+      "case": "C011",
+      "prompt": "transparent document sleeve on a charcoal tabletop with handwritten note lines blurred beyond reading, clipped paper corner visible inside, cool desk lamp glow, neat investigative arrangement"
+    },
+    {
+      "id": "C012_E001",
+      "name": "Till Reopen Tape",
+      "case": "C012",
+      "prompt": "narrow cash register audit tape coiled beside an open till drawer, tiny mechanical print blurred beyond reading, green indicator light glowing on the register, moody market stall lighting"
+    },
+    {
+      "id": "C012_E002",
+      "name": "Fuel Receipt Sleeve",
+      "case": "C012",
+      "prompt": "thin fuel receipt half-slid from a worn wallet sleeve, pale paper with blurred rows, grease stain near one corner, warm dashboard light falling across the leather"
+    },
+    {
+      "id": "C012_E003",
+      "name": "Kiosk Hand-Off Wristband",
+      "case": "C012",
+      "prompt": "fabric vendor wristband hanging from a metal hook beside a small key ring, bold colour stripe across the band, dim lantern light, tight crop with textured stall wall behind"
+    },
+    {
+      "id": "C012_E004",
+      "name": "Security Mirror Still",
+      "case": "C012",
+      "prompt": "grainy overhead security still reflected in a convex mirror, narrow market corridor with food stalls, lone figure near a shuttered kiosk, night lighting with slight blur and surveillance distortion"
+    },
+    {
+      "id": "C012_E005",
+      "name": "Deposit Pouch Seal",
+      "case": "C012",
+      "prompt": "sealed cash deposit pouch on a black tabletop, translucent plastic with coloured tamper strip, soft reflections, nearby loose coins out of focus, evidence-photo style lighting"
+    },
+    {
+      "id": "C013_E001",
+      "name": "Consignment Certificate",
+      "case": "C013",
+      "prompt": "luxury consignment certificate on thick cream paper with a dark wax seal near the lower edge, off-center impression, dramatic side lighting, shallow depth of field, no readable text"
+    },
+    {
+      "id": "C013_E002",
+      "name": "Portable Wax Seal Case",
+      "case": "C013",
+      "prompt": "small velvet-lined seal case open on black felt, brass stamp missing from the center slot, crimson wax flakes in the hinges, gallery prep room lighting, high-detail macro shot"
+    },
+    {
+      "id": "C013_E003",
+      "name": "Rideshare Drop Photo",
+      "case": "C013",
+      "prompt": "grainy alleyway camera still at dusk, sharply dressed figure stepping from a rideshare car with a compact hard case, wet pavement reflections, security-camera perspective"
+    },
+    {
+      "id": "C013_E004",
+      "name": "Ultraviolet Varnish Flake",
+      "case": "C013",
+      "prompt": "tiny glossy varnish flake on the tip of steel tweezers over a dark evidence tray, ultraviolet lamp glow washing the scene in cool light, forensic close-up"
+    },
+    {
+      "id": "C013_E005",
+      "name": "Gallery Loading Slip",
+      "case": "C013",
+      "prompt": "delivery loading slip clipped to a metal clipboard on a packing bench, rough cardboard corners and bubble wrap nearby, blurred paper rows, neutral warehouse light"
+    },
+    {
+      "id": "C014_E001",
+      "name": "Admin Token Cradle",
+      "case": "C014",
+      "prompt": "security token cradle with a single slim authentication device resting in it, tiny status light glowing blue, dark desk surface, modern office shadows, close-up product-style evidence photo"
+    },
+    {
+      "id": "C014_E002",
+      "name": "Power-Bank Rental Sleeve",
+      "case": "C014",
+      "prompt": "portable charger rental sleeve and compact power bank on a minimalist office counter, matte plastic texture, receipt corner tucked inside, cool fluorescent evening light"
+    },
+    {
+      "id": "C014_E003",
+      "name": "Refund Queue Capture",
+      "case": "C014",
+      "prompt": "angled photograph of a computer monitor with rows of blurred transaction blocks and staggered status dots, dark-themed interface, reflections on glass, low-light office atmosphere, no readable text"
+    },
+    {
+      "id": "C014_E004",
+      "name": "Phone Battery Diagnostic",
+      "case": "C014",
+      "prompt": "smartphone lying face-up on a desk with a dark analytics screen showing abstract battery bars and curves too blurred to read, charging cable attached, moody ambient light"
+    },
+    {
+      "id": "C014_E005",
+      "name": "Night Shift Motion Sensor",
+      "case": "C014",
+      "prompt": "small motion sensor module mounted on a glass partition, faint red indicator light, empty office cubicles beyond, nighttime corporate lighting, surveillance-style composition"
+    },
+    {
+      "id": "C015_E001",
+      "name": "Severance File Audit Trail",
+      "case": "C015",
+      "prompt": "printed audit trail pages spread beside a keyboard, rows of blurred system entries and highlighted blocks, dim archive office light, documentary evidence photo"
+    },
+    {
+      "id": "C015_E002",
+      "name": "Badge Corridor Log",
+      "case": "C015",
+      "prompt": "close-up of a wall-mounted card reader with a small green light, printed access strip curled below it, institutional corridor in soft focus, cool fluorescent lighting"
+    },
+    {
+      "id": "C015_E003",
+      "name": "USB Sync Dock",
+      "case": "C015",
+      "prompt": "small USB sync dock on a metal desk with a flash drive half inserted, faint indicator glow, archive shelves blurred in the background, crisp utilitarian lighting"
+    },
+    {
+      "id": "C015_E004",
+      "name": "Cafeteria Receipt",
+      "case": "C015",
+      "prompt": "plain cafeteria counter receipt beside a ceramic mug on a laminate table, blurred printed rows, fluorescent cafeteria light, slight coffee stain"
+    },
+    {
+      "id": "C015_E005",
+      "name": "Corridor Camera Reflection",
+      "case": "C015",
+      "prompt": "security still of a dim office corridor with a figure visible only in the reflection of a polished cabinet door, muted colours, subtle surveillance grain"
+    },
+    {
+      "id": "C016_E001",
+      "name": "Damage Photo Set",
+      "case": "C016",
+      "prompt": "spread of glossy damage photos on a lightbox showing a cracked wooden crate with wet exterior boards, cool inspection-room lighting, hands in gloves just out of frame"
+    },
+    {
+      "id": "C016_E002",
+      "name": "Pump Failure Log",
+      "case": "C016",
+      "prompt": "industrial maintenance log strip resting on a pump cabinet beside metal valves, blurred printed marks, damp concrete floor, cold warehouse lighting"
+    },
+    {
+      "id": "C016_E003",
+      "name": "Packing Foam Sample",
+      "case": "C016",
+      "prompt": "chunk of pale packing foam split open on a stainless tray, dry clean texture visible in the interior, forensic ruler edge out of focus, neutral lab lighting"
+    },
+    {
+      "id": "C016_E004",
+      "name": "Freight Intake Stamp",
+      "case": "C016",
+      "prompt": "heavy cargo intake stamp card clipped to a crate tag, inked stamp shapes visible but unreadable, rough wood grain, side-lit warehouse composition"
+    },
+    {
+      "id": "C016_E005",
+      "name": "Drain Grate Debris",
+      "case": "C016",
+      "prompt": "close-up of a metal floor drain grate with pale packing shavings and powder trapped between bars, wet concrete around the edges, harsh industrial light"
+    },
+    {
+      "id": "C017_E001",
+      "name": "Voucher Roll Ends",
+      "case": "C017",
+      "prompt": "two curled ends of printed voucher stock on a green desk mat, serial blocks blurred into abstract bands, office desk lamp lighting, meticulous evidence layout"
+    },
+    {
+      "id": "C017_E002",
+      "name": "Mailroom Scale Photo",
+      "case": "C017",
+      "prompt": "parcel envelope sitting on a digital scale in a mailroom, bright display glow overexposed and unreadable, sorting bins behind, crisp fluorescent light"
+    },
+    {
+      "id": "C017_E003",
+      "name": "Dispatch Cage Camera",
+      "case": "C017",
+      "prompt": "security camera still of a wire-mesh dispatch cage, single office worker re-entering with a flat paper bundle, institutional lighting, slight fisheye distortion"
+    },
+    {
+      "id": "C017_E004",
+      "name": "Postmark Sorter Tray",
+      "case": "C017",
+      "prompt": "mail sorter tray containing two clipped bundles of identical pale voucher paper, coloured clips distinguishing the piles, top-down evidence photograph"
+    },
+    {
+      "id": "C017_E005",
+      "name": "Desk Divider Tin",
+      "case": "C017",
+      "prompt": "small metal office tin filled with coloured sealing clips on a transit treasury desk, shallow depth of field, cool administrative lighting"
+    },
+    {
+      "id": "C018_E001",
+      "name": "Public Invoice Packet",
+      "case": "C018",
+      "prompt": "stacked procurement invoices in a tidy folder on a conference table, blurred paper rows, silver binder clip, cool office lighting, restrained corporate composition"
+    },
+    {
+      "id": "C018_E002",
+      "name": "Burner Tablet Photo",
+      "case": "C018",
+      "prompt": "small tablet on a glossy conference table with a dark calendar-style screen of coloured blocks blurred beyond reading, fingerprint smudges on glass, moody boardroom light"
+    },
+    {
+      "id": "C018_E003",
+      "name": "Warehouse Camera Freeze",
+      "case": "C018",
+      "prompt": "grainy warehouse security still with shelving and a figure hurriedly moving boxes, cold industrial lighting, mild motion blur, surveillance aesthetic"
+    },
+    {
+      "id": "C018_E004",
+      "name": "Meeting Table Recorder",
+      "case": "C018",
+      "prompt": "small silver voice recorder lying on a glass conference table beside a water ring, tiny screen dark, cinematic top-down composition, no readable text"
+    },
+    {
+      "id": "C018_E005",
+      "name": "Courier Envelope Liner",
+      "case": "C018",
+      "prompt": "inside of a torn padded courier envelope spread open on black felt, faint blue dust in the seams, dramatic side lighting, forensic close-up"
+    },
+    {
+      "id": "C018_E006",
+      "name": "Restricted Brief Snapshot",
+      "case": "C018",
+      "prompt": "slightly blurred phone photograph of a sealed briefing packet on a dark folder, coloured divider tabs and blocked-out sections visible but unreadable, covert handheld framing, low warm light"
+    },
+    {
+      "id": "C019_E001",
+      "name": "Bay 14 Padlock",
+      "case": "C019",
+      "prompt": "worn storage-unit padlock hanging on corrugated metal, mismatched new shackle catching hard flashlight glare, gritty industrial close-up"
+    },
+    {
+      "id": "C019_E002",
+      "name": "Night Access Ledger",
+      "case": "C019",
+      "prompt": "self-storage kiosk printout beside a plastic access fob on a scratched counter, unreadable entry rows, cold fluorescent night lighting"
+    },
+    {
+      "id": "C019_E003",
+      "name": "Pallet Photo",
+      "case": "C019",
+      "prompt": "phone photo of a narrow storage locker with pallet marks on the floor and re-stacked boxes, stark single-bulb lighting, cramped perspective"
+    },
+    {
+      "id": "C019_E004",
+      "name": "Collateral Appraisal Slip",
+      "case": "C019",
+      "prompt": "appraisal slip tucked into a bubble-wrapped valuables box, blurred handwriting and stamp marks, flashlight beam across cardboard and plastic wrap"
+    },
+    {
+      "id": "C019_E005",
+      "name": "Loan Contract Sleeve",
+      "case": "C019",
+      "prompt": "clear document sleeve wedged behind warehouse pallets, contract pages inside with unreadable lines, dusty floor, dramatic low-angle light"
+    },
+    {
+      "id": "C020_E001",
+      "name": "Courier Lockbox Shell",
+      "case": "C020",
+      "prompt": "slim courier lockbox on a steel evidence table, one corner cracked, blue glass-like dust along the seam, dramatic overhead spotlight, high-contrast forensic photo"
+    },
+    {
+      "id": "C020_E002",
+      "name": "Annex Visitor Pass Sleeve",
+      "case": "C020",
+      "prompt": "clear visitor pass sleeve with broken plastic clasp on a dark archive counter, lanyard coiled beside it, muted institutional lighting, clean evidence arrangement"
+    },
+    {
+      "id": "C020_E003",
+      "name": "Fractured Glass Ledger Page",
+      "case": "C020",
+      "prompt": "aged ledger page under a thin cracked glass cover, blue grit scattered along one chipped edge, archival gloves nearby, soft vault lighting"
+    },
+    {
+      "id": "C020_E004",
+      "name": "Freight Elevator Camera Still",
+      "case": "C020",
+      "prompt": "grainy freight elevator security still with a sharply dressed figure carrying a narrow lockbox, brushed metal walls, overhead industrial light, surveillance framing"
+    },
+    {
+      "id": "C020_E005",
+      "name": "Duplicate Summary Workbook",
+      "case": "C020",
+      "prompt": "open workbook of financial summary pages on a polished archive desk, coloured dividers and neat columns blurred beyond reading, luxury pen nearby, moody archival light"
+    },
+    {
+      "id": "C020_E006",
+      "name": "Archive Seal Fragment",
+      "case": "C020",
+      "prompt": "broken security seal fragment on black velvet with blue dust and adhesive residue visible, macro forensic shot, stark raking light"
+    },
+    {
+      "id": "C020_E007",
+      "name": "Desk Calendar Tear",
+      "case": "C020",
+      "prompt": "small torn calendar square tucked inside a leather folio, diagonal graphite mark, warm desk lamp light, intimate close-up, no legible text"
+    },
+    {
+      "id": "C021_E001",
+      "name": "Transit App Screenshot",
+      "case": "C021",
+      "prompt": "smartphone on a bus-stop bench with a transit app card on screen, coloured route blocks blurred beyond reading, rain speckles on the glass, blue night lighting"
+    },
+    {
+      "id": "C021_E002",
+      "name": "Platform Bollard Camera",
+      "case": "C021",
+      "prompt": "street-level camera still of a city bus pulling away from a platform, empty boarding zone in the foreground, night reflections on wet pavement, surveillance grain"
+    },
+    {
+      "id": "C021_E003",
+      "name": "Bus Shelter Reflection",
+      "case": "C021",
+      "prompt": "nighttime bus shelter glass reflecting a lone figure turning away, route lane lights streaked in the background, cinematic urban melancholy"
+    },
+    {
+      "id": "C021_E004",
+      "name": "Locker Key Tag",
+      "case": "C021",
+      "prompt": "small metal locker key with a numbered plastic tag resting inside a coat pocket on dark fabric, soft flashlight glow, intimate evidence composition"
+    },
+    {
+      "id": "C021_E005",
+      "name": "Last Call Voicemail",
+      "case": "C021",
+      "prompt": "phone screen with waveform-style voicemail bars blurred beyond reading, reflected streetlights across the glass, dark handheld nighttime composition"
+    },
+    {
+      "id": "C022_E001",
+      "name": "Checkout Envelope",
+      "case": "C022",
+      "prompt": "plain hostel front-desk envelope with room key peeking out, resealed flap edge visible, warm low lobby lighting, neat close-up composition"
+    },
+    {
+      "id": "C022_E002",
+      "name": "Keycard Reader Plate",
+      "case": "C022",
+      "prompt": "close-up of a brushed metal hotel keycard reader plate with fingerprint sheen and wear streaks, dim corridor light, macro texture detail"
+    },
+    {
+      "id": "C022_E003",
+      "name": "Corridor Light Timer",
+      "case": "C022",
+      "prompt": "small wall timer unit in a hostel corridor with indicator lights glowing, peeling paint and narrow hallway behind, quiet morning atmosphere"
+    },
+    {
+      "id": "C022_E004",
+      "name": "Shared Kitchen Mug",
+      "case": "C022",
+      "prompt": "ceramic mug on a hostel kitchen counter with faint steam still rising, scattered sugar packets, cool morning light through blinds"
+    },
+    {
+      "id": "C022_E005",
+      "name": "Alley Camera Still",
+      "case": "C022",
+      "prompt": "security still of a narrow service alley behind a hostel, side door ajar, lone figure near the frame, damp bricks, soft dawn blue lighting"
+    },
+    {
+      "id": "C023_E001",
+      "name": "Setlist Polaroid",
+      "case": "C023",
+      "prompt": "instant backstage polaroid photo held over a cluttered dressing table, singer in stage light with one sleeve slightly raised, cosmetics and cables around the frame, grainy club mood"
+    },
+    {
+      "id": "C023_E002",
+      "name": "Rideshare Receipt Sleeve",
+      "case": "C023",
+      "prompt": "thin rideshare receipt sleeve on a black club counter with key fob and lipstick nearby, neon spill from off-screen signage, paper rows blurred"
+    },
+    {
+      "id": "C023_E003",
+      "name": "Wristband Tin",
+      "case": "C023",
+      "prompt": "small metal tin of colorful fabric wristbands on a backstage crate, one empty slot visible, saturated but slightly desaturated club lighting"
+    },
+    {
+      "id": "C023_E004",
+      "name": "Dressing Mirror Photo",
+      "case": "C023",
+      "prompt": "dressing room mirror photograph with bulbs around the frame, performer turning toward an open backstage door, reflected wrist and shoulder bag visible, moody concert dressing room atmosphere"
+    },
+    {
+      "id": "C023_E005",
+      "name": "Loading Dock Camera",
+      "case": "C023",
+      "prompt": "night security still of a venue loading dock with two figures moving toward a waterfront ramp, one in stagewear and one in tailored dark clothing, wet asphalt reflections"
+    },
+    {
+      "id": "C024_E001",
+      "name": "Drone Still",
+      "case": "C024",
+      "prompt": "aerial drone still of a mountain trailhead parking loop in blue predawn light, one pickup truck near the tree line, mist hanging over the ground, cinematic overhead perspective"
+    },
+    {
+      "id": "C024_E002",
+      "name": "Search Grid Map",
+      "case": "C024",
+      "prompt": "folded wilderness search grid map on a ranger table with pencil marks and compass, paper texture emphasized, no readable labels, natural cabin light"
+    },
+    {
+      "id": "C024_E003",
+      "name": "Thermos Lid Photo",
+      "case": "C024",
+      "prompt": "phone snapshot of a steaming thermos on a rough wooden bench with dark mountain silhouettes behind, faint moonlight over the ridge, cold outdoor atmosphere"
+    },
+    {
+      "id": "C024_E004",
+      "name": "Trail Gate Sensor",
+      "case": "C024",
+      "prompt": "metal trail gate with attached sensor box and faint indicator light, gravel road beyond disappearing into forest darkness, dawn edge lighting"
+    },
+    {
+      "id": "C024_E005",
+      "name": "Bootlace Fiber",
+      "case": "C024",
+      "prompt": "close-up of frayed bootlace fiber caught on a rusty gate hinge, forest floor blurred behind, flashlight beam highlighting texture"
+    },
+    {
+      "id": "C025_E001",
+      "name": "Black Screen Monitor",
+      "case": "C025",
+      "prompt": "dark inactive security monitor on a maintenance wall, glossy screen reflecting a blurred figure and corridor light, industrial indoor atmosphere, high-contrast composition"
+    },
+    {
+      "id": "C025_E002",
+      "name": "Maintenance Key Roll",
+      "case": "C025",
+      "prompt": "ring of metal service keys and colored tags laid on a concrete floor, one long override key prominent, cold utility-room lighting"
+    },
+    {
+      "id": "C025_E003",
+      "name": "Elevator Floor Log",
+      "case": "C025",
+      "prompt": "elevator service panel with glowing floor indicators and a clipped print strip below, brushed steel surfaces, moody building-core lighting"
+    },
+    {
+      "id": "C025_E004",
+      "name": "Coffee Cart Receipt",
+      "case": "C025",
+      "prompt": "small cafe receipt beside a takeaway cup lid on a polished lobby ledge, blurred printed rows, soft evening office-tower lighting"
+    },
+    {
+      "id": "C025_E005",
+      "name": "Witness Notebook",
+      "case": "C025",
+      "prompt": "pocket notebook open on a dark stair tread, rough diagram lines and arrows sketched across the page, no readable text, flashlight illumination"
+    },
+    {
+      "id": "C026_E001",
+      "name": "Frosted Cargo Tag",
+      "case": "C026",
+      "prompt": "frost-covered cargo tag attached to a crate handle, icy crystals across the surface, warehouse cold-room haze, macro shot with unreadable markings"
+    },
+    {
+      "id": "C026_E002",
+      "name": "Locker Row Photo",
+      "case": "C026",
+      "prompt": "cold dock locker row under harsh white lights, concrete floor with subtle drag marks leading into a corridor, documentary forensic framing"
+    },
+    {
+      "id": "C026_E003",
+      "name": "Berth Access Bracelet",
+      "case": "C026",
+      "prompt": "industrial access bracelet on a steel table with frost beads melting around it, soft blue cold-storage light, close evidence composition"
+    },
+    {
+      "id": "C026_E004",
+      "name": "Forklift Route Sheet",
+      "case": "C026",
+      "prompt": "route sheet on a forklift clipboard with grease marks and clipped pencil, heavy machinery blurred in the background, cold dock lighting"
+    },
+    {
+      "id": "C026_E005",
+      "name": "Marina Fuel Hose",
+      "case": "C026",
+      "prompt": "cut fuel hose coiled behind a plastic strip curtain in a dock berth, wet floor reflecting overhead lights, gritty maritime atmosphere"
+    },
+    {
+      "id": "C027_E001",
+      "name": "Photo Booth Strip",
+      "case": "C027",
+      "prompt": "photo booth strip laid on a wooden bench, tiny portrait frames and a reflective glass edge showing a night courtyard glow, intimate melancholy composition"
+    },
+    {
+      "id": "C027_E002",
+      "name": "Shelter Sign-Out Clipboard",
+      "case": "C027",
+      "prompt": "crowded clipboard with paper sign-out sheets, torn wristband stub tucked under the clip, muted shelter office light, paper texture emphasized"
+    },
+    {
+      "id": "C027_E003",
+      "name": "Bus Station Token Pouch",
+      "case": "C027",
+      "prompt": "small canvas pouch peeking from beneath a folded blanket on a bench, station-token silhouette visible through the fabric, cool outdoor evening light"
+    },
+    {
+      "id": "C027_E004",
+      "name": "Search Routing Slip",
+      "case": "C027",
+      "prompt": "narrow routing slip half-fed from a compact office printer, abstract grid lines and timestamp block blurred beyond reading, dim desk lamp light, covert administrative mood"
+    },
+    {
+      "id": "C027_E005",
+      "name": "Courtyard Bench Blanket",
+      "case": "C027",
+      "prompt": "folded blanket on an outdoor bench with tiny glitter fibers catching the light, damp fabric texture, quiet courtyard at night"
+    },
+    {
+      "id": "C028_E001",
+      "name": "Rain-Smeared Pier Camera",
+      "case": "C028",
+      "prompt": "rain-streaked waterfront security still with a lone figure on a pier and a blurred barge shape in the background, sodium dock lights reflecting on water, moody surveillance scene"
+    },
+    {
+      "id": "C028_E002",
+      "name": "Badge Turnstile Readout",
+      "case": "C028",
+      "prompt": "turnstile reader panel at a service pier with amber override light, damp metal rails, printed access strip blurred beneath, rainy night dock atmosphere"
+    },
+    {
+      "id": "C028_E003",
+      "name": "Hard Hat Radio",
+      "case": "C028",
+      "prompt": "weathered two-way radio clipped to a hard hat on wet pier decking, antenna catching droplets, dark harbor background"
+    },
+    {
+      "id": "C028_E004",
+      "name": "Mooring Rope Fiber",
+      "case": "C028",
+      "prompt": "close-up of frayed mooring rope fibers caught on a rusted cleat, wet dock planks, strong side light from the harbor"
+    },
+    {
+      "id": "C028_E005",
+      "name": "Ferry Schedule Foldout",
+      "case": "C028",
+      "prompt": "folded ferry timetable tucked into a jacket pocket with a bold diagonal pencil mark, paper details unreadable, cool maritime lighting"
+    },
+    {
+      "id": "C029_E001",
+      "name": "Voicemail Waveform",
+      "case": "C029",
+      "prompt": "smartphone screen with blurred voicemail waveform bars in a dark newsroom, reflected fluorescent strip light on the glass, intimate investigative mood"
+    },
+    {
+      "id": "C029_E002",
+      "name": "Dash Cam Still",
+      "case": "C029",
+      "prompt": "night dash-cam still through a windshield toward a service loading bay, light glare and rain specks on glass, concrete ramp and metal door shapes visible"
+    },
+    {
+      "id": "C029_E003",
+      "name": "Reporter Satchel",
+      "case": "C029",
+      "prompt": "worn reporter satchel open on a desk with memo tabs, recorder batteries, and folded papers inside, no readable text, low newsroom lamp light"
+    },
+    {
+      "id": "C029_E004",
+      "name": "Service Entrance Key Ring",
+      "case": "C029",
+      "prompt": "heavy service key ring on a plain evidence tray, mixed brass and steel keys, one large utility key prominent, stark overhead light"
+    },
+    {
+      "id": "C029_E005",
+      "name": "Pocket Recorder",
+      "case": "C029",
+      "prompt": "compact pocket recorder beside an empty press badge lanyard on a dark desk, tiny microphone grill highlighted, moody top-down photo"
+    },
+    {
+      "id": "C029_E006",
+      "name": "Precinct Visitor Stub",
+      "case": "C029",
+      "prompt": "half-torn visitor stub on a black notebook, matching paper fibers visible at the tear edge, cool institutional light, close forensic crop"
+    },
+    {
+      "id": "C030_E001",
+      "name": "Reporter's Microcassette",
+      "case": "C030",
+      "prompt": "tiny clear microcassette resting on a reporter notebook under a narrow beam of light, magnetic tape visible through the shell, dark archival background"
+    },
+    {
+      "id": "C030_E002",
+      "name": "Desk Access Console",
+      "case": "C030",
+      "prompt": "old records-desk access console with glowing status lights and a small inset display blown out beyond reading, stack of folders beside it, moody office night lighting"
+    },
+    {
+      "id": "C030_E003",
+      "name": "Archive Map Overlay",
+      "case": "C030",
+      "prompt": "transparent overlay sheet with route lines laid across an archive floor map, shelf rows abstract beneath, desk lamp illuminating layered paper edges"
+    },
+    {
+      "id": "C030_E004",
+      "name": "Cleaning Cart Mirror Still",
+      "case": "C030",
+      "prompt": "security still of a quiet records corridor with a janitorial cart mirror reflecting a uniformed figure carrying a long tube, polished floor, low overnight light"
+    },
+    {
+      "id": "C030_E005",
+      "name": "Sealed Transfer Tube",
+      "case": "C030",
+      "prompt": "long sealed document transfer tube on a shelf with one cap loosened, copied paper edges visible inside, archive shadows, focused evidence photo"
+    },
+    {
+      "id": "C030_E006",
+      "name": "Evidence Room Key Wallet",
+      "case": "C030",
+      "prompt": "slim leather key wallet open on a blotter with one key slot empty, brass rings catching warm light, procedural office mood"
+    },
+    {
+      "id": "C030_E007",
+      "name": "Burned Routing Copy",
+      "case": "C030",
+      "prompt": "partially burned routing slip in an ash tray, charred paper edge curling upward, faint printed grid shapes unreadable, stark noir lighting"
+    }
+  ],
+  "suspectStylePrefix": "dark moody detective game suspect portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, neutral studio or environmental backdrop, no text or UI elements, portrait crop",
+  "suspects": [
+    {
+      "id": "S011",
+      "name": "Mira Voss",
+      "slug": "mira_voss",
+      "prompt": "independent compliance consultant with a poised, analytical expression"
+    },
+    {
+      "id": "S012",
+      "name": "Renata Bell",
+      "slug": "renata_bell",
+      "prompt": "charity program director with polished public-facing composure and a strained smile"
+    },
+    {
+      "id": "S013",
+      "name": "Owen Kade",
+      "slug": "owen_kade",
+      "prompt": "boutique print broker with expensive taste and a calculating gaze"
+    },
+    {
+      "id": "S014",
+      "name": "Lyle Mercer",
+      "slug": "lyle_mercer",
+      "prompt": "harbor-market logistics clerk with tired eyes and a practiced evasive posture"
+    },
+    {
+      "id": "S015",
+      "name": "Priya Sorn",
+      "slug": "priya_sorn",
+      "prompt": "fintech operations lead with immaculate styling and controlled, technical focus"
+    },
+    {
+      "id": "S016",
+      "name": "Martin Quill",
+      "slug": "martin_quill",
+      "prompt": "payroll auditor with severe office attire and an unreadable bureaucratic stare"
+    },
+    {
+      "id": "S017",
+      "name": "Celia Drax",
+      "slug": "celia_drax",
+      "prompt": "insurance adjuster with sharp features, immaculate fieldwear, and theatrical calm"
+    },
+    {
+      "id": "S018",
+      "name": "Tessa Rook",
+      "slug": "tessa_rook",
+      "prompt": "elite appraiser with tailored clothing, precise makeup, and territorial confidence"
+    },
+    {
+      "id": "S019",
+      "name": "Devin March",
+      "slug": "devin_march",
+      "prompt": "treasury analyst with neat officewear, reserved posture, and quietly opportunistic eyes"
+    },
+    {
+      "id": "S020",
+      "name": "Nyla Venn",
+      "slug": "nyla_venn",
+      "prompt": "young lab assistant with practical clothes, alert eyes, and an observant demeanor"
+    },
+    {
+      "id": "S021",
+      "name": "Jonah Vale",
+      "slug": "jonah_vale",
+      "prompt": "hostel manager with guarded posture, tidy uniform, and reputation-conscious restraint"
+    },
+    {
+      "id": "S022",
+      "name": "Sera Bloom",
+      "slug": "sera_bloom",
+      "prompt": "club singer with magnetic stage presence, tired glamour, and secretive eyes"
+    },
+    {
+      "id": "S023",
+      "name": "Caleb Wren",
+      "slug": "caleb_wren",
+      "prompt": "search volunteer coordinator in rugged outdoor gear with camera-ready confidence"
+    },
+    {
+      "id": "S024",
+      "name": "Daria Flint",
+      "slug": "daria_flint",
+      "prompt": "building access technician with utilitarian workwear, dry expression, and technical focus"
+    },
+    {
+      "id": "S025",
+      "name": "Silas Keene",
+      "slug": "silas_keene",
+      "prompt": "dock foreman with weathered features, heavy coat, and hard-edged waterfront authority"
+    },
+    {
+      "id": "S026",
+      "name": "Tova Rell",
+      "slug": "tova_rell",
+      "prompt": "youth shelter counsellor with exhausted warmth, layered clothing, and protective resolve"
+    },
+    {
+      "id": "S027",
+      "name": "Adrian Crowe",
+      "slug": "adrian_crowe",
+      "prompt": "private security contractor with field jacket, disciplined bearing, and suspicious eyes"
+    },
+    {
+      "id": "S028",
+      "name": "Vera Hale",
+      "slug": "vera_hale",
+      "prompt": "investigative reporter with practical attire, restless focus, and fearless intensity"
+    },
+    {
+      "id": "S029",
+      "name": "Inez Farrow",
+      "slug": "inez_farrow",
+      "prompt": "records desk sergeant with formal uniform, contained posture, and compartmentalized calm"
+    },
+    {
+      "id": "S030",
+      "name": "Gideon Marsh",
+      "slug": "gideon_marsh",
+      "prompt": "night archive supervisor with worn office clothes, anxious posture, and procedural caution"
     }
   ]
 }

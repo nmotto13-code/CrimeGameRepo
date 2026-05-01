@@ -19,7 +19,7 @@ MonoBehaviour:
     to occipital region.\nLividity and body temperature consistent with\ndeath between
     10:30 PM and 11:00 PM.\n\nWatch absent from wrist at time of discovery.\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nFiled:
     Dr. E. Marsh, Chief Medical Examiner"
-  imageSprite: {fileID: 21300000, guid: e8a76af7c2c7dcb40a97faf498d4c138, type: 3}
+  imageSprite: {fileID: 21300000, guid: 285d8e696ef4f94061badc3bf1ad5470, type: 3}
   displayMode: 1
   tags: 0000000009000000
   enhanceOverlayMaskSprite: {fileID: 0}

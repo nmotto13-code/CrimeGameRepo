@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd38127d486d794aa9fa20d4ed0bb10, type: 3}
   m_Name: C003_E003
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.EvidenceData
+  schemaVersion: 1
   evidenceId: E003
   displayName: Transit Map
   descriptionText: "Caf\xE9 Lumi\xE8re to Harwick Gallery: 38 minutes by car under
     optimal conditions."
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: 3c399c655ef026b9da948521d03bf0df, type: 3}
+  usesPlaceholderSprite: 0
   displayMode: 0
   tags: 0100000000000000
   enhanceOverlayMaskSprite: {fileID: 0}

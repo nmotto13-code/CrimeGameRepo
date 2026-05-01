@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 939dab4bae1b4354a88f82b8c650e9d0, type: 3}
+  m_Name: C030_INT001
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.InterrogationNode
+  schemaVersion: 1
+  nodeId: C030_INT001
+  promptText: Why did Vera keep Mira's number in the final reporter note?
+  responses:
+  - Because Mira was the broker linking both arcs, even if the actual leak came from
+    inside the records desk.
+  - Because Mira drove Vera to the archive herself and left her at the lobby.
+  - Because Vera planned to accuse Mira publicly before checking any records.
+  correctResponseIndex: 0
+  unlockConditionTags: 03000000
+  evidenceRequiredIds:
+  - C023_E005
+  - C029_E003

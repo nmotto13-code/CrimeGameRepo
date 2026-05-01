@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_015
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 1
+  caseId: Case_015
+  title: Ghost Severance
+  briefText: Payroll auditor Martin Quill says he never reopened a severance file
+    after noon. A ghost employee payout moved anyway, and the office trail is too
+    tidy to be accidental.
+  sceneBackground: {fileID: 21300000, guid: e51ac98cdf1d700c2e2ac54dc03447da, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.25, y: 0.65}
+    radius: 0.06
+    evidenceId: C015_E001
+    hotspotLabel: Archive Terminal
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.7}
+    radius: 0.06
+    evidenceId: C015_E002
+    hotspotLabel: Archive Door
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.35}
+    radius: 0.06
+    evidenceId: C015_E003
+    hotspotLabel: Sync Dock
+  - hotspotId: H004
+    normalizedPosition: {x: 0.2, y: 0.3}
+    radius: 0.06
+    evidenceId: C015_E005
+    hotspotLabel: Hallway Reflection
+  evidence:
+  - {fileID: 11400000, guid: 603f2329b3dfd5a4eafb68df91125610, type: 2}
+  - {fileID: 11400000, guid: 0e3710b3eefa2844a9f306c122b2fb86, type: 2}
+  - {fileID: 11400000, guid: c3dbdf717e01c43489d5a431f7ae49bc, type: 2}
+  - {fileID: 11400000, guid: 6d06112d4d3821f4e996c9acdc2caef5, type: 2}
+  - {fileID: 11400000, guid: f18af813d5cf9c64089dd45e54e08dbb, type: 2}
+  claims:
+  - {fileID: 11400000, guid: e41fa3df980e0524793d6b57f9a726f8, type: 2}
+  - {fileID: 11400000, guid: dd3ffa8fcc2d2064faeeed3d933c357f, type: 2}
+  - {fileID: 11400000, guid: c5003be3f9de6e842a5f391915560e04, type: 2}
+  - {fileID: 11400000, guid: 5e4728d4b8a2e51449ef90f87e5065a1, type: 2}
+  involvedSuspects:
+  - {fileID: 11400000, guid: da4c75c93c90aed4ebde30fa102204da, type: 2}
+  interrogationNodes: []
+  contradictoryClaimId: C015_CL001
+  explanationText: Martin claims the file stayed untouched after noon, but C015_E001
+    logs a 6:18 PM edit under his credentials and C015_E002 places his badge entering
+    the archive wing at 6:11 PM. He returned and reopened the file himself.
+  primaryEvidenceIdA: C015_E001
+  primaryEvidenceIdB: C015_E002
+  basePoints: 500
+  timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
+  toolConfig:
+    crossCheckCharges: 3
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

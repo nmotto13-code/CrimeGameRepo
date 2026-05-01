@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
+  m_Name: Case_013
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 1
+  caseId: Case_013
+  title: False Provenance
+  briefText: A consignment certificate for a bronze mask looks authentic, but appraiser
+    Tessa Rook says her seal never left the office safe. Mira Voss is again nearby,
+    this time as a supposedly neutral consultant.
+  sceneBackground: {fileID: 21300000, guid: cf9e67ed8c2a618b06ec165eb27bdd09, type: 3}
+  hotspots:
+  - hotspotId: H001
+    normalizedPosition: {x: 0.25, y: 0.65}
+    radius: 0.06
+    evidenceId: C013_E001
+    hotspotLabel: Certificate Table
+  - hotspotId: H002
+    normalizedPosition: {x: 0.7, y: 0.7}
+    radius: 0.06
+    evidenceId: C013_E002
+    hotspotLabel: Seal Case Shelf
+  - hotspotId: H003
+    normalizedPosition: {x: 0.5, y: 0.35}
+    radius: 0.06
+    evidenceId: C013_E003
+    hotspotLabel: Loading Alley Board
+  - hotspotId: H004
+    normalizedPosition: {x: 0.2, y: 0.3}
+    radius: 0.06
+    evidenceId: C013_E005
+    hotspotLabel: Packing Bench
+  evidence:
+  - {fileID: 11400000, guid: f743364d1ddadb841aea78cf25265a61, type: 2}
+  - {fileID: 11400000, guid: edd2a12ec3ba3974a864be14d7718003, type: 2}
+  - {fileID: 11400000, guid: cbd3c825aa2fef943a047d32aa25d4fc, type: 2}
+  - {fileID: 11400000, guid: f47591ca5a71ebe4799d82ffacdf9cc7, type: 2}
+  - {fileID: 11400000, guid: 80986a78cc3641f418c235e7b28215d0, type: 2}
+  claims:
+  - {fileID: 11400000, guid: b35a2a0885fe6c447986cdc28fbff677, type: 2}
+  - {fileID: 11400000, guid: b252214bfda007c49a058e6992c12540, type: 2}
+  - {fileID: 11400000, guid: 616794e0b6a7ab24eaa4e9e10c1a2eb3, type: 2}
+  - {fileID: 11400000, guid: 36615facee6e1fb4c9ca559030e48f9b, type: 2}
+  involvedSuspects:
+  - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
+  - {fileID: 11400000, guid: 790d07ec3cba7784f96d00e256107c02, type: 2}
+  - {fileID: 11400000, guid: 7723cce1cc0da03448433f5c5fa2a2d7, type: 2}
+  interrogationNodes: []
+  contradictoryClaimId: C013_CL001
+  explanationText: Tessa says her seal never left the safe, yet C013_E002 shows the
+    portable seal case was recently used and removed, and C013_E003 shows her carrying
+    that same size case into the loading alley. Her seal left the office with her.
+  primaryEvidenceIdA: C013_E002
+  primaryEvidenceIdB: C013_E003
+  basePoints: 500
+  timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
+  toolConfig:
+    crossCheckCharges: 3
+    enhanceCooldownSeconds: 12
+    timelineSnapCharges: 1

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd38127d486d794aa9fa20d4ed0bb10, type: 3}
+  m_Name: C014_E003
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.EvidenceData
+  schemaVersion: 1
+  evidenceId: C014_E003
+  displayName: Refund Queue Capture
+  descriptionText: A screen capture of the refund queue showing staggered approvals
+    in a manual rhythm rather than an automated overnight batch.
+  imageSprite: {fileID: 21300000, guid: cee81c068d747bcb79c9dee5c578985d, type: 3}
+  usesPlaceholderSprite: 0
+  displayMode: 0
+  tags: 
+  enhanceOverlayMaskSprite: {fileID: 0}
+  tagsUnlockedOnEnhance: 

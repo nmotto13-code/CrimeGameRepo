@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd38127d486d794aa9fa20d4ed0bb10, type: 3}
   m_Name: C008_E004
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.EvidenceData
+  schemaVersion: 1
   evidenceId: E004
   displayName: Warehouse Location
   descriptionText: Warehouse is 18 minutes from Central Station by car.
-  imageSprite: {fileID: 0}
+  imageSprite: {fileID: 21300000, guid: 3b2169cfe34a164fe91684e062389614, type: 3}
+  usesPlaceholderSprite: 0
   displayMode: 0
   tags: 0100000000000000
   enhanceOverlayMaskSprite: {fileID: 0}

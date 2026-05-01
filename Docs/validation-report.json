@@ -1,0 +1,256 @@
+{
+    "generatedAtUtc": "2026-05-01T18:47:21.4149118Z",
+    "validatorVersion": 1,
+    "summary": {
+        "totalCases": 30,
+        "errorCount": 0,
+        "warningCount": 9
+    },
+    "globalWarnings": [
+        "Evidence ID 'E001' is duplicated across assets.",
+        "Evidence ID 'E002' is duplicated across assets.",
+        "Evidence ID 'E003' is duplicated across assets.",
+        "Evidence ID 'E004' is duplicated across assets.",
+        "Evidence ID 'E005' is duplicated across assets.",
+        "Evidence ID 'E001' is duplicated across assets.",
+        "Evidence ID 'E002' is duplicated across assets.",
+        "Evidence ID 'E003' is duplicated across assets.",
+        "Evidence ID 'E004' is duplicated across assets.",
+        "Evidence ID 'E005' is duplicated across assets.",
+        "Evidence ID 'E001' is duplicated across assets.",
+        "Evidence ID 'E002' is duplicated across assets.",
+        "Evidence ID 'E003' is duplicated across assets.",
+        "Evidence ID 'E004' is duplicated across assets.",
+        "Evidence ID 'E005' is duplicated across assets.",
+        "Evidence ID 'E001' is duplicated across assets.",
+        "Evidence ID 'E002' is duplicated across assets.",
+        "Evidence ID 'E003' is duplicated across assets.",
+        "Evidence ID 'E004' is duplicated across assets.",
+        "Evidence ID 'E005' is duplicated across assets.",
+        "Evidence ID 'E001' is duplicated across assets.",
+        "Evidence ID 'E002' is duplicated across assets.",
+        "Evidence ID 'E003' is duplicated across assets.",
+        "Evidence ID 'E004' is duplicated across assets.",
+        "Evidence ID 'E005' is duplicated across assets.",
+        "Evidence ID 'E001' is duplicated across assets.",
+        "Evidence ID 'E002' is duplicated across assets.",
+        "Evidence ID 'E003' is duplicated across assets.",
+        "Evidence ID 'E004' is duplicated across assets.",
+        "Evidence ID 'E005' is duplicated across assets.",
+        "Evidence ID 'E001' is duplicated across assets.",
+        "Evidence ID 'E002' is duplicated across assets.",
+        "Evidence ID 'E003' is duplicated across assets.",
+        "Evidence ID 'E004' is duplicated across assets.",
+        "Evidence ID 'E005' is duplicated across assets.",
+        "Evidence ID 'E001' is duplicated across assets.",
+        "Evidence ID 'E002' is duplicated across assets.",
+        "Evidence ID 'E003' is duplicated across assets.",
+        "Evidence ID 'E004' is duplicated across assets.",
+        "Evidence ID 'E005' is duplicated across assets.",
+        "Evidence ID 'E001' is duplicated across assets.",
+        "Evidence ID 'E002' is duplicated across assets.",
+        "Evidence ID 'E003' is duplicated across assets.",
+        "Evidence ID 'E004' is duplicated across assets.",
+        "Evidence ID 'E005' is duplicated across assets."
+    ],
+    "cases": [
+        {
+            "caseId": "Case_001",
+            "title": "The Missing Watch",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_002",
+            "title": "Locked Room Receipt",
+            "errors": [],
+            "warnings": [
+                "Hotspot count is 2. Recommended range for newly-authored content is 3 to 5."
+            ]
+        },
+        {
+            "caseId": "Case_003",
+            "title": "Coffee Shop Alibi",
+            "errors": [],
+            "warnings": [
+                "Hotspot count is 2. Recommended range for newly-authored content is 3 to 5."
+            ]
+        },
+        {
+            "caseId": "Case_004",
+            "title": "Parking Garage Ticket",
+            "errors": [],
+            "warnings": [
+                "Hotspot count is 1. Recommended range for newly-authored content is 3 to 5."
+            ]
+        },
+        {
+            "caseId": "Case_005",
+            "title": "Stairwell Footprints",
+            "errors": [],
+            "warnings": [
+                "Hotspot count is 1. Recommended range for newly-authored content is 3 to 5."
+            ]
+        },
+        {
+            "caseId": "Case_006",
+            "title": "Delivery Window",
+            "errors": [],
+            "warnings": [
+                "Hotspot count is 1. Recommended range for newly-authored content is 3 to 5."
+            ]
+        },
+        {
+            "caseId": "Case_007",
+            "title": "Neighbor Testimony",
+            "errors": [],
+            "warnings": [
+                "Hotspot count is 1. Recommended range for newly-authored content is 3 to 5."
+            ]
+        },
+        {
+            "caseId": "Case_008",
+            "title": "Train Platform",
+            "errors": [],
+            "warnings": [
+                "Hotspot count is 1. Recommended range for newly-authored content is 3 to 5."
+            ]
+        },
+        {
+            "caseId": "Case_009",
+            "title": "Gym Keycard",
+            "errors": [],
+            "warnings": [
+                "Hotspot count is 1. Recommended range for newly-authored content is 3 to 5."
+            ]
+        },
+        {
+            "caseId": "Case_010",
+            "title": "Gallery Opening",
+            "errors": [],
+            "warnings": [
+                "Hotspot count is 2. Recommended range for newly-authored content is 3 to 5."
+            ]
+        },
+        {
+            "caseId": "Case_011",
+            "title": "After-Hours Receipts",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_012",
+            "title": "Kiosk Closeout",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_013",
+            "title": "False Provenance",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_014",
+            "title": "Refund Loop",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_015",
+            "title": "Ghost Severance",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_016",
+            "title": "Dry Claim",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_017",
+            "title": "Split Batch",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_018",
+            "title": "Restricted Preview",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_019",
+            "title": "Warehouse Float",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_020",
+            "title": "The Glass Ledger",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_021",
+            "title": "Last Stop Window",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_022",
+            "title": "Room 3B",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_023",
+            "title": "Bluebird Encore",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_024",
+            "title": "False Dawn Search",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_025",
+            "title": "Stairwell Five",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_026",
+            "title": "Cold Berth",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_027",
+            "title": "Quiet Shelter",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_028",
+            "title": "Pier 19 Shadow",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_029",
+            "title": "Silent Draft",
+            "errors": [],
+            "warnings": []
+        },
+        {
+            "caseId": "Case_030",
+            "title": "The Hollow Desk",
+            "errors": [],
+            "warnings": []
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
+  m_Name: S023
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
+  schemaVersion: 1
+  suspectId: S023
+  displayName: Caleb Wren
+  portraitSprite: {fileID: 0}
+  bio: Volunteer search coordinator who likes to be first on scene and first on camera.
+    Comfortable turning search optics into cover.
+  traits:
+  - outdoorsy
+  - performative
+  - impatient
+  knownAssociates:
+  - {fileID: 11400000, guid: 9a3ed9c979a1c2740a344eaa764fb431, type: 2}
+  linkedCaseIds:
+  - Case_024
+  credibilityScore: 46
+  notes: Good template suspect for route, light, and vehicle-track contradictions.

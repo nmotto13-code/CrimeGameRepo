@@ -1,0 +1,1312 @@
+{
+  "schemaVersion": 1,
+  "recurringSuspectId": "S011",
+  "departments": [
+    {
+      "departmentId": "FRAUD",
+      "displayName": "Fraud",
+      "arcName": "Glass Ledger",
+      "caseRange": ["C011", "C020"],
+      "signatureMechanics": [
+        "Cross-Check tool usage is heavy across receipt, voucher, ledger, and alibi contradictions.",
+        "Evidence leans on duplicate paper trails, financial records, forged provenance, access logs, and digital accounting traces."
+      ],
+      "internalLeakEvidenceId": "C018_E006",
+      "capstoneCaseId": "C020",
+      "cases": [
+        {
+          "caseId": "C011",
+          "title": "After-Hours Receipts",
+          "location": "Larkspur Civic Hall - Donor Lounge",
+          "brief": "A charity raffle payout does not balance. Director Renata Bell says every donor receipt was printed before she left at 7 PM, but the late paper trail says otherwise. Mira Voss appears as the outside compliance reviewer.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Donor Desk", "linkedEvidenceId": "C011_E001" },
+            { "hotspotId": "H002", "label": "Office Printer", "linkedEvidenceId": "C011_E002" },
+            { "hotspotId": "H003", "label": "Service Hall Photo Board", "linkedEvidenceId": "C011_E003" },
+            { "hotspotId": "H004", "label": "Garage Ticket Tray", "linkedEvidenceId": "C011_E004" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C011_E001",
+              "displayName": "Raffle Receipt Bundle",
+              "description": "A tied bundle of duplicate raffle receipts. The back-edge batch strip marks a second print run at 8:12 PM and several stubs are missing from the middle of the stack.",
+              "imagePrompt": "stack of duplicate thermal raffle receipts bound with a thin paper band on a dark desk, torn stub gaps visible in the middle, faint coloured batch marks along the paper edge, soft overhead office light, shallow depth of field"
+            },
+            {
+              "evidenceId": "C011_E002",
+              "displayName": "Printer Cleaning Sheet",
+              "description": "A smudged maintenance sheet pulled from a compact office printer. Fresh silver ink transfer matches the same stock used for the donor duplicates.",
+              "imagePrompt": "smudged printer cleaning sheet with metallic silver ink streaks beside a compact desktop printer, curling paper edges, toner dust scattered on black laminate, cool office lighting, close-up forensic composition"
+            },
+            {
+              "evidenceId": "C011_E003",
+              "displayName": "Volunteer Group Photo",
+              "description": "An event photo taken near 7:58 PM. An unopened carton of receipt stock sits beside Renata's desk long after she claimed the print job was finished.",
+              "imagePrompt": "candid event photograph pinned to a cork board, softly dressed volunteers in the background, unopened paper carton on a side desk in the foreground, warm hall lighting, documentary still with slight film grain"
+            },
+            {
+              "evidenceId": "C011_E004",
+              "displayName": "Garage Exit Ticket",
+              "description": "A parking exit stub linked to Renata's car. The departure was logged at 8:26 PM, well after she said she left the hall.",
+              "imagePrompt": "creased parking garage exit stub on dark concrete, barcode stripe along one edge, red validation stamp shape, slight oil smudge, harsh overhead sodium light, crisp paper texture"
+            },
+            {
+              "evidenceId": "C011_E005",
+              "displayName": "Compliance Memo Sleeve",
+              "description": "A clear sleeve from Mira Voss's binder containing notes about a requested second receipt run for matching donor copies.",
+              "imagePrompt": "transparent document sleeve on a charcoal tabletop with handwritten note lines blurred beyond reading, clipped paper corner visible inside, cool desk lamp glow, neat investigative arrangement"
+            }
+          ],
+          "claims": [
+            { "claimId": "C011_CL001", "suspectName": "Renata Bell", "claimText": "All raffle receipts were printed before I left at seven. I never touched the printer again." },
+            { "claimId": "C011_CL002", "suspectName": "Mira Voss", "claimText": "I only arrived after the donors were gone. My review started after the money count." },
+            { "claimId": "C011_CL003", "suspectName": "Volunteer Nadi Korr", "claimText": "The donor desk stayed closed until Renata reopened it later in the evening." },
+            { "claimId": "C011_CL004", "suspectName": "Janitor Pell Rowan", "claimText": "The office printer jammed sometime after dinner, not before the event began." }
+          ],
+          "contradictionClaimId": "C011_CL001",
+          "primaryEvidenceIdA": "C011_E001",
+          "primaryEvidenceIdB": "C011_E004",
+          "explanation": "Renata's alibi fails because C011_E001 shows the duplicate receipts were printed in a second batch at 8:12 PM, while C011_E004 logs her car leaving the garage at 8:26 PM. She was still present for the late print run she denied.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 3, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S011", "S012"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C012",
+          "title": "Kiosk Closeout",
+          "location": "Rookmere Night Market - Harbor Tea Kiosk",
+          "brief": "Cash is missing from a night-market kiosk. Logistics clerk Lyle Mercer says he was already on a supply run before the register reopened for the late crowd. The till tape and roadside proof do not match that story.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Till Drawer", "linkedEvidenceId": "C012_E001" },
+            { "hotspotId": "H002", "label": "Fuel Wallet", "linkedEvidenceId": "C012_E002" },
+            { "hotspotId": "H003", "label": "Hand-Off Hook", "linkedEvidenceId": "C012_E003" },
+            { "hotspotId": "H004", "label": "Deposit Rail", "linkedEvidenceId": "C012_E005" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C012_E001",
+              "displayName": "Till Reopen Tape",
+              "description": "A register audit strip showing the kiosk till was reopened at 9:18 PM for a short second sales window after the first closeout.",
+              "imagePrompt": "narrow cash register audit tape coiled beside an open till drawer, tiny mechanical print blurred beyond reading, green indicator light glowing on the register, moody market stall lighting"
+            },
+            {
+              "evidenceId": "C012_E002",
+              "displayName": "Fuel Receipt Sleeve",
+              "description": "A roadside fuel receipt tucked into Lyle's wallet sleeve. The purchase happened at 9:41 PM, long after he said he had already left the market.",
+              "imagePrompt": "thin fuel receipt half-slid from a worn wallet sleeve, pale paper with blurred rows, grease stain near one corner, warm dashboard light falling across the leather"
+            },
+            {
+              "evidenceId": "C012_E003",
+              "displayName": "Kiosk Hand-Off Wristband",
+              "description": "A vendor wristband clipped to the kiosk key hook. The late hand-off colour matches the secondary shift, not the early closeout.",
+              "imagePrompt": "fabric vendor wristband hanging from a metal hook beside a small key ring, bold colour stripe across the band, dim lantern light, tight crop with textured stall wall behind"
+            },
+            {
+              "evidenceId": "C012_E004",
+              "displayName": "Security Mirror Still",
+              "description": "A convex mirror still from the market corridor. Lyle is visible near the kiosk after the claimed departure window.",
+              "imagePrompt": "grainy overhead security still reflected in a convex mirror, narrow market corridor with food stalls, lone figure near a shuttered kiosk, night lighting with slight blur and surveillance distortion"
+            },
+            {
+              "evidenceId": "C012_E005",
+              "displayName": "Deposit Pouch Seal",
+              "description": "A tamper-evident deposit pouch with a seal applied after the till reopened, not during the first closeout.",
+              "imagePrompt": "sealed cash deposit pouch on a black tabletop, translucent plastic with coloured tamper strip, soft reflections, nearby loose coins out of focus, evidence-photo style lighting"
+            }
+          ],
+          "claims": [
+            { "claimId": "C012_CL001", "suspectName": "Lyle Mercer", "claimText": "I was on the road before the kiosk reopened, so I could not have skimmed the late cash." },
+            { "claimId": "C012_CL002", "suspectName": "Vendor Toma Reeve", "claimText": "The stall lights came back on for a second wave after most of us were already packing." },
+            { "claimId": "C012_CL003", "suspectName": "Market Guard Sen Arlo", "claimText": "I saw Lyle near the main lane later than he claims, but I did not stop him." },
+            { "claimId": "C012_CL004", "suspectName": "Tea Kiosk Owner Mara Pell", "claimText": "The first closeout balanced. The shortage appeared only after the late reopen." }
+          ],
+          "contradictionClaimId": "C012_CL001",
+          "primaryEvidenceIdA": "C012_E001",
+          "primaryEvidenceIdB": "C012_E002",
+          "explanation": "Lyle says he was already away on a supply run, but C012_E001 shows the kiosk reopened at 9:18 PM and C012_E002 places his fuel stop at 9:41 PM. He still had time to reopen the till and remove cash before leaving.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 3, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S014"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C013",
+          "title": "False Provenance",
+          "location": "Brasslight Gallery - Appraisal Room",
+          "brief": "A consignment certificate for a bronze mask looks authentic, but appraiser Tessa Rook says her seal never left the office safe. Mira Voss is again nearby, this time as a supposedly neutral consultant.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Certificate Table", "linkedEvidenceId": "C013_E001" },
+            { "hotspotId": "H002", "label": "Seal Case Shelf", "linkedEvidenceId": "C013_E002" },
+            { "hotspotId": "H003", "label": "Loading Alley Board", "linkedEvidenceId": "C013_E003" },
+            { "hotspotId": "H004", "label": "Packing Bench", "linkedEvidenceId": "C013_E005" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C013_E001",
+              "displayName": "Consignment Certificate",
+              "description": "A heavy paper consignment certificate bearing a wax crest that matches Tessa's office seal but sits slightly off-center, as if pressed in haste.",
+              "imagePrompt": "luxury consignment certificate on thick cream paper with a dark wax seal near the lower edge, off-center impression, dramatic side lighting, shallow depth of field, no readable text"
+            },
+            {
+              "evidenceId": "C013_E002",
+              "displayName": "Portable Wax Seal Case",
+              "description": "A velvet-lined portable case for Tessa's crest seal. Fresh crimson wax residue is caught in the hinges, and the office safe dust line is broken.",
+              "imagePrompt": "small velvet-lined seal case open on black felt, brass stamp missing from the center slot, crimson wax flakes in the hinges, gallery prep room lighting, high-detail macro shot"
+            },
+            {
+              "evidenceId": "C013_E003",
+              "displayName": "Rideshare Drop Photo",
+              "description": "A curbside capture from a loading alley camera. Tessa is carrying a small hard case identical in shape to the seal box.",
+              "imagePrompt": "grainy alleyway camera still at dusk, sharply dressed figure stepping from a rideshare car with a compact hard case, wet pavement reflections, security-camera perspective"
+            },
+            {
+              "evidenceId": "C013_E004",
+              "displayName": "Ultraviolet Varnish Flake",
+              "description": "A flake of altered varnish found near the mask stand. It links the forged certificate to last-minute cosmetic work in the back room.",
+              "imagePrompt": "tiny glossy varnish flake on the tip of steel tweezers over a dark evidence tray, ultraviolet lamp glow washing the scene in cool light, forensic close-up"
+            },
+            {
+              "evidenceId": "C013_E005",
+              "displayName": "Gallery Loading Slip",
+              "description": "A loading slip from the back entrance showing a private handling window that Tessa claimed never happened.",
+              "imagePrompt": "delivery loading slip clipped to a metal clipboard on a packing bench, rough cardboard corners and bubble wrap nearby, blurred paper rows, neutral warehouse light"
+            }
+          ],
+          "claims": [
+            { "claimId": "C013_CL001", "suspectName": "Tessa Rook", "claimText": "My appraisal seal stayed in the wall safe all weekend. I never carried it out of the office." },
+            { "claimId": "C013_CL002", "suspectName": "Mira Voss", "claimText": "I was asked only to review numbers, not provenance or handling." },
+            { "claimId": "C013_CL003", "suspectName": "Gallery Preparator Jules Nenn", "claimText": "Someone used the loading alley after closing, but I could not see the case clearly." },
+            { "claimId": "C013_CL004", "suspectName": "Broker Owen Kade", "claimText": "The paperwork arrived already sealed when it reached me." }
+          ],
+          "contradictionClaimId": "C013_CL001",
+          "primaryEvidenceIdA": "C013_E002",
+          "primaryEvidenceIdB": "C013_E003",
+          "explanation": "Tessa says her seal never left the safe, yet C013_E002 shows the portable seal case was recently used and removed, and C013_E003 shows her carrying that same size case into the loading alley. Her seal left the office with her.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 3, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S011", "S013", "S018"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C014",
+          "title": "Refund Loop",
+          "location": "Horizon Bloom Fintech - Operations Pod",
+          "brief": "A burst of refunds drained a merchant escrow account. Operations lead Priya Sorn says the approvals happened automatically overnight, but manual traces point back to her desk.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Admin Token Cradle", "linkedEvidenceId": "C014_E001" },
+            { "hotspotId": "H002", "label": "Charging Shelf", "linkedEvidenceId": "C014_E002" },
+            { "hotspotId": "H003", "label": "Night Shift Sensor", "linkedEvidenceId": "C014_E005" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C014_E001",
+              "displayName": "Admin Token Cradle",
+              "description": "The hardware token cradle shows a manual refund authorization cycle from Priya's station during the disputed window.",
+              "imagePrompt": "security token cradle with a single slim authentication device resting in it, tiny status light glowing blue, dark desk surface, modern office shadows, close-up product-style evidence photo"
+            },
+            {
+              "evidenceId": "C014_E002",
+              "displayName": "Power-Bank Rental Sleeve",
+              "description": "A rental sleeve for a portable charger signed out after Priya said her phone had already died for the night.",
+              "imagePrompt": "portable charger rental sleeve and compact power bank on a minimalist office counter, matte plastic texture, receipt corner tucked inside, cool fluorescent evening light"
+            },
+            {
+              "evidenceId": "C014_E003",
+              "displayName": "Refund Queue Capture",
+              "description": "A screen capture of the refund queue showing staggered approvals in a manual rhythm rather than an automated overnight batch.",
+              "imagePrompt": "angled photograph of a computer monitor with rows of blurred transaction blocks and staggered status dots, dark-themed interface, reflections on glass, low-light office atmosphere, no readable text"
+            },
+            {
+              "evidenceId": "C014_E004",
+              "displayName": "Phone Battery Diagnostic",
+              "description": "A battery graph export indicating Priya's phone was charging during the same period she claimed it was dead and unused.",
+              "imagePrompt": "smartphone lying face-up on a desk with a dark analytics screen showing abstract battery bars and curves too blurred to read, charging cable attached, moody ambient light"
+            },
+            {
+              "evidenceId": "C014_E005",
+              "displayName": "Night Shift Motion Sensor",
+              "description": "A sensor log from the operations pod showing movement at Priya's workstation after the official close.",
+              "imagePrompt": "small motion sensor module mounted on a glass partition, faint red indicator light, empty office cubicles beyond, nighttime corporate lighting, surveillance-style composition"
+            }
+          ],
+          "claims": [
+            { "claimId": "C014_CL001", "suspectName": "Priya Sorn", "claimText": "My phone died before the refunds started, and the system handled the rest automatically." },
+            { "claimId": "C014_CL002", "suspectName": "Support Lead Hema Dorr", "claimText": "The queue usually rolls in a tight batch when automation takes over." },
+            { "claimId": "C014_CL003", "suspectName": "Facilities Guard Len Quay", "claimText": "Someone was still moving in operations after close, but I could not see the desk clearly." },
+            { "claimId": "C014_CL004", "suspectName": "Merchant Liaison Vero Pell", "claimText": "The drained account happened in small steps, not one overnight dump." }
+          ],
+          "contradictionClaimId": "C014_CL001",
+          "primaryEvidenceIdA": "C014_E001",
+          "primaryEvidenceIdB": "C014_E002",
+          "explanation": "Priya says the refunds ran automatically after her phone died, but C014_E001 shows manual token use from her workstation and C014_E002 proves she took a charger after claiming the phone was already dead. The approvals were actively supervised.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 3, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S015"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C015",
+          "title": "Ghost Severance",
+          "location": "Briar County Benefits Annex - Payroll Archive",
+          "brief": "Payroll auditor Martin Quill says he never reopened a severance file after noon. A ghost employee payout moved anyway, and the office trail is too tidy to be accidental.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Archive Terminal", "linkedEvidenceId": "C015_E001" },
+            { "hotspotId": "H002", "label": "Archive Door", "linkedEvidenceId": "C015_E002" },
+            { "hotspotId": "H003", "label": "Sync Dock", "linkedEvidenceId": "C015_E003" },
+            { "hotspotId": "H004", "label": "Hallway Reflection", "linkedEvidenceId": "C015_E005" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C015_E001",
+              "displayName": "Severance File Audit Trail",
+              "description": "An audit trail export shows the severance file reopened and edited at 6:18 PM under Martin's credentials.",
+              "imagePrompt": "printed audit trail pages spread beside a keyboard, rows of blurred system entries and highlighted blocks, dim archive office light, documentary evidence photo"
+            },
+            {
+              "evidenceId": "C015_E002",
+              "displayName": "Badge Corridor Log",
+              "description": "A corridor reader log places Martin's badge entering the archive wing at 6:11 PM.",
+              "imagePrompt": "close-up of a wall-mounted card reader with a small green light, printed access strip curled below it, institutional corridor in soft focus, cool fluorescent lighting"
+            },
+            {
+              "evidenceId": "C015_E003",
+              "displayName": "USB Sync Dock",
+              "description": "A USB sync dock still warm from recent use. The export drive contains the ghost employee's payout template.",
+              "imagePrompt": "small USB sync dock on a metal desk with a flash drive half inserted, faint indicator glow, archive shelves blurred in the background, crisp utilitarian lighting"
+            },
+            {
+              "evidenceId": "C015_E004",
+              "displayName": "Cafeteria Receipt",
+              "description": "A cafeteria counter slip placing Martin inside the annex after his claimed departure time.",
+              "imagePrompt": "plain cafeteria counter receipt beside a ceramic mug on a laminate table, blurred printed rows, fluorescent cafeteria light, slight coffee stain"
+            },
+            {
+              "evidenceId": "C015_E005",
+              "displayName": "Corridor Camera Reflection",
+              "description": "A polished cabinet door reflection catches Martin walking into the payroll archive carrying a file tube.",
+              "imagePrompt": "security still of a dim office corridor with a figure visible only in the reflection of a polished cabinet door, muted colours, subtle surveillance grain"
+            }
+          ],
+          "claims": [
+            { "claimId": "C015_CL001", "suspectName": "Martin Quill", "claimText": "I never reopened that severance file after noon. My part of the review was already done." },
+            { "claimId": "C015_CL002", "suspectName": "Payroll Clerk Isha Penn", "claimText": "The file moved again after offices closed, but only someone with archive access could do it." },
+            { "claimId": "C015_CL003", "suspectName": "Facilities Runner Cor Venn", "claimText": "Martin was still in the building when I made the evening pickup." },
+            { "claimId": "C015_CL004", "suspectName": "Reception Officer Nira Holt", "claimText": "No outsider signed into the annex after close." }
+          ],
+          "contradictionClaimId": "C015_CL001",
+          "primaryEvidenceIdA": "C015_E001",
+          "primaryEvidenceIdB": "C015_E002",
+          "explanation": "Martin claims the file stayed untouched after noon, but C015_E001 logs a 6:18 PM edit under his credentials and C015_E002 places his badge entering the archive wing at 6:11 PM. He returned and reopened the file himself.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 3, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S016"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C016",
+          "title": "Dry Claim",
+          "location": "Northglass Insurance Intake Bay",
+          "brief": "Adjuster Celia Drax filed a flood-loss claim for a sculpture crate. She says the damage photos were taken after a warehouse burst pipe, but the physical condition of the packing says the story was staged.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Photo Lightbox", "linkedEvidenceId": "C016_E001" },
+            { "hotspotId": "H002", "label": "Pump Cabinet", "linkedEvidenceId": "C016_E002" },
+            { "hotspotId": "H003", "label": "Packing Bench", "linkedEvidenceId": "C016_E003" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C016_E001",
+              "displayName": "Damage Photo Set",
+              "description": "A photo set of the supposedly waterlogged sculpture crate. The exterior looks wet, but the damage pattern stops at the surface layer.",
+              "imagePrompt": "spread of glossy damage photos on a lightbox showing a cracked wooden crate with wet exterior boards, cool inspection-room lighting, hands in gloves just out of frame"
+            },
+            {
+              "evidenceId": "C016_E002",
+              "displayName": "Pump Failure Log",
+              "description": "The warehouse pump log shows the pipe burst did not occur until the following morning.",
+              "imagePrompt": "industrial maintenance log strip resting on a pump cabinet beside metal valves, blurred printed marks, damp concrete floor, cold warehouse lighting"
+            },
+            {
+              "evidenceId": "C016_E003",
+              "displayName": "Packing Foam Sample",
+              "description": "Packing foam from the crate interior is completely dry and unwarped, inconsistent with full flood exposure.",
+              "imagePrompt": "chunk of pale packing foam split open on a stainless tray, dry clean texture visible in the interior, forensic ruler edge out of focus, neutral lab lighting"
+            },
+            {
+              "evidenceId": "C016_E004",
+              "displayName": "Freight Intake Stamp",
+              "description": "The intake stamp marks the crate arriving before the reported flood window.",
+              "imagePrompt": "heavy cargo intake stamp card clipped to a crate tag, inked stamp shapes visible but unreadable, rough wood grain, side-lit warehouse composition"
+            },
+            {
+              "evidenceId": "C016_E005",
+              "displayName": "Drain Grate Debris",
+              "description": "Debris caught in the intake-bay grate includes fresh packing shavings and dry plaster dust from the crate corner.",
+              "imagePrompt": "close-up of a metal floor drain grate with pale packing shavings and powder trapped between bars, wet concrete around the edges, harsh industrial light"
+            }
+          ],
+          "claims": [
+            { "claimId": "C016_CL001", "suspectName": "Celia Drax", "claimText": "The crate was already soaked when I photographed it that night. The flood damage was obvious." },
+            { "claimId": "C016_CL002", "suspectName": "Warehouse Porter Niv Hart", "claimText": "The burst pipe was reported after sunrise, not the night before." },
+            { "claimId": "C016_CL003", "suspectName": "Claims Reviewer Tera Noll", "claimText": "The photo sequence feels staged, but the file was built to look urgent." },
+            { "claimId": "C016_CL004", "suspectName": "Security Driver Pell Voss", "claimText": "The crate came in looking dry enough to stack." }
+          ],
+          "contradictionClaimId": "C016_CL001",
+          "primaryEvidenceIdA": "C016_E002",
+          "primaryEvidenceIdB": "C016_E003",
+          "explanation": "Celia says she documented real flood damage that night, but C016_E002 shows the pipe burst happened the next morning and C016_E003 proves the crate interior stayed dry. The photos captured staged surface water, not a real flood loss.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 3, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S017"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C017",
+          "title": "Split Batch",
+          "location": "Aster Transit Treasury Office",
+          "brief": "Transit treasury analyst Devin March says rebate vouchers were mailed in one sealed batch. Serial gaps and parcel-weight records suggest a second run slipped out after the official post drop.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Voucher Roll Drawer", "linkedEvidenceId": "C017_E001" },
+            { "hotspotId": "H002", "label": "Mailroom Scale", "linkedEvidenceId": "C017_E002" },
+            { "hotspotId": "H003", "label": "Dispatch Cage Camera", "linkedEvidenceId": "C017_E003" },
+            { "hotspotId": "H004", "label": "Sorter Tray", "linkedEvidenceId": "C017_E004" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C017_E001",
+              "displayName": "Voucher Roll Ends",
+              "description": "Two ends of the same rebate voucher roll show a missing serial span large enough for a concealed second batch.",
+              "imagePrompt": "two curled ends of printed voucher stock on a green desk mat, serial blocks blurred into abstract bands, office desk lamp lighting, meticulous evidence layout"
+            },
+            {
+              "evidenceId": "C017_E002",
+              "displayName": "Mailroom Scale Photo",
+              "description": "A photo of the outgoing parcel on the mailroom scale. The weight is too low for the full voucher count Devin claimed.",
+              "imagePrompt": "parcel envelope sitting on a digital scale in a mailroom, bright display glow overexposed and unreadable, sorting bins behind, crisp fluorescent light"
+            },
+            {
+              "evidenceId": "C017_E003",
+              "displayName": "Dispatch Cage Camera",
+              "description": "A camera still from the dispatch cage shows Devin returning after the first parcel was already tagged for pickup.",
+              "imagePrompt": "security camera still of a wire-mesh dispatch cage, single office worker re-entering with a flat paper bundle, institutional lighting, slight fisheye distortion"
+            },
+            {
+              "evidenceId": "C017_E004",
+              "displayName": "Postmark Sorter Tray",
+              "description": "A sorter tray holds two different bundles of the same voucher paper with separate sealing clips.",
+              "imagePrompt": "mail sorter tray containing two clipped bundles of identical pale voucher paper, coloured clips distinguishing the piles, top-down evidence photograph"
+            },
+            {
+              "evidenceId": "C017_E005",
+              "displayName": "Desk Divider Tin",
+              "description": "A desk divider tin contains spare sealing clips matching the second hidden bundle.",
+              "imagePrompt": "small metal office tin filled with coloured sealing clips on a transit treasury desk, shallow depth of field, cool administrative lighting"
+            }
+          ],
+          "claims": [
+            { "claimId": "C017_CL001", "suspectName": "Devin March", "claimText": "All rebate vouchers went out in one sealed batch. Nothing was held back for a second mailing." },
+            { "claimId": "C017_CL002", "suspectName": "Mailroom Lead Cora Pell", "claimText": "The outgoing parcel looked light to me, but I never opened it." },
+            { "claimId": "C017_CL003", "suspectName": "Treasury Aide Len Merr", "claimText": "Devin came back to the cage after the pickup tags were already printed." },
+            { "claimId": "C017_CL004", "suspectName": "Transit Auditor Rhea Noll", "claimText": "The missing serial gap is too large to be a simple spoilage tear." }
+          ],
+          "contradictionClaimId": "C017_CL001",
+          "primaryEvidenceIdA": "C017_E001",
+          "primaryEvidenceIdB": "C017_E002",
+          "explanation": "Devin says there was only one sealed mailing, but C017_E001 shows a missing serial span that could supply a second bundle and C017_E002 shows the first parcel was too light to contain the full run. A second batch was separated and hidden.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 3, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S019"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C018",
+          "title": "Restricted Preview",
+          "location": "Marlowe Procurement Hub - Conference Suite",
+          "brief": "A procurement fraud suspect reacted to a warrant before it was served. Mira Voss says she only reviewed public invoices, but one concealed clue suggests someone inside the bureau leaked restricted timing.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Invoice Packet", "linkedEvidenceId": "C018_E001" },
+            { "hotspotId": "H002", "label": "Burner Tablet", "linkedEvidenceId": "C018_E002" },
+            { "hotspotId": "H003", "label": "Recorder Tray", "linkedEvidenceId": "C018_E004" },
+            { "hotspotId": "H004", "label": "Courier Envelope", "linkedEvidenceId": "C018_E005" },
+            { "hotspotId": "H005", "label": "Brief Snapshot", "linkedEvidenceId": "C018_E006" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C018_E001",
+              "displayName": "Public Invoice Packet",
+              "description": "A neat packet of ordinary procurement invoices. Nothing inside it would explain advance knowledge of an unserved warrant.",
+              "imagePrompt": "stacked procurement invoices in a tidy folder on a conference table, blurred paper rows, silver binder clip, cool office lighting, restrained corporate composition"
+            },
+            {
+              "evidenceId": "C018_E002",
+              "displayName": "Burner Tablet Photo",
+              "description": "A burner tablet displays a calendar reminder matching the warrant service window Mira said she never knew.",
+              "imagePrompt": "small tablet on a glossy conference table with a dark calendar-style screen of coloured blocks blurred beyond reading, fingerprint smudges on glass, moody boardroom light"
+            },
+            {
+              "evidenceId": "C018_E003",
+              "displayName": "Warehouse Camera Freeze",
+              "description": "A warehouse camera still catches the suspect clearing shelves hours before the warrant team moved in.",
+              "imagePrompt": "grainy warehouse security still with shelving and a figure hurriedly moving boxes, cold industrial lighting, mild motion blur, surveillance aesthetic"
+            },
+            {
+              "evidenceId": "C018_E004",
+              "displayName": "Meeting Table Recorder",
+              "description": "A pocket recorder from the conference suite contains a whispered reference to 'moving before the knock.'",
+              "imagePrompt": "small silver voice recorder lying on a glass conference table beside a water ring, tiny screen dark, cinematic top-down composition, no readable text"
+            },
+            {
+              "evidenceId": "C018_E005",
+              "displayName": "Courier Envelope Liner",
+              "description": "A padded envelope liner holds cobalt dust and a corner fold matching a restricted briefing packet.",
+              "imagePrompt": "inside of a torn padded courier envelope spread open on black felt, faint blue dust in the seams, dramatic side lighting, forensic close-up"
+            },
+            {
+              "evidenceId": "C018_E006",
+              "displayName": "Restricted Brief Snapshot",
+              "description": "A phone photo of a restricted fraud briefing packet, found in Mira's folder. The subject blocks are visible even though the image is blurred and incomplete.",
+              "imagePrompt": "slightly blurred phone photograph of a sealed briefing packet on a dark folder, coloured divider tabs and blocked-out sections visible but unreadable, covert handheld framing, low warm light"
+            }
+          ],
+          "claims": [
+            { "claimId": "C018_CL001", "suspectName": "Mira Voss", "claimText": "I only saw the public invoice packet. No one warned me about the warrant." },
+            { "claimId": "C018_CL002", "suspectName": "Procurement Clerk Jalen Orr", "claimText": "The warehouse purge began before anyone outside the room should have known to panic." },
+            { "claimId": "C018_CL003", "suspectName": "Broker Owen Kade", "claimText": "Mira asked for courier sleeves, not confidential briefings." },
+            { "claimId": "C018_CL004", "suspectName": "Inspector Vale Tor", "claimText": "Someone inside our side knew exactly when the warrant team would move." }
+          ],
+          "contradictionClaimId": "C018_CL001",
+          "primaryEvidenceIdA": "C018_E002",
+          "primaryEvidenceIdB": "C018_E006",
+          "explanation": "Mira says she only saw public paperwork, but C018_E002 carries a private calendar reminder aligned to the warrant window and C018_E006 is a covert photo of a restricted fraud briefing packet from inside the department flow. She had leaked advance notice.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 3, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S011"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C019",
+          "title": "Warehouse Float",
+          "location": "Greyhook Self Storage - Bay 14",
+          "brief": "Lyle Mercer resurfaces, insisting a storage locker stayed sealed all week. Night access pings, swapped hardware, and collateral paperwork connect the locker to the same fraud network orbiting Mira Voss.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Bay 14 Padlock", "linkedEvidenceId": "C019_E001" },
+            { "hotspotId": "H002", "label": "Access Kiosk", "linkedEvidenceId": "C019_E002" },
+            { "hotspotId": "H003", "label": "Pallet Stack", "linkedEvidenceId": "C019_E003" },
+            { "hotspotId": "H004", "label": "Loan Sleeve", "linkedEvidenceId": "C019_E005" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C019_E001",
+              "displayName": "Bay 14 Padlock",
+              "description": "The padlock body is old, but the shackle is newly swapped and scratched from fresh fitting.",
+              "imagePrompt": "worn storage-unit padlock hanging on corrugated metal, mismatched new shackle catching hard flashlight glare, gritty industrial close-up"
+            },
+            {
+              "evidenceId": "C019_E002",
+              "displayName": "Night Access Ledger",
+              "description": "The self-storage kiosk ledger records Lyle's fob opening Bay 14 at 2:09 AM two nights before inspection.",
+              "imagePrompt": "self-storage kiosk printout beside a plastic access fob on a scratched counter, unreadable entry rows, cold fluorescent night lighting"
+            },
+            {
+              "evidenceId": "C019_E003",
+              "displayName": "Pallet Photo",
+              "description": "A quick phone photo of the locker interior shows pallet space recently disturbed and re-stacked.",
+              "imagePrompt": "phone photo of a narrow storage locker with pallet marks on the floor and re-stacked boxes, stark single-bulb lighting, cramped perspective"
+            },
+            {
+              "evidenceId": "C019_E004",
+              "displayName": "Collateral Appraisal Slip",
+              "description": "An appraisal slip for boxed valuables carries the same broker initials seen in earlier fraud paperwork.",
+              "imagePrompt": "appraisal slip tucked into a bubble-wrapped valuables box, blurred handwriting and stamp marks, flashlight beam across cardboard and plastic wrap"
+            },
+            {
+              "evidenceId": "C019_E005",
+              "displayName": "Loan Contract Sleeve",
+              "description": "A loan contract sleeve found behind the pallet divider lists Bay 14 as floating collateral instead of fixed storage.",
+              "imagePrompt": "clear document sleeve wedged behind warehouse pallets, contract pages inside with unreadable lines, dusty floor, dramatic low-angle light"
+            }
+          ],
+          "claims": [
+            { "claimId": "C019_CL001", "suspectName": "Lyle Mercer", "claimText": "That locker was untouched until inspectors arrived. I did not open Bay 14 all week." },
+            { "claimId": "C019_CL002", "suspectName": "Storage Manager Eren Sill", "claimText": "The lock looked wrong the moment I saw it, but I had no key to test it." },
+            { "claimId": "C019_CL003", "suspectName": "Broker Mira Voss", "claimText": "I knew the collateral paper existed, not where it was being floated." },
+            { "claimId": "C019_CL004", "suspectName": "Runner Pell Hart", "claimText": "Boxes moved through Bay 14 at night more than once." }
+          ],
+          "contradictionClaimId": "C019_CL001",
+          "primaryEvidenceIdA": "C019_E001",
+          "primaryEvidenceIdB": "C019_E002",
+          "explanation": "Lyle says Bay 14 stayed sealed, but C019_E001 shows the padlock was recently rebuilt and C019_E002 logs his fob opening the unit at 2:09 AM. The locker was accessed and altered before inspection.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 3, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S011", "S014"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C020",
+          "title": "The Glass Ledger",
+          "location": "Crown Annex Records Vault",
+          "brief": "The fraud ring's master ledger surfaces inside a sealed annex. Mira Voss claims she only polished summaries and never touched the original ledger. The annex trail finally exposes her real role and escalates the still-unseen internal leak.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Courier Lockbox", "linkedEvidenceId": "C020_E001" },
+            { "hotspotId": "H002", "label": "Visitor Pass Desk", "linkedEvidenceId": "C020_E002" },
+            { "hotspotId": "H003", "label": "Ledger Shelf", "linkedEvidenceId": "C020_E003" },
+            { "hotspotId": "H004", "label": "Freight Elevator Monitor", "linkedEvidenceId": "C020_E004" },
+            { "hotspotId": "H005", "label": "Seal Fragment Tray", "linkedEvidenceId": "C020_E006" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C020_E001",
+              "displayName": "Courier Lockbox Shell",
+              "description": "A narrow courier lockbox with one corner cracked open from hurried handling. Cobalt dust lines the seam.",
+              "imagePrompt": "slim courier lockbox on a steel evidence table, one corner cracked, blue glass-like dust along the seam, dramatic overhead spotlight, high-contrast forensic photo"
+            },
+            {
+              "evidenceId": "C020_E002",
+              "displayName": "Annex Visitor Pass Sleeve",
+              "description": "A consultant visitor pass sleeve used for late-night annex access. The clasp was snapped and reclosed.",
+              "imagePrompt": "clear visitor pass sleeve with broken plastic clasp on a dark archive counter, lanyard coiled beside it, muted institutional lighting, clean evidence arrangement"
+            },
+            {
+              "evidenceId": "C020_E003",
+              "displayName": "Fractured Glass Ledger Page",
+              "description": "A ledger page pressed under thin protective glass. One edge is chipped and leaves the same cobalt grit seen in the courier lockbox.",
+              "imagePrompt": "aged ledger page under a thin cracked glass cover, blue grit scattered along one chipped edge, archival gloves nearby, soft vault lighting"
+            },
+            {
+              "evidenceId": "C020_E004",
+              "displayName": "Freight Elevator Camera Still",
+              "description": "A vault elevator still showing Mira entering the annex with a narrow lockbox at 11:43 PM.",
+              "imagePrompt": "grainy freight elevator security still with a sharply dressed figure carrying a narrow lockbox, brushed metal walls, overhead industrial light, surveillance framing"
+            },
+            {
+              "evidenceId": "C020_E005",
+              "displayName": "Duplicate Summary Workbook",
+              "description": "A workbook of cleaned financial summaries in Mira's style, prepared to replace the original ledger if needed.",
+              "imagePrompt": "open workbook of financial summary pages on a polished archive desk, coloured dividers and neat columns blurred beyond reading, luxury pen nearby, moody archival light"
+            },
+            {
+              "evidenceId": "C020_E006",
+              "displayName": "Archive Seal Fragment",
+              "description": "A broken vault seal fragment with adhesive and cobalt dust matching both the lockbox crack and Mira's workbook sleeve.",
+              "imagePrompt": "broken security seal fragment on black velvet with blue dust and adhesive residue visible, macro forensic shot, stark raking light"
+            },
+            {
+              "evidenceId": "C020_E007",
+              "displayName": "Desk Calendar Tear",
+              "description": "A torn calendar square from Mira's folio marks the exact annex night with a courier shorthand she denied recognizing.",
+              "imagePrompt": "small torn calendar square tucked inside a leather folio, diagonal graphite mark, warm desk lamp light, intimate close-up, no legible text"
+            }
+          ],
+          "claims": [
+            { "claimId": "C020_CL001", "suspectName": "Mira Voss", "claimText": "I never entered the annex and never touched the original Glass Ledger. I only rewrote public summaries." },
+            { "claimId": "C020_CL002", "suspectName": "Owen Kade", "claimText": "Mira brokered introductions, not documents. She kept her hands clean." },
+            { "claimId": "C020_CL003", "suspectName": "Archive Clerk Nera Sol", "claimText": "The courier lockbox arrived already cracked before the vault shift began." },
+            { "claimId": "C020_CL004", "suspectName": "Inspector Vale Tor", "claimText": "Someone on the inside knew exactly which shelf our team planned to pull." },
+            { "claimId": "C020_CL005", "suspectName": "Renata Bell", "claimText": "If Mira appeared that night, it was after the originals were already gone." }
+          ],
+          "contradictionClaimId": "C020_CL001",
+          "primaryEvidenceIdA": "C020_E004",
+          "primaryEvidenceIdB": "C020_E006",
+          "explanation": "Mira's denial collapses because C020_E004 places her inside the annex carrying the narrow lockbox, and C020_E006 matches the broken archive seal to residue found with her replacement workbook. She handled the original Glass Ledger directly, not just the summaries.",
+          "basePoints": 750,
+          "timeLimitSeconds": 420,
+          "toolConfig": { "crossCheckCharges": 3, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S011", "S012", "S013"],
+          "interrogationNodes": [
+            {
+              "nodeId": "C020_INT001",
+              "promptText": "If Mira only polished summaries, why bring a courier lockbox into the annex at all?",
+              "responses": [
+                "Because the originals had to be moved before the inspection team reached the shelf.",
+                "Because consultants always carry their own stationary cases in archives.",
+                "Because the archive clerk asked for a personal delivery favor."
+              ],
+              "correctResponseIndex": 0,
+              "unlockConditionTags": ["ACCESS"],
+              "evidenceRequiredIds": ["C020_E001", "C020_E004"]
+            },
+            {
+              "nodeId": "C020_INT002",
+              "promptText": "What tells us the leak came from inside the bureau, not from public paperwork?",
+              "responses": [
+                "The restricted timing existed only on the internal brief chain tied to Mira's copied materials.",
+                "The public invoice packet listed the exact shelf location of the ledger.",
+                "The donor receipts from C011 contained the annex route and vault shift code."
+              ],
+              "correctResponseIndex": 0,
+              "unlockConditionTags": ["DIGITAL"],
+              "evidenceRequiredIds": ["C018_E006", "C020_E005"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "departmentId": "MISSING_PERSONS",
+      "displayName": "Missing Persons",
+      "arcName": "The Hollow Desk",
+      "caseRange": ["C021", "C030"],
+      "signatureMechanics": [
+        "Enhance reveals hidden location tags, reflections, timestamps, and travel metadata.",
+        "Evidence favors last-known-contact timelines, surveillance fragments, keycards, route traces, and concealed movement through institutional spaces."
+      ],
+      "internalLeakEvidenceId": "C027_E004",
+      "capstoneCaseId": "C030",
+      "cases": [
+        {
+          "caseId": "C021",
+          "title": "Last Stop Window",
+          "location": "Vesper Terminal - Route Six Platform",
+          "brief": "Lab assistant Nyla Venn disappears after work. A dispatcher insists she boarded the last Route Six bus, but the transit screenshot on her phone looks less trustworthy once it is enhanced.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Phone Screenshot", "linkedEvidenceId": "C021_E001" },
+            { "hotspotId": "H002", "label": "Platform Camera", "linkedEvidenceId": "C021_E002" },
+            { "hotspotId": "H003", "label": "Shelter Glass", "linkedEvidenceId": "C021_E003" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C021_E001",
+              "displayName": "Transit App Screenshot",
+              "description": "A screenshot on Nyla's phone shows a route-six boarding card. Enhance reveals it was cached from the previous evening, not the disappearance night.",
+              "imagePrompt": "smartphone on a bus-stop bench with a transit app card on screen, coloured route blocks blurred beyond reading, rain speckles on the glass, blue night lighting"
+            },
+            {
+              "evidenceId": "C021_E002",
+              "displayName": "Platform Bollard Camera",
+              "description": "A bollard camera frame captures the last route-six departure with no sign of Nyla near the doors.",
+              "imagePrompt": "street-level camera still of a city bus pulling away from a platform, empty boarding zone in the foreground, night reflections on wet pavement, surveillance grain"
+            },
+            {
+              "evidenceId": "C021_E003",
+              "displayName": "Bus Shelter Reflection",
+              "description": "The shelter glass reflects Nyla turning away from the lane after the bus departed.",
+              "imagePrompt": "nighttime bus shelter glass reflecting a lone figure turning away, route lane lights streaked in the background, cinematic urban melancholy"
+            },
+            {
+              "evidenceId": "C021_E004",
+              "displayName": "Locker Key Tag",
+              "description": "Nyla's lab locker key tag was still in her coat pocket, suggesting she did not plan to ride home normally.",
+              "imagePrompt": "small metal locker key with a numbered plastic tag resting inside a coat pocket on dark fabric, soft flashlight glow, intimate evidence composition"
+            },
+            {
+              "evidenceId": "C021_E005",
+              "displayName": "Last Call Voicemail",
+              "description": "A voicemail from Nyla ends with street noise from outside the terminal, recorded after the claimed bus departure.",
+              "imagePrompt": "phone screen with waveform-style voicemail bars blurred beyond reading, reflected streetlights across the glass, dark handheld nighttime composition"
+            }
+          ],
+          "claims": [
+            { "claimId": "C021_CL001", "suspectName": "Dispatcher Paxton Reeve", "claimText": "Nyla boarded the last Route Six bus. I saw her through the door glass." },
+            { "claimId": "C021_CL002", "suspectName": "Lab Supervisor Orla Penn", "claimText": "She left work on time and seemed set on going straight home." },
+            { "claimId": "C021_CL003", "suspectName": "Shelter Vendor Mina Hart", "claimText": "Someone waited after the bus left, but I could not see the face clearly." },
+            { "claimId": "C021_CL004", "suspectName": "Caller Len Voss", "claimText": "The voicemail picked up terminal noise, not a moving bus interior." }
+          ],
+          "contradictionClaimId": "C021_CL001",
+          "primaryEvidenceIdA": "C021_E001",
+          "primaryEvidenceIdB": "C021_E002",
+          "explanation": "The dispatcher claims Nyla boarded the bus, but C021_E001 is an older cached screenshot reused from the previous night and C021_E002 shows the final Route Six departure without Nyla at the doors. She did not leave on that bus.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 2, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S020"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C022",
+          "title": "Room 3B",
+          "location": "Hearthlight Hostel - Upper Hall",
+          "brief": "Hostel manager Jonah Vale says a courier checked out before dawn and never came back. Keycard residue and hallway timing suggest the room was re-entered long after the claimed checkout.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Checkout Desk", "linkedEvidenceId": "C022_E001" },
+            { "hotspotId": "H002", "label": "Room Reader", "linkedEvidenceId": "C022_E002" },
+            { "hotspotId": "H003", "label": "Hallway Camera", "linkedEvidenceId": "C022_E005" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C022_E001",
+              "displayName": "Checkout Envelope",
+              "description": "A front-desk envelope prepared for an early checkout. The key inside is clean, but the flap was resealed later.",
+              "imagePrompt": "plain hostel front-desk envelope with room key peeking out, resealed flap edge visible, warm low lobby lighting, neat close-up composition"
+            },
+            {
+              "evidenceId": "C022_E002",
+              "displayName": "Keycard Reader Plate",
+              "description": "The room 3B reader plate shows fresh oil transfer and a second swipe pattern after dawn. Enhance pulls the later contact trace.",
+              "imagePrompt": "close-up of a brushed metal hotel keycard reader plate with fingerprint sheen and wear streaks, dim corridor light, macro texture detail"
+            },
+            {
+              "evidenceId": "C022_E003",
+              "displayName": "Corridor Light Timer",
+              "description": "The hallway lights switch from night mode to day mode at 7:10 AM, matching the later re-entry shadow timing.",
+              "imagePrompt": "small wall timer unit in a hostel corridor with indicator lights glowing, peeling paint and narrow hallway behind, quiet morning atmosphere"
+            },
+            {
+              "evidenceId": "C022_E004",
+              "displayName": "Shared Kitchen Mug",
+              "description": "A still-warm mug from the communal kitchen holds the same tea blend the missing courier always carried.",
+              "imagePrompt": "ceramic mug on a hostel kitchen counter with faint steam still rising, scattered sugar packets, cool morning light through blinds"
+            },
+            {
+              "evidenceId": "C022_E005",
+              "displayName": "Alley Camera Still",
+              "description": "An alley camera catches Jonah near the side door after he said the room was already empty.",
+              "imagePrompt": "security still of a narrow service alley behind a hostel, side door ajar, lone figure near the frame, damp bricks, soft dawn blue lighting"
+            }
+          ],
+          "claims": [
+            { "claimId": "C022_CL001", "suspectName": "Jonah Vale", "claimText": "The courier checked out before dawn and never returned to room 3B." },
+            { "claimId": "C022_CL002", "suspectName": "Cleaner Sena Marr", "claimText": "The room looked stripped too neatly for a rushed departure." },
+            { "claimId": "C022_CL003", "suspectName": "Guest Ivo Pell", "claimText": "I heard the side door late in the morning, not before sunrise." },
+            { "claimId": "C022_CL004", "suspectName": "Kitchen Volunteer Nia Sol", "claimText": "Someone made fresh tea after the breakfast lights came up." }
+          ],
+          "contradictionClaimId": "C022_CL001",
+          "primaryEvidenceIdA": "C022_E002",
+          "primaryEvidenceIdB": "C022_E005",
+          "explanation": "Jonah says the guest never returned, but C022_E002 shows a second room-reader contact after dawn and C022_E005 places Jonah himself by the side door later that morning. Room 3B was accessed again after the supposed checkout.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 2, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S021"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C023",
+          "title": "Bluebird Encore",
+          "location": "Bluebird Basement Venue - Backstage",
+          "brief": "Singer Sera Bloom vanishes after a midnight set. Her promoter says she went straight to the rideshare rank, but an enhanced backstage image reveals a marina wristband and a familiar contact waiting in the shadows: Mira Voss.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Backstage Polaroid", "linkedEvidenceId": "C023_E001" },
+            { "hotspotId": "H002", "label": "Ride Desk", "linkedEvidenceId": "C023_E002" },
+            { "hotspotId": "H003", "label": "Mirror Station", "linkedEvidenceId": "C023_E004" },
+            { "hotspotId": "H004", "label": "Dock Ramp Camera", "linkedEvidenceId": "C023_E005" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C023_E001",
+              "displayName": "Setlist Polaroid",
+              "description": "A backstage instant photo taken after the last song. Enhance reveals a marina wristband hidden under Sera's sleeve cuff.",
+              "imagePrompt": "instant backstage polaroid photo held over a cluttered dressing table, singer in stage light with one sleeve slightly raised, cosmetics and cables around the frame, grainy club mood"
+            },
+            {
+              "evidenceId": "C023_E002",
+              "displayName": "Rideshare Receipt Sleeve",
+              "description": "A printed rideshare pickup sleeve suggests a homebound trip, but the vehicle never completed the usual neighborhood route.",
+              "imagePrompt": "thin rideshare receipt sleeve on a black club counter with key fob and lipstick nearby, neon spill from off-screen signage, paper rows blurred"
+            },
+            {
+              "evidenceId": "C023_E003",
+              "displayName": "Wristband Tin",
+              "description": "A tin of venue wristbands is missing one marina-colour band that was never part of the club issue set.",
+              "imagePrompt": "small metal tin of colorful fabric wristbands on a backstage crate, one empty slot visible, saturated but slightly desaturated club lighting"
+            },
+            {
+              "evidenceId": "C023_E004",
+              "displayName": "Dressing Mirror Photo",
+              "description": "A dressing-mirror snap catches Sera turning toward the loading exit. The reflected wristband and bag strap place her on a different route than the promoter described.",
+              "imagePrompt": "dressing room mirror photograph with bulbs around the frame, performer turning toward an open backstage door, reflected wrist and shoulder bag visible, moody concert dressing room atmosphere"
+            },
+            {
+              "evidenceId": "C023_E005",
+              "displayName": "Loading Dock Camera",
+              "description": "A dock camera shows Sera leaving toward the marina side with a sharply dressed woman matching Mira's silhouette.",
+              "imagePrompt": "night security still of a venue loading dock with two figures moving toward a waterfront ramp, one in stagewear and one in tailored dark clothing, wet asphalt reflections"
+            }
+          ],
+          "claims": [
+            { "claimId": "C023_CL001", "suspectName": "Promoter Maren Fleet", "claimText": "Sera left with me for the rideshare rank. She never turned toward the docks." },
+            { "claimId": "C023_CL002", "suspectName": "Mira Voss", "claimText": "I was nowhere near the venue after midnight." },
+            { "claimId": "C023_CL003", "suspectName": "Sound Tech Oren Dax", "claimText": "Someone from the marina side was waiting by the loading ramp before the encore ended." },
+            { "claimId": "C023_CL004", "suspectName": "Bartender Cira Noll", "claimText": "Sera asked for directions to the water, not the taxi queue." }
+          ],
+          "contradictionClaimId": "C023_CL001",
+          "primaryEvidenceIdA": "C023_E004",
+          "primaryEvidenceIdB": "C023_E005",
+          "explanation": "The promoter says Sera went straight to the rideshare rank, but C023_E004 places her turning toward the loading exit with the hidden marina wristband visible and C023_E005 shows her leaving dockside with a woman matching Mira. She did not head for the taxi queue.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 2, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S011", "S022"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C024",
+          "title": "False Dawn Search",
+          "location": "Pineglass Ridge Trailhead",
+          "brief": "Volunteer search lead Caleb Wren says the search began at sunrise and found nothing earlier. Enhanced drone stills and gate data show vehicle activity on the trail hours before the official start.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Drone Case", "linkedEvidenceId": "C024_E001" },
+            { "hotspotId": "H002", "label": "Grid Map", "linkedEvidenceId": "C024_E002" },
+            { "hotspotId": "H003", "label": "Trail Gate", "linkedEvidenceId": "C024_E004" },
+            { "hotspotId": "H004", "label": "Bench Thermos", "linkedEvidenceId": "C024_E003" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C024_E001",
+              "displayName": "Drone Still",
+              "description": "A predawn drone still of the ridge parking loop. Enhance reveals Caleb's truck already parked near the trail marker before first light.",
+              "imagePrompt": "aerial drone still of a mountain trailhead parking loop in blue predawn light, one pickup truck near the tree line, mist hanging over the ground, cinematic overhead perspective"
+            },
+            {
+              "evidenceId": "C024_E002",
+              "displayName": "Search Grid Map",
+              "description": "The printed search grid starts at sunrise, but the marked vehicle path is already penciled into the northwest corner.",
+              "imagePrompt": "folded wilderness search grid map on a ranger table with pencil marks and compass, paper texture emphasized, no readable labels, natural cabin light"
+            },
+            {
+              "evidenceId": "C024_E003",
+              "displayName": "Thermos Lid Photo",
+              "description": "A volunteer snapshot shows Caleb's thermos steaming while the ridge is still moonlit in the background.",
+              "imagePrompt": "phone snapshot of a steaming thermos on a rough wooden bench with dark mountain silhouettes behind, faint moonlight over the ridge, cold outdoor atmosphere"
+            },
+            {
+              "evidenceId": "C024_E004",
+              "displayName": "Trail Gate Sensor",
+              "description": "The vehicle gate opened at 4:11 AM, well before the official sunrise search launch.",
+              "imagePrompt": "metal trail gate with attached sensor box and faint indicator light, gravel road beyond disappearing into forest darkness, dawn edge lighting"
+            },
+            {
+              "evidenceId": "C024_E005",
+              "displayName": "Bootlace Fiber",
+              "description": "A snagged bootlace fiber on the gate matches Caleb's search boots and places him at the early entry point.",
+              "imagePrompt": "close-up of frayed bootlace fiber caught on a rusty gate hinge, forest floor blurred behind, flashlight beam highlighting texture"
+            }
+          ],
+          "claims": [
+            { "claimId": "C024_CL001", "suspectName": "Caleb Wren", "claimText": "We started searching at sunrise. No one from my team was on the ridge before then." },
+            { "claimId": "C024_CL002", "suspectName": "Volunteer Jana Pell", "claimText": "Caleb looked exhausted, like he had already been out there for hours." },
+            { "claimId": "C024_CL003", "suspectName": "Ranger Sol Merr", "claimText": "The gate sensor tripped while the sky was still dark." },
+            { "claimId": "C024_CL004", "suspectName": "Hiker Len Orr", "claimText": "There were fresh tire marks at the overlook before the briefing assembled." }
+          ],
+          "contradictionClaimId": "C024_CL001",
+          "primaryEvidenceIdA": "C024_E001",
+          "primaryEvidenceIdB": "C024_E004",
+          "explanation": "Caleb says the search began at sunrise, but C024_E001 already shows his truck at the trailhead in predawn light and C024_E004 logs the gate opening at 4:11 AM. Someone from his side was on the ridge hours early.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 2, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S023"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C025",
+          "title": "Stairwell Five",
+          "location": "Mercury Plaza - Service Core",
+          "brief": "A witness vanishes from an office tower. Access tech Daria Flint says the emergency stairwell camera was dead all night, but the dark screen itself holds a reflection worth enhancing.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Dead Monitor", "linkedEvidenceId": "C025_E001" },
+            { "hotspotId": "H002", "label": "Maintenance Ring", "linkedEvidenceId": "C025_E002" },
+            { "hotspotId": "H003", "label": "Elevator Panel", "linkedEvidenceId": "C025_E003" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C025_E001",
+              "displayName": "Black Screen Monitor",
+              "description": "A supposedly dead stairwell monitor. Enhance reveals a reflected timestamp and the outline of Daria's service badge.",
+              "imagePrompt": "dark inactive security monitor on a maintenance wall, glossy screen reflecting a blurred figure and corridor light, industrial indoor atmosphere, high-contrast composition"
+            },
+            {
+              "evidenceId": "C025_E002",
+              "displayName": "Maintenance Key Roll",
+              "description": "Daria's service keys include the stairwell override normally used only for emergency resets.",
+              "imagePrompt": "ring of metal service keys and colored tags laid on a concrete floor, one long override key prominent, cold utility-room lighting"
+            },
+            {
+              "evidenceId": "C025_E003",
+              "displayName": "Elevator Floor Log",
+              "description": "The elevator system records a maintenance override stop on the witness floor during the disappearance window.",
+              "imagePrompt": "elevator service panel with glowing floor indicators and a clipped print strip below, brushed steel surfaces, moody building-core lighting"
+            },
+            {
+              "evidenceId": "C025_E004",
+              "displayName": "Coffee Cart Receipt",
+              "description": "A lobby coffee receipt places Daria in the building after she said she had left for the night.",
+              "imagePrompt": "small cafe receipt beside a takeaway cup lid on a polished lobby ledge, blurred printed rows, soft evening office-tower lighting"
+            },
+            {
+              "evidenceId": "C025_E005",
+              "displayName": "Witness Notebook",
+              "description": "The missing witness's notebook ends with a sketch of the service stair icon rather than the public lobby route.",
+              "imagePrompt": "pocket notebook open on a dark stair tread, rough diagram lines and arrows sketched across the page, no readable text, flashlight illumination"
+            }
+          ],
+          "claims": [
+            { "claimId": "C025_CL001", "suspectName": "Daria Flint", "claimText": "That stairwell camera was dead all night. Nothing from stairwell five can place anyone there." },
+            { "claimId": "C025_CL002", "suspectName": "Night Porter Sela Voss", "claimText": "A maintenance override happened on the witness floor after the tower quieted." },
+            { "claimId": "C025_CL003", "suspectName": "Lobby Barista Finn Hale", "claimText": "Daria bought coffee later than most of the cleaners." },
+            { "claimId": "C025_CL004", "suspectName": "Tenant Liaison Nera Pell", "claimText": "The witness asked where the service stairs connected before she vanished." }
+          ],
+          "contradictionClaimId": "C025_CL001",
+          "primaryEvidenceIdA": "C025_E001",
+          "primaryEvidenceIdB": "C025_E003",
+          "explanation": "Daria says the dead camera proves nothing, but C025_E001 hides her reflected badge and timestamp once enhanced, and C025_E003 shows a maintenance override stop on the witness floor during that same window. Stairwell five was active, and Daria was there.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 2, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S024"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C026",
+          "title": "Cold Berth",
+          "location": "North Quay Cold Dock - Locker Row",
+          "brief": "Dock foreman Silas Keene says deckhand Tomas Orr never passed locker row on the night he vanished. Frosted cargo tags and berth pings say the route continued much farther into the dock.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Cargo Tag", "linkedEvidenceId": "C026_E001" },
+            { "hotspotId": "H002", "label": "Locker Row Photo", "linkedEvidenceId": "C026_E002" },
+            { "hotspotId": "H003", "label": "Bracelet Reader", "linkedEvidenceId": "C026_E003" },
+            { "hotspotId": "H004", "label": "Forklift Sheet", "linkedEvidenceId": "C026_E004" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C026_E001",
+              "displayName": "Frosted Cargo Tag",
+              "description": "A frozen cargo tag from the locker row. Enhance reveals berth 9C beneath the frost, tying the movement deeper into the cold dock.",
+              "imagePrompt": "frost-covered cargo tag attached to a crate handle, icy crystals across the surface, warehouse cold-room haze, macro shot with unreadable markings"
+            },
+            {
+              "evidenceId": "C026_E002",
+              "displayName": "Locker Row Photo",
+              "description": "A locker row photo shows fresh drag marks leading away from Tomas's locker toward the berth corridor.",
+              "imagePrompt": "cold dock locker row under harsh white lights, concrete floor with subtle drag marks leading into a corridor, documentary forensic framing"
+            },
+            {
+              "evidenceId": "C026_E003",
+              "displayName": "Berth Access Bracelet",
+              "description": "A worker bracelet ping places Tomas at berth 9C after Silas said he never went beyond locker row.",
+              "imagePrompt": "industrial access bracelet on a steel table with frost beads melting around it, soft blue cold-storage light, close evidence composition"
+            },
+            {
+              "evidenceId": "C026_E004",
+              "displayName": "Forklift Route Sheet",
+              "description": "The forklift route sheet skips berth 9C, but the tire dust on the floor shows a fresh detour there.",
+              "imagePrompt": "route sheet on a forklift clipboard with grease marks and clipped pencil, heavy machinery blurred in the background, cold dock lighting"
+            },
+            {
+              "evidenceId": "C026_E005",
+              "displayName": "Marina Fuel Hose",
+              "description": "A cut marina fuel hose tucked behind the berth curtain suggests a fast handoff to a small waterfront craft.",
+              "imagePrompt": "cut fuel hose coiled behind a plastic strip curtain in a dock berth, wet floor reflecting overhead lights, gritty maritime atmosphere"
+            }
+          ],
+          "claims": [
+            { "claimId": "C026_CL001", "suspectName": "Silas Keene", "claimText": "Tomas never came past locker row, and I never sent anyone toward the freezer berths." },
+            { "claimId": "C026_CL002", "suspectName": "Loader Jana Orr", "claimText": "Someone dragged weight toward the cold corridor after shift turnover." },
+            { "claimId": "C026_CL003", "suspectName": "Dock Clerk Reva Pell", "claimText": "The berth bracelet ping came from deeper inside the dock, not the locker area." },
+            { "claimId": "C026_CL004", "suspectName": "Night Pilot Hane Voss", "claimText": "A small craft fueled up quietly near the quay after midnight." }
+          ],
+          "contradictionClaimId": "C026_CL001",
+          "primaryEvidenceIdA": "C026_E001",
+          "primaryEvidenceIdB": "C026_E003",
+          "explanation": "Silas says Tomas never went beyond locker row, but C026_E001 reveals berth 9C once the frost is enhanced and C026_E003 records Tomas's bracelet pinging that exact berth. The missing deckhand was taken deeper into the dock.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 2, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S025"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C027",
+          "title": "Quiet Shelter",
+          "location": "Lantern Youth Shelter - Courtyard",
+          "brief": "A teen witness disappears after a counseling session. Tova Rell says the teen never returned that night, but an enhanced photo strip says otherwise. A search-routing slip appears to have been printed before the case even went public.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Photo Booth Strip", "linkedEvidenceId": "C027_E001" },
+            { "hotspotId": "H002", "label": "Sign-Out Desk", "linkedEvidenceId": "C027_E002" },
+            { "hotspotId": "H003", "label": "Routing Tray", "linkedEvidenceId": "C027_E004" },
+            { "hotspotId": "H004", "label": "Bench Blanket", "linkedEvidenceId": "C027_E005" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C027_E001",
+              "displayName": "Photo Booth Strip",
+              "description": "A shelter photo booth strip. Enhance reveals the missing teen reflected in the booth glass after dark, hours after Tova said the teen never came back.",
+              "imagePrompt": "photo booth strip laid on a wooden bench, tiny portrait frames and a reflective glass edge showing a night courtyard glow, intimate melancholy composition"
+            },
+            {
+              "evidenceId": "C027_E002",
+              "displayName": "Shelter Sign-Out Clipboard",
+              "description": "The sign-out sheet shows a later wristband tear and pen pressure mark that do not match the noon session exit.",
+              "imagePrompt": "crowded clipboard with paper sign-out sheets, torn wristband stub tucked under the clip, muted shelter office light, paper texture emphasized"
+            },
+            {
+              "evidenceId": "C027_E003",
+              "displayName": "Bus Station Token Pouch",
+              "description": "A small pouch from the bus station kiosk sits under the bench blanket, suggesting preparation for a late transfer.",
+              "imagePrompt": "small canvas pouch peeking from beneath a folded blanket on a bench, station-token silhouette visible through the fabric, cool outdoor evening light"
+            },
+            {
+              "evidenceId": "C027_E004",
+              "displayName": "Search Routing Slip",
+              "description": "A printed search-routing slip carries a restricted grid assignment timestamped before the missing-person alert was publicly filed.",
+              "imagePrompt": "narrow routing slip half-fed from a compact office printer, abstract grid lines and timestamp block blurred beyond reading, dim desk lamp light, covert administrative mood"
+            },
+            {
+              "evidenceId": "C027_E005",
+              "displayName": "Courtyard Bench Blanket",
+              "description": "A blanket on the courtyard bench still holds fresh night-air dampness and a glitter fiber from the booth curtain.",
+              "imagePrompt": "folded blanket on an outdoor bench with tiny glitter fibers catching the light, damp fabric texture, quiet courtyard at night"
+            }
+          ],
+          "claims": [
+            { "claimId": "C027_CL001", "suspectName": "Tova Rell", "claimText": "After our noon session, the teen never came back to the shelter at all." },
+            { "claimId": "C027_CL002", "suspectName": "Case Worker Mina Orr", "claimText": "The search-routing slip arrived too fast for a normal public filing." },
+            { "claimId": "C027_CL003", "suspectName": "Bus Clerk Jera Pell", "claimText": "Someone bought a late-transfer pouch not long before closing." },
+            { "claimId": "C027_CL004", "suspectName": "Volunteer Hale Venn", "claimText": "The courtyard bench was used after dark, not left empty." }
+          ],
+          "contradictionClaimId": "C027_CL001",
+          "primaryEvidenceIdA": "C027_E001",
+          "primaryEvidenceIdB": "C027_E002",
+          "explanation": "Tova says the teen never returned, but C027_E001 places the missing teen back at the shelter after dark once the reflection is enhanced, and C027_E002 shows a later sign-out trace distinct from the noon session. The teen came back that night.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 2, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S026"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C028",
+          "title": "Pier 19 Shadow",
+          "location": "Harbor Line Service Pier",
+          "brief": "Security contractor Adrian Crowe disappears while tailing a dockside lead linked to Mira Voss. A supervisor says Adrian's badge never cleared the pier, but enhance pulls a barge insignia from a rain-smeared frame.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Pier Camera", "linkedEvidenceId": "C028_E001" },
+            { "hotspotId": "H002", "label": "Turnstile Reader", "linkedEvidenceId": "C028_E002" },
+            { "hotspotId": "H003", "label": "Radio Locker", "linkedEvidenceId": "C028_E003" },
+            { "hotspotId": "H004", "label": "Schedule Rail", "linkedEvidenceId": "C028_E005" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C028_E001",
+              "displayName": "Rain-Smeared Pier Camera",
+              "description": "A rain-streaked pier camera frame. Enhance reveals Adrian on the pier with a barge insignia behind him.",
+              "imagePrompt": "rain-streaked waterfront security still with a lone figure on a pier and a blurred barge shape in the background, sodium dock lights reflecting on water, moody surveillance scene"
+            },
+            {
+              "evidenceId": "C028_E002",
+              "displayName": "Badge Turnstile Readout",
+              "description": "A turnstile readout shows Adrian's badge was manually overridden rather than rejected outright.",
+              "imagePrompt": "turnstile reader panel at a service pier with amber override light, damp metal rails, printed access strip blurred beneath, rainy night dock atmosphere"
+            },
+            {
+              "evidenceId": "C028_E003",
+              "displayName": "Hard Hat Radio",
+              "description": "Adrian's clipped radio was found still tuned to the private dock channel he used while tailing Mira's lead.",
+              "imagePrompt": "weathered two-way radio clipped to a hard hat on wet pier decking, antenna catching droplets, dark harbor background"
+            },
+            {
+              "evidenceId": "C028_E004",
+              "displayName": "Mooring Rope Fiber",
+              "description": "A fresh rope fiber from the service edge matches a recently cast-off small barge line.",
+              "imagePrompt": "close-up of frayed mooring rope fibers caught on a rusted cleat, wet dock planks, strong side light from the harbor"
+            },
+            {
+              "evidenceId": "C028_E005",
+              "displayName": "Ferry Schedule Foldout",
+              "description": "A folded ferry schedule in Adrian's pocket is marked to a maintenance-only service window, not a public crossing.",
+              "imagePrompt": "folded ferry timetable tucked into a jacket pocket with a bold diagonal pencil mark, paper details unreadable, cool maritime lighting"
+            }
+          ],
+          "claims": [
+            { "claimId": "C028_CL001", "suspectName": "Pier Supervisor Dane Rook", "claimText": "Adrian's badge never cleared the pier turnstile. He never made it past the gate." },
+            { "claimId": "C028_CL002", "suspectName": "Mira Voss", "claimText": "I did not meet anyone at the pier that night." },
+            { "claimId": "C028_CL003", "suspectName": "Dockhand Rema Pell", "claimText": "A maintenance barge cast off in the rain with almost no lights." },
+            { "claimId": "C028_CL004", "suspectName": "Channel Monitor Jaro Venn", "claimText": "Someone used the private dock channel shortly before the barge moved." }
+          ],
+          "contradictionClaimId": "C028_CL001",
+          "primaryEvidenceIdA": "C028_E001",
+          "primaryEvidenceIdB": "C028_E002",
+          "explanation": "The supervisor says Adrian never reached the pier, but C028_E001 shows Adrian on the pier once the rain-smeared frame is enhanced, and C028_E002 proves the turnstile used a manual override rather than blocking him. He got through the gate and onto the dock.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 2, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S011", "S027"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C029",
+          "title": "Silent Draft",
+          "location": "Courier Gazette - Annex Desk",
+          "brief": "Reporter Vera Hale disappears after chasing sealed detective memos. Her editor insists she never made it to the precinct annex, but enhanced audio and vehicle stills point straight to a service entrance tied to the same leak pattern.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Voicemail Phone", "linkedEvidenceId": "C029_E001" },
+            { "hotspotId": "H002", "label": "Dash Cam Board", "linkedEvidenceId": "C029_E002" },
+            { "hotspotId": "H003", "label": "Recorder Tray", "linkedEvidenceId": "C029_E005" },
+            { "hotspotId": "H004", "label": "Visitor Stub", "linkedEvidenceId": "C029_E006" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C029_E001",
+              "displayName": "Voicemail Waveform",
+              "description": "A voicemail from Vera ends with a metallic door echo and a clipped phrase about 'service access.' Enhance isolates the annex hallway reverb.",
+              "imagePrompt": "smartphone screen with blurred voicemail waveform bars in a dark newsroom, reflected fluorescent strip light on the glass, intimate investigative mood"
+            },
+            {
+              "evidenceId": "C029_E002",
+              "displayName": "Dash Cam Still",
+              "description": "A dash cam still from Vera's car catches the annex loading bay marker once the glare is enhanced away.",
+              "imagePrompt": "night dash-cam still through a windshield toward a service loading bay, light glare and rain specks on glass, concrete ramp and metal door shapes visible"
+            },
+            {
+              "evidenceId": "C029_E003",
+              "displayName": "Reporter Satchel",
+              "description": "Vera's satchel contains copied memo tabs and a scribbled note linking Mira to the archive chain.",
+              "imagePrompt": "worn reporter satchel open on a desk with memo tabs, recorder batteries, and folded papers inside, no readable text, low newsroom lamp light"
+            },
+            {
+              "evidenceId": "C029_E004",
+              "displayName": "Service Entrance Key Ring",
+              "description": "A ring of borrowed service keys was checked out the same night Vera vanished.",
+              "imagePrompt": "heavy service key ring on a plain evidence tray, mixed brass and steel keys, one large utility key prominent, stark overhead light"
+            },
+            {
+              "evidenceId": "C029_E005",
+              "displayName": "Pocket Recorder",
+              "description": "A pocket recorder contains two muffled voices arguing about moving files before a reporter could photograph them.",
+              "imagePrompt": "compact pocket recorder beside an empty press badge lanyard on a dark desk, tiny microphone grill highlighted, moody top-down photo"
+            },
+            {
+              "evidenceId": "C029_E006",
+              "displayName": "Precinct Visitor Stub",
+              "description": "A half-torn visitor stub from the annex service desk matches the same paper stock and tear pattern found in Vera's satchel.",
+              "imagePrompt": "half-torn visitor stub on a black notebook, matching paper fibers visible at the tear edge, cool institutional light, close forensic crop"
+            }
+          ],
+          "claims": [
+            { "claimId": "C029_CL001", "suspectName": "Editor Hal Renn", "claimText": "Vera never made it to the precinct annex. She was chasing a rumor from the newsroom." },
+            { "claimId": "C029_CL002", "suspectName": "Mira Voss", "claimText": "Vera called me, but I gave her nothing useful and never met her in person." },
+            { "claimId": "C029_CL003", "suspectName": "Courier Driver Nera Pell", "claimText": "A car idled by the annex ramp longer than a routine drop-off would require." },
+            { "claimId": "C029_CL004", "suspectName": "Records Runner Jace Orr", "claimText": "Someone checked out service keys that should not have left the desk." }
+          ],
+          "contradictionClaimId": "C029_CL001",
+          "primaryEvidenceIdA": "C029_E002",
+          "primaryEvidenceIdB": "C029_E006",
+          "explanation": "The editor says Vera never reached the annex, but C029_E002 shows her car at the annex loading bay once the glare is enhanced and C029_E006 matches a same-night visitor stub linked to her satchel. Vera got to the precinct service entrance.",
+          "basePoints": 500,
+          "timeLimitSeconds": 0,
+          "toolConfig": { "crossCheckCharges": 2, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S011", "S028"],
+          "interrogationNodes": []
+        },
+        {
+          "caseId": "C030",
+          "title": "The Hollow Desk",
+          "location": "North Quay Civil Archive - Records Floor",
+          "brief": "The reporter's trail ends on an overnight records-floor sweep. Desk sergeant Inez Farrow says she never reopened the archive after sunset. Evidence from both departments ties her desk to the leak, Mira's broker network, and the vanished case routes.",
+          "hotspots": [
+            { "hotspotId": "H001", "label": "Recorder Shelf", "linkedEvidenceId": "C030_E001" },
+            { "hotspotId": "H002", "label": "Desk Console", "linkedEvidenceId": "C030_E002" },
+            { "hotspotId": "H003", "label": "Map Drawer", "linkedEvidenceId": "C030_E003" },
+            { "hotspotId": "H004", "label": "Cleaning Cart Mirror", "linkedEvidenceId": "C030_E004" },
+            { "hotspotId": "H005", "label": "Transfer Tube Rack", "linkedEvidenceId": "C030_E005" }
+          ],
+          "evidence": [
+            {
+              "evidenceId": "C030_E001",
+              "displayName": "Reporter's Microcassette",
+              "description": "Vera's microcassette contains a final note naming a desk inside the archive rather than a suspect on the street.",
+              "imagePrompt": "tiny clear microcassette resting on a reporter notebook under a narrow beam of light, magnetic tape visible through the shell, dark archival background"
+            },
+            {
+              "evidenceId": "C030_E002",
+              "displayName": "Desk Access Console",
+              "description": "The records-floor console logs Inez's credentials reopening the archive at 11:18 PM after she said the floor stayed locked.",
+              "imagePrompt": "old records-desk access console with glowing status lights and a small inset display blown out beyond reading, stack of folders beside it, moody office night lighting"
+            },
+            {
+              "evidenceId": "C030_E003",
+              "displayName": "Archive Map Overlay",
+              "description": "A transparent map overlay shows the precise shelf routes used in both the fraud annex pull and the missing-persons reroute chain.",
+              "imagePrompt": "transparent overlay sheet with route lines laid across an archive floor map, shelf rows abstract beneath, desk lamp illuminating layered paper edges"
+            },
+            {
+              "evidenceId": "C030_E004",
+              "displayName": "Cleaning Cart Mirror Still",
+              "description": "A hallway still reflected in the mirror panel of a cleaning cart. Enhance reveals Inez carrying a transfer tube and key wallet.",
+              "imagePrompt": "security still of a quiet records corridor with a janitorial cart mirror reflecting a uniformed figure carrying a long tube, polished floor, low overnight light"
+            },
+            {
+              "evidenceId": "C030_E005",
+              "displayName": "Sealed Transfer Tube",
+              "description": "A narrow transfer tube contains copied route summaries instead of original files, matching Vera's notes about moved paperwork.",
+              "imagePrompt": "long sealed document transfer tube on a shelf with one cap loosened, copied paper edges visible inside, archive shadows, focused evidence photo"
+            },
+            {
+              "evidenceId": "C030_E006",
+              "displayName": "Evidence Room Key Wallet",
+              "description": "A slim key wallet from the evidence room is missing the same key used to move restricted route copies between desks.",
+              "imagePrompt": "slim leather key wallet open on a blotter with one key slot empty, brass rings catching warm light, procedural office mood"
+            },
+            {
+              "evidenceId": "C030_E007",
+              "displayName": "Burned Routing Copy",
+              "description": "A half-burned routing copy links the fraud brief from C018 and the premature search slip from C027 to the same records printer queue.",
+              "imagePrompt": "partially burned routing slip in an ash tray, charred paper edge curling upward, faint printed grid shapes unreadable, stark noir lighting"
+            }
+          ],
+          "claims": [
+            { "claimId": "C030_CL001", "suspectName": "Inez Farrow", "claimText": "I locked the records floor at sunset and never reopened it. No missing-persons file left my desk." },
+            { "claimId": "C030_CL002", "suspectName": "Mira Voss", "claimText": "I sold introductions, not police files. The leak did not come through me." },
+            { "claimId": "C030_CL003", "suspectName": "Gideon Marsh", "claimText": "The transfer tube was empty when I logged it for overnight storage." },
+            { "claimId": "C030_CL004", "suspectName": "Editor Hal Renn", "claimText": "Vera was chasing a rumor, not a specific records officer." },
+            { "claimId": "C030_CL005", "suspectName": "Night Custodian Pell Rowan", "claimText": "The cleaning cart stayed in the corridor and never carried case material." }
+          ],
+          "contradictionClaimId": "C030_CL001",
+          "primaryEvidenceIdA": "C030_E002",
+          "primaryEvidenceIdB": "C030_E004",
+          "explanation": "Inez says the floor stayed locked, but C030_E002 logs her credentials reopening the archive at 11:18 PM and C030_E004 shows her in the corridor mirror carrying a transfer tube and key wallet. She reopened the records floor and moved restricted case routes herself.",
+          "basePoints": 750,
+          "timeLimitSeconds": 480,
+          "toolConfig": { "crossCheckCharges": 2, "enhanceCooldownSeconds": 12 },
+          "involvedSuspects": ["S011", "S028", "S029", "S030"],
+          "interrogationNodes": [
+            {
+              "nodeId": "C030_INT001",
+              "promptText": "Why did Vera keep Mira's number in the final reporter note?",
+              "responses": [
+                "Because Mira was the broker linking both arcs, even if the actual leak came from inside the records desk.",
+                "Because Mira drove Vera to the archive herself and left her at the lobby.",
+                "Because Vera planned to accuse Mira publicly before checking any records."
+              ],
+              "correctResponseIndex": 0,
+              "unlockConditionTags": ["PERSON"],
+              "evidenceRequiredIds": ["C023_E005", "C029_E003"]
+            },
+            {
+              "nodeId": "C030_INT002",
+              "promptText": "What proves the internal leak was operational, not accidental paperwork drift?",
+              "responses": [
+                "The same desk-side print chain produced the restricted fraud brief copy and the premature missing-persons routing slip.",
+                "The dock barge schedule carried both the annex shelf route and the search grid key.",
+                "The bus shelter screenshot from C021 contained the archive floor code."
+              ],
+              "correctResponseIndex": 0,
+              "unlockConditionTags": ["DIGITAL", "ACCESS"],
+              "evidenceRequiredIds": ["C018_E006", "C027_E004", "C030_E007"]
+            },
+            {
+              "nodeId": "C030_INT003",
+              "promptText": "If the originals were not in the transfer tube, what was being moved?",
+              "responses": [
+                "Copied route summaries and shelf assignments, enough to steer suspects before investigators arrived.",
+                "Blank forms for the day shift, moved only because the cabinet was overfilled.",
+                "Vera's own notes, hidden by Gideon before the newsroom called."
+              ],
+              "correctResponseIndex": 0,
+              "unlockConditionTags": ["PHYSICAL"],
+              "evidenceRequiredIds": ["C020_E005", "C030_E005", "C030_E006"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
