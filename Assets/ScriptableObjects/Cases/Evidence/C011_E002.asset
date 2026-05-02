@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd38127d486d794aa9fa20d4ed0bb10, type: 3}
   m_Name: C011_E002
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.EvidenceData
-  schemaVersion: 1
+  schemaVersion: 3
   evidenceId: C011_E002
   displayName: Printer Cleaning Sheet
   descriptionText: A smudged maintenance sheet pulled from a compact office printer.

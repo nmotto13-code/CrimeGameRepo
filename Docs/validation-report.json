@@ -1,10 +1,10 @@
 {
-    "generatedAtUtc": "2026-05-01T23:53:58.0626236Z",
-    "validatorVersion": 2,
+    "generatedAtUtc": "2026-05-02T17:44:39.2923220Z",
+    "validatorVersion": 3,
     "summary": {
         "totalCases": 30,
         "errorCount": 0,
-        "warningCount": 257
+        "warningCount": 33
     },
     "globalWarnings": [
         "Evidence ID 'E001' is duplicated across assets.",
@@ -74,7 +74,8 @@
             "errors": [],
             "warnings": [
                 "Hotspot count is 2. Recommended range for newly-authored content is 3 to 5.",
-                "Evidence C003_E003 is on schema version 1."
+                "Case location VISIT_C003_HARWICK_GALLERY_SIDE_ENTRANCE has no hotspots. It will need an explicit completion or progression trigger.",
+                "Case location VISIT_C003_HARWICK_GALLERY_SIDE_ENTRANCE is required for solve but has no hotspots. It will need an explicit runtime completion trigger."
             ]
         },
         {
@@ -98,8 +99,7 @@
             "title": "Delivery Window",
             "errors": [],
             "warnings": [
-                "Hotspot count is 1. Recommended range for newly-authored content is 3 to 5.",
-                "Evidence C006_E001 is on schema version 1."
+                "Hotspot count is 1. Recommended range for newly-authored content is 3 to 5."
             ]
         },
         {
@@ -116,7 +116,8 @@
             "errors": [],
             "warnings": [
                 "Hotspot count is 1. Recommended range for newly-authored content is 3 to 5.",
-                "Evidence C008_E004 is on schema version 1."
+                "Case location VISIT_C008_HARBOR_WAREHOUSE_APPROACH has no hotspots. It will need an explicit completion or progression trigger.",
+                "Case location VISIT_C008_HARBOR_WAREHOUSE_APPROACH is required for solve but has no hotspots. It will need an explicit runtime completion trigger."
             ]
         },
         {
@@ -132,254 +133,99 @@
             "title": "Gallery Opening",
             "errors": [],
             "warnings": [
-                "Hotspot count is 2. Recommended range for newly-authored content is 3 to 5."
+                "Hotspot count is 2. Recommended range for newly-authored content is 3 to 5.",
+                "Case location VISIT_C010_HARLOW_WAREHOUSE has no hotspots. It will need an explicit completion or progression trigger.",
+                "Case location VISIT_C010_HARLOW_WAREHOUSE is required for solve but has no hotspots. It will need an explicit runtime completion trigger."
             ]
         },
         {
             "caseId": "Case_011",
             "title": "After-Hours Receipts",
             "errors": [],
-            "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C011_E001 is on schema version 1.",
-                "Evidence C011_E002 is on schema version 1.",
-                "Evidence C011_E003 is on schema version 1.",
-                "Evidence C011_E004 is on schema version 1.",
-                "Evidence C011_E005 is on schema version 1.",
-                "Claim C011_CL001 is on schema version 1.",
-                "Claim C011_CL002 is on schema version 1.",
-                "Claim C011_CL003 is on schema version 1.",
-                "Claim C011_CL004 is on schema version 1.",
-                "Suspect S011 is on schema version 1.",
-                "Suspect S012 is on schema version 1."
-            ]
+            "warnings": []
         },
         {
             "caseId": "Case_012",
             "title": "Kiosk Closeout",
             "errors": [],
-            "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C012_E001 is on schema version 1.",
-                "Evidence C012_E002 is on schema version 1.",
-                "Evidence C012_E003 is on schema version 1.",
-                "Evidence C012_E004 is on schema version 1.",
-                "Evidence C012_E005 is on schema version 1.",
-                "Claim C012_CL001 is on schema version 1.",
-                "Claim C012_CL002 is on schema version 1.",
-                "Claim C012_CL003 is on schema version 1.",
-                "Claim C012_CL004 is on schema version 1.",
-                "Suspect S014 is on schema version 1."
-            ]
+            "warnings": []
         },
         {
             "caseId": "Case_013",
             "title": "False Provenance",
             "errors": [],
             "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C013_E001 is on schema version 1.",
-                "Evidence C013_E002 is on schema version 1.",
-                "Evidence C013_E003 is on schema version 1.",
-                "Evidence C013_E004 is on schema version 1.",
-                "Evidence C013_E005 is on schema version 1.",
-                "Claim C013_CL001 is on schema version 1.",
-                "Claim C013_CL002 is on schema version 1.",
-                "Claim C013_CL003 is on schema version 1.",
-                "Claim C013_CL004 is on schema version 1.",
-                "Suspect S011 is on schema version 1.",
-                "Suspect S013 is on schema version 1.",
-                "Suspect S018 is on schema version 1."
+                "Case location VISIT_C013_LOADING_ALLEY has no hotspots. It will need an explicit completion or progression trigger.",
+                "Case location VISIT_C013_LOADING_ALLEY is required for solve but has no hotspots. It will need an explicit runtime completion trigger."
             ]
         },
         {
             "caseId": "Case_014",
             "title": "Refund Loop",
             "errors": [],
-            "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C014_E001 is on schema version 1.",
-                "Evidence C014_E002 is on schema version 1.",
-                "Evidence C014_E003 is on schema version 1.",
-                "Evidence C014_E004 is on schema version 1.",
-                "Evidence C014_E005 is on schema version 1.",
-                "Claim C014_CL001 is on schema version 1.",
-                "Claim C014_CL002 is on schema version 1.",
-                "Claim C014_CL003 is on schema version 1.",
-                "Claim C014_CL004 is on schema version 1.",
-                "Suspect S015 is on schema version 1."
-            ]
+            "warnings": []
         },
         {
             "caseId": "Case_015",
             "title": "Ghost Severance",
             "errors": [],
-            "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C015_E001 is on schema version 1.",
-                "Evidence C015_E002 is on schema version 1.",
-                "Evidence C015_E003 is on schema version 1.",
-                "Evidence C015_E004 is on schema version 1.",
-                "Evidence C015_E005 is on schema version 1.",
-                "Claim C015_CL001 is on schema version 1.",
-                "Claim C015_CL002 is on schema version 1.",
-                "Claim C015_CL003 is on schema version 1.",
-                "Claim C015_CL004 is on schema version 1.",
-                "Suspect S016 is on schema version 1."
-            ]
+            "warnings": []
         },
         {
             "caseId": "Case_016",
             "title": "Dry Claim",
             "errors": [],
-            "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C016_E001 is on schema version 1.",
-                "Evidence C016_E002 is on schema version 1.",
-                "Evidence C016_E003 is on schema version 1.",
-                "Evidence C016_E004 is on schema version 1.",
-                "Evidence C016_E005 is on schema version 1.",
-                "Claim C016_CL001 is on schema version 1.",
-                "Claim C016_CL002 is on schema version 1.",
-                "Claim C016_CL003 is on schema version 1.",
-                "Claim C016_CL004 is on schema version 1.",
-                "Suspect S017 is on schema version 1."
-            ]
+            "warnings": []
         },
         {
             "caseId": "Case_017",
             "title": "Split Batch",
             "errors": [],
-            "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C017_E001 is on schema version 1.",
-                "Evidence C017_E002 is on schema version 1.",
-                "Evidence C017_E003 is on schema version 1.",
-                "Evidence C017_E004 is on schema version 1.",
-                "Evidence C017_E005 is on schema version 1.",
-                "Claim C017_CL001 is on schema version 1.",
-                "Claim C017_CL002 is on schema version 1.",
-                "Claim C017_CL003 is on schema version 1.",
-                "Claim C017_CL004 is on schema version 1.",
-                "Suspect S019 is on schema version 1."
-            ]
+            "warnings": []
         },
         {
             "caseId": "Case_018",
             "title": "Restricted Preview",
             "errors": [],
             "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C018_E001 is on schema version 1.",
-                "Evidence C018_E002 is on schema version 1.",
-                "Evidence C018_E003 is on schema version 1.",
-                "Evidence C018_E004 is on schema version 1.",
-                "Evidence C018_E005 is on schema version 1.",
-                "Evidence C018_E006 is on schema version 1.",
-                "Claim C018_CL001 is on schema version 1.",
-                "Claim C018_CL002 is on schema version 1.",
-                "Claim C018_CL003 is on schema version 1.",
-                "Claim C018_CL004 is on schema version 1.",
-                "Suspect S011 is on schema version 1."
+                "Case location VISIT_C018_PURGED_WAREHOUSE has no hotspots. It will need an explicit completion or progression trigger.",
+                "Case location VISIT_C018_PURGED_WAREHOUSE is required for solve but has no hotspots. It will need an explicit runtime completion trigger."
             ]
         },
         {
             "caseId": "Case_019",
             "title": "Warehouse Float",
             "errors": [],
-            "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C019_E001 is on schema version 1.",
-                "Evidence C019_E002 is on schema version 1.",
-                "Evidence C019_E003 is on schema version 1.",
-                "Evidence C019_E004 is on schema version 1.",
-                "Evidence C019_E005 is on schema version 1.",
-                "Claim C019_CL001 is on schema version 1.",
-                "Claim C019_CL002 is on schema version 1.",
-                "Claim C019_CL003 is on schema version 1.",
-                "Claim C019_CL004 is on schema version 1.",
-                "Suspect S011 is on schema version 1.",
-                "Suspect S014 is on schema version 1."
-            ]
+            "warnings": []
         },
         {
             "caseId": "Case_020",
             "title": "The Glass Ledger",
             "errors": [],
             "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C020_E001 is on schema version 1.",
-                "Evidence C020_E002 is on schema version 1.",
-                "Evidence C020_E003 is on schema version 1.",
-                "Evidence C020_E004 is on schema version 1.",
-                "Evidence C020_E005 is on schema version 1.",
-                "Evidence C020_E006 is on schema version 1.",
-                "Evidence C020_E007 is on schema version 1.",
-                "Claim C020_CL001 is on schema version 1.",
-                "Claim C020_CL002 is on schema version 1.",
-                "Claim C020_CL003 is on schema version 1.",
-                "Claim C020_CL004 is on schema version 1.",
-                "Claim C020_CL005 is on schema version 1.",
-                "Suspect S011 is on schema version 1.",
-                "Suspect S012 is on schema version 1.",
-                "Suspect S013 is on schema version 1.",
-                "Interrogation node C020_INT001 is on schema version 1.",
-                "Interrogation node C020_INT002 is on schema version 1."
+                "Case location VISIT_C020_FREIGHT_ELEVATOR has no hotspots. It will need an explicit completion or progression trigger.",
+                "Case location VISIT_C020_FREIGHT_ELEVATOR is required for solve but has no hotspots. It will need an explicit runtime completion trigger."
             ]
         },
         {
             "caseId": "Case_021",
             "title": "Last Stop Window",
             "errors": [],
-            "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C021_E001 is on schema version 1.",
-                "Evidence C021_E002 is on schema version 1.",
-                "Evidence C021_E003 is on schema version 1.",
-                "Evidence C021_E004 is on schema version 1.",
-                "Evidence C021_E005 is on schema version 1.",
-                "Claim C021_CL001 is on schema version 1.",
-                "Claim C021_CL002 is on schema version 1.",
-                "Claim C021_CL003 is on schema version 1.",
-                "Claim C021_CL004 is on schema version 1.",
-                "Suspect S020 is on schema version 1."
-            ]
+            "warnings": []
         },
         {
             "caseId": "Case_022",
             "title": "Room 3B",
             "errors": [],
-            "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C022_E001 is on schema version 1.",
-                "Evidence C022_E002 is on schema version 1.",
-                "Evidence C022_E003 is on schema version 1.",
-                "Evidence C022_E004 is on schema version 1.",
-                "Evidence C022_E005 is on schema version 1.",
-                "Claim C022_CL001 is on schema version 1.",
-                "Claim C022_CL002 is on schema version 1.",
-                "Claim C022_CL003 is on schema version 1.",
-                "Claim C022_CL004 is on schema version 1.",
-                "Suspect S021 is on schema version 1."
-            ]
+            "warnings": []
         },
         {
             "caseId": "Case_023",
             "title": "Bluebird Encore",
             "errors": [],
             "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C023_E001 is on schema version 1.",
-                "Evidence C023_E002 is on schema version 1.",
-                "Evidence C023_E003 is on schema version 1.",
-                "Evidence C023_E004 is on schema version 1.",
-                "Evidence C023_E005 is on schema version 1.",
-                "Claim C023_CL001 is on schema version 1.",
-                "Claim C023_CL002 is on schema version 1.",
-                "Claim C023_CL003 is on schema version 1.",
-                "Claim C023_CL004 is on schema version 1.",
-                "Suspect S011 is on schema version 1.",
-                "Suspect S022 is on schema version 1."
+                "Case location VISIT_C023_MARINA_RAMP has no hotspots. It will need an explicit completion or progression trigger.",
+                "Case location VISIT_C023_MARINA_RAMP is required for solve but has no hotspots. It will need an explicit runtime completion trigger."
             ]
         },
         {
@@ -387,110 +233,44 @@
             "title": "False Dawn Search",
             "errors": [],
             "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C024_E001 is on schema version 1.",
-                "Evidence C024_E002 is on schema version 1.",
-                "Evidence C024_E003 is on schema version 1.",
-                "Evidence C024_E004 is on schema version 1.",
-                "Evidence C024_E005 is on schema version 1.",
-                "Claim C024_CL001 is on schema version 1.",
-                "Claim C024_CL002 is on schema version 1.",
-                "Claim C024_CL003 is on schema version 1.",
-                "Claim C024_CL004 is on schema version 1.",
-                "Suspect S023 is on schema version 1."
+                "Case location VISIT_C024_RIDGE_OVERLOOK has no hotspots. It will need an explicit completion or progression trigger.",
+                "Case location VISIT_C024_RIDGE_OVERLOOK is required for solve but has no hotspots. It will need an explicit runtime completion trigger."
             ]
         },
         {
             "caseId": "Case_025",
             "title": "Stairwell Five",
             "errors": [],
-            "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C025_E001 is on schema version 1.",
-                "Evidence C025_E002 is on schema version 1.",
-                "Evidence C025_E003 is on schema version 1.",
-                "Evidence C025_E004 is on schema version 1.",
-                "Evidence C025_E005 is on schema version 1.",
-                "Claim C025_CL001 is on schema version 1.",
-                "Claim C025_CL002 is on schema version 1.",
-                "Claim C025_CL003 is on schema version 1.",
-                "Claim C025_CL004 is on schema version 1.",
-                "Suspect S024 is on schema version 1."
-            ]
+            "warnings": []
         },
         {
             "caseId": "Case_026",
             "title": "Cold Berth",
             "errors": [],
             "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C026_E001 is on schema version 1.",
-                "Evidence C026_E002 is on schema version 1.",
-                "Evidence C026_E003 is on schema version 1.",
-                "Evidence C026_E004 is on schema version 1.",
-                "Evidence C026_E005 is on schema version 1.",
-                "Claim C026_CL001 is on schema version 1.",
-                "Claim C026_CL002 is on schema version 1.",
-                "Claim C026_CL003 is on schema version 1.",
-                "Claim C026_CL004 is on schema version 1.",
-                "Suspect S025 is on schema version 1."
+                "Case location VISIT_C026_BERTH_9C has no hotspots. It will need an explicit completion or progression trigger.",
+                "Case location VISIT_C026_BERTH_9C is required for solve but has no hotspots. It will need an explicit runtime completion trigger."
             ]
         },
         {
             "caseId": "Case_027",
             "title": "Quiet Shelter",
             "errors": [],
-            "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C027_E001 is on schema version 1.",
-                "Evidence C027_E002 is on schema version 1.",
-                "Evidence C027_E003 is on schema version 1.",
-                "Evidence C027_E004 is on schema version 1.",
-                "Evidence C027_E005 is on schema version 1.",
-                "Claim C027_CL001 is on schema version 1.",
-                "Claim C027_CL002 is on schema version 1.",
-                "Claim C027_CL003 is on schema version 1.",
-                "Claim C027_CL004 is on schema version 1.",
-                "Suspect S026 is on schema version 1."
-            ]
+            "warnings": []
         },
         {
             "caseId": "Case_028",
             "title": "Pier 19 Shadow",
             "errors": [],
-            "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C028_E001 is on schema version 1.",
-                "Evidence C028_E002 is on schema version 1.",
-                "Evidence C028_E003 is on schema version 1.",
-                "Evidence C028_E004 is on schema version 1.",
-                "Evidence C028_E005 is on schema version 1.",
-                "Claim C028_CL001 is on schema version 1.",
-                "Claim C028_CL002 is on schema version 1.",
-                "Claim C028_CL003 is on schema version 1.",
-                "Claim C028_CL004 is on schema version 1.",
-                "Suspect S011 is on schema version 1.",
-                "Suspect S027 is on schema version 1."
-            ]
+            "warnings": []
         },
         {
             "caseId": "Case_029",
             "title": "Silent Draft",
             "errors": [],
             "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C029_E001 is on schema version 1.",
-                "Evidence C029_E002 is on schema version 1.",
-                "Evidence C029_E003 is on schema version 1.",
-                "Evidence C029_E004 is on schema version 1.",
-                "Evidence C029_E005 is on schema version 1.",
-                "Evidence C029_E006 is on schema version 1.",
-                "Claim C029_CL001 is on schema version 1.",
-                "Claim C029_CL002 is on schema version 1.",
-                "Claim C029_CL003 is on schema version 1.",
-                "Claim C029_CL004 is on schema version 1.",
-                "Suspect S011 is on schema version 1.",
-                "Suspect S028 is on schema version 1."
+                "Case location VISIT_C029_PRECINCT_ANNEX_SERVICE_RAMP has no hotspots. It will need an explicit completion or progression trigger.",
+                "Case location VISIT_C029_PRECINCT_ANNEX_SERVICE_RAMP is required for solve but has no hotspots. It will need an explicit runtime completion trigger."
             ]
         },
         {
@@ -498,26 +278,10 @@
             "title": "The Hollow Desk",
             "errors": [],
             "warnings": [
-                "Schema version is 1; expected 2. Run Casebook/Upgrade Case Schema.",
-                "Evidence C030_E001 is on schema version 1.",
-                "Evidence C030_E002 is on schema version 1.",
-                "Evidence C030_E003 is on schema version 1.",
-                "Evidence C030_E004 is on schema version 1.",
-                "Evidence C030_E005 is on schema version 1.",
-                "Evidence C030_E006 is on schema version 1.",
-                "Evidence C030_E007 is on schema version 1.",
-                "Claim C030_CL001 is on schema version 1.",
-                "Claim C030_CL002 is on schema version 1.",
-                "Claim C030_CL003 is on schema version 1.",
-                "Claim C030_CL004 is on schema version 1.",
-                "Claim C030_CL005 is on schema version 1.",
-                "Suspect S011 is on schema version 1.",
-                "Suspect S028 is on schema version 1.",
-                "Suspect S029 is on schema version 1.",
-                "Suspect S030 is on schema version 1.",
-                "Interrogation node C030_INT001 is on schema version 1.",
-                "Interrogation node C030_INT002 is on schema version 1.",
-                "Interrogation node C030_INT003 is on schema version 1."
+                "Case location VISIT_C030_ARCHIVE_CORRIDOR has no hotspots. It will need an explicit completion or progression trigger.",
+                "Case location VISIT_C030_ARCHIVE_CORRIDOR is required for solve but has no hotspots. It will need an explicit runtime completion trigger.",
+                "Case location VISIT_C030_TRANSFER_TUBE_RACK has no hotspots. It will need an explicit completion or progression trigger.",
+                "Case location VISIT_C030_TRANSFER_TUBE_RACK is required for solve but has no hotspots. It will need an explicit runtime completion trigger."
             ]
         }
     ]

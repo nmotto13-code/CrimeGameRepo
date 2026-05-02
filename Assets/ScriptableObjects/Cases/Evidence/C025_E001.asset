@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd38127d486d794aa9fa20d4ed0bb10, type: 3}
   m_Name: C025_E001
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.EvidenceData
-  schemaVersion: 1
+  schemaVersion: 3
   evidenceId: C025_E001
   displayName: Black Screen Monitor
   descriptionText: A supposedly dead stairwell monitor. Enhance reveals a reflected

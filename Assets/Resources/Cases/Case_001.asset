@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_001
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
-  schemaVersion: 2
+  schemaVersion: 3
   caseId: Case_001
   title: The Missing Watch
   briefText: "Victor Hale was found dead in his study at 11:45 PM. His antique pocket
@@ -87,7 +87,25 @@ MonoBehaviour:
     visitOrder: 0
     unlockEvidenceIds: []
     unlockTags: 
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
+  visitFlowMode: 0
+  startingLocationId: LOC_OLD_QUARTER_HALE_MANOR
+  allowMapRevisit: 1
+  locationReadyForSolveMode: 0
   evidence:
   - {fileID: 11400000, guid: e68be79e9ce304540a94233ab7257971, type: 2}
   - {fileID: 11400000, guid: 17a49b7b06f1e474e8714d2f13c40354, type: 2}
@@ -110,6 +128,7 @@ MonoBehaviour:
     displayName: Detective Frost
     relevance: investigator_voice
   interrogationNodes: []
+  interrogationOutcomes: []
   interrogationMode: none
   isInterrogationForwardCase: 0
   interrogationFocusSummary: Legacy contradiction-first case. Dossier relevance is

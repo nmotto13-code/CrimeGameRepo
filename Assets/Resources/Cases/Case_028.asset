@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_028
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
-  schemaVersion: 1
+  schemaVersion: 3
   caseId: Case_028
   title: Pier 19 Shadow
   briefText: Security contractor Adrian Crowe disappears while tailing a dockside
@@ -76,7 +76,25 @@ MonoBehaviour:
     visitOrder: 0
     unlockEvidenceIds: []
     unlockTags: 
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
+  visitFlowMode: 0
+  startingLocationId: LOC_NORTH_QUAY_SERVICE_PIER_19
+  allowMapRevisit: 1
+  locationReadyForSolveMode: 0
   evidence:
   - {fileID: 11400000, guid: 309e8f078f52ae649828e64830aaa491, type: 2}
   - {fileID: 11400000, guid: ecf721c5d4cf6214fb7c56a05c510be2, type: 2}
@@ -99,6 +117,7 @@ MonoBehaviour:
     displayName: Mira Voss
     relevance: recurring_person_of_interest
   interrogationNodes: []
+  interrogationOutcomes: []
   interrogationMode: none
   isInterrogationForwardCase: 0
   interrogationFocusSummary: The pier override and barge hint play better as map-and-route

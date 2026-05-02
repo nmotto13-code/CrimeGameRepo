@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_006
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
-  schemaVersion: 2
+  schemaVersion: 3
   caseId: Case_006
   title: Delivery Window
   briefText: A courier claims he delivered a package to the Orin estate between 2
@@ -46,7 +46,25 @@ MonoBehaviour:
     visitOrder: 0
     unlockEvidenceIds: []
     unlockTags: 
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
+  visitFlowMode: 0
+  startingLocationId: LOC_OUTER_REACH_ORIN_GATEHOUSE
+  allowMapRevisit: 1
+  locationReadyForSolveMode: 0
   evidence:
   - {fileID: 11400000, guid: 5de7257b552c3b74abca54003de0a327, type: 2}
   - {fileID: 11400000, guid: 81465ce29594ebb43aa37b6fcda9086b, type: 2}
@@ -69,6 +87,7 @@ MonoBehaviour:
     displayName: Dispatch Manager
     relevance: supporting_witness
   interrogationNodes: []
+  interrogationOutcomes: []
   interrogationMode: none
   isInterrogationForwardCase: 0
   interrogationFocusSummary: Route contradiction is clear enough without converting

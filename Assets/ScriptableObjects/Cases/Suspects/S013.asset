@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
   m_Name: S013
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
-  schemaVersion: 1
+  schemaVersion: 3
   suspectId: S013
   displayName: Owen Kade
   portraitSprite: {fileID: 21300000, guid: c35b5b2e2b1c02d89848cdaac64cdda2, type: 3}
+  roleLabel: 
+  statusSummary: 
+  currentLocationId: 
+  interrogationEntryNodeId: 
   bio: A print broker and document finisher who handles boutique jobs for galleries,
     private estates, and anyone willing to pay for a convincing duplicate.
   traits:

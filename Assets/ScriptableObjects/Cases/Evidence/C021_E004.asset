@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd38127d486d794aa9fa20d4ed0bb10, type: 3}
   m_Name: C021_E004
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.EvidenceData
-  schemaVersion: 1
+  schemaVersion: 3
   evidenceId: C021_E004
   displayName: Locker Key Tag
   descriptionText: Nyla's lab locker key tag was still in her coat pocket, suggesting

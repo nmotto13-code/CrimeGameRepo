@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_014
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
-  schemaVersion: 1
+  schemaVersion: 3
   caseId: Case_014
   title: Refund Loop
   briefText: A burst of refunds drained a merchant escrow account. Operations lead
@@ -66,7 +66,25 @@ MonoBehaviour:
     visitOrder: 0
     unlockEvidenceIds: []
     unlockTags: 
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
+  visitFlowMode: 0
+  startingLocationId: LOC_SKYLINE_HORIZON_BLOOM_TOWER
+  allowMapRevisit: 1
+  locationReadyForSolveMode: 0
   evidence:
   - {fileID: 11400000, guid: 537c450b40f8a154abd2b79fe818b7a8, type: 2}
   - {fileID: 11400000, guid: 7191939ae9a2cb547828c35b4a8e0a54, type: 2}
@@ -85,6 +103,7 @@ MonoBehaviour:
     displayName: Priya Sorn
     relevance: primary_claimant
   interrogationNodes: []
+  interrogationOutcomes: []
   interrogationMode: none
   isInterrogationForwardCase: 0
   interrogationFocusSummary: The operations-pod evidence trail is sufficient without

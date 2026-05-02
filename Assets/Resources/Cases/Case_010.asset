@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_010
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
-  schemaVersion: 2
+  schemaVersion: 3
   caseId: Case_010
   title: Gallery Opening
   briefText: "Art dealer Simon Rowe says he spent the full evening at the Aldene
@@ -56,6 +56,20 @@ MonoBehaviour:
     visitOrder: 0
     unlockEvidenceIds: []
     unlockTags: 
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
   - locationId: VISIT_C010_HARLOW_WAREHOUSE
     displayName: Harlow Storage Warehouse
@@ -67,7 +81,26 @@ MonoBehaviour:
     unlockEvidenceIds:
     - E002
     unlockTags: 0000000001000000
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    autoCompleteOnEnter: 1
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
+  visitFlowMode: 0
+  startingLocationId: LOC_OLD_QUARTER_ALDENE_GALLERY
+  allowMapRevisit: 1
+  locationReadyForSolveMode: 0
   evidence:
   - {fileID: 11400000, guid: cfc6be5f33e37e849afe0c9bec5989ed, type: 2}
   - {fileID: 11400000, guid: 751e4754aef70ce48b158dfb33158df2, type: 2}
@@ -92,6 +125,7 @@ MonoBehaviour:
     displayName: Detective Lam
     relevance: investigator_voice
   interrogationNodes: []
+  interrogationOutcomes: []
   interrogationMode: planned_optional
   isInterrogationForwardCase: 1
   interrogationFocusSummary: Simon Rowe is a high-value optional interrogation case

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_008
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
-  schemaVersion: 2
+  schemaVersion: 3
   caseId: Case_008
   title: Train Platform
   briefText: "Suspect Carl Duval says he boarded the 6:30 PM express to Alton and
@@ -46,6 +46,20 @@ MonoBehaviour:
     visitOrder: 0
     unlockEvidenceIds: []
     unlockTags: 
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
   - locationId: VISIT_C008_HARBOR_WAREHOUSE_APPROACH
     displayName: Warehouse Approach
@@ -57,7 +71,26 @@ MonoBehaviour:
     unlockEvidenceIds:
     - E001
     unlockTags: 0000000001000000
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    autoCompleteOnEnter: 1
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
+  visitFlowMode: 0
+  startingLocationId: LOC_RIVERSIDE_CENTRAL_PLATFORM
+  allowMapRevisit: 1
+  locationReadyForSolveMode: 0
   evidence:
   - {fileID: 11400000, guid: 3eeae22bd8d683343918964dac4be342, type: 2}
   - {fileID: 11400000, guid: cb2951a2c1dbf7448abbcdc4205f4aa6, type: 2}
@@ -80,6 +113,7 @@ MonoBehaviour:
     displayName: Carl's colleague
     relevance: supporting_witness
   interrogationNodes: []
+  interrogationOutcomes: []
   interrogationMode: planned_optional
   isInterrogationForwardCase: 1
   interrogationFocusSummary: Carl Duval is a strong station-side interrogation suspect

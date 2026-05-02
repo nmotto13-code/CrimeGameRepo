@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_018
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
-  schemaVersion: 1
+  schemaVersion: 3
   caseId: Case_018
   title: Restricted Preview
   briefText: A procurement fraud suspect reacted to a warrant before it was served.
@@ -86,6 +86,20 @@ MonoBehaviour:
     visitOrder: 0
     unlockEvidenceIds: []
     unlockTags: 
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
   - locationId: VISIT_C018_PURGED_WAREHOUSE
     displayName: Purged Warehouse Row
@@ -97,7 +111,26 @@ MonoBehaviour:
     unlockEvidenceIds:
     - C018_E002
     unlockTags: 0800000005000000
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    autoCompleteOnEnter: 1
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
+  visitFlowMode: 0
+  startingLocationId: LOC_CIVIC_CORE_MARLOWE_PROCUREMENT_HUB
+  allowMapRevisit: 1
+  locationReadyForSolveMode: 0
   evidence:
   - {fileID: 11400000, guid: c9c6f1daac44490478ac5e32bc9842c9, type: 2}
   - {fileID: 11400000, guid: cdeac8c675f6b954c975815d7eb6b2ea, type: 2}
@@ -117,6 +150,7 @@ MonoBehaviour:
     displayName: Mira Voss
     relevance: primary_claimant
   interrogationNodes: []
+  interrogationOutcomes: []
   interrogationMode: planned_optional
   isInterrogationForwardCase: 1
   interrogationFocusSummary: This is Mira Voss's first interrogation-priority case

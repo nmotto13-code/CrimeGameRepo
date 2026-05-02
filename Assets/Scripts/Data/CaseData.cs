@@ -35,6 +35,10 @@ namespace CasebookGame.Data
 
         [Header("Case Visits")]
         public List<CaseLocationData> caseLocations = new List<CaseLocationData>();
+        public CaseVisitFlowMode visitFlowMode = CaseVisitFlowMode.LegacyFallback;
+        public string startingLocationId;
+        public bool allowMapRevisit = true;
+        public CaseSolveGateMode locationReadyForSolveMode = CaseSolveGateMode.LegacyContradictionOnly;
 
         [Header("Evidence (4-7 items)")]
         public List<EvidenceData> evidence = new List<EvidenceData>();
@@ -48,6 +52,7 @@ namespace CasebookGame.Data
 
         [Header("Interrogation")]
         public List<InterrogationNode> interrogationNodes = new List<InterrogationNode>();
+        public List<InterrogationOutcomeData> interrogationOutcomes = new List<InterrogationOutcomeData>();
         public string interrogationMode;
         public bool isInterrogationForwardCase;
         [TextArea(2, 5)] public string interrogationFocusSummary;
@@ -77,6 +82,21 @@ namespace CasebookGame.Data
         public int GetResolvedLocationCount() =>
             caseLocations != null && caseLocations.Count > 0 ? caseLocations.Count : 1;
 
+        public int GetStartingLocationIndex()
+        {
+            if (caseLocations == null || caseLocations.Count == 0 || string.IsNullOrWhiteSpace(startingLocationId))
+                return 0;
+
+            for (int index = 0; index < caseLocations.Count; index++)
+            {
+                if (caseLocations[index] != null
+                    && string.Equals(caseLocations[index].locationId, startingLocationId, System.StringComparison.OrdinalIgnoreCase))
+                    return index;
+            }
+
+            return 0;
+        }
+
         public bool HasSuspectPresentation() =>
             (involvedSuspects != null && involvedSuspects.Count > 0)
             || (suspectSummaries != null && suspectSummaries.Count > 0);
@@ -85,6 +105,41 @@ namespace CasebookGame.Data
             (interrogationNodes != null && interrogationNodes.Count > 0)
             || isInterrogationForwardCase
             || !string.IsNullOrWhiteSpace(interrogationMode);
+
+        public bool RequiresSolveProgressionGate() =>
+            locationReadyForSolveMode != CaseSolveGateMode.LegacyContradictionOnly;
+
+        public InterrogationOutcomeData GetInterrogationOutcome(string outcomeId)
+        {
+            if (interrogationOutcomes == null || string.IsNullOrWhiteSpace(outcomeId))
+                return null;
+
+            foreach (var outcome in interrogationOutcomes)
+            {
+                if (outcome != null
+                    && string.Equals(outcome.outcomeId, outcomeId, System.StringComparison.OrdinalIgnoreCase))
+                    return outcome;
+            }
+
+            return null;
+        }
+
+        public int IndexOfResolvedLocation(string locationId)
+        {
+            if (string.IsNullOrWhiteSpace(locationId))
+                return -1;
+
+            int locationCount = GetResolvedLocationCount();
+            for (int index = 0; index < locationCount; index++)
+            {
+                var location = GetResolvedLocation(index);
+                if (location != null
+                    && string.Equals(location.locationId, locationId, System.StringComparison.OrdinalIgnoreCase))
+                    return index;
+            }
+
+            return -1;
+        }
 
         public CaseLocationData GetResolvedLocation(int index = 0)
         {
@@ -102,6 +157,11 @@ namespace CasebookGame.Data
                 hotspots = CloneHotspots(hotspots),
                 entryText = briefText,
                 visitOrder = 0,
+                unlockCondition = new CaseProgressConditionData(),
+                nextLocationIds = new List<string>(),
+                revisitRule = LocationRevisitRule.Always,
+                presentSuspects = new List<LocationSuspectPresenceData>(),
+                autoCompleteOnEnter = false,
                 isRequiredForSolve = true
             };
         }

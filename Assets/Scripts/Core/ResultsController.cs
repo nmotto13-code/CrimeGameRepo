@@ -9,14 +9,14 @@ namespace CasebookGame.Core
     public class ResultsController : MonoBehaviour
     {
         [SerializeField] GameObject resultPanel;
-        [SerializeField] TMP_Text  resultHeaderText;
-        [SerializeField] TMP_Text  explanationText;
-        [SerializeField] TMP_Text  scoreText;
-        [SerializeField] Button    nextCaseButton;
-        [SerializeField] Button    retryButton;
-        [SerializeField] Button    hintButton;
+        [SerializeField] TMP_Text resultHeaderText;
+        [SerializeField] TMP_Text explanationText;
+        [SerializeField] TMP_Text scoreText;
+        [SerializeField] Button nextCaseButton;
+        [SerializeField] Button retryButton;
+        [SerializeField] Button hintButton;
 
-        [SerializeField] Color correctColor   = new Color(0.2f, 0.8f, 0.4f);
+        [SerializeField] Color correctColor = new Color(0.2f, 0.8f, 0.4f);
         [SerializeField] Color incorrectColor = new Color(0.9f, 0.3f, 0.3f);
         [SerializeField] Image resultHeaderBg;
 
@@ -58,9 +58,12 @@ namespace CasebookGame.Core
                 resultHeaderBg.color = correct ? correctColor : incorrectColor;
 
             if (explanationText)
+            {
+                const string fallback = "That claim doesn't hold the contradiction. Try another - or use a tool for a hint.";
                 explanationText.text = correct
                     ? explanation
-                    : "That claim doesn't hold the contradiction. Try another — or use a tool for a hint.";
+                    : (!string.IsNullOrWhiteSpace(explanation) ? explanation : fallback);
+            }
 
             if (scoreText)
             {
@@ -77,8 +80,8 @@ namespace CasebookGame.Core
             }
 
             if (nextCaseButton) nextCaseButton.gameObject.SetActive(correct);
-            if (retryButton)    retryButton.gameObject.SetActive(!correct);
-            if (hintButton)     hintButton.gameObject.SetActive(!correct);
+            if (retryButton) retryButton.gameObject.SetActive(!correct);
+            if (hintButton) hintButton.gameObject.SetActive(!correct);
         }
 
         void Hide() => resultPanel?.SetActive(false);

@@ -97,6 +97,7 @@ namespace CasebookGame.Editor
 
                 ApplyCaseMetadata(pair.Value, matrixCase, manifestLocations);
                 MergeInvolvedSuspects(pair.Value, matrixCase);
+                ApplyPilotVisitFlowOverrides(pair.Value);
                 EditorUtility.SetDirty(pair.Value);
             }
 
@@ -210,9 +211,14 @@ namespace CasebookGame.Editor
             caseData.cityLocationId = matrixCase.cityLocationId;
             caseData.caseArcId = matrixCase.caseArcId;
             caseData.arcBeatSummary = matrixCase.arcBeatSummary;
+            caseData.visitFlowMode = ParseEnumOrDefault(matrixCase.visitFlowMode, CaseVisitFlowMode.LegacyFallback);
+            caseData.startingLocationId = ResolveStartingLocationId(matrixCase);
+            caseData.allowMapRevisit = matrixCase.allowMapRevisit;
+            caseData.locationReadyForSolveMode = ParseEnumOrDefault(matrixCase.locationReadyForSolveMode, CaseSolveGateMode.LegacyContradictionOnly);
             caseData.interrogationMode = matrixCase.interrogationUsage?.mode ?? string.Empty;
             caseData.isInterrogationForwardCase = matrixCase.interrogationUsage != null && matrixCase.interrogationUsage.isMilestoneForwardCase;
             caseData.interrogationFocusSummary = matrixCase.interrogationUsage?.focus ?? string.Empty;
+            caseData.interrogationOutcomes = BuildInterrogationOutcomes(matrixCase.interrogationOutcomes, caseData);
 
             caseData.suspectSummaries = (matrixCase.suspectRelevance ?? Array.Empty<PrecinctSuspectEntry>())
                 .Where(entry => entry != null && !string.IsNullOrWhiteSpace(entry.displayName))
@@ -249,7 +255,7 @@ namespace CasebookGame.Editor
                 if (sourceLocation == null)
                     continue;
 
-                bool isPrimary = sourceLocation.visitOrder == 0;
+                bool isPrimary = output.Count == 0;
                 var location = new CaseLocationData
                 {
                     locationId = sourceLocation.locationId,
@@ -262,8 +268,22 @@ namespace CasebookGame.Editor
                     visitOrder = sourceLocation.visitOrder,
                     unlockEvidenceIds = NormalizeEvidenceIdsForCase(sourceLocation.unlockEvidenceIds, caseData),
                     unlockTags = ParseEvidenceTags(sourceLocation.unlockTags),
+                    unlockCondition = BuildCondition(sourceLocation.unlockCondition, caseData),
+                    nextLocationIds = NormalizeStringList(sourceLocation.nextLocationIds),
+                    revisitRule = ParseEnumOrDefault(sourceLocation.revisitRule, LocationRevisitRule.Always),
+                    presentSuspects = BuildLocationSuspectPresence(sourceLocation.presentSuspects, caseData),
+                    autoCompleteOnEnter = sourceLocation.autoCompleteOnEnter,
+                    completionOutcomeId = sourceLocation.completionOutcomeId ?? string.Empty,
+                    autoUnlocksSolve = sourceLocation.autoUnlocksSolve,
                     isRequiredForSolve = sourceLocation.isRequiredForSolve
                 };
+
+                if (!location.autoCompleteOnEnter
+                    && (location.hotspots == null || location.hotspots.Count == 0)
+                    && HasRouteOnlyProgressionHook(sourceLocation))
+                {
+                    location.autoCompleteOnEnter = true;
+                }
 
                 output.Add(location);
             }
@@ -308,6 +328,251 @@ namespace CasebookGame.Editor
                 caseData.involvedSuspects.Add(suspectAsset);
                 existingIds.Add(suspectEntry.suspectId);
             }
+        }
+
+        static void ApplyPilotVisitFlowOverrides(CaseData caseData)
+        {
+            if (caseData == null || string.IsNullOrWhiteSpace(caseData.caseId))
+                return;
+
+            switch (caseData.caseId)
+            {
+                case "Case_020":
+                    ApplyCase020PilotOverrides(caseData);
+                    break;
+                case "Case_030":
+                    ApplyCase030PilotOverrides(caseData);
+                    break;
+            }
+        }
+
+        static void ApplyCase020PilotOverrides(CaseData caseData)
+        {
+            if (caseData.caseLocations == null || caseData.caseLocations.Count < 2)
+                return;
+
+            var vault = caseData.caseLocations[0];
+            var elevator = caseData.caseLocations[1];
+            if (vault == null || elevator == null)
+                return;
+
+            caseData.schemaVersion = CaseSchemaVersions.Current;
+            caseData.visitFlowMode = CaseVisitFlowMode.SequenceGraph;
+            caseData.startingLocationId = vault.locationId;
+            caseData.allowMapRevisit = true;
+            caseData.locationReadyForSolveMode = CaseSolveGateMode.RequireInterrogationOutcome;
+            caseData.interrogationMode = "SuspectVisitRouting";
+            caseData.isInterrogationForwardCase = true;
+            caseData.interrogationFocusSummary = "Pressure Mira in the vault, then follow the exposed freight route to the annex handoff.";
+            caseData.interrogationOutcomes = new List<InterrogationOutcomeData>
+            {
+                CreateOutcome(
+                    "C020_OUTCOME_UNLOCK_ELEVATOR",
+                    "Freight route exposed",
+                    "Mira's answer opens the freight elevator lead and pushes the team to the annex handoff point.",
+                    unlockLocationIds: new[] { elevator.locationId },
+                    revealSuspectIds: new[] { "S013" },
+                    redirectToLocationId: elevator.locationId),
+                CreateOutcome(
+                    "C020_OUTCOME_READY_FOR_SOLVE",
+                    "Internal leak confirmed",
+                    "The bureau-side transfer story is pinned down. The contradiction board is ready for final closure.",
+                    revealSuspectIds: new[] { "S011", "S013" },
+                    markCaseReadyForSolve: true)
+            };
+
+            ConfigurePilotLocation(
+                vault,
+                revisitRule: LocationRevisitRule.AfterNewProgress,
+                nextLocationIds: new[] { elevator.locationId },
+                presentSuspects: new[]
+                {
+                    CreatePresence("S011", "Holding the vault story together for now", "C020_INT001")
+                });
+
+            ConfigurePilotLocation(
+                elevator,
+                revisitRule: LocationRevisitRule.Always,
+                unlockCondition: BuildPilotCondition(requiredOutcomeIds: new[] { "C020_OUTCOME_UNLOCK_ELEVATOR" }),
+                presentSuspects: new[]
+                {
+                    CreatePresence("S013", "Waiting at the transfer route the first answer exposes", "C020_INT002")
+                });
+
+            UpdateInterrogationNode(caseData, "C020_INT001", "S011", vault.locationId, "C020_OUTCOME_UNLOCK_ELEVATOR");
+            UpdateInterrogationNode(caseData, "C020_INT002", "S013", elevator.locationId, "C020_OUTCOME_READY_FOR_SOLVE");
+        }
+
+        static void ApplyCase030PilotOverrides(CaseData caseData)
+        {
+            if (caseData.caseLocations == null || caseData.caseLocations.Count < 3)
+                return;
+
+            var archiveFloor = caseData.caseLocations[0];
+            var corridor = caseData.caseLocations[1];
+            var transferTube = caseData.caseLocations[2];
+            if (archiveFloor == null || corridor == null || transferTube == null)
+                return;
+
+            caseData.schemaVersion = CaseSchemaVersions.Current;
+            caseData.visitFlowMode = CaseVisitFlowMode.SequenceGraph;
+            caseData.startingLocationId = archiveFloor.locationId;
+            caseData.allowMapRevisit = true;
+            caseData.locationReadyForSolveMode = CaseSolveGateMode.RequireInterrogationOutcome;
+            caseData.interrogationMode = "SuspectVisitRouting";
+            caseData.isInterrogationForwardCase = true;
+            caseData.interrogationFocusSummary = "Trace the leak from Vera's desk trail to the corridor mirror line, then corner the transfer-tube explanation.";
+            caseData.interrogationOutcomes = new List<InterrogationOutcomeData>
+            {
+                CreateOutcome(
+                    "C030_OUTCOME_UNLOCK_CORRIDOR",
+                    "Corridor lead opened",
+                    "The first archive pressure point exposes the corridor mirror line as the next stop.",
+                    unlockLocationIds: new[] { corridor.locationId },
+                    revealSuspectIds: new[] { "S030" },
+                    redirectToLocationId: corridor.locationId),
+                CreateOutcome(
+                    "C030_OUTCOME_UNLOCK_TRANSFER",
+                    "Transfer rack exposed",
+                    "The corridor answer points directly to the transfer-tube rack and the operational leak path.",
+                    unlockLocationIds: new[] { transferTube.locationId },
+                    revealSuspectIds: new[] { "S029", "S030" },
+                    redirectToLocationId: transferTube.locationId),
+                CreateOutcome(
+                    "C030_OUTCOME_READY_FOR_SOLVE",
+                    "Desk conspiracy locked",
+                    "The transfer explanation completes the macro route. The case is ready for final contradiction.",
+                    revealSuspectIds: new[] { "S029", "S030" },
+                    markCaseReadyForSolve: true)
+            };
+
+            ConfigurePilotLocation(
+                archiveFloor,
+                revisitRule: LocationRevisitRule.AfterNewProgress,
+                nextLocationIds: new[] { corridor.locationId },
+                presentSuspects: new[]
+                {
+                    CreatePresence("S029", "Still controlling the narrative from the records floor", "C030_INT001")
+                });
+
+            ConfigurePilotLocation(
+                corridor,
+                revisitRule: LocationRevisitRule.AfterNewProgress,
+                unlockCondition: BuildPilotCondition(requiredOutcomeIds: new[] { "C030_OUTCOME_UNLOCK_CORRIDOR" }),
+                nextLocationIds: new[] { transferTube.locationId },
+                presentSuspects: new[]
+                {
+                    CreatePresence("S030", "Hovering near the mirrored blind spot the first answer uncovers", "C030_INT002")
+                });
+
+            ConfigurePilotLocation(
+                transferTube,
+                revisitRule: LocationRevisitRule.Always,
+                unlockCondition: BuildPilotCondition(requiredOutcomeIds: new[] { "C030_OUTCOME_UNLOCK_TRANSFER" }),
+                presentSuspects: new[]
+                {
+                    CreatePresence("S029", "Back on the route where the transfer story falls apart", "C030_INT003")
+                });
+
+            UpdateInterrogationNode(caseData, "C030_INT001", "S029", archiveFloor.locationId, "C030_OUTCOME_UNLOCK_CORRIDOR");
+            UpdateInterrogationNode(caseData, "C030_INT002", "S030", corridor.locationId, "C030_OUTCOME_UNLOCK_TRANSFER");
+            UpdateInterrogationNode(caseData, "C030_INT003", "S029", transferTube.locationId, "C030_OUTCOME_READY_FOR_SOLVE");
+        }
+
+        static void ConfigurePilotLocation(
+            CaseLocationData location,
+            LocationRevisitRule revisitRule,
+            string[] nextLocationIds = null,
+            CaseProgressConditionData unlockCondition = null,
+            LocationSuspectPresenceData[] presentSuspects = null)
+        {
+            if (location == null)
+                return;
+
+            location.unlockEvidenceIds = new List<string>();
+            location.unlockTags = new List<EvidenceTag>();
+            location.unlockCondition = unlockCondition ?? new CaseProgressConditionData();
+            location.nextLocationIds = nextLocationIds != null ? new List<string>(nextLocationIds) : new List<string>();
+            location.revisitRule = revisitRule;
+            location.presentSuspects = presentSuspects != null ? new List<LocationSuspectPresenceData>(presentSuspects) : new List<LocationSuspectPresenceData>();
+            location.completionOutcomeId = string.Empty;
+            location.autoUnlocksSolve = false;
+            location.isRequiredForSolve = true;
+        }
+
+        static CaseProgressConditionData BuildPilotCondition(
+            string[] requiredOutcomeIds = null,
+            string[] requiredVisitedLocationIds = null,
+            string[] requiredCompletedNodeIds = null)
+        {
+            return new CaseProgressConditionData
+            {
+                requiredInterrogationOutcomeIds = NormalizeStringList(requiredOutcomeIds),
+                requiredVisitedLocationIds = NormalizeStringList(requiredVisitedLocationIds),
+                requiredCompletedInterrogationNodeIds = NormalizeStringList(requiredCompletedNodeIds),
+                matchMode = ConditionMatchMode.All
+            };
+        }
+
+        static LocationSuspectPresenceData CreatePresence(string suspectId, string presenceLabel, string interrogationEntryNodeId)
+        {
+            return new LocationSuspectPresenceData
+            {
+                suspectId = suspectId,
+                presenceLabel = presenceLabel,
+                isVisibleOnEntry = true,
+                availabilityCondition = new CaseProgressConditionData(),
+                interrogationEntryNodeId = interrogationEntryNodeId,
+                departureOutcomeId = string.Empty,
+                notes = string.Empty
+            };
+        }
+
+        static InterrogationOutcomeData CreateOutcome(
+            string outcomeId,
+            string displayLabel,
+            string summaryText,
+            string[] unlockLocationIds = null,
+            string[] revealSuspectIds = null,
+            string redirectToLocationId = "",
+            bool markCaseReadyForSolve = false)
+        {
+            return new InterrogationOutcomeData
+            {
+                outcomeId = outcomeId,
+                displayLabel = displayLabel,
+                summaryText = summaryText,
+                unlockLocationIds = NormalizeStringList(unlockLocationIds),
+                lockLocationIds = new List<string>(),
+                revealSuspectIds = NormalizeStringList(revealSuspectIds),
+                hideSuspectIds = new List<string>(),
+                grantEvidenceIds = new List<string>(),
+                grantTags = new List<EvidenceTag>(),
+                markCaseReadyForSolve = markCaseReadyForSolve,
+                redirectToLocationId = redirectToLocationId ?? string.Empty
+            };
+        }
+
+        static void UpdateInterrogationNode(
+            CaseData caseData,
+            string nodeId,
+            string suspectId,
+            string locationContextId,
+            string outcomeIdOnCorrect)
+        {
+            var node = caseData?.interrogationNodes?.FirstOrDefault(candidate =>
+                candidate != null && string.Equals(candidate.nodeId, nodeId, StringComparison.OrdinalIgnoreCase));
+            if (node == null)
+                return;
+
+            node.schemaVersion = CaseSchemaVersions.Current;
+            node.suspectId = suspectId ?? string.Empty;
+            node.locationContextId = locationContextId ?? string.Empty;
+            node.nextNodeIdOnCorrect = string.Empty;
+            node.nextNodeIdOnWrong = string.Empty;
+            node.outcomeIdOnCorrect = outcomeIdOnCorrect ?? string.Empty;
+            node.outcomeIdOnWrong = string.Empty;
+            EditorUtility.SetDirty(node);
         }
 
         static void ResolveDistrictUnlocks(
@@ -427,6 +692,19 @@ namespace CasebookGame.Editor
             return caseId;
         }
 
+        static string ResolveStartingLocationId(PrecinctCaseEntry matrixCase)
+        {
+            if (!string.IsNullOrWhiteSpace(matrixCase?.startingLocationId))
+                return matrixCase.startingLocationId;
+
+            return matrixCase?.caseLocations?
+                .Where(entry => entry != null && !string.IsNullOrWhiteSpace(entry.locationId))
+                .OrderBy(entry => entry.visitOrder)
+                .Select(entry => entry.locationId)
+                .FirstOrDefault()
+                ?? string.Empty;
+        }
+
         static List<string> NormalizeEvidenceIdsForCase(string[] evidenceIds, CaseData caseData)
         {
             var output = new List<string>();
@@ -472,6 +750,115 @@ namespace CasebookGame.Editor
             }
 
             return tags;
+        }
+
+        static CaseProgressConditionData BuildCondition(PrecinctCaseProgressConditionEntry entry, CaseData caseData)
+        {
+            if (entry == null)
+                return new CaseProgressConditionData();
+
+            return new CaseProgressConditionData
+            {
+                requiredEvidenceIds = NormalizeEvidenceIdsForCase(entry.requiredEvidenceIds, caseData),
+                requiredTags = ParseEvidenceTags(entry.requiredTags),
+                requiredVisitedLocationIds = NormalizeStringList(entry.requiredVisitedLocationIds),
+                requiredCompletedLocationIds = NormalizeStringList(entry.requiredCompletedLocationIds),
+                requiredCompletedInterrogationNodeIds = NormalizeStringList(entry.requiredCompletedInterrogationNodeIds),
+                requiredInterrogationOutcomeIds = NormalizeStringList(entry.requiredInterrogationOutcomeIds),
+                requiredSuspectIds = NormalizeStringList(entry.requiredSuspectIds),
+                matchMode = ParseEnumOrDefault(entry.matchMode, ConditionMatchMode.All)
+            };
+        }
+
+        static List<LocationSuspectPresenceData> BuildLocationSuspectPresence(PrecinctLocationSuspectPresenceEntry[] entries, CaseData caseData)
+        {
+            var output = new List<LocationSuspectPresenceData>();
+            foreach (var entry in entries ?? Array.Empty<PrecinctLocationSuspectPresenceEntry>())
+            {
+                if (entry == null || string.IsNullOrWhiteSpace(entry.suspectId))
+                    continue;
+
+                output.Add(new LocationSuspectPresenceData
+                {
+                    suspectId = entry.suspectId,
+                    presenceLabel = entry.presenceLabel ?? string.Empty,
+                    isVisibleOnEntry = entry.isVisibleOnEntry,
+                    availabilityCondition = BuildCondition(entry.availabilityCondition, caseData),
+                    interrogationEntryNodeId = entry.interrogationEntryNodeId ?? string.Empty,
+                    departureOutcomeId = entry.departureOutcomeId ?? string.Empty,
+                    notes = entry.notes ?? string.Empty
+                });
+            }
+
+            return output;
+        }
+
+        static bool HasRouteOnlyProgressionHook(PrecinctCaseLocationEntry entry)
+        {
+            if (entry == null)
+                return false;
+
+            if (!string.IsNullOrWhiteSpace(entry.completionOutcomeId) || entry.autoUnlocksSolve)
+                return true;
+
+            foreach (var presence in entry.presentSuspects ?? Array.Empty<PrecinctLocationSuspectPresenceEntry>())
+            {
+                if (presence != null
+                    && (!string.IsNullOrWhiteSpace(presence.interrogationEntryNodeId)
+                        || !string.IsNullOrWhiteSpace(presence.departureOutcomeId)))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        static List<InterrogationOutcomeData> BuildInterrogationOutcomes(PrecinctInterrogationOutcomeEntry[] entries, CaseData caseData)
+        {
+            var output = new List<InterrogationOutcomeData>();
+            foreach (var entry in entries ?? Array.Empty<PrecinctInterrogationOutcomeEntry>())
+            {
+                if (entry == null || string.IsNullOrWhiteSpace(entry.outcomeId))
+                    continue;
+
+                output.Add(new InterrogationOutcomeData
+                {
+                    outcomeId = entry.outcomeId,
+                    displayLabel = entry.displayLabel ?? string.Empty,
+                    summaryText = entry.summaryText ?? string.Empty,
+                    unlockLocationIds = NormalizeStringList(entry.unlockLocationIds),
+                    lockLocationIds = NormalizeStringList(entry.lockLocationIds),
+                    revealSuspectIds = NormalizeStringList(entry.revealSuspectIds),
+                    hideSuspectIds = NormalizeStringList(entry.hideSuspectIds),
+                    grantEvidenceIds = NormalizeEvidenceIdsForCase(entry.grantEvidenceIds, caseData),
+                    grantTags = ParseEvidenceTags(entry.grantTags),
+                    markCaseReadyForSolve = entry.markCaseReadyForSolve,
+                    redirectToLocationId = entry.redirectToLocationId ?? string.Empty
+                });
+            }
+
+            return output;
+        }
+
+        static List<string> NormalizeStringList(string[] values)
+        {
+            var output = new List<string>();
+            foreach (var value in values ?? Array.Empty<string>())
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                    output.Add(value);
+            }
+
+            return output;
+        }
+
+        static TEnum ParseEnumOrDefault<TEnum>(string value, TEnum fallback) where TEnum : struct
+        {
+            if (!string.IsNullOrWhiteSpace(value) && Enum.TryParse(value, true, out TEnum parsed))
+                return parsed;
+
+            return fallback;
         }
 
         static List<HotspotData> CloneHotspots(List<HotspotData> source)
@@ -624,7 +1011,12 @@ namespace CasebookGame.Editor
             public string cityLocationId;
             public string caseArcId;
             public string arcBeatSummary;
+            public string visitFlowMode;
+            public string startingLocationId;
+            public bool allowMapRevisit = true;
+            public string locationReadyForSolveMode;
             public PrecinctInterrogationUsage interrogationUsage;
+            public PrecinctInterrogationOutcomeEntry[] interrogationOutcomes;
             public PrecinctSuspectEntry[] suspectRelevance;
             public PrecinctCaseLocationEntry[] caseLocations;
         }
@@ -654,7 +1046,55 @@ namespace CasebookGame.Editor
             public int visitOrder;
             public string[] unlockEvidenceIds;
             public string[] unlockTags;
+            public PrecinctCaseProgressConditionEntry unlockCondition;
+            public string[] nextLocationIds;
+            public string revisitRule = "Always";
+            public PrecinctLocationSuspectPresenceEntry[] presentSuspects;
+            public bool autoCompleteOnEnter = false;
+            public string completionOutcomeId;
+            public bool autoUnlocksSolve = false;
             public bool isRequiredForSolve = true;
+        }
+
+        [Serializable]
+        sealed class PrecinctCaseProgressConditionEntry
+        {
+            public string[] requiredEvidenceIds;
+            public string[] requiredTags;
+            public string[] requiredVisitedLocationIds;
+            public string[] requiredCompletedLocationIds;
+            public string[] requiredCompletedInterrogationNodeIds;
+            public string[] requiredInterrogationOutcomeIds;
+            public string[] requiredSuspectIds;
+            public string matchMode = "All";
+        }
+
+        [Serializable]
+        sealed class PrecinctLocationSuspectPresenceEntry
+        {
+            public string suspectId;
+            public string presenceLabel;
+            public bool isVisibleOnEntry = true;
+            public PrecinctCaseProgressConditionEntry availabilityCondition;
+            public string interrogationEntryNodeId;
+            public string departureOutcomeId;
+            public string notes;
+        }
+
+        [Serializable]
+        sealed class PrecinctInterrogationOutcomeEntry
+        {
+            public string outcomeId;
+            public string displayLabel;
+            public string summaryText;
+            public string[] unlockLocationIds;
+            public string[] lockLocationIds;
+            public string[] revealSuspectIds;
+            public string[] hideSuspectIds;
+            public string[] grantEvidenceIds;
+            public string[] grantTags;
+            public bool markCaseReadyForSolve = false;
+            public string redirectToLocationId;
         }
 
         [Serializable]

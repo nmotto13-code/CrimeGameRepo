@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7121b039c55ad448ba848f177e2b56, type: 3}
   m_Name: C012_CL003
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.ClaimData
-  schemaVersion: 1
+  schemaVersion: 3
   claimId: C012_CL003
   speakerName: Market Guard Sen Arlo
   claimText: I saw Lyle near the main lane later than he claims, but I did not stop

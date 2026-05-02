@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
   m_Name: S016
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
-  schemaVersion: 1
+  schemaVersion: 3
   suspectId: S016
   displayName: Martin Quill
   portraitSprite: {fileID: 21300000, guid: 36e6f08a4e48e030ff0112b1c1f20bd0, type: 3}
+  roleLabel: 
+  statusSummary: 
+  currentLocationId: 
+  interrogationEntryNodeId: 
   bio: Payroll auditor for a public benefits annex. Presents as methodical and above
     suspicion while using routine office movement to hide after-hours edits.
   traits:

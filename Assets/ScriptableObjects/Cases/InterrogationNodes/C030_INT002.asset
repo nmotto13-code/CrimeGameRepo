@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939dab4bae1b4354a88f82b8c650e9d0, type: 3}
   m_Name: C030_INT002
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.InterrogationNode
-  schemaVersion: 1
+  schemaVersion: 3
   nodeId: C030_INT002
+  suspectId: S030
   promptText: What proves the internal leak was operational, not accidental paperwork
     drift?
   responses:
@@ -28,3 +29,10 @@ MonoBehaviour:
   - C018_E006
   - C027_E004
   - C030_E007
+  nextNodeIdOnCorrect: 
+  nextNodeIdOnWrong: 
+  outcomeIdOnCorrect: C030_OUTCOME_UNLOCK_TRANSFER
+  outcomeIdOnWrong: 
+  locationContextId: VISIT_C030_ARCHIVE_CORRIDOR
+  grantedEvidenceIds: []
+  grantedTags: 

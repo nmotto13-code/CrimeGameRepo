@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_029
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
-  schemaVersion: 1
+  schemaVersion: 3
   caseId: Case_029
   title: Silent Draft
   briefText: Reporter Vera Hale disappears after chasing sealed detective memos.
@@ -77,6 +77,20 @@ MonoBehaviour:
     visitOrder: 0
     unlockEvidenceIds: []
     unlockTags: 
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
   - locationId: VISIT_C029_PRECINCT_ANNEX_SERVICE_RAMP
     displayName: Precinct Annex Service Ramp
@@ -88,7 +102,26 @@ MonoBehaviour:
     unlockEvidenceIds:
     - C029_E001
     unlockTags: 0100000005000000
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    autoCompleteOnEnter: 1
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
+  visitFlowMode: 0
+  startingLocationId: LOC_MARKET_ROW_COURIER_GAZETTE
+  allowMapRevisit: 1
+  locationReadyForSolveMode: 0
   evidence:
   - {fileID: 11400000, guid: 90e4bb096a805ff4f825c924ec7028e8, type: 2}
   - {fileID: 11400000, guid: ab4845856b20a984a8d9978832d89316, type: 2}
@@ -112,6 +145,7 @@ MonoBehaviour:
     displayName: Mira Voss
     relevance: recurring_person_of_interest
   interrogationNodes: []
+  interrogationOutcomes: []
   interrogationMode: planned_optional
   isInterrogationForwardCase: 1
   interrogationFocusSummary: Editor Hal Renn and annex-side support staff are strong

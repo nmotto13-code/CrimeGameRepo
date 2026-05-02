@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_007
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
-  schemaVersion: 2
+  schemaVersion: 3
   caseId: Case_007
   title: Neighbor Testimony
   briefText: "Neighbor Greta Lowe says she heard loud music from apartment 4B at
@@ -46,7 +46,25 @@ MonoBehaviour:
     visitOrder: 0
     unlockEvidenceIds: []
     unlockTags: 
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
+  visitFlowMode: 0
+  startingLocationId: LOC_OLD_QUARTER_APARTMENT_4B
+  allowMapRevisit: 1
+  locationReadyForSolveMode: 0
   evidence:
   - {fileID: 11400000, guid: 5f4fe81a3f9e40e4f912dc187e256910, type: 2}
   - {fileID: 11400000, guid: d13e420c21d0f5e4a8b6dc8c220d22de, type: 2}
@@ -69,6 +87,7 @@ MonoBehaviour:
     displayName: Building Super
     relevance: supporting_witness
   interrogationNodes: []
+  interrogationOutcomes: []
   interrogationMode: none
   isInterrogationForwardCase: 0
   interrogationFocusSummary: Useful for dossier flavor, but not promoted to interrogation-forward

@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
   m_Name: S018
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
-  schemaVersion: 1
+  schemaVersion: 3
   suspectId: S018
   displayName: Tessa Rook
   portraitSprite: {fileID: 21300000, guid: 85916f5ca7af6075d6dfc90c1a135148, type: 3}
+  roleLabel: 
+  statusSummary: 
+  currentLocationId: 
+  interrogationEntryNodeId: 
   bio: A respected appraiser whose seal and opinion can make or break private sales.
     She has learned how to weaponize that reputation.
   traits:

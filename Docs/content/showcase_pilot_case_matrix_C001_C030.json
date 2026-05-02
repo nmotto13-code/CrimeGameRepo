@@ -1,0 +1,977 @@
+{
+  "schemaVersion": 1,
+  "schemaContractTarget": 3,
+  "milestoneId": "casebook_v2_followup_multi_location_suspect_progression",
+  "sourceNotes": {
+    "purpose": "Showcase pilot authoring for the first deeper-investigation pass. This file is source-of-truth content for Integration and Progression Layer, not a runtime schema bump.",
+    "compatibility": "All pilot cases preserve the current live C001-C030 roster. New outcome IDs and planned interrogation node IDs are authoring targets for the version 3 runtime pass.",
+    "legacySuspectPolicy": "Patrol-era pilot C003 still uses legacy display-name suspect refs because no patrol suspect asset pack exists in the current roster."
+  },
+  "pilotCaseIds": ["C003", "C013", "C020", "C023", "C030"],
+  "pilotReadyNowCaseIds": ["C020", "C030"],
+  "needsExtraAssetSupportCaseIds": ["C003", "C013", "C023"],
+  "deferredMultiLocationNotInPilotCaseIds": ["C008", "C010", "C018", "C024", "C026", "C029"],
+  "legacySingleLocationForNowCaseIds": ["C001", "C002", "C004", "C005", "C006", "C007", "C009", "C011", "C012", "C014", "C015", "C016", "C017", "C019", "C021", "C022", "C025", "C027", "C028"],
+  "pilotMatrix": [
+    {
+      "caseId": "C003",
+      "assetCaseId": "Case_003",
+      "title": "Coffee Shop Alibi",
+      "departmentId": "Patrol",
+      "pilotStatus": "needs_extra_asset_support",
+      "showcaseRole": "patrol_tutorial",
+      "visitFlowMode": "SequenceGraph",
+      "requiredVisitCount": 2,
+      "interrogationPlanMode": "planned_new_node",
+      "assetDependencySummary": "Needs a dedicated Harwick Gallery side-entrance background and Patrol summary-card support for suspect surfacing.",
+      "progressionDependencySummary": "Needs first-pass optional interrogation surfacing and solve-ready messaging after the second visit."
+    },
+    {
+      "caseId": "C013",
+      "assetCaseId": "Case_013",
+      "title": "False Provenance",
+      "departmentId": "Fraud",
+      "pilotStatus": "needs_extra_asset_support",
+      "showcaseRole": "fraud_mid_arc",
+      "visitFlowMode": "SequenceGraph",
+      "requiredVisitCount": 2,
+      "interrogationPlanMode": "planned_new_chain",
+      "assetDependencySummary": "Needs a distinct loading-alley backplate and first-pass interrogation presentation for Tessa and Owen.",
+      "progressionDependencySummary": "Needs suspect reveal and alley unlock after the first interrogation outcome."
+    },
+    {
+      "caseId": "C020",
+      "assetCaseId": "Case_020",
+      "title": "The Glass Ledger",
+      "departmentId": "Fraud",
+      "pilotStatus": "pilot_ready_now",
+      "showcaseRole": "fraud_capstone",
+      "visitFlowMode": "SequenceGraph",
+      "requiredVisitCount": 2,
+      "interrogationPlanMode": "existing_nodes_reframed_as_outcomes",
+      "assetDependencySummary": "No blocking art dependency. Existing suspects, evidence, and interrogation nodes already support the showcase pass.",
+      "progressionDependencySummary": "Needs version 3 interrogation outcomes to gate solve readiness cleanly."
+    },
+    {
+      "caseId": "C023",
+      "assetCaseId": "Case_023",
+      "title": "Bluebird Encore",
+      "departmentId": "MissingPersons",
+      "pilotStatus": "needs_extra_asset_support",
+      "showcaseRole": "missing_persons_bridge",
+      "visitFlowMode": "SequenceGraph",
+      "requiredVisitCount": 2,
+      "interrogationPlanMode": "planned_new_nodes",
+      "assetDependencySummary": "Needs a marina-ramp backplate and summary-only or full suspect coverage for the promoter and dockside witness roles.",
+      "progressionDependencySummary": "Needs a location handoff between backstage interrogation pressure and dockside follow-up."
+    },
+    {
+      "caseId": "C030",
+      "assetCaseId": "Case_030",
+      "title": "The Hollow Desk",
+      "departmentId": "MissingPersons",
+      "pilotStatus": "pilot_ready_now",
+      "showcaseRole": "missing_persons_capstone",
+      "visitFlowMode": "SequenceGraph",
+      "requiredVisitCount": 3,
+      "interrogationPlanMode": "existing_nodes_reframed_as_outcomes",
+      "assetDependencySummary": "No blocking art dependency. Existing records-floor, suspect, and interrogation content is strong enough for the first pilot pass.",
+      "progressionDependencySummary": "Needs outcome-driven visit gating and capstone solve readiness after the final interrogation beat."
+    }
+  ],
+  "pilotCases": [
+    {
+      "caseId": "C003",
+      "assetCaseId": "Case_003",
+      "title": "Coffee Shop Alibi",
+      "departmentId": "Patrol",
+      "districtId": "DIST_OLD_QUARTER",
+      "cityLocationId": "LOC_OLD_QUARTER_CAFE_LUMIERE",
+      "caseArcId": "ARC_PATROL_FOUNDATIONS",
+      "pilotStatus": "needs_extra_asset_support",
+      "showcaseRole": "patrol_tutorial",
+      "visitFlowMode": "SequenceGraph",
+      "startingLocationId": "LOC_OLD_QUARTER_CAFE_LUMIERE",
+      "allowMapRevisit": true,
+      "locationReadyForSolveMode": "RequireRequiredVisits",
+      "midCaseEscalationSummary": "The case stops being a receipt contradiction and becomes a suspect-pressure route check once Theo is confronted with travel time and folds enough to send the player across town.",
+      "departmentProgressionSignificance": "Best Patrol tutorial for teaching that a second city visit can be small, readable, and still materially change the case.",
+      "arcBeatSignificance": "Seeds the Harwick Gallery thread that later becomes explicit in the gallery and fraud cases.",
+      "interrogationPlan": {
+        "existingNodeIds": [],
+        "plannedNodeIds": ["C003_INT001"],
+        "requiredOutcomeIdsForSolve": [],
+        "notes": "Interrogation is optional but should visibly accelerate the unlock from the cafe to the gallery-side verification visit."
+      },
+      "interrogationOutcomes": [
+        {
+          "outcomeId": "C003_OUTCOME_THEO_CRACKS",
+          "displayLabel": "Theo Pressed Off Script",
+          "summaryText": "Theo stops insisting the receipt alone clears him and betrays that the gallery route matters.",
+          "unlockLocationIds": ["VISIT_C003_HARWICK_GALLERY_SIDE_ENTRANCE"],
+          "revealSuspectIds": [],
+          "markCaseReadyForSolve": false,
+          "redirectToLocationId": "VISIT_C003_HARWICK_GALLERY_SIDE_ENTRANCE"
+        },
+        {
+          "outcomeId": "C003_OUTCOME_ROUTE_CONFIRMED",
+          "displayLabel": "Gallery Route Confirmed",
+          "summaryText": "The side entrance timing proves the cafe alibi cannot overlap with the gallery alarm window.",
+          "unlockLocationIds": [],
+          "revealSuspectIds": [],
+          "markCaseReadyForSolve": true,
+          "redirectToLocationId": ""
+        }
+      ],
+      "visits": [
+        {
+          "locationId": "LOC_OLD_QUARTER_CAFE_LUMIERE",
+          "displayName": "Cafe Lumiere",
+          "visitRole": "primary_scene",
+          "entryText": "Open in the cafe, let the player secure the receipt, and frame the case as a believable alibi before the map hop is earned.",
+          "unlockCondition": {
+            "requiredEvidenceIds": [],
+            "requiredTags": [],
+            "requiredVisitedLocationIds": [],
+            "requiredCompletedInterrogationNodeIds": [],
+            "requiredInterrogationOutcomeIds": [],
+            "requiredSuspectIds": [],
+            "matchMode": "All"
+          },
+          "legacyUnlockEvidenceIds": [],
+          "nextLocationIds": ["VISIT_C003_HARWICK_GALLERY_SIDE_ENTRANCE"],
+          "revisitRule": "Always",
+          "isRequiredForSolve": true,
+          "autoUnlocksSolve": false,
+          "completionOutcomeId": "",
+          "presentSuspects": [
+            {
+              "suspectRef": "Theo Grant",
+              "suspectRefType": "legacy_display_name",
+              "presenceLabel": "Claimant at table",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": [],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": [],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "C003_INT001",
+              "notes": "Theo should become interrogable after the player has both the receipt and travel-time context."
+            },
+            {
+              "suspectRef": "Barista Mei",
+              "suspectRefType": "legacy_display_name",
+              "presenceLabel": "Witness behind counter",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": [],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": [],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "",
+              "notes": "Supports the cafe timeline without needing a full branching interrogation chain."
+            }
+          ],
+          "progressionBeats": [
+            "Find C003_E001 to anchor the alibi claim.",
+            "Surface the travel-time contradiction through C003_E003 before pressing Theo.",
+            "Optional interrogation outcome should point the player to the gallery-side entrance rather than ending the case in one room."
+          ]
+        },
+        {
+          "locationId": "VISIT_C003_HARWICK_GALLERY_SIDE_ENTRANCE",
+          "displayName": "Harwick Gallery Side Entrance",
+          "visitRole": "cross_check_verification",
+          "entryText": "Treat the second visit as a short verification stop that makes the cross-town impossibility feel spatially real on the city map.",
+          "unlockCondition": {
+            "requiredEvidenceIds": [],
+            "requiredTags": [],
+            "requiredVisitedLocationIds": ["LOC_OLD_QUARTER_CAFE_LUMIERE"],
+            "requiredCompletedInterrogationNodeIds": [],
+            "requiredInterrogationOutcomeIds": ["C003_OUTCOME_THEO_CRACKS"],
+            "requiredSuspectIds": [],
+            "matchMode": "All"
+          },
+          "legacyUnlockEvidenceIds": ["C003_E001", "C003_E003"],
+          "nextLocationIds": [],
+          "revisitRule": "AfterNewProgress",
+          "isRequiredForSolve": true,
+          "autoUnlocksSolve": true,
+          "completionOutcomeId": "C003_OUTCOME_ROUTE_CONFIRMED",
+          "presentSuspects": [
+            {
+              "suspectRef": "Detective Osei",
+              "suspectRefType": "legacy_display_name",
+              "presenceLabel": "On-site investigator handoff",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": ["LOC_OLD_QUARTER_CAFE_LUMIERE"],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": [],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "",
+              "notes": "Works as the second-visit handoff voice so the player understands the route proof is now sufficient for solve."
+            }
+          ],
+          "progressionBeats": [
+            "Use the gallery-side timing to convert a paper contradiction into a physical route contradiction.",
+            "Mark the case solve-ready only after this visit resolves, not directly from the cafe evidence review."
+          ]
+        }
+      ],
+      "dependencies": {
+        "caseSchema": [
+          "Needs version 3 visit-flow fields to surface the optional interrogation unlock without replacing the current contradiction path."
+        ],
+        "progressionLayer": [
+          "Show a second-visit unlock pulse on the map after Theo is pressured.",
+          "Show a solve-ready state only after the gallery verification visit completes."
+        ],
+        "assetGen": [
+          "Add a distinct Harwick Gallery side-entrance backplate instead of reusing the cafe art.",
+          "Provide summary-card presentation for Theo Grant and Barista Mei if Patrol suspects are surfaced beyond text."
+        ]
+      }
+    },
+    {
+      "caseId": "C013",
+      "assetCaseId": "Case_013",
+      "title": "False Provenance",
+      "departmentId": "Fraud",
+      "districtId": "DIST_OLD_QUARTER",
+      "cityLocationId": "LOC_OLD_QUARTER_BRASSLIGHT_GALLERY",
+      "caseArcId": "ARC_GLASS_LEDGER",
+      "pilotStatus": "needs_extra_asset_support",
+      "showcaseRole": "fraud_mid_arc",
+      "visitFlowMode": "SequenceGraph",
+      "startingLocationId": "LOC_OLD_QUARTER_BRASSLIGHT_GALLERY",
+      "allowMapRevisit": true,
+      "locationReadyForSolveMode": "RequireInterrogationOutcome",
+      "midCaseEscalationSummary": "The player starts in forged-paperwork territory, but the case escalates into a physical handoff once the seal case and alley camera prove the forgery moved through a real courier chain.",
+      "departmentProgressionSignificance": "Strong first Fraud pilot because it foregrounds Cross-Check, suspect pressure, and second-location payoff without capstone complexity.",
+      "arcBeatSignificance": "Bridges Patrol's gallery thread into Fraud and visibly keeps Mira near the cleaned-paper economy before C020 exposes her fully.",
+      "interrogationPlan": {
+        "existingNodeIds": [],
+        "plannedNodeIds": ["C013_INT001", "C013_INT002"],
+        "requiredOutcomeIdsForSolve": ["C013_OUTCOME_OWEN_CONFIRMS_HANDOFF"],
+        "notes": "Tessa should fold first, then Owen should become the second pressure beat at the alley."
+      },
+      "interrogationOutcomes": [
+        {
+          "outcomeId": "C013_OUTCOME_TESSA_FORCED_OFF_SCRIPT",
+          "displayLabel": "Tessa Stops Hiding Behind the Seal",
+          "summaryText": "Tessa's controlled explanation breaks, pointing the player toward the alley handoff instead of a pure office forgery.",
+          "unlockLocationIds": ["VISIT_C013_LOADING_ALLEY"],
+          "revealSuspectIds": ["S013"],
+          "markCaseReadyForSolve": false,
+          "redirectToLocationId": "VISIT_C013_LOADING_ALLEY"
+        },
+        {
+          "outcomeId": "C013_OUTCOME_OWEN_CONFIRMS_HANDOFF",
+          "displayLabel": "Handoff Confirmed",
+          "summaryText": "Owen's pressure beat confirms the seal case left the room and the provenance fraud depended on physical transfer.",
+          "unlockLocationIds": [],
+          "revealSuspectIds": [],
+          "markCaseReadyForSolve": true,
+          "redirectToLocationId": ""
+        }
+      ],
+      "visits": [
+        {
+          "locationId": "LOC_OLD_QUARTER_BRASSLIGHT_GALLERY",
+          "displayName": "Brasslight Gallery Appraisal Room",
+          "visitRole": "primary_scene",
+          "entryText": "Start in the polished appraisal room so the player first reads the case as white-glove fraud rather than an obvious courier job.",
+          "unlockCondition": {
+            "requiredEvidenceIds": [],
+            "requiredTags": [],
+            "requiredVisitedLocationIds": [],
+            "requiredCompletedInterrogationNodeIds": [],
+            "requiredInterrogationOutcomeIds": [],
+            "requiredSuspectIds": [],
+            "matchMode": "All"
+          },
+          "legacyUnlockEvidenceIds": [],
+          "nextLocationIds": ["VISIT_C013_LOADING_ALLEY"],
+          "revisitRule": "Always",
+          "isRequiredForSolve": true,
+          "autoUnlocksSolve": false,
+          "completionOutcomeId": "",
+          "presentSuspects": [
+            {
+              "suspectRef": "S018",
+              "suspectRefType": "suspect_id",
+              "presenceLabel": "Appraiser on scene",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": [],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": [],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "C013_INT001",
+              "notes": "Tessa becomes the first real Fraud pressure target once C013_E002 is secured."
+            },
+            {
+              "suspectRef": "S011",
+              "suspectRefType": "suspect_id",
+              "presenceLabel": "Consultant observing the room",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": [],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": [],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "",
+              "notes": "Mira should read as present and interested, but not yet the case's confession target."
+            }
+          ],
+          "progressionBeats": [
+            "Anchor the forgery with C013_E001 and the broken safe dust line in C013_E002.",
+            "Use Tessa's first interrogation beat to shift the player's attention from paperwork authenticity to seal movement.",
+            "Let C013_E003 prime the second visit before the alley is fully unlocked."
+          ]
+        },
+        {
+          "locationId": "VISIT_C013_LOADING_ALLEY",
+          "displayName": "Brasslight Loading Alley",
+          "visitRole": "handoff_confirmation",
+          "entryText": "The alley visit should feel like the polished gallery facade just cracked, exposing the courier side of the fraud network.",
+          "unlockCondition": {
+            "requiredEvidenceIds": [],
+            "requiredTags": [],
+            "requiredVisitedLocationIds": ["LOC_OLD_QUARTER_BRASSLIGHT_GALLERY"],
+            "requiredCompletedInterrogationNodeIds": [],
+            "requiredInterrogationOutcomeIds": ["C013_OUTCOME_TESSA_FORCED_OFF_SCRIPT"],
+            "requiredSuspectIds": [],
+            "matchMode": "All"
+          },
+          "legacyUnlockEvidenceIds": ["C013_E002", "C013_E003"],
+          "nextLocationIds": [],
+          "revisitRule": "AfterNewProgress",
+          "isRequiredForSolve": true,
+          "autoUnlocksSolve": false,
+          "completionOutcomeId": "",
+          "presentSuspects": [
+            {
+              "suspectRef": "S013",
+              "suspectRefType": "suspect_id",
+              "presenceLabel": "Courier-side associate in the alley",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": ["LOC_OLD_QUARTER_BRASSLIGHT_GALLERY"],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": ["C013_OUTCOME_TESSA_FORCED_OFF_SCRIPT"],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "C013_INT002",
+              "notes": "Owen should only appear once Tessa's control of the room has cracked."
+            }
+          ],
+          "progressionBeats": [
+            "Use the alley camera and curbside movement to make the forged provenance feel operational rather than abstract.",
+            "Second interrogation beat should confirm the handoff and mark the case ready for solve."
+          ]
+        }
+      ],
+      "dependencies": {
+        "caseSchema": [
+          "Needs outcome-driven suspect reveal at the second location and solve gating off a named interrogation outcome."
+        ],
+        "progressionLayer": [
+          "Surface Tessa's interrogation after the player has secured C013_E002.",
+          "Reveal Owen on the location card only after C013_OUTCOME_TESSA_FORCED_OFF_SCRIPT is earned."
+        ],
+        "assetGen": [
+          "Add a dedicated Brasslight loading-alley backplate instead of reusing the appraisal room art.",
+          "Add first-pass interrogation presentation support for Tessa and Owen if the deeper suspect flow uses portrait-led prompts."
+        ]
+      }
+    },
+    {
+      "caseId": "C020",
+      "assetCaseId": "Case_020",
+      "title": "The Glass Ledger",
+      "departmentId": "Fraud",
+      "districtId": "DIST_CIVIC_CORE",
+      "cityLocationId": "LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT",
+      "caseArcId": "ARC_GLASS_LEDGER",
+      "pilotStatus": "pilot_ready_now",
+      "showcaseRole": "fraud_capstone",
+      "visitFlowMode": "SequenceGraph",
+      "startingLocationId": "LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT",
+      "allowMapRevisit": true,
+      "locationReadyForSolveMode": "RequireInterrogationOutcome",
+      "midCaseEscalationSummary": "The capstone should pivot from 'Mira touched the lockbox' to 'the bureau leak fed her the restricted route,' so the second interrogation beat matters as much as the second location.",
+      "departmentProgressionSignificance": "This is the Fraud department's best ready-now showcase for the full loop: scene -> second visit -> interrogation outcome -> solve gate.",
+      "arcBeatSignificance": "First explicit reveal of Mira as a fixer who handled originals and relied on restricted brief access.",
+      "interrogationPlan": {
+        "existingNodeIds": ["C020_INT001", "C020_INT002"],
+        "plannedNodeIds": [],
+        "requiredOutcomeIdsForSolve": ["C020_OUTCOME_INTERNAL_BRIEF_CONFIRMED"],
+        "notes": "Existing nodes can be reframed as progression outcomes with no content rewrite."
+      },
+      "interrogationOutcomes": [
+        {
+          "outcomeId": "C020_OUTCOME_MIRA_HANDLED_ORIGINAL",
+          "displayLabel": "Mira Handled the Original",
+          "summaryText": "Mira's courier-lockbox excuse collapses and the freight-elevator route becomes the next actionable lead.",
+          "unlockLocationIds": ["VISIT_C020_FREIGHT_ELEVATOR"],
+          "revealSuspectIds": ["S013"],
+          "markCaseReadyForSolve": false,
+          "redirectToLocationId": "VISIT_C020_FREIGHT_ELEVATOR"
+        },
+        {
+          "outcomeId": "C020_OUTCOME_INTERNAL_BRIEF_CONFIRMED",
+          "displayLabel": "Internal Brief Leak Confirmed",
+          "summaryText": "The restricted brief chain is confirmed as the real source of Mira's timing and route knowledge.",
+          "unlockLocationIds": [],
+          "revealSuspectIds": [],
+          "markCaseReadyForSolve": true,
+          "redirectToLocationId": ""
+        }
+      ],
+      "visits": [
+        {
+          "locationId": "LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT",
+          "displayName": "Crown Annex Records Vault",
+          "visitRole": "primary_scene",
+          "entryText": "Launch in the vault so the player starts inside a clean institutional scene before the case broadens into a bureau leak reveal.",
+          "unlockCondition": {
+            "requiredEvidenceIds": [],
+            "requiredTags": [],
+            "requiredVisitedLocationIds": [],
+            "requiredCompletedInterrogationNodeIds": [],
+            "requiredInterrogationOutcomeIds": [],
+            "requiredSuspectIds": [],
+            "matchMode": "All"
+          },
+          "legacyUnlockEvidenceIds": [],
+          "nextLocationIds": ["VISIT_C020_FREIGHT_ELEVATOR"],
+          "revisitRule": "Always",
+          "isRequiredForSolve": true,
+          "autoUnlocksSolve": false,
+          "completionOutcomeId": "",
+          "presentSuspects": [
+            {
+              "suspectRef": "S011",
+              "suspectRefType": "suspect_id",
+              "presenceLabel": "Consultant caught inside the route chain",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": [],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": [],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "C020_INT001",
+              "notes": "Mira should be the first visible interrogation target once C020_E001 and C020_E004 are in hand."
+            },
+            {
+              "suspectRef": "S012",
+              "suspectRefType": "suspect_id",
+              "presenceLabel": "Annex-side connection on the floor",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": [],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": [],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "",
+              "notes": "Renata stabilizes the scene and reinforces that the annex should feel like a staffed records environment."
+            }
+          ],
+          "progressionBeats": [
+            "Use C020_E001, C020_E004, and C020_E006 to establish that Mira physically handled restricted material.",
+            "Fire C020_INT001 on the vault floor, not after the case is effectively solved."
+          ]
+        },
+        {
+          "locationId": "VISIT_C020_FREIGHT_ELEVATOR",
+          "displayName": "Annex Freight Elevator",
+          "visitRole": "capstone_reveal",
+          "entryText": "The elevator visit is short but should feel decisive, turning Mira's denial into proof of physical movement and internal help.",
+          "unlockCondition": {
+            "requiredEvidenceIds": [],
+            "requiredTags": [],
+            "requiredVisitedLocationIds": ["LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT"],
+            "requiredCompletedInterrogationNodeIds": [],
+            "requiredInterrogationOutcomeIds": ["C020_OUTCOME_MIRA_HANDLED_ORIGINAL"],
+            "requiredSuspectIds": [],
+            "matchMode": "All"
+          },
+          "legacyUnlockEvidenceIds": ["C020_E001", "C020_E004"],
+          "nextLocationIds": [],
+          "revisitRule": "AfterNewProgress",
+          "isRequiredForSolve": true,
+          "autoUnlocksSolve": false,
+          "completionOutcomeId": "",
+          "presentSuspects": [
+            {
+              "suspectRef": "S013",
+              "suspectRefType": "suspect_id",
+              "presenceLabel": "Courier-side connection revealed by the route",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": ["LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT"],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": ["C020_OUTCOME_MIRA_HANDLED_ORIGINAL"],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "C020_INT002",
+              "notes": "Second interrogation beat should live here or immediately after this visit so the leak reveal follows the route proof."
+            }
+          ],
+          "progressionBeats": [
+            "Use the elevator route to confirm that the original ledger moved through a controlled annex path.",
+            "Gate solve readiness on C020_INT002 so the player also learns why Mira knew the route in advance."
+          ]
+        }
+      ],
+      "dependencies": {
+        "caseSchema": [
+          "Needs version 3 interrogation outcomes so existing nodes can unlock the elevator and then mark the case ready for solve."
+        ],
+        "progressionLayer": [
+          "Surface solve-gated state between C020_INT001 and C020_INT002 instead of allowing immediate contradiction resolution after the second visit.",
+          "Display the second interrogation beat as the capstone reveal for Fraud progression."
+        ],
+        "assetGen": [
+          "No blocking asset work for the first pilot pass.",
+          "Optional polish: dedicated freight-elevator background later."
+        ]
+      }
+    },
+    {
+      "caseId": "C023",
+      "assetCaseId": "Case_023",
+      "title": "Bluebird Encore",
+      "departmentId": "MissingPersons",
+      "districtId": "DIST_MARKET_ROW",
+      "cityLocationId": "LOC_MARKET_ROW_BLUEBIRD_VENUE",
+      "caseArcId": "ARC_HOLLOW_DESK",
+      "pilotStatus": "needs_extra_asset_support",
+      "showcaseRole": "missing_persons_bridge",
+      "visitFlowMode": "SequenceGraph",
+      "startingLocationId": "LOC_MARKET_ROW_BLUEBIRD_VENUE",
+      "allowMapRevisit": true,
+      "locationReadyForSolveMode": "RequireRequiredVisits",
+      "midCaseEscalationSummary": "The player begins in nightlife misdirection, but the case escalates once backstage lies, the mirror route, and the marina handoff collectively suggest Sera left intentionally and Mira was close to the exit chain.",
+      "departmentProgressionSignificance": "Best early Missing Persons pilot for proving that Enhance, suspect pressure, and second-location route checks can coexist on mobile.",
+      "arcBeatSignificance": "Reconnects Mira to the second arc without prematurely making her the solved culprit.",
+      "interrogationPlan": {
+        "existingNodeIds": [],
+        "plannedNodeIds": ["C023_INT001", "C023_INT002"],
+        "requiredOutcomeIdsForSolve": [],
+        "notes": "Promoter pressure should unlock the marina follow-up, but the case should still resolve on location proof rather than a confession."
+      },
+      "interrogationOutcomes": [
+        {
+          "outcomeId": "C023_OUTCOME_PROMOTER_ROUTE_BREAKS",
+          "displayLabel": "Promoter Route Story Breaks",
+          "summaryText": "The rideshare story no longer holds, and the marina route becomes the active lead.",
+          "unlockLocationIds": ["VISIT_C023_MARINA_RAMP"],
+          "revealSuspectIds": [],
+          "markCaseReadyForSolve": false,
+          "redirectToLocationId": "VISIT_C023_MARINA_RAMP"
+        },
+        {
+          "outcomeId": "C023_OUTCOME_DOCK_ROUTE_CONFIRMED",
+          "displayLabel": "Dockside Route Confirmed",
+          "summaryText": "The marina path is confirmed, establishing that Sera did not leave toward the taxi queue.",
+          "unlockLocationIds": [],
+          "revealSuspectIds": ["S011"],
+          "markCaseReadyForSolve": true,
+          "redirectToLocationId": ""
+        }
+      ],
+      "visits": [
+        {
+          "locationId": "LOC_MARKET_ROW_BLUEBIRD_VENUE",
+          "displayName": "Bluebird Backstage",
+          "visitRole": "primary_scene",
+          "entryText": "Open backstage and let the player read the scene as a performer-vanish case before the marina angle is earned.",
+          "unlockCondition": {
+            "requiredEvidenceIds": [],
+            "requiredTags": [],
+            "requiredVisitedLocationIds": [],
+            "requiredCompletedInterrogationNodeIds": [],
+            "requiredInterrogationOutcomeIds": [],
+            "requiredSuspectIds": [],
+            "matchMode": "All"
+          },
+          "legacyUnlockEvidenceIds": [],
+          "nextLocationIds": ["VISIT_C023_MARINA_RAMP"],
+          "revisitRule": "Always",
+          "isRequiredForSolve": true,
+          "autoUnlocksSolve": false,
+          "completionOutcomeId": "",
+          "presentSuspects": [
+            {
+              "suspectRef": "Bluebird Promoter",
+              "suspectRefType": "summary_only_placeholder",
+              "presenceLabel": "Promoter controlling the story",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": [],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": [],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "C023_INT001",
+              "notes": "The promoter is the first interrogation-forward pressure beat and can remain a summary-only suspect if no full asset is added."
+            },
+            {
+              "suspectRef": "S022",
+              "suspectRefType": "suspect_id",
+              "presenceLabel": "Missing person context only",
+              "isVisibleOnEntry": false,
+              "availabilityCondition": {
+                "requiredEvidenceIds": ["C023_E001"],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": [],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": [],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "",
+              "notes": "Sera remains off-screen, but her dossier card should feel more active after the backstage evidence is found."
+            }
+          ],
+          "progressionBeats": [
+            "Use C023_E004 to break the claimed rideshare route.",
+            "Pressure the promoter before the case is allowed to jump to dockside proof.",
+            "Keep Mira off-screen here so the bridge to the wider arc lands at the marina instead of too early."
+          ]
+        },
+        {
+          "locationId": "VISIT_C023_MARINA_RAMP",
+          "displayName": "Marina Ramp",
+          "visitRole": "route_confirmation",
+          "entryText": "The marina stop should feel like the player physically stepped onto the route hidden by the nightlife story.",
+          "unlockCondition": {
+            "requiredEvidenceIds": [],
+            "requiredTags": [],
+            "requiredVisitedLocationIds": ["LOC_MARKET_ROW_BLUEBIRD_VENUE"],
+            "requiredCompletedInterrogationNodeIds": [],
+            "requiredInterrogationOutcomeIds": ["C023_OUTCOME_PROMOTER_ROUTE_BREAKS"],
+            "requiredSuspectIds": [],
+            "matchMode": "All"
+          },
+          "legacyUnlockEvidenceIds": ["C023_E001", "C023_E004"],
+          "nextLocationIds": [],
+          "revisitRule": "AfterNewProgress",
+          "isRequiredForSolve": true,
+          "autoUnlocksSolve": true,
+          "completionOutcomeId": "C023_OUTCOME_DOCK_ROUTE_CONFIRMED",
+          "presentSuspects": [
+            {
+              "suspectRef": "Dock Ramp Attendant",
+              "suspectRefType": "summary_only_placeholder",
+              "presenceLabel": "Dockside witness",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": ["LOC_MARKET_ROW_BLUEBIRD_VENUE"],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": [],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "C023_INT002",
+              "notes": "Short follow-up pressure beat that helps confirm the dockside route without creating a full third location."
+            },
+            {
+              "suspectRef": "S011",
+              "suspectRefType": "suspect_id",
+              "presenceLabel": "Recurring contact seen in evidence shadow",
+              "isVisibleOnEntry": false,
+              "availabilityCondition": {
+                "requiredEvidenceIds": ["C023_E005"],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": [],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": [],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "",
+              "notes": "Mira should be revealed through evidence and dossier presentation, not as a full on-site interrogation target."
+            }
+          ],
+          "progressionBeats": [
+            "Use C023_E005 to confirm that the marina route, not the taxi queue, was real.",
+            "Mark the case solve-ready after the dockside route is confirmed, preserving the contradiction ending while still making the second visit matter."
+          ]
+        }
+      ],
+      "dependencies": {
+        "caseSchema": [
+          "Needs version 3 suspect presence so backstage and dockside roles can be surfaced without rewriting the global suspect roster."
+        ],
+        "progressionLayer": [
+          "Show that the marina visit is unlocked by both evidence pressure and the promoter interrogation beat.",
+          "Surface Sera's dossier as a missing-person context card after backstage evidence is found."
+        ],
+        "assetGen": [
+          "Add a dedicated marina-ramp backplate instead of reusing backstage art.",
+          "Add either summary-card presentation or full suspect assets for the promoter and dockside witness roles."
+        ]
+      }
+    },
+    {
+      "caseId": "C030",
+      "assetCaseId": "Case_030",
+      "title": "The Hollow Desk",
+      "departmentId": "MissingPersons",
+      "districtId": "DIST_NORTH_QUAY",
+      "cityLocationId": "LOC_NORTH_QUAY_CIVIL_ARCHIVE",
+      "caseArcId": "ARC_HOLLOW_DESK",
+      "pilotStatus": "pilot_ready_now",
+      "showcaseRole": "missing_persons_capstone",
+      "visitFlowMode": "SequenceGraph",
+      "startingLocationId": "LOC_NORTH_QUAY_CIVIL_ARCHIVE",
+      "allowMapRevisit": true,
+      "locationReadyForSolveMode": "RequireInterrogationOutcome",
+      "midCaseEscalationSummary": "The capstone should escalate in three steps: desk suspicion, corridor proof of after-hours movement, and finally the transfer-rack evidence that ties both arcs to the same print-and-route chain.",
+      "departmentProgressionSignificance": "Strongest full-system pilot in the roster because it already combines multi-location flow, suspect roster, and a three-node interrogation chain.",
+      "arcBeatSignificance": "Concludes the internal-leak thread by identifying Inez as the operator while keeping Mira framed as the broker rather than the records-side leak herself.",
+      "interrogationPlan": {
+        "existingNodeIds": ["C030_INT001", "C030_INT002", "C030_INT003"],
+        "plannedNodeIds": [],
+        "requiredOutcomeIdsForSolve": ["C030_OUTCOME_ROUTE_COPIES_MOVED"],
+        "notes": "Each existing interrogation node should become a state change in the route instead of a side activity after the case is already solved."
+      },
+      "interrogationOutcomes": [
+        {
+          "outcomeId": "C030_OUTCOME_MIRA_IS_BROKER",
+          "displayLabel": "Mira Framed as Broker",
+          "summaryText": "The player learns Mira links both arcs, but the real leak still points inward to the archive desk.",
+          "unlockLocationIds": ["VISIT_C030_ARCHIVE_CORRIDOR"],
+          "revealSuspectIds": ["S011"],
+          "markCaseReadyForSolve": false,
+          "redirectToLocationId": "VISIT_C030_ARCHIVE_CORRIDOR"
+        },
+        {
+          "outcomeId": "C030_OUTCOME_SHARED_PRINTER_CHAIN",
+          "displayLabel": "Shared Printer Chain Proven",
+          "summaryText": "The restricted fraud brief and the premature search slip are tied to the same records-floor print path.",
+          "unlockLocationIds": ["VISIT_C030_TRANSFER_TUBE_RACK"],
+          "revealSuspectIds": ["S030"],
+          "markCaseReadyForSolve": false,
+          "redirectToLocationId": "VISIT_C030_TRANSFER_TUBE_RACK"
+        },
+        {
+          "outcomeId": "C030_OUTCOME_ROUTE_COPIES_MOVED",
+          "displayLabel": "Route Copies Moved Through the Desk",
+          "summaryText": "The transfer-tube copies prove the leak was operational and desk-managed, making the final contradiction solve-ready.",
+          "unlockLocationIds": [],
+          "revealSuspectIds": [],
+          "markCaseReadyForSolve": true,
+          "redirectToLocationId": ""
+        }
+      ],
+      "visits": [
+        {
+          "locationId": "LOC_NORTH_QUAY_CIVIL_ARCHIVE",
+          "displayName": "Civil Archive Records Floor",
+          "visitRole": "primary_scene",
+          "entryText": "Start on the records floor and immediately frame the problem as an inside-desk anomaly, not a street-level chase.",
+          "unlockCondition": {
+            "requiredEvidenceIds": [],
+            "requiredTags": [],
+            "requiredVisitedLocationIds": [],
+            "requiredCompletedInterrogationNodeIds": [],
+            "requiredInterrogationOutcomeIds": [],
+            "requiredSuspectIds": [],
+            "matchMode": "All"
+          },
+          "legacyUnlockEvidenceIds": [],
+          "nextLocationIds": ["VISIT_C030_ARCHIVE_CORRIDOR"],
+          "revisitRule": "Always",
+          "isRequiredForSolve": true,
+          "autoUnlocksSolve": false,
+          "completionOutcomeId": "",
+          "presentSuspects": [
+            {
+              "suspectRef": "S029",
+              "suspectRefType": "suspect_id",
+              "presenceLabel": "Desk sergeant on the floor",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": [],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": [],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "C030_INT001",
+              "notes": "Inez should be the first pressure point once Vera's note and the access-console discrepancy are discovered."
+            },
+            {
+              "suspectRef": "S028",
+              "suspectRefType": "suspect_id",
+              "presenceLabel": "Victim context through found materials",
+              "isVisibleOnEntry": false,
+              "availabilityCondition": {
+                "requiredEvidenceIds": ["C030_E001"],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": [],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": [],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "",
+              "notes": "Vera is never physically present, but the dossier should become more active after the microcassette is found."
+            }
+          ],
+          "progressionBeats": [
+            "Find C030_E001 and C030_E002 before the first interrogation beat so the player understands why the archive desk matters.",
+            "Use C030_INT001 to clarify that Mira is the broker link, not the final desk-side culprit."
+          ]
+        },
+        {
+          "locationId": "VISIT_C030_ARCHIVE_CORRIDOR",
+          "displayName": "Archive Corridor Mirror Line",
+          "visitRole": "interrogation_setup",
+          "entryText": "The corridor is the physical proof layer where after-hours movement becomes visible instead of theoretical.",
+          "unlockCondition": {
+            "requiredEvidenceIds": [],
+            "requiredTags": [],
+            "requiredVisitedLocationIds": ["LOC_NORTH_QUAY_CIVIL_ARCHIVE"],
+            "requiredCompletedInterrogationNodeIds": [],
+            "requiredInterrogationOutcomeIds": ["C030_OUTCOME_MIRA_IS_BROKER"],
+            "requiredSuspectIds": [],
+            "matchMode": "All"
+          },
+          "legacyUnlockEvidenceIds": ["C030_E001", "C030_E004"],
+          "nextLocationIds": ["VISIT_C030_TRANSFER_TUBE_RACK"],
+          "revisitRule": "AfterNewProgress",
+          "isRequiredForSolve": true,
+          "autoUnlocksSolve": false,
+          "completionOutcomeId": "",
+          "presentSuspects": [
+            {
+              "suspectRef": "S030",
+              "suspectRefType": "suspect_id",
+              "presenceLabel": "Records-side runner exposed by corridor proof",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": ["LOC_NORTH_QUAY_CIVIL_ARCHIVE"],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": ["C030_OUTCOME_MIRA_IS_BROKER"],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "C030_INT002",
+              "notes": "Gideon becomes the second pressure target once the corridor movement is confirmed."
+            }
+          ],
+          "progressionBeats": [
+            "Use C030_E004 to move the case from desk suspicion to after-hours physical proof.",
+            "Use C030_INT002 to tie the fraud brief and the search-routing slip to the same print chain."
+          ]
+        },
+        {
+          "locationId": "VISIT_C030_TRANSFER_TUBE_RACK",
+          "displayName": "Transfer Tube Rack",
+          "visitRole": "capstone_reveal",
+          "entryText": "The final visit should make the leak operational and procedural, not just personal, by showing exactly what moved through the desk.",
+          "unlockCondition": {
+            "requiredEvidenceIds": [],
+            "requiredTags": [],
+            "requiredVisitedLocationIds": ["VISIT_C030_ARCHIVE_CORRIDOR"],
+            "requiredCompletedInterrogationNodeIds": [],
+            "requiredInterrogationOutcomeIds": ["C030_OUTCOME_SHARED_PRINTER_CHAIN"],
+            "requiredSuspectIds": [],
+            "matchMode": "All"
+          },
+          "legacyUnlockEvidenceIds": ["C030_E004", "C030_E005"],
+          "nextLocationIds": [],
+          "revisitRule": "Never",
+          "isRequiredForSolve": true,
+          "autoUnlocksSolve": false,
+          "completionOutcomeId": "",
+          "presentSuspects": [
+            {
+              "suspectRef": "S029",
+              "suspectRefType": "suspect_id",
+              "presenceLabel": "Final desk-side culprit under pressure",
+              "isVisibleOnEntry": true,
+              "availabilityCondition": {
+                "requiredEvidenceIds": [],
+                "requiredTags": [],
+                "requiredVisitedLocationIds": ["VISIT_C030_ARCHIVE_CORRIDOR"],
+                "requiredCompletedInterrogationNodeIds": [],
+                "requiredInterrogationOutcomeIds": ["C030_OUTCOME_SHARED_PRINTER_CHAIN"],
+                "requiredSuspectIds": [],
+                "matchMode": "All"
+              },
+              "interrogationEntryNodeId": "C030_INT003",
+              "notes": "Final pressure beat should sit here so the moved route copies feel like the direct pre-solve reveal."
+            }
+          ],
+          "progressionBeats": [
+            "Use C030_E005, C030_E006, and C030_E007 to show that copied route summaries, not originals, were being moved through the desk system.",
+            "Mark solve readiness only after C030_INT003 lands and the transfer-tube route is operationally understood."
+          ]
+        }
+      ],
+      "dependencies": {
+        "caseSchema": [
+          "Needs outcome-driven interrogation support so the existing three-node chain meaningfully unlocks later locations and solve readiness."
+        ],
+        "progressionLayer": [
+          "Gate the corridor and transfer-rack visits behind named interrogation outcomes instead of pure evidence discovery.",
+          "Surface a capstone solve-ready state after the final interrogation outcome rather than immediately after evidence review."
+        ],
+        "assetGen": [
+          "No blocking asset work for the first pilot pass.",
+          "Optional polish: dedicated corridor and transfer-rack variants later."
+        ]
+      }
+    }
+  ]
+}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7121b039c55ad448ba848f177e2b56, type: 3}
   m_Name: C019_CL003
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.ClaimData
-  schemaVersion: 1
+  schemaVersion: 3
   claimId: C019_CL003
   speakerName: Broker Mira Voss
   claimText: I knew the collateral paper existed, not where it was being floated.

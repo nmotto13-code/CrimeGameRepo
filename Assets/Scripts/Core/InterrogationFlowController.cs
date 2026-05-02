@@ -54,7 +54,7 @@ namespace CasebookGame.Core
             triggerButton?.onClick.AddListener(() =>
             {
                 if (preparedCase != null)
-                    TryBegin(preparedCase, null);
+                    TryBegin(preparedCase, null, null);
             });
 
             if (panel != null)
@@ -64,15 +64,20 @@ namespace CasebookGame.Core
         public void PrepareCase(CaseData caseData)
         {
             preparedCase = caseData;
-            if (triggerButton != null)
-                triggerButton.gameObject.SetActive(caseData != null && caseData.interrogationNodes != null && caseData.interrogationNodes.Count > 0);
+            RefreshAvailability();
         }
 
         public bool TryBegin(CaseData caseData, Action onComplete)
         {
+            return TryBegin(caseData, null, onComplete);
+        }
+
+        public bool TryBegin(CaseData caseData, string preferredNodeId, Action onComplete)
+        {
             if (caseData == null || caseData.interrogationNodes == null || caseData.interrogationNodes.Count == 0)
                 return false;
 
+            preparedCase = caseData;
             activeNodes.Clear();
             nodeLookup.Clear();
             completedNodeIds.Clear();
@@ -89,9 +94,20 @@ namespace CasebookGame.Core
             if (activeNodes.Count == 0)
                 return false;
 
+            if (!string.IsNullOrWhiteSpace(preferredNodeId))
+            {
+                currentNodeIndex = activeNodes.FindIndex(node =>
+                    node != null && string.Equals(node.nodeId, preferredNodeId, StringComparison.OrdinalIgnoreCase));
+                if (currentNodeIndex < 0)
+                    return false;
+            }
+            else
+            {
+                currentNodeIndex = 0;
+            }
+
             completionCallback = onComplete;
-            currentNodeIndex = 0;
-            currentNode = activeNodes[0];
+            currentNode = activeNodes[currentNodeIndex];
             transitionLocked = false;
 
             if (panel != null)
@@ -101,17 +117,66 @@ namespace CasebookGame.Core
             return true;
         }
 
+        public void RefreshAvailability()
+        {
+            if (triggerButton == null)
+                return;
+
+            bool hasAvailableNode = false;
+            if (preparedCase != null && preparedCase.interrogationNodes != null)
+            {
+                foreach (var node in preparedCase.interrogationNodes)
+                {
+                    if (node != null && IsNodeUnlocked(node))
+                    {
+                        hasAvailableNode = true;
+                        break;
+                    }
+                }
+            }
+
+            triggerButton.gameObject.SetActive(hasAvailableNode);
+            triggerButton.interactable = hasAvailableNode && !transitionLocked;
+        }
+
+        public bool IsEntryNodeAvailable(string nodeId)
+        {
+            var caseData = preparedCase ?? GameManager.Instance?.CurrentCase;
+            if (caseData?.interrogationNodes == null || string.IsNullOrWhiteSpace(nodeId))
+                return false;
+
+            foreach (var node in caseData.interrogationNodes)
+            {
+                if (node != null
+                    && string.Equals(node.nodeId, nodeId, StringComparison.OrdinalIgnoreCase)
+                    && IsNodeUnlocked(node))
+                    return true;
+            }
+
+            return false;
+        }
+
         bool IsNodeUnlocked(InterrogationNode node)
         {
             var discovery = EvidenceDiscoverySystem.Instance;
             var currentCase = GameManager.Instance?.CurrentCase;
+            var currentLocation = GameManager.Instance?.CurrentLocation;
+
+            if (!string.IsNullOrWhiteSpace(node?.nodeId)
+                && GameManager.Instance != null
+                && GameManager.Instance.HasCompletedInterrogationNode(node.nodeId))
+                return false;
+
+            if (!string.IsNullOrWhiteSpace(node.locationContextId)
+                && !string.Equals(node.locationContextId, currentLocation?.locationId, StringComparison.OrdinalIgnoreCase))
+                return false;
 
             foreach (var evidenceId in node.evidenceRequiredIds)
             {
                 if (string.IsNullOrWhiteSpace(evidenceId))
                     continue;
 
-                if (!IsEvidenceRequirementMet(evidenceId, currentCase, discovery))
+                if (!CaseProgressionResolver.IsEvidenceRequirementMet(evidenceId, currentCase, discovery))
                     return false;
             }
 
@@ -122,30 +187,6 @@ namespace CasebookGame.Core
             }
 
             return true;
-        }
-
-        static bool IsEvidenceRequirementMet(string evidenceId, CaseData currentCase, EvidenceDiscoverySystem discovery)
-        {
-            if (string.IsNullOrWhiteSpace(evidenceId))
-                return true;
-
-            if (currentCase?.evidence != null)
-            {
-                foreach (var evidence in currentCase.evidence)
-                {
-                    if (evidence != null && evidence.evidenceId == evidenceId)
-                        return discovery != null && discovery.HasFoundEvidence(evidenceId);
-                }
-            }
-
-            string relatedCaseId = ExtractCaseId(evidenceId);
-            return !string.IsNullOrWhiteSpace(relatedCaseId) && PlayerProfile.HasSolvedCase(relatedCaseId);
-        }
-
-        static string ExtractCaseId(string evidenceId)
-        {
-            int separatorIndex = evidenceId.IndexOf("_E", StringComparison.OrdinalIgnoreCase);
-            return separatorIndex > 0 ? evidenceId[..separatorIndex] : string.Empty;
         }
 
         void ShowCurrentNode()
@@ -234,6 +275,8 @@ namespace CasebookGame.Core
             yield return new WaitForSecondsRealtime(feedbackDurationSeconds);
 
             ApplyRewards(node);
+            GameManager.Instance?.RegisterInterrogationNodeCompleted(node.nodeId);
+            GameManager.Instance?.ApplyInterrogationOutcome(isCorrect ? node.outcomeIdOnCorrect : node.outcomeIdOnWrong);
             completedNodeIds.Add(node.nodeId);
             AdvanceToNextNode(node, isCorrect);
             transitionLocked = false;
@@ -295,6 +338,7 @@ namespace CasebookGame.Core
             currentNodeIndex = 0;
             currentNode = null;
             transitionLocked = false;
+            RefreshAvailability();
 
             var callback = completionCallback;
             completionCallback = null;

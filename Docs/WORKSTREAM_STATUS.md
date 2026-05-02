@@ -41,29 +41,41 @@
   - Use `scripts/image-gen/presentation-prompts.json` as the source of truth for asset paths, district marker IDs, node archetypes, and authored map positions.
 
 ## Case Schema
-- Last updated: 2026-05-01
+- Last updated: 2026-05-02
 - Owner thread: `Case Schema`
-- Current milestone: `Casebook V2 - Precinct Hub + City Map + Deeper Suspect Flow`
+- Current milestone: `Casebook V2 follow-up - Multi-Location Cases + Suspect-Driven Progression`
 - Completed:
-  - `CaseData` v2 fields for department/district/location/arc/case visits
-  - `CaseLocationData`, `DistrictData`, and `CityLocationData` types
-  - `SuspectData` and `InterrogationNode` v2 additions
-  - bootstrapper fallback for first-pass district/location/case-visit migration
+  - documented the schema version `3` contract in `Docs/schema.md`
+  - documented version `3` migration/default behavior in `Docs/SCHEMA_MIGRATION.md`
+  - landed runtime schema version `3` in code with additive coverage for:
+    - authored multi-location visit flow
+    - visit unlock conditions
+    - suspect-location presence
+    - interrogation outcomes that alter case progression
+    - optional location sequencing and revisit rules
+  - reduced validator noise by switching evidence duplicate checks to case-scoped runtime IDs and deduplicating repeated duplicate warnings
+  - added `autoCompleteOnEnter` as the minimal explicit route-only visit completion marker for no-hotspot locations
+  - updated validator support for location conditions, outcome references, solve-gate expectations, and pilot backfill warnings
+  - updated progression bootstrapper support for authored visit graphs, starting locations, suspect presence, and interrogation outcomes
+  - preserved the shipped 30-case roster through default `LegacyFallback` / version `2`-equivalent behavior under schema `3`
 - In progress:
-  - validator hardening for authored multi-location cases
-  - smoke coverage expansion for city map flow
+  - waiting on pilot content backfill against the now-landed version `3` fields
 - Blocked:
-  - none
+  - none in this thread
 - Needs from other threads:
-  - `CONTENT GENERATION`: final authored district/location mappings for non-fallback data
+- `CONTENT GENERATION`: backfill the pilot visit graph, location unlocks, suspect presence matrix, and interrogation outcome IDs onto showcase cases now that the version `3` fields are live
+- `PROGRESSION LAYER`: wire any additional UI affordances needed for visit routing, revisit presentation, and location completion surfacing on pilot cases
+- `BUILD`: validate schema `3` upgrade, `Casebook -> Validate All Cases`, scene build, and smoke coverage against the shipped roster plus pilot backfills
 - Ready for integration: yes
 - Notes for build thread:
-  - Run schema upgrade and validation after pulling new authored content.
+  - Runtime schema version is now `3`.
+  - Existing shipped cases should continue running unchanged because the new fields default to legacy behavior.
+  - Pilot cases can now be backfilled with authored visit graphs, suspect presence, unlock conditions, and interrogation outcomes without a separate schema pass.
 
 ## CONTENT GENERATION
-- Last updated: 2026-05-01
+- Last updated: 2026-05-02
 - Owner thread: `CONTENT GENERATION`
-- Current milestone: `Casebook V2 - Precinct Hub + City Map + Deeper Suspect Flow`
+- Current milestone: `Casebook V2 follow-up - Multi-Location Cases + Suspect-Driven Progression`
 - Completed:
   - 30-case precinct/map content matrix authored in `Docs/content/precinct_map_case_matrix_C001_C030.json`
   - all 30 cases now have authored department, district, city location, case arc, arc beat, and case-visit metadata in source form
@@ -71,20 +83,29 @@
   - single-location vs multi-location milestone split is explicitly authored for the full roster
   - district naming/theme pass is authored for `Old Quarter`, `Civic Core`, `Market Row`, `Riverside`, `Skyline`, `North Quay`, and `Outer Reach`
   - validator added at `scripts/content/validate-precinct-map-matrix.mjs` and passing
+  - showcase pilot matrix authored in `Docs/content/showcase_pilot_case_matrix_C001_C030.json`
+  - selected 5 showcase pilots across Patrol, Fraud, and Missing Persons for the deeper interaction model: `C003`, `C013`, `C020`, `C023`, `C030`
+  - authored per-pilot visit flow, suspect presence by location, interrogation-forward beats, evidence and progression dependencies, and mid-case escalation targets
+  - explicitly classified the roster into `pilot_ready_now`, `needs_extra_asset_support`, `deferred_multi_location_not_in_pilot`, and `legacy_single_location_for_now`
+  - validator added at `scripts/content/validate-showcase-pilot-case-matrix.mjs` for the pilot source contract
+  - no-hotspot visit intent backfilled for 12 flagged second-stage visits in `Docs/content/no_hotspot_visit_intent_C001_C030.json`
+  - current live roster patched so route-only no-hotspot visits in `C003`, `C008`, `C010`, `C013`, `C018`, `C023`, `C024`, `C026`, and `C029` auto-complete on entry instead of relying on implicit behavior
 - In progress:
   - none in this thread
 - Blocked:
   - none
 - Needs from other threads:
-  - `Case Schema`: keep runtime validator/import expectations aligned with the authored source matrix when case assets are backfilled
-  - `ASSET_GEN`: apply authored district/location naming to final map markers, node labels, and hub presentation
-  - `PROGRESSION LAYER`: wire the authored city node and district labels into the precinct/map UI flow
+  - `Case Schema`: land the version `3` runtime fields and validator support needed to backfill authored visit graphs, suspect presence, and interrogation outcomes into runtime case assets without breaking version `2`
+  - `ASSET_GEN`: provide dedicated second-visit backplates and any summary-card suspect presentation needed for pilot cases `C003`, `C013`, and `C023`
+  - `PROGRESSION LAYER`: wire visit unlock flow, suspect-presence surfacing, revisit rules, and solve-ready gating from the showcase pilot matrix into the precinct/map loop
 - Ready for integration: yes
 - Notes for build thread:
-  - Use the authored matrix as the source of truth instead of bootstrap fallback names when wiring district and city location assets.
+  - `Docs/content/showcase_pilot_case_matrix_C001_C030.json` is the source of truth for the first deeper-investigation pilot pass.
+  - Pilot cases `C020` and `C030` are the cleanest first implementation targets because they already have multi-location structure, suspect assets, and authored interrogation nodes in the project.
+  - Pilot cases `C003`, `C013`, and `C023` are intentionally authored now but require non-blocking follow-up from `ASSET_GEN` and `PROGRESSION LAYER` before they should be promoted out of source-only planning.
 
 ## PROGRESSION LAYER
-- Last updated: 2026-05-01
+- Last updated: 2026-05-02
 - Owner thread: `PROGRESSION LAYER`
 - Current milestone: `Casebook V2 - Precinct Hub + City Map + Deeper Suspect Flow`
 - Completed:
@@ -94,6 +115,9 @@
   - City Map now binds the authored base art, district markers, node icons, lock messaging, daily-case emphasis, and map-positioned case launch nodes.
   - Progression bootstrap now imports the authored precinct/map matrix plus presentation manifest into runtime department, district, city-location, suspect-summary, and case-route metadata during `Casebook -> Build Scene`.
   - Suspect/interrogation presentation is surfaced in play through case metadata, dossier fallback cards for summary-only suspects, and clearer interrogation-forward status messaging.
+  - In-case brief routing now presents current visit, lead-chain status, location buttons, suspect presence, and solve-lock messaging as a first-class progression panel instead of relying on a flat contradiction loop.
+  - Interrogation availability is now current-location-aware, repeat-safe, and route-driven, so only the valid suspect lead for the active stop surfaces in play.
+  - Showcase pilots `C020` and `C030` are now hard-wired to schema v3 route progression with authored visit sequencing, unlock outcomes, suspect-presence-by-location, revisit rules, and solve-ready gating.
 - In progress:
   - none in this thread
 - Blocked:
@@ -104,7 +128,7 @@
 - Notes for build thread:
   - Run `Casebook -> Build Scene` after pulling this thread so the bootstrapper materializes district and city-location assets from authored content before smoke testing.
   - Generated runtime world-map assets are build-time derived from `Docs/content/precinct_map_case_matrix_C001_C030.json` and `scripts/image-gen/presentation-prompts.json`; no manual prefab editing is required.
-  - Recommended smoke path: Home -> City Map -> unlocked node launch -> in-game menu -> Suspect Dossier -> resume -> solve -> return to desk/map.
+  - Recommended smoke path: Home -> City Map -> unlocked node launch -> BRIEF route panel -> visit swap -> interrogate surfaced suspect -> verify solve unlock -> solve -> return to desk/map.
 
 ## BUILD
 - Last updated: 2026-05-01

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7121b039c55ad448ba848f177e2b56, type: 3}
   m_Name: C016_CL002
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.ClaimData
-  schemaVersion: 1
+  schemaVersion: 3
   claimId: C016_CL002
   speakerName: Warehouse Porter Niv Hart
   claimText: The burst pipe was reported after sunrise, not the night before.

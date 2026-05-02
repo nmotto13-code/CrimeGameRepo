@@ -121,10 +121,10 @@ namespace CasebookGame.Editor
                 report.Failures.Add($"{caseData.name}: caseId is blank.");
             if (string.IsNullOrWhiteSpace(caseData.title))
                 report.Failures.Add($"{caseData.caseId}: title is blank.");
-            var firstLocation = caseData.GetResolvedLocation(0);
-            if (firstLocation == null || firstLocation.sceneBackground == null)
+            var startingLocation = caseData.GetResolvedLocation(caseData.GetStartingLocationIndex());
+            if (startingLocation == null || startingLocation.sceneBackground == null)
                 report.Failures.Add($"{caseData.caseId}: resolved scene background is missing.");
-            if (firstLocation == null || firstLocation.hotspots == null || firstLocation.hotspots.Count == 0)
+            if (startingLocation == null || startingLocation.hotspots == null || startingLocation.hotspots.Count == 0)
                 report.Failures.Add($"{caseData.caseId}: resolved hotspot list is empty.");
             if (caseData.evidence == null || caseData.evidence.Count == 0)
                 report.Failures.Add($"{caseData.caseId}: evidence list is empty.");
@@ -168,10 +168,10 @@ namespace CasebookGame.Editor
             if (!string.IsNullOrWhiteSpace(caseData.primaryEvidenceIdB) && !evidenceIds.Contains(caseData.primaryEvidenceIdB))
                 report.Failures.Add($"{caseData.caseId}: primaryEvidenceIdB '{caseData.primaryEvidenceIdB}' does not match case evidence.");
 
-            if (firstLocation == null || firstLocation.hotspots == null)
+            if (startingLocation == null || startingLocation.hotspots == null)
                 return;
 
-            foreach (var hotspot in firstLocation.hotspots)
+            foreach (var hotspot in startingLocation.hotspots)
             {
                 if (!evidenceIds.Contains(hotspot.evidenceId))
                     report.Failures.Add($"{caseData.caseId}: hotspot '{hotspot.hotspotId}' points at missing evidence '{hotspot.evidenceId}'.");
@@ -206,7 +206,7 @@ namespace CasebookGame.Editor
             evaluator.SetCase(caseData);
             discoverySystem.StartInvestigation(caseData);
 
-            var expectedLocation = caseData.GetResolvedLocation(0);
+            var expectedLocation = caseData.GetResolvedLocation(caseData.GetStartingLocationIndex());
             if (sceneBackground.sprite != expectedLocation.sceneBackground)
                 report.Failures.Add($"{caseData.caseId}: background sprite was not applied to the scene.");
 

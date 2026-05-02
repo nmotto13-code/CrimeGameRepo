@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7121b039c55ad448ba848f177e2b56, type: 3}
   m_Name: C013_CL004
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.ClaimData
-  schemaVersion: 1
+  schemaVersion: 3
   claimId: C013_CL004
   speakerName: Broker Owen Kade
   claimText: The paperwork arrived already sealed when it reached me.

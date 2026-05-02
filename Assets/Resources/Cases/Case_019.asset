@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_019
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
-  schemaVersion: 1
+  schemaVersion: 3
   caseId: Case_019
   title: Warehouse Float
   briefText: Lyle Mercer resurfaces, insisting a storage locker stayed sealed all
@@ -76,7 +76,25 @@ MonoBehaviour:
     visitOrder: 0
     unlockEvidenceIds: []
     unlockTags: 
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
+  visitFlowMode: 0
+  startingLocationId: LOC_NORTH_QUAY_GREYHOOK_STORAGE
+  allowMapRevisit: 1
+  locationReadyForSolveMode: 0
   evidence:
   - {fileID: 11400000, guid: a669281cad542a44d86663f5b5881247, type: 2}
   - {fileID: 11400000, guid: 7369d8a7e5e8bcb489fe08f825a5f744, type: 2}
@@ -99,6 +117,7 @@ MonoBehaviour:
     displayName: Mira Voss
     relevance: recurring_person_of_interest
   interrogationNodes: []
+  interrogationOutcomes: []
   interrogationMode: none
   isInterrogationForwardCase: 0
   interrogationFocusSummary: Use dossier relevance for Mira and Lyle, but keep the

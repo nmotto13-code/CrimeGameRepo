@@ -43,6 +43,12 @@ namespace CasebookGame.Core
 
             bool correct = claimId == currentCase.contradictoryClaimId;
             if (!correct) wrongGuessCount++;
+            if (correct && GameManager.Instance != null && !GameManager.Instance.IsCaseReadyForSolve())
+            {
+                OnEvaluationComplete?.Invoke(false,
+                    "The contradiction is correct, but the case is not ready to close yet. Finish the required visits or progression beats first.");
+                return;
+            }
             if (correct && InterrogationFlowController.Instance != null &&
                 InterrogationFlowController.Instance.TryBegin(currentCase,
                     () => OnEvaluationComplete?.Invoke(true, currentCase.explanationText)))

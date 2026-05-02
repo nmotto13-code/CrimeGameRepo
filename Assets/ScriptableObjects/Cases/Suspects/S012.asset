@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
   m_Name: S012
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
-  schemaVersion: 1
+  schemaVersion: 3
   suspectId: S012
   displayName: Renata Bell
   portraitSprite: {fileID: 21300000, guid: a9c5fe111ad1c2a029f9d1e5bc5ecbad, type: 3}
+  roleLabel: 
+  statusSummary: 
+  currentLocationId: 
+  interrogationEntryNodeId: 
   bio: Director of the Larkspur Civic Hall donor program. Skilled at public-facing
     charm, less skilled at keeping duplicate financial trails aligned.
   traits:

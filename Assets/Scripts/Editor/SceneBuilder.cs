@@ -164,11 +164,65 @@ namespace CasebookGame.Editor
             caseTitleLE.preferredHeight = 90;
             caseTitleLE.flexibleWidth   = 1;
 
+            var currentLocationText = MakeText(briefContent, "CurrentLocationText", "Current Visit", 30, FontStyles.Bold,
+                new Color(0.95f, 0.80f, 0.20f));
+            currentLocationText.textWrappingMode = TextWrappingModes.Normal;
+            currentLocationText.alignment = TextAlignmentOptions.TopLeft;
+            currentLocationText.gameObject.AddComponent<LayoutElement>().preferredHeight = 52;
+
+            var routeSummaryText = MakeText(briefContent, "RouteSummaryText", "Visit routing summary", 20, FontStyles.Normal,
+                new Color(0.78f, 0.78f, 0.84f));
+            routeSummaryText.textWrappingMode = TextWrappingModes.Normal;
+            routeSummaryText.alignment = TextAlignmentOptions.TopLeft;
+            routeSummaryText.gameObject.AddComponent<LayoutElement>().preferredHeight = 40;
+
+            var visitButtonListGo = new GameObject("VisitButtonList");
+            visitButtonListGo.transform.SetParent(briefContent.transform, false);
+            visitButtonListGo.AddComponent<RectTransform>();
+            visitButtonListGo.AddComponent<Image>().color = new Color(0.10f, 0.10f, 0.18f);
+            var visitButtonListLE = visitButtonListGo.AddComponent<LayoutElement>();
+            visitButtonListLE.preferredHeight = 300;
+            visitButtonListLE.flexibleWidth = 1;
+            var visitButtonListVlg = visitButtonListGo.AddComponent<VerticalLayoutGroup>();
+            visitButtonListVlg.childControlHeight = true;
+            visitButtonListVlg.childControlWidth = true;
+            visitButtonListVlg.childForceExpandHeight = false;
+            visitButtonListVlg.childForceExpandWidth = true;
+            visitButtonListVlg.padding = new RectOffset(12, 12, 12, 12);
+            visitButtonListVlg.spacing = 10;
+
+            var suspectPresenceText = MakeText(briefContent, "SuspectPresenceText",
+                "Suspect activity will surface here as the route opens.", 19, FontStyles.Normal,
+                new Color(0.90f, 0.90f, 0.94f));
+            suspectPresenceText.textWrappingMode = TextWrappingModes.Normal;
+            suspectPresenceText.alignment = TextAlignmentOptions.TopLeft;
+            suspectPresenceText.gameObject.AddComponent<LayoutElement>().preferredHeight = 132;
+
+            var solveGateText = MakeText(briefContent, "SolveGateText", "Solve gate status", 19, FontStyles.Italic,
+                new Color(0.76f, 0.84f, 0.92f));
+            solveGateText.textWrappingMode = TextWrappingModes.Normal;
+            solveGateText.alignment = TextAlignmentOptions.TopLeft;
+            solveGateText.gameObject.AddComponent<LayoutElement>().preferredHeight = 60;
+
+            var sceneHintText = MakeText(briefContent, "SceneHintText", "Scene hint", 18, FontStyles.Normal,
+                new Color(0.62f, 0.62f, 0.70f));
+            sceneHintText.textWrappingMode = TextWrappingModes.Normal;
+            sceneHintText.alignment = TextAlignmentOptions.TopLeft;
+            sceneHintText.gameObject.AddComponent<LayoutElement>().preferredHeight = 48;
+
+            var leadActionGo = MakeSimpleButton(briefContent, "LeadActionButton", "OPEN DOSSIER", new Color(0.92f, 0.52f, 0.08f));
+            var leadActionLE = leadActionGo.AddComponent<LayoutElement>();
+            leadActionLE.preferredHeight = 72;
+            leadActionLE.flexibleWidth = 1;
+            var leadActionButton = leadActionGo.GetComponent<Button>();
+            var leadActionLabel = leadActionGo.GetComponentInChildren<TextMeshProUGUI>();
+            leadActionLabel.fontSize = 24;
+
             var briefBodyText = MakeText(briefContent, "BriefText", "Brief text...", 28, FontStyles.Normal);
             briefBodyText.textWrappingMode = TextWrappingModes.Normal;
             briefBodyText.alignment        = TextAlignmentOptions.TopLeft;
             var briefBodyLE = briefBodyText.gameObject.AddComponent<LayoutElement>();
-            briefBodyLE.preferredHeight = 800;   // tall enough for any brief
+            briefBodyLE.preferredHeight = 360;
             briefBodyLE.flexibleWidth   = 1;
 
             // ── Scene panel — crime scene background + hotspots ────────
@@ -1201,6 +1255,7 @@ namespace CasebookGame.Editor
 
             var tabCtrl    = tabContentGo.AddComponent<TabController>();
             var detailComp = detailPanelGo.AddComponent<EvidenceDetailPanel>();
+            var visitFlowCtrl = briefPanel.AddComponent<CaseVisitFlowController>();
 
             var homeCtrl    = homeScreenGo.AddComponent<HomeScreenController>();
             var caseSelCtrl = caseSelectGo.AddComponent<CaseSelectController>();
@@ -1275,6 +1330,17 @@ namespace CasebookGame.Editor
             Wire(submitComp, so => {
                 so.FindProperty("button").objectReferenceValue = submitBtn;
                 so.FindProperty("label").objectReferenceValue  = submitLabel;
+            });
+
+            Wire(visitFlowCtrl, so => {
+                so.FindProperty("currentLocationText").objectReferenceValue = currentLocationText;
+                so.FindProperty("routeSummaryText").objectReferenceValue = routeSummaryText;
+                so.FindProperty("suspectPresenceText").objectReferenceValue = suspectPresenceText;
+                so.FindProperty("solveGateText").objectReferenceValue = solveGateText;
+                so.FindProperty("sceneHintText").objectReferenceValue = sceneHintText;
+                so.FindProperty("visitButtonParent").objectReferenceValue = visitButtonListGo.transform;
+                so.FindProperty("leadActionButton").objectReferenceValue = leadActionButton;
+                so.FindProperty("leadActionLabel").objectReferenceValue = leadActionLabel;
             });
 
             Wire(discoverySystem, so => {

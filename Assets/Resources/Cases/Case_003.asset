@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_003
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
-  schemaVersion: 2
+  schemaVersion: 3
   caseId: Case_003
   title: Coffee Shop Alibi
   briefText: "Art appraiser Theo Grant claims he was sipping espresso at Caf\xE9
@@ -56,6 +56,20 @@ MonoBehaviour:
     visitOrder: 0
     unlockEvidenceIds: []
     unlockTags: 
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
   - locationId: VISIT_C003_HARWICK_GALLERY_SIDE_ENTRANCE
     displayName: Harwick Gallery Side Entrance
@@ -67,7 +81,26 @@ MonoBehaviour:
     unlockEvidenceIds:
     - E001
     unlockTags: 00000000
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects: []
+    autoCompleteOnEnter: 1
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
+  visitFlowMode: 0
+  startingLocationId: LOC_OLD_QUARTER_CAFE_LUMIERE
+  allowMapRevisit: 1
+  locationReadyForSolveMode: 0
   evidence:
   - {fileID: 11400000, guid: 0acad95ec9565e648906fd3a6bd4375e, type: 2}
   - {fileID: 11400000, guid: 62ca50f1ed6bafc4da6ce202ad54a380, type: 2}
@@ -90,6 +123,7 @@ MonoBehaviour:
     displayName: Detective Osei
     relevance: investigator_voice
   interrogationNodes: []
+  interrogationOutcomes: []
   interrogationMode: planned_optional
   isInterrogationForwardCase: 1
   interrogationFocusSummary: Theo Grant is a strong early interrogation-forward suspect

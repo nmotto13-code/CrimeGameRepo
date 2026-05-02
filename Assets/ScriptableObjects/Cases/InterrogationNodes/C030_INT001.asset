@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939dab4bae1b4354a88f82b8c650e9d0, type: 3}
   m_Name: C030_INT001
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.InterrogationNode
-  schemaVersion: 1
+  schemaVersion: 3
   nodeId: C030_INT001
+  suspectId: S029
   promptText: Why did Vera keep Mira's number in the final reporter note?
   responses:
   - Because Mira was the broker linking both arcs, even if the actual leak came from
@@ -25,3 +26,10 @@ MonoBehaviour:
   evidenceRequiredIds:
   - C023_E005
   - C029_E003
+  nextNodeIdOnCorrect: 
+  nextNodeIdOnWrong: 
+  outcomeIdOnCorrect: C030_OUTCOME_UNLOCK_CORRIDOR
+  outcomeIdOnWrong: 
+  locationContextId: LOC_NORTH_QUAY_CIVIL_ARCHIVE
+  grantedEvidenceIds: []
+  grantedTags: 

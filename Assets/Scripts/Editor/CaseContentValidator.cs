@@ -81,11 +81,7 @@ namespace CasebookGame.Editor
                 suspect => suspect.suspectId,
                 report.globalWarnings,
                 "Suspect");
-            var evidenceLookup = BuildUniqueLookup(
-                LoadAssets<EvidenceData>(),
-                evidence => evidence.evidenceId,
-                report.globalWarnings,
-                "Evidence");
+            var evidenceLookup = BuildEvidenceLookup(allCases, report.globalWarnings);
             var interrogationLookup = BuildUniqueLookup(
                 LoadAssets<InterrogationNode>(),
                 node => node.nodeId,
@@ -101,6 +97,7 @@ namespace CasebookGame.Editor
                 report.summary.warningCount += entry.warnings.Count;
             }
 
+            DeduplicateMessages(report.globalWarnings);
             return report;
         }
 
@@ -134,6 +131,26 @@ namespace CasebookGame.Editor
             int resolvedLocationCount = Mathf.Max(1, caseData.GetResolvedLocationCount());
             for (int locationIndex = 0; locationIndex < resolvedLocationCount; locationIndex++)
                 resolvedLocations.Add(caseData.GetResolvedLocation(locationIndex));
+            var resolvedLocationIds = new HashSet<string>(
+                resolvedLocations.Where(location => location != null && !string.IsNullOrWhiteSpace(location.locationId))
+                    .Select(location => location.locationId),
+                StringComparer.OrdinalIgnoreCase);
+            var declaredNodeIds = new HashSet<string>(
+                (caseData.interrogationNodes ?? new List<InterrogationNode>())
+                    .Where(node => node != null && !string.IsNullOrWhiteSpace(node.nodeId))
+                    .Select(node => node.nodeId),
+                StringComparer.OrdinalIgnoreCase);
+            var outcomeIds = new HashSet<string>(
+                (caseData.interrogationOutcomes ?? new List<InterrogationOutcomeData>())
+                    .Where(outcome => outcome != null && !string.IsNullOrWhiteSpace(outcome.outcomeId))
+                    .Select(outcome => outcome.outcomeId),
+                StringComparer.OrdinalIgnoreCase);
+
+            if (!string.IsNullOrWhiteSpace(caseData.startingLocationId) && !resolvedLocationIds.Contains(caseData.startingLocationId))
+                entry.errors.Add($"startingLocationId '{caseData.startingLocationId}' does not resolve to a case location.");
+
+            if (caseData.visitFlowMode != CaseVisitFlowMode.LegacyFallback && resolvedLocationCount < 2)
+                entry.warnings.Add("visitFlowMode is authored but the case resolves to fewer than 2 locations.");
 
             if (resolvedLocations.All(location => location == null || location.sceneBackground == null))
                 entry.errors.Add("Background sprite is missing.");
@@ -152,7 +169,8 @@ namespace CasebookGame.Editor
                     $"{RecommendedMinHotspotsPerCase} to {RecommendedMaxHotspotsPerCase}.");
             }
 
-            var evidenceById = new Dictionary<string, EvidenceData>(StringComparer.OrdinalIgnoreCase);
+            var evidenceByRuntimeId = new Dictionary<string, EvidenceData>(StringComparer.OrdinalIgnoreCase);
+            var caseEvidenceReferences = new Dictionary<string, EvidenceData>(StringComparer.OrdinalIgnoreCase);
             foreach (var evidence in caseData.evidence ?? new List<EvidenceData>())
             {
                 if (evidence == null)
@@ -164,14 +182,18 @@ namespace CasebookGame.Editor
                 if (evidence.schemaVersion != CaseSchemaVersions.Current)
                     entry.warnings.Add($"Evidence {evidence.name} is on schema version {evidence.schemaVersion}.");
 
-                if (string.IsNullOrWhiteSpace(evidence.evidenceId))
+                string runtimeEvidenceId = GetRuntimeEvidenceId(caseData, evidence.evidenceId);
+                if (string.IsNullOrWhiteSpace(runtimeEvidenceId))
                 {
                     entry.errors.Add($"Evidence asset {evidence.name} is missing evidenceId.");
                 }
-                else if (!evidenceById.TryAdd(evidence.evidenceId, evidence))
+                else if (!evidenceByRuntimeId.TryAdd(runtimeEvidenceId, evidence))
                 {
-                    entry.errors.Add($"Duplicate evidenceId detected in case: {evidence.evidenceId}.");
+                    entry.errors.Add($"Duplicate evidenceId detected in case: {runtimeEvidenceId}.");
                 }
+
+                AddCaseEvidenceReference(caseEvidenceReferences, evidence.evidenceId, evidence);
+                AddCaseEvidenceReference(caseEvidenceReferences, runtimeEvidenceId, evidence);
 
                 if (evidence.imageSprite == null)
                     entry.errors.Add($"Evidence {evidence.name} has no sprite assigned.");
@@ -197,6 +219,42 @@ namespace CasebookGame.Editor
                 if (location.sceneBackground == null)
                     entry.errors.Add($"Case location {location.locationId} is missing a background sprite.");
 
+                bool hasNoHotspots = location.hotspots == null || location.hotspots.Count == 0;
+                bool hasIntentionalNoHotspotProgression = HasIntentionalNoHotspotProgression(location, caseData);
+                if (hasNoHotspots && !hasIntentionalNoHotspotProgression)
+                    entry.warnings.Add(
+                        $"Case location {location.locationId} has no hotspots. It will need an explicit completion or progression trigger.");
+
+                if (caseData.locationReadyForSolveMode == CaseSolveGateMode.RequireRequiredVisits
+                    && location.isRequiredForSolve
+                    && hasNoHotspots
+                    && !location.autoCompleteOnEnter)
+                {
+                    entry.warnings.Add(
+                        $"Case location {location.locationId} is required for solve but has no hotspots and does not auto-complete on entry.");
+                }
+
+                ValidateConditionReferences(
+                    caseData,
+                    location.unlockCondition,
+                    $"Case location {location.locationId} unlockCondition",
+                    entry.errors,
+                    caseEvidenceReferences,
+                    evidenceLookup,
+                    suspectLookup,
+                    resolvedLocationIds,
+                    declaredNodeIds,
+                    outcomeIds);
+
+                foreach (var nextLocationId in location.nextLocationIds ?? new List<string>())
+                {
+                    if (!string.IsNullOrWhiteSpace(nextLocationId) && !resolvedLocationIds.Contains(nextLocationId))
+                        entry.errors.Add($"Case location {location.locationId} points to unknown nextLocationId '{nextLocationId}'.");
+                }
+
+                if (!string.IsNullOrWhiteSpace(location.completionOutcomeId) && !outcomeIds.Contains(location.completionOutcomeId))
+                    entry.errors.Add($"Case location {location.locationId} has unknown completionOutcomeId '{location.completionOutcomeId}'.");
+
                 foreach (var hotspot in location.hotspots ?? new List<HotspotData>())
                 {
                     if (hotspot == null)
@@ -214,13 +272,110 @@ namespace CasebookGame.Editor
                     if (hotspot.radius < 0f)
                         entry.errors.Add($"Hotspot {hotspot.hotspotId} has a negative radius.");
 
-                    if (string.IsNullOrWhiteSpace(hotspot.evidenceId) || !evidenceById.ContainsKey(hotspot.evidenceId))
+                    if (string.IsNullOrWhiteSpace(hotspot.evidenceId) || !TryResolveCaseEvidence(caseData, caseEvidenceReferences, hotspot.evidenceId, out _))
                         entry.errors.Add($"Hotspot {hotspot.hotspotId} maps to unknown evidenceId '{hotspot.evidenceId}'.");
+                }
+
+                foreach (var presence in location.presentSuspects ?? new List<LocationSuspectPresenceData>())
+                {
+                    if (presence == null)
+                    {
+                        entry.errors.Add($"Case location {location.locationId} contains a null suspect presence entry.");
+                        continue;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(presence.suspectId) || !suspectLookup.ContainsKey(presence.suspectId))
+                    {
+                        entry.errors.Add($"Case location {location.locationId} references unknown suspectId '{presence?.suspectId}'.");
+                    }
+                    else if (caseData.involvedSuspects == null || !caseData.involvedSuspects.Any(suspect =>
+                        suspect != null && string.Equals(suspect.suspectId, presence.suspectId, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        entry.errors.Add($"Case location {location.locationId} suspect presence '{presence.suspectId}' is not linked in involvedSuspects.");
+                    }
+
+                    ValidateConditionReferences(
+                        caseData,
+                        presence.availabilityCondition,
+                        $"Case location {location.locationId} suspect presence {presence.suspectId} availabilityCondition",
+                        entry.errors,
+                        caseEvidenceReferences,
+                        evidenceLookup,
+                        suspectLookup,
+                        resolvedLocationIds,
+                        declaredNodeIds,
+                        outcomeIds);
+
+                    if (!string.IsNullOrWhiteSpace(presence.interrogationEntryNodeId) && !declaredNodeIds.Contains(presence.interrogationEntryNodeId))
+                        entry.errors.Add($"Case location {location.locationId} suspect presence {presence.suspectId} references unknown interrogationEntryNodeId '{presence.interrogationEntryNodeId}'.");
+
+                    if (!string.IsNullOrWhiteSpace(presence.departureOutcomeId) && !outcomeIds.Contains(presence.departureOutcomeId))
+                        entry.errors.Add($"Case location {location.locationId} suspect presence {presence.suspectId} references unknown departureOutcomeId '{presence.departureOutcomeId}'.");
                 }
             }
 
             if (caseData.claims == null || caseData.claims.Count == 0)
                 entry.errors.Add("Claims list is empty.");
+
+            var seenOutcomeIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var outcome in caseData.interrogationOutcomes ?? new List<InterrogationOutcomeData>())
+            {
+                if (outcome == null)
+                {
+                    entry.errors.Add("Case references a null interrogation outcome entry.");
+                    continue;
+                }
+
+                if (string.IsNullOrWhiteSpace(outcome.outcomeId))
+                {
+                    entry.errors.Add("Interrogation outcome entry is missing outcomeId.");
+                    continue;
+                }
+
+                if (!seenOutcomeIds.Add(outcome.outcomeId))
+                    entry.errors.Add($"Duplicate interrogation outcomeId detected in case: {outcome.outcomeId}.");
+
+                foreach (var locationId in outcome.unlockLocationIds ?? new List<string>())
+                {
+                    if (!string.IsNullOrWhiteSpace(locationId) && !resolvedLocationIds.Contains(locationId))
+                        entry.errors.Add($"Interrogation outcome {outcome.outcomeId} unlocks unknown locationId '{locationId}'.");
+                }
+
+                foreach (var locationId in outcome.lockLocationIds ?? new List<string>())
+                {
+                    if (!string.IsNullOrWhiteSpace(locationId) && !resolvedLocationIds.Contains(locationId))
+                        entry.errors.Add($"Interrogation outcome {outcome.outcomeId} locks unknown locationId '{locationId}'.");
+                }
+
+                foreach (var suspectId in outcome.revealSuspectIds ?? new List<string>())
+                {
+                    if (!string.IsNullOrWhiteSpace(suspectId) && !suspectLookup.ContainsKey(suspectId))
+                        entry.errors.Add($"Interrogation outcome {outcome.outcomeId} reveals unknown suspectId '{suspectId}'.");
+                }
+
+                foreach (var suspectId in outcome.hideSuspectIds ?? new List<string>())
+                {
+                    if (!string.IsNullOrWhiteSpace(suspectId) && !suspectLookup.ContainsKey(suspectId))
+                        entry.errors.Add($"Interrogation outcome {outcome.outcomeId} hides unknown suspectId '{suspectId}'.");
+                }
+
+                foreach (var evidenceId in outcome.grantEvidenceIds ?? new List<string>())
+                {
+                    if (!string.IsNullOrWhiteSpace(evidenceId)
+                        && !TryResolveCaseEvidence(caseData, caseEvidenceReferences, evidenceId, out _)
+                        && !evidenceLookup.ContainsKey(evidenceId))
+                        entry.errors.Add($"Interrogation outcome {outcome.outcomeId} grants unknown evidenceId '{evidenceId}'.");
+                }
+
+                if (!string.IsNullOrWhiteSpace(outcome.redirectToLocationId) && !resolvedLocationIds.Contains(outcome.redirectToLocationId))
+                    entry.errors.Add($"Interrogation outcome {outcome.outcomeId} redirects to unknown locationId '{outcome.redirectToLocationId}'.");
+            }
+
+            if (caseData.locationReadyForSolveMode == CaseSolveGateMode.RequireInterrogationOutcome && outcomeIds.Count == 0)
+                entry.errors.Add("locationReadyForSolveMode requires interrogation outcomes, but none are authored.");
+            if (caseData.locationReadyForSolveMode == CaseSolveGateMode.RequireRequiredVisits
+                && !resolvedLocations.Any(location => location != null && location.isRequiredForSolve))
+                entry.errors.Add("locationReadyForSolveMode requires at least one location marked isRequiredForSolve.");
 
             var claimIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (var claim in caseData.claims ?? new List<ClaimData>())
@@ -247,8 +402,10 @@ namespace CasebookGame.Editor
             if (string.IsNullOrWhiteSpace(caseData.contradictoryClaimId) || !claimIds.Contains(caseData.contradictoryClaimId))
                 entry.errors.Add("Correct contradiction ID does not resolve to a claim in this case.");
 
-            bool hasPrimaryA = !string.IsNullOrWhiteSpace(caseData.primaryEvidenceIdA) && evidenceById.ContainsKey(caseData.primaryEvidenceIdA);
-            bool hasPrimaryB = !string.IsNullOrWhiteSpace(caseData.primaryEvidenceIdB) && evidenceById.ContainsKey(caseData.primaryEvidenceIdB);
+            bool hasPrimaryA = !string.IsNullOrWhiteSpace(caseData.primaryEvidenceIdA)
+                && TryResolveCaseEvidence(caseData, caseEvidenceReferences, caseData.primaryEvidenceIdA, out _);
+            bool hasPrimaryB = !string.IsNullOrWhiteSpace(caseData.primaryEvidenceIdB)
+                && TryResolveCaseEvidence(caseData, caseEvidenceReferences, caseData.primaryEvidenceIdB, out _);
             if (!hasPrimaryA || !hasPrimaryB || string.Equals(caseData.primaryEvidenceIdA, caseData.primaryEvidenceIdB, StringComparison.OrdinalIgnoreCase))
                 entry.errors.Add("Explanation must reference two distinct evidence IDs via primaryEvidenceIdA/B.");
 
@@ -312,7 +469,7 @@ namespace CasebookGame.Editor
                 foreach (var evidenceId in node.evidenceRequiredIds ?? new List<string>())
                 {
                     if (!string.IsNullOrWhiteSpace(evidenceId)
-                        && !evidenceById.ContainsKey(evidenceId)
+                        && !TryResolveCaseEvidence(caseData, caseEvidenceReferences, evidenceId, out _)
                         && !evidenceLookup.ContainsKey(evidenceId))
                         entry.errors.Add($"Interrogation node {node.name} references unknown evidenceId '{evidenceId}'.");
                 }
@@ -321,17 +478,79 @@ namespace CasebookGame.Editor
                     entry.errors.Add($"Interrogation node {node.name} has unknown nextNodeIdOnCorrect '{node.nextNodeIdOnCorrect}'.");
                 if (!string.IsNullOrWhiteSpace(node.nextNodeIdOnWrong) && !interrogationLookup.ContainsKey(node.nextNodeIdOnWrong))
                     entry.errors.Add($"Interrogation node {node.name} has unknown nextNodeIdOnWrong '{node.nextNodeIdOnWrong}'.");
+                if (!string.IsNullOrWhiteSpace(node.outcomeIdOnCorrect) && !outcomeIds.Contains(node.outcomeIdOnCorrect))
+                    entry.errors.Add($"Interrogation node {node.name} has unknown outcomeIdOnCorrect '{node.outcomeIdOnCorrect}'.");
+                if (!string.IsNullOrWhiteSpace(node.outcomeIdOnWrong) && !outcomeIds.Contains(node.outcomeIdOnWrong))
+                    entry.errors.Add($"Interrogation node {node.name} has unknown outcomeIdOnWrong '{node.outcomeIdOnWrong}'.");
+                if (!string.IsNullOrWhiteSpace(node.locationContextId) && !resolvedLocationIds.Contains(node.locationContextId))
+                    entry.errors.Add($"Interrogation node {node.name} has unknown locationContextId '{node.locationContextId}'.");
 
                 foreach (var grantedEvidenceId in node.grantedEvidenceIds ?? new List<string>())
                 {
                     if (!string.IsNullOrWhiteSpace(grantedEvidenceId)
-                        && !evidenceById.ContainsKey(grantedEvidenceId)
+                        && !TryResolveCaseEvidence(caseData, caseEvidenceReferences, grantedEvidenceId, out _)
                         && !evidenceLookup.ContainsKey(grantedEvidenceId))
                         entry.errors.Add($"Interrogation node {node.name} grants unknown evidenceId '{grantedEvidenceId}'.");
                 }
             }
 
+            DeduplicateMessages(entry.errors);
+            DeduplicateMessages(entry.warnings);
             return entry;
+        }
+
+        static void ValidateConditionReferences(
+            CaseData caseData,
+            CaseProgressConditionData condition,
+            string ownerLabel,
+            List<string> errors,
+            Dictionary<string, EvidenceData> caseEvidenceReferences,
+            Dictionary<string, EvidenceData> evidenceLookup,
+            Dictionary<string, SuspectData> suspectLookup,
+            HashSet<string> resolvedLocationIds,
+            HashSet<string> declaredNodeIds,
+            HashSet<string> outcomeIds)
+        {
+            if (condition == null || condition.IsEmpty)
+                return;
+
+            foreach (var evidenceId in condition.requiredEvidenceIds ?? new List<string>())
+            {
+                if (!string.IsNullOrWhiteSpace(evidenceId)
+                    && !TryResolveCaseEvidence(caseData, caseEvidenceReferences, evidenceId, out _)
+                    && !evidenceLookup.ContainsKey(evidenceId))
+                    errors.Add($"{ownerLabel} references unknown requiredEvidenceId '{evidenceId}'.");
+            }
+
+            foreach (var locationId in condition.requiredVisitedLocationIds ?? new List<string>())
+            {
+                if (!string.IsNullOrWhiteSpace(locationId) && !resolvedLocationIds.Contains(locationId))
+                    errors.Add($"{ownerLabel} references unknown requiredVisitedLocationId '{locationId}'.");
+            }
+
+            foreach (var locationId in condition.requiredCompletedLocationIds ?? new List<string>())
+            {
+                if (!string.IsNullOrWhiteSpace(locationId) && !resolvedLocationIds.Contains(locationId))
+                    errors.Add($"{ownerLabel} references unknown requiredCompletedLocationId '{locationId}'.");
+            }
+
+            foreach (var nodeId in condition.requiredCompletedInterrogationNodeIds ?? new List<string>())
+            {
+                if (!string.IsNullOrWhiteSpace(nodeId) && !declaredNodeIds.Contains(nodeId))
+                    errors.Add($"{ownerLabel} references unknown requiredCompletedInterrogationNodeId '{nodeId}'.");
+            }
+
+            foreach (var outcomeId in condition.requiredInterrogationOutcomeIds ?? new List<string>())
+            {
+                if (!string.IsNullOrWhiteSpace(outcomeId) && !outcomeIds.Contains(outcomeId))
+                    errors.Add($"{ownerLabel} references unknown requiredInterrogationOutcomeId '{outcomeId}'.");
+            }
+
+            foreach (var suspectId in condition.requiredSuspectIds ?? new List<string>())
+            {
+                if (!string.IsNullOrWhiteSpace(suspectId) && !suspectLookup.ContainsKey(suspectId))
+                    errors.Add($"{ownerLabel} references unknown requiredSuspectId '{suspectId}'.");
+            }
         }
 
         static Dictionary<string, T> BuildUniqueLookup<T>(
@@ -341,6 +560,7 @@ namespace CasebookGame.Editor
             string label) where T : UnityEngine.Object
         {
             var lookup = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
+            var duplicateIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
             foreach (var asset in assets)
             {
@@ -355,10 +575,146 @@ namespace CasebookGame.Editor
                 }
 
                 if (!lookup.TryAdd(id, asset))
-                    globalWarnings.Add($"{label} ID '{id}' is duplicated across assets.");
+                    duplicateIds.Add(id);
             }
 
+            foreach (var duplicateId in duplicateIds.OrderBy(id => id, StringComparer.OrdinalIgnoreCase))
+                globalWarnings.Add($"{label} ID '{duplicateId}' is duplicated across assets.");
+
             return lookup;
+        }
+
+        static Dictionary<string, EvidenceData> BuildEvidenceLookup(
+            IEnumerable<CaseData> cases,
+            List<string> globalWarnings)
+        {
+            var lookup = new Dictionary<string, EvidenceData>(StringComparer.OrdinalIgnoreCase);
+            var owningCaseIds = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            var duplicateIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (var caseData in cases ?? Enumerable.Empty<CaseData>())
+            {
+                if (caseData?.evidence == null)
+                    continue;
+
+                foreach (var evidence in caseData.evidence)
+                {
+                    if (evidence == null)
+                        continue;
+
+                    string runtimeEvidenceId = GetRuntimeEvidenceId(caseData, evidence.evidenceId);
+                    if (string.IsNullOrWhiteSpace(runtimeEvidenceId))
+                        continue;
+
+                    if (lookup.TryAdd(runtimeEvidenceId, evidence))
+                    {
+                        owningCaseIds[runtimeEvidenceId] = caseData.caseId ?? string.Empty;
+                        continue;
+                    }
+
+                    if (!string.Equals(owningCaseIds[runtimeEvidenceId], caseData.caseId, StringComparison.OrdinalIgnoreCase))
+                        duplicateIds.Add(runtimeEvidenceId);
+                }
+            }
+
+            foreach (var duplicateId in duplicateIds.OrderBy(id => id, StringComparer.OrdinalIgnoreCase))
+                globalWarnings.Add($"Evidence runtime ID '{duplicateId}' is duplicated across assets.");
+
+            return lookup;
+        }
+
+        static void AddCaseEvidenceReference(
+            Dictionary<string, EvidenceData> lookup,
+            string evidenceId,
+            EvidenceData evidence)
+        {
+            if (lookup == null || evidence == null || string.IsNullOrWhiteSpace(evidenceId))
+                return;
+
+            lookup.TryAdd(evidenceId, evidence);
+        }
+
+        static bool TryResolveCaseEvidence(
+            CaseData caseData,
+            Dictionary<string, EvidenceData> caseEvidenceReferences,
+            string evidenceId,
+            out EvidenceData evidence)
+        {
+            evidence = null;
+            if (caseEvidenceReferences == null || string.IsNullOrWhiteSpace(evidenceId))
+                return false;
+
+            if (caseEvidenceReferences.TryGetValue(evidenceId, out evidence))
+                return true;
+
+            string runtimeEvidenceId = GetRuntimeEvidenceId(caseData, evidenceId);
+            return !string.IsNullOrWhiteSpace(runtimeEvidenceId)
+                && caseEvidenceReferences.TryGetValue(runtimeEvidenceId, out evidence);
+        }
+
+        static string GetRuntimeEvidenceId(CaseData caseData, string evidenceId)
+        {
+            if (string.IsNullOrWhiteSpace(evidenceId))
+                return string.Empty;
+
+            if (evidenceId.IndexOf("_E", StringComparison.OrdinalIgnoreCase) > 0)
+                return evidenceId;
+
+            string caseCode = NormalizeCaseCode(caseData?.caseId);
+            return string.IsNullOrWhiteSpace(caseCode)
+                ? evidenceId
+                : $"{caseCode}_{evidenceId}";
+        }
+
+        static string NormalizeCaseCode(string caseId)
+        {
+            if (string.IsNullOrWhiteSpace(caseId))
+                return string.Empty;
+
+            if (caseId.StartsWith("Case_", StringComparison.OrdinalIgnoreCase))
+                return $"C{caseId[5..]}";
+
+            if (caseId.Length == 4 && (caseId[0] == 'C' || caseId[0] == 'c'))
+                return caseId.ToUpperInvariant();
+
+            return caseId;
+        }
+
+        static bool HasIntentionalNoHotspotProgression(CaseLocationData location, CaseData caseData)
+        {
+            if (location == null)
+                return false;
+
+            if (location.autoCompleteOnEnter || !string.IsNullOrWhiteSpace(location.completionOutcomeId) || location.autoUnlocksSolve)
+                return true;
+
+            foreach (var presence in location.presentSuspects ?? new List<LocationSuspectPresenceData>())
+            {
+                if (presence != null
+                    && (!string.IsNullOrWhiteSpace(presence.interrogationEntryNodeId)
+                        || !string.IsNullOrWhiteSpace(presence.departureOutcomeId)))
+                {
+                    return true;
+                }
+            }
+
+            foreach (var node in caseData?.interrogationNodes ?? new List<InterrogationNode>())
+            {
+                if (node != null && string.Equals(node.locationContextId, location.locationId, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+
+            return false;
+        }
+
+        static void DeduplicateMessages(List<string> messages)
+        {
+            if (messages == null || messages.Count < 2)
+                return;
+
+            var orderedDistinct = messages.Distinct(StringComparer.Ordinal).ToList();
+            messages.Clear();
+            messages.AddRange(orderedDistinct);
         }
 
         static void WriteReport(ValidationReport report)

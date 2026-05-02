@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7121b039c55ad448ba848f177e2b56, type: 3}
   m_Name: C029_CL004
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.ClaimData
-  schemaVersion: 1
+  schemaVersion: 3
   claimId: C029_CL004
   speakerName: Records Runner Jace Orr
   claimText: Someone checked out service keys that should not have left the desk.

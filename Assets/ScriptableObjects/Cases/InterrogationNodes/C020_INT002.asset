@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939dab4bae1b4354a88f82b8c650e9d0, type: 3}
   m_Name: C020_INT002
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.InterrogationNode
-  schemaVersion: 1
+  schemaVersion: 3
   nodeId: C020_INT002
+  suspectId: S013
   promptText: What tells us the leak came from inside the bureau, not from public
     paperwork?
   responses:
@@ -26,3 +27,10 @@ MonoBehaviour:
   evidenceRequiredIds:
   - C018_E006
   - C020_E005
+  nextNodeIdOnCorrect: 
+  nextNodeIdOnWrong: 
+  outcomeIdOnCorrect: C020_OUTCOME_READY_FOR_SOLVE
+  outcomeIdOnWrong: 
+  locationContextId: VISIT_C020_FREIGHT_ELEVATOR
+  grantedEvidenceIds: []
+  grantedTags: 

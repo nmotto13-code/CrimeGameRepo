@@ -15,6 +15,13 @@ namespace CasebookGame.Data
         [Min(0)] public int visitOrder;
         public List<string> unlockEvidenceIds = new List<string>();
         public List<EvidenceTag> unlockTags = new List<EvidenceTag>();
+        public CaseProgressConditionData unlockCondition = new CaseProgressConditionData();
+        public List<string> nextLocationIds = new List<string>();
+        public LocationRevisitRule revisitRule = LocationRevisitRule.Always;
+        public List<LocationSuspectPresenceData> presentSuspects = new List<LocationSuspectPresenceData>();
+        public bool autoCompleteOnEnter;
+        public string completionOutcomeId;
+        public bool autoUnlocksSolve;
         public bool isRequiredForSolve = true;
     }
 }

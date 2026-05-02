@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
   m_Name: S029
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
-  schemaVersion: 1
+  schemaVersion: 3
   suspectId: S029
   displayName: Inez Farrow
   portraitSprite: {fileID: 21300000, guid: 11862bbbe8125fe8011e4afa4631d3db, type: 3}
+  roleLabel: 
+  statusSummary: 
+  currentLocationId: 
+  interrogationEntryNodeId: 
   bio: Desk sergeant and records coordinator with just enough access to move files,
     pre-print routing slips, and hide the movement inside normal overnight workflow.
   traits:

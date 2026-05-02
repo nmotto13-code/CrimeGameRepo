@@ -70,6 +70,7 @@ namespace CasebookGame.Core
                 return;
 
             SetupBackground(caseData);
+            SetupBrief(caseData);
             SetupHotspots(caseData);
         }
 
@@ -91,7 +92,13 @@ namespace CasebookGame.Core
         void SetupBrief(CaseData d)
         {
             if (caseTitleText) caseTitleText.text = d.title;
-            if (briefText) briefText.text = d.briefText;
+            if (briefText)
+            {
+                var location = ResolveCurrentLocation(d);
+                briefText.text = !string.IsNullOrWhiteSpace(location?.entryText)
+                    ? location.entryText
+                    : d.briefText;
+            }
         }
 
         void SetupEvidence(CaseData d)

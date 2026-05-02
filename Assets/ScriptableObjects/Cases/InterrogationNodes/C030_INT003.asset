@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939dab4bae1b4354a88f82b8c650e9d0, type: 3}
   m_Name: C030_INT003
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.InterrogationNode
-  schemaVersion: 1
+  schemaVersion: 3
   nodeId: C030_INT003
+  suspectId: S029
   promptText: If the originals were not in the transfer tube, what was being moved?
   responses:
   - Copied route summaries and shelf assignments, enough to steer suspects before
@@ -26,3 +27,10 @@ MonoBehaviour:
   - C020_E005
   - C030_E005
   - C030_E006
+  nextNodeIdOnCorrect: 
+  nextNodeIdOnWrong: 
+  outcomeIdOnCorrect: C030_OUTCOME_READY_FOR_SOLVE
+  outcomeIdOnWrong: 
+  locationContextId: VISIT_C030_TRANSFER_TUBE_RACK
+  grantedEvidenceIds: []
+  grantedTags: 

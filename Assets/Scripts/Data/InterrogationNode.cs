@@ -25,6 +25,9 @@ namespace CasebookGame.Data
         [Header("Branching")]
         public string nextNodeIdOnCorrect;
         public string nextNodeIdOnWrong;
+        public string outcomeIdOnCorrect;
+        public string outcomeIdOnWrong;
+        public string locationContextId;
 
         [Header("Rewards")]
         public List<string> grantedEvidenceIds = new List<string>();

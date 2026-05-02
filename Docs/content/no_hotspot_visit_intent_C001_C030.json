@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "milestoneId": "casebook_v2_followup_multi_location_suspect_progression",
+  "sourceNotes": {
+    "purpose": "Explicit no-hotspot visit intent for validator clarity. This supplements the main case matrices and records the chosen progression rule for each flagged visit.",
+    "currentRosterPolicy": "Route-only verification visits in the live roster auto-complete on entry. Interrogation-driven capstone visits stay no-hotspot and progress through suspect nodes and authored outcomes.",
+    "pilotUpgradePolicy": "Some auto-complete visits remain candidates for later suspect-driven upgrades in the showcase pilot pass."
+  },
+  "visits": [
+    {
+      "caseId": "C003",
+      "assetCaseId": "Case_003",
+      "locationId": "VISIT_C003_HARWICK_GALLERY_SIDE_ENTRANCE",
+      "displayName": "Harwick Gallery Side Entrance",
+      "currentBackfillStrategy": "auto_complete_on_enter",
+      "requiredForSolve": true,
+      "runtimePatch": {
+        "autoCompleteOnEnter": true
+      },
+      "reason": "This stop is a route-verification beat, not a clue hunt. Entering it should count as completing the travel-distance proof.",
+      "futureUpgradeNote": "Can remain a compact route-check even if Patrol later gains optional suspect pressure."
+    },
+    {
+      "caseId": "C008",
+      "assetCaseId": "Case_008",
+      "locationId": "VISIT_C008_HARBOR_WAREHOUSE_APPROACH",
+      "displayName": "Warehouse Approach",
+      "currentBackfillStrategy": "auto_complete_on_enter",
+      "requiredForSolve": true,
+      "runtimePatch": {
+        "autoCompleteOnEnter": true
+      },
+      "reason": "The visit exists to spatially confirm the impossible station-to-warehouse timing, so it should clear immediately on arrival."
+    },
+    {
+      "caseId": "C010",
+      "assetCaseId": "Case_010",
+      "locationId": "VISIT_C010_HARLOW_WAREHOUSE",
+      "displayName": "Harlow Storage Warehouse",
+      "currentBackfillStrategy": "auto_complete_on_enter",
+      "requiredForSolve": true,
+      "runtimePatch": {
+        "autoCompleteOnEnter": true
+      },
+      "reason": "This is an off-site payoff visit for the broken gallery alibi rather than a second evidence room."
+    },
+    {
+      "caseId": "C013",
+      "assetCaseId": "Case_013",
+      "locationId": "VISIT_C013_LOADING_ALLEY",
+      "displayName": "Brasslight Loading Alley",
+      "currentBackfillStrategy": "auto_complete_on_enter",
+      "requiredForSolve": true,
+      "runtimePatch": {
+        "autoCompleteOnEnter": true
+      },
+      "reason": "The shipped case still uses the alley as a physical handoff confirmation stop, so entry should count as clearing the route beat.",
+      "futureUpgradeNote": "Showcase pilot intent still upgrades this visit into an Owen Kade interrogation stop once the deeper suspect flow is wired."
+    },
+    {
+      "caseId": "C018",
+      "assetCaseId": "Case_018",
+      "locationId": "VISIT_C018_PURGED_WAREHOUSE",
+      "displayName": "Purged Warehouse Row",
+      "currentBackfillStrategy": "auto_complete_on_enter",
+      "requiredForSolve": true,
+      "runtimePatch": {
+        "autoCompleteOnEnter": true
+      },
+      "reason": "The second visit is there to visualize the pre-emptive warehouse purge, not to introduce a new discovery board."
+    },
+    {
+      "caseId": "C020",
+      "assetCaseId": "Case_020",
+      "locationId": "VISIT_C020_FREIGHT_ELEVATOR",
+      "displayName": "Annex Freight Elevator",
+      "currentBackfillStrategy": "progress_via_interrogation_outcome",
+      "requiredForSolve": true,
+      "runtimePatch": {
+        "interrogationEntryNodeId": "C020_INT002",
+        "locationContextId": "VISIT_C020_FREIGHT_ELEVATOR",
+        "outcomeIdOnCorrect": "C020_OUTCOME_READY_FOR_SOLVE"
+      },
+      "reason": "This is a suspect-pressure stop. The elevator visit is intentionally no-hotspot because Owen's answer, not a click target, completes the progression beat."
+    },
+    {
+      "caseId": "C023",
+      "assetCaseId": "Case_023",
+      "locationId": "VISIT_C023_MARINA_RAMP",
+      "displayName": "Marina Ramp",
+      "currentBackfillStrategy": "auto_complete_on_enter",
+      "requiredForSolve": true,
+      "runtimePatch": {
+        "autoCompleteOnEnter": true
+      },
+      "reason": "In the current shipped roster the marina stop is a clean route confirmation visit. It should complete as soon as the player reaches the dockside path.",
+      "futureUpgradeNote": "Showcase pilot intent can later promote this visit into a dockside witness pressure beat."
+    },
+    {
+      "caseId": "C024",
+      "assetCaseId": "Case_024",
+      "locationId": "VISIT_C024_RIDGE_OVERLOOK",
+      "displayName": "Ridge Overlook",
+      "currentBackfillStrategy": "auto_complete_on_enter",
+      "requiredForSolve": true,
+      "runtimePatch": {
+        "autoCompleteOnEnter": true
+      },
+      "reason": "This overlook visit is a spatial confirmation of the false-search route and does not need its own hotspot interaction."
+    },
+    {
+      "caseId": "C026",
+      "assetCaseId": "Case_026",
+      "locationId": "VISIT_C026_BERTH_9C",
+      "displayName": "Berth 9C",
+      "currentBackfillStrategy": "auto_complete_on_enter",
+      "requiredForSolve": true,
+      "runtimePatch": {
+        "autoCompleteOnEnter": true
+      },
+      "reason": "The berth visit is a destination proof beat after the enhanced cargo tag reveal, so arrival should satisfy the visit."
+    },
+    {
+      "caseId": "C029",
+      "assetCaseId": "Case_029",
+      "locationId": "VISIT_C029_PRECINCT_ANNEX_SERVICE_RAMP",
+      "displayName": "Precinct Annex Service Ramp",
+      "currentBackfillStrategy": "auto_complete_on_enter",
+      "requiredForSolve": true,
+      "runtimePatch": {
+        "autoCompleteOnEnter": true
+      },
+      "reason": "The service-ramp visit exists to physically verify Vera reached the annex, so it should clear on entry instead of waiting for a nonexistent hotspot."
+    },
+    {
+      "caseId": "C030",
+      "assetCaseId": "Case_030",
+      "locationId": "VISIT_C030_ARCHIVE_CORRIDOR",
+      "displayName": "Archive Corridor Mirror Line",
+      "currentBackfillStrategy": "progress_via_interrogation_outcome",
+      "requiredForSolve": true,
+      "runtimePatch": {
+        "interrogationEntryNodeId": "C030_INT002",
+        "locationContextId": "VISIT_C030_ARCHIVE_CORRIDOR",
+        "outcomeIdOnCorrect": "C030_OUTCOME_UNLOCK_TRANSFER"
+      },
+      "reason": "The corridor is an interrogation setup stop. Gideon's answer is the progression hook that opens the transfer-rack leg."
+    },
+    {
+      "caseId": "C030",
+      "assetCaseId": "Case_030",
+      "locationId": "VISIT_C030_TRANSFER_TUBE_RACK",
+      "displayName": "Transfer Tube Rack",
+      "currentBackfillStrategy": "progress_via_interrogation_outcome",
+      "requiredForSolve": true,
+      "runtimePatch": {
+        "interrogationEntryNodeId": "C030_INT003",
+        "locationContextId": "VISIT_C030_TRANSFER_TUBE_RACK",
+        "outcomeIdOnCorrect": "C030_OUTCOME_READY_FOR_SOLVE"
+      },
+      "reason": "The final rack visit is meant to resolve through Inez's last pressure beat, not through a hotspot click."
+    }
+  ]
+}

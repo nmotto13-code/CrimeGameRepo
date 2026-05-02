@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_020
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
-  schemaVersion: 1
+  schemaVersion: 3
   caseId: Case_020
   title: The Glass Ledger
   briefText: The fraud ring's master ledger surfaces inside a sealed annex. Mira
@@ -87,6 +87,36 @@ MonoBehaviour:
     visitOrder: 0
     unlockEvidenceIds: []
     unlockTags: 
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds: []
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds:
+    - VISIT_C020_FREIGHT_ELEVATOR
+    revisitRule: 1
+    presentSuspects:
+    - suspectId: S011
+      presenceLabel: Holding the vault story together for now
+      isVisibleOnEntry: 1
+      availabilityCondition:
+        requiredEvidenceIds: []
+        requiredTags: 
+        requiredVisitedLocationIds: []
+        requiredCompletedLocationIds: []
+        requiredCompletedInterrogationNodeIds: []
+        requiredInterrogationOutcomeIds: []
+        requiredSuspectIds: []
+        matchMode: 0
+      interrogationEntryNodeId: C020_INT001
+      departureOutcomeId: 
+      notes: 
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
   - locationId: VISIT_C020_FREIGHT_ELEVATOR
     displayName: Annex Freight Elevator
@@ -95,10 +125,43 @@ MonoBehaviour:
     entryText: The second visit isolates Mira's physical movement through the annex
       and sharpens the capstone contradiction.
     visitOrder: 1
-    unlockEvidenceIds:
-    - C020_E001
-    unlockTags: 0500000009000000
+    unlockEvidenceIds: []
+    unlockTags: 
+    unlockCondition:
+      requiredEvidenceIds: []
+      requiredTags: 
+      requiredVisitedLocationIds: []
+      requiredCompletedLocationIds: []
+      requiredCompletedInterrogationNodeIds: []
+      requiredInterrogationOutcomeIds:
+      - C020_OUTCOME_UNLOCK_ELEVATOR
+      requiredSuspectIds: []
+      matchMode: 0
+    nextLocationIds: []
+    revisitRule: 0
+    presentSuspects:
+    - suspectId: S013
+      presenceLabel: Waiting at the transfer route the first answer exposes
+      isVisibleOnEntry: 1
+      availabilityCondition:
+        requiredEvidenceIds: []
+        requiredTags: 
+        requiredVisitedLocationIds: []
+        requiredCompletedLocationIds: []
+        requiredCompletedInterrogationNodeIds: []
+        requiredInterrogationOutcomeIds: []
+        requiredSuspectIds: []
+        matchMode: 0
+      interrogationEntryNodeId: C020_INT002
+      departureOutcomeId: 
+      notes: 
+    completionOutcomeId: 
+    autoUnlocksSolve: 0
     isRequiredForSolve: 1
+  visitFlowMode: 2
+  startingLocationId: LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT
+  allowMapRevisit: 1
+  locationReadyForSolveMode: 2
   evidence:
   - {fileID: 11400000, guid: 712a0429e1dcb2d49b16ad5255435ba9, type: 2}
   - {fileID: 11400000, guid: 137ec4dfe737ae3489edc2ec7d6ce76b, type: 2}
@@ -130,10 +193,39 @@ MonoBehaviour:
   interrogationNodes:
   - {fileID: 11400000, guid: 9efd3c577ebe8a44f88b11e503e66826, type: 2}
   - {fileID: 11400000, guid: adf7b64bd9a3b9e489b78b06ac18520f, type: 2}
-  interrogationMode: authored_present
+  interrogationOutcomes:
+  - outcomeId: C020_OUTCOME_UNLOCK_ELEVATOR
+    displayLabel: Freight route exposed
+    summaryText: Mira's answer opens the freight elevator lead and pushes the team
+      to the annex handoff point.
+    unlockLocationIds:
+    - VISIT_C020_FREIGHT_ELEVATOR
+    lockLocationIds: []
+    revealSuspectIds:
+    - S013
+    hideSuspectIds: []
+    grantEvidenceIds: []
+    grantTags: 
+    markCaseReadyForSolve: 0
+    redirectToLocationId: VISIT_C020_FREIGHT_ELEVATOR
+  - outcomeId: C020_OUTCOME_READY_FOR_SOLVE
+    displayLabel: Internal leak confirmed
+    summaryText: The bureau-side transfer story is pinned down. The contradiction
+      board is ready for final closure.
+    unlockLocationIds: []
+    lockLocationIds: []
+    revealSuspectIds:
+    - S011
+    - S013
+    hideSuspectIds: []
+    grantEvidenceIds: []
+    grantTags: 
+    markCaseReadyForSolve: 1
+    redirectToLocationId: 
+  interrogationMode: SuspectVisitRouting
   isInterrogationForwardCase: 1
-  interrogationFocusSummary: Existing interrogation chain should remain the department's
-    first fully authored suspect-pressure payoff.
+  interrogationFocusSummary: Pressure Mira in the vault, then follow the exposed
+    freight route to the annex handoff.
   contradictoryClaimId: C020_CL001
   explanationText: Mira's denial collapses because C020_E004 places her inside the
     annex carrying the narrow lockbox, and C020_E006 matches the broken archive seal

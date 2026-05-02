@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a7514d484c47148d3272280a87851d, type: 3}
   m_Name: S017
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.SuspectData
-  schemaVersion: 1
+  schemaVersion: 3
   suspectId: S017
   displayName: Celia Drax
   portraitSprite: {fileID: 21300000, guid: 3cdeac533c2cd640d4e7749248aa0b16, type: 3}
+  roleLabel: 
+  statusSummary: 
+  currentLocationId: 
+  interrogationEntryNodeId: 
   bio: Insurance adjuster known for dramatic field photos and selective timelines.
     Treats visual evidence as something to compose, not preserve.
   traits:

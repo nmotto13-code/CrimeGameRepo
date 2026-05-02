@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939dab4bae1b4354a88f82b8c650e9d0, type: 3}
   m_Name: C020_INT001
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.InterrogationNode
-  schemaVersion: 1
+  schemaVersion: 3
   nodeId: C020_INT001
+  suspectId: S011
   promptText: If Mira only polished summaries, why bring a courier lockbox into the
     annex at all?
   responses:
@@ -26,3 +27,10 @@ MonoBehaviour:
   evidenceRequiredIds:
   - C020_E001
   - C020_E004
+  nextNodeIdOnCorrect: 
+  nextNodeIdOnWrong: 
+  outcomeIdOnCorrect: C020_OUTCOME_UNLOCK_ELEVATOR
+  outcomeIdOnWrong: 
+  locationContextId: LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT
+  grantedEvidenceIds: []
+  grantedTags: 
