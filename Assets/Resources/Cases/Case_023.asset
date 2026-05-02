@@ -19,6 +19,12 @@ MonoBehaviour:
     she went straight to the rideshare rank, but an enhanced backstage image reveals
     a marina wristband and a familiar contact waiting in the shadows: Mira Voss.'
   sceneBackground: {fileID: 21300000, guid: 2ec955dd05d13343f039dbe0d448ac81, type: 3}
+  departmentId: 7
+  districtId: DIST_MARKET_ROW
+  cityLocationId: LOC_MARKET_ROW_BLUEBIRD_VENUE
+  caseArcId: ARC_HOLLOW_DESK
+  arcBeatSummary: First nightlife disappearance in the arc and the first missing-person
+    beat to visibly reconnect with Mira Voss.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -40,6 +46,48 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C023_E005
     hotspotLabel: Dock Ramp Camera
+  caseLocations:
+  - locationId: LOC_MARKET_ROW_BLUEBIRD_VENUE
+    displayName: Bluebird Backstage
+    sceneBackground: {fileID: 21300000, guid: 2ec955dd05d13343f039dbe0d448ac81, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C023_E001
+      hotspotLabel: Backstage Polaroid
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C023_E002
+      hotspotLabel: Ride Desk
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C023_E004
+      hotspotLabel: Mirror Station
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C023_E005
+      hotspotLabel: Dock Ramp Camera
+    entryText: Start backstage so the player's first read is a performance-space
+      departure lie.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
+  - locationId: VISIT_C023_MARINA_RAMP
+    displayName: Marina Ramp
+    sceneBackground: {fileID: 21300000, guid: 2ec955dd05d13343f039dbe0d448ac81, type: 3}
+    hotspots: []
+    entryText: The marina-side follow-up confirms Sera left toward the water and
+      carries Mira's shadow into the missing-persons arc.
+    visitOrder: 1
+    unlockEvidenceIds:
+    - C023_E001
+    unlockTags: 0100000003000000
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: adf227e750767a84e91b8cf6d7cde00a, type: 2}
   - {fileID: 11400000, guid: 05dd6390f8f8a34488677280d439cc97, type: 2}
@@ -54,7 +102,18 @@ MonoBehaviour:
   involvedSuspects:
   - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
   - {fileID: 11400000, guid: aef450a7d83a8f4499e228c2a844a9fb, type: 2}
+  suspectSummaries:
+  - suspectId: S022
+    displayName: Sera Bloom
+    relevance: missing_person
+  - suspectId: S011
+    displayName: Mira Voss
+    relevance: recurring_person_of_interest
   interrogationNodes: []
+  interrogationMode: planned_optional
+  isInterrogationForwardCase: 1
+  interrogationFocusSummary: Promoter and backstage-witness pressure are strong candidates,
+    with Mira as the wider dossier hook.
   contradictoryClaimId: C023_CL001
   explanationText: The promoter says Sera went straight to the rideshare rank, but
     C023_E004 places her turning toward the loading exit with the hidden marina wristband

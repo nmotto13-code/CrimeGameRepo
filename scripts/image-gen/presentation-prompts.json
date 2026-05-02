@@ -1,0 +1,928 @@
+{
+  "version": 1,
+  "sourceFiles": [
+    "Docs/content/precinct_map_case_matrix_C001_C030.json",
+    "Docs/content/suspects_C011_C030.json"
+  ],
+  "notes": [
+    "DistrictData and CityLocationData runtime asset creation is intentionally excluded here because those script files are currently untracked and have no stable Unity .meta GUIDs in this thread.",
+    "Integration can consume this manifest to wire district markers, node icons, map positions, and default backgrounds once the schema thread lands tracked district/location scripts."
+  ],
+  "artEntries": [
+    {
+      "id": "precinct_home_hub",
+      "category": "precinct",
+      "output": "Assets/Sprites/Presentation/Precinct/precinct_home_hub.png",
+      "size": "1024x1792",
+      "prompt": "mobile detective game precinct hub background, atmospheric precinct briefing room at dusk, polished but worn wood desks, glowing evidence boards with abstract photos and blank documents, muted city lights through tall windows, no people, no text, no signage, no letterforms, no numbers, no readable papers, cinematic composition with negative space for UI, slightly desaturated palette"
+    },
+    {
+      "id": "precinct_department_board",
+      "category": "precinct",
+      "output": "Assets/Sprites/Presentation/Precinct/precinct_department_board.png",
+      "size": "1024x1792",
+      "prompt": "mobile detective game department board background, close interior view of a precinct caseboard wall with pinned photos, blank folders, abstract map shapes, filing trays, and desk lamp pools, no people, no text, no signage, no alphabetic characters, no numbers, no readable papers, moody cinematic lighting, clear open space for overlay UI"
+    },
+    {
+      "id": "city_map_base",
+      "category": "city_map",
+      "output": "Assets/Sprites/Presentation/CityMap/city_map_base.png",
+      "size": "1024x1792",
+      "prompt": "stylized top-down city map for a noir detective mobile game, seven visually distinct districts connected by roads and bridges, river, civic core, market blocks, skyline towers, docks, parks, and outskirts, unlabeled map art only, no labels, no legend, no callout boxes, no text, no letterforms, no numbers, moody night lighting, readable negative space for markers, portrait composition"
+    },
+    {
+      "id": "S011",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S011_mira_voss.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, an independent compliance consultant who moves easily between donor boards, galleries, and transport ledgers, traits suggested through expression and wardrobe: composed, observant, social engineer, financially fluent"
+    },
+    {
+      "id": "S012",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S012_renata_bell.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, director of the larkspur civic hall donor program, traits suggested through expression and wardrobe: charismatic, defensive, detail selective"
+    },
+    {
+      "id": "S013",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S013_owen_kade.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, a print broker and document finisher who handles boutique jobs for galleries, private estates, and anyone willing to pay for a convincing duplicate, traits suggested through expression and wardrobe: crafty, vain, risk tolerant"
+    },
+    {
+      "id": "S014",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S014_lyle_mercer.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, a harbor-market logistics clerk who always has an explanation for missing stock, open lockers, and nighttime access pings, traits suggested through expression and wardrobe: evasive, practical, habitual liar"
+    },
+    {
+      "id": "S015",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S015_priya_sorn.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, operations lead at a boutique payment startup, traits suggested through expression and wardrobe: technical, controlled, image conscious"
+    },
+    {
+      "id": "S016",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S016_martin_quill.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, payroll auditor for a public benefits annex, traits suggested through expression and wardrobe: methodical, cold, bureaucratic"
+    },
+    {
+      "id": "S017",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S017_celia_drax.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, insurance adjuster known for dramatic field photos and selective timelines, traits suggested through expression and wardrobe: performative, calculating, unflappable"
+    },
+    {
+      "id": "S018",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S018_tessa_rook.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, a respected appraiser whose seal and opinion can make or break private sales, traits suggested through expression and wardrobe: polished, territorial, precise"
+    },
+    {
+      "id": "S019",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S019_devin_march.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, treasury analyst for a transit rebate office, traits suggested through expression and wardrobe: cautious, organized, quietly opportunistic"
+    },
+    {
+      "id": "S020",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S020_nyla_venn.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, a junior lab assistant who disappears after leaving work with a transit screenshot on her phone and a habit of documenting everything, traits suggested through expression and wardrobe: careful, bright, routine driven"
+    },
+    {
+      "id": "S021",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S021_jonah_vale.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, manager of the hearthlight hostel, traits suggested through expression and wardrobe: guarded, tidy, reputation minded"
+    },
+    {
+      "id": "S022",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S022_sera_bloom.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, a club singer with a growing local following and a habit of slipping away from handlers the moment a room gets too loud, traits suggested through expression and wardrobe: restless, magnetic, secretive"
+    },
+    {
+      "id": "S023",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S023_caleb_wren.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, volunteer search coordinator who likes to be first on scene and first on camera, traits suggested through expression and wardrobe: outdoorsy, performative, impatient"
+    },
+    {
+      "id": "S024",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S024_daria_flint.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, a building access technician who understands blind spots, maintenance excuses, and exactly how much most people trust a dead camera, traits suggested through expression and wardrobe: technical, dry, deflective"
+    },
+    {
+      "id": "S025",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S025_silas_keene.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, dock foreman on the north quay cold berths, traits suggested through expression and wardrobe: hard edged, territorial, weathered"
+    },
+    {
+      "id": "S026",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S026_tova_rell.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, counsellor at the lantern youth shelter, traits suggested through expression and wardrobe: protective, tired, morally flexible"
+    },
+    {
+      "id": "S027",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S027_adrian_crowe.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, private security contractor who vanishes while tailing a dockside lead linked to mira's network, traits suggested through expression and wardrobe: disciplined, suspicious, field savvy"
+    },
+    {
+      "id": "S028",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S028_vera_hale.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, local reporter who follows sealed memos, visitor slips, and copied routing tags long after everyone else stops asking questions, traits suggested through expression and wardrobe: persistent, incisive, fearless"
+    },
+    {
+      "id": "S029",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S029_inez_farrow.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, desk sergeant and records coordinator with just enough access to move files, pre-print routing slips, and hide the movement inside normal overnight workflow, traits suggested through expression and wardrobe: contained, disciplined, compartmentalized"
+    },
+    {
+      "id": "S030",
+      "category": "suspect_portrait",
+      "output": "Assets/Sprites/Presentation/Suspects/S030_gideon_marsh.png",
+      "size": "1024x1024",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, night archive supervisor for north quay civil archive, traits suggested through expression and wardrobe: anxious, procedural, pliant"
+    }
+  ],
+  "departmentIcons": [
+    {
+      "departmentId": "Patrol",
+      "displayName": "Patrol",
+      "output": "Assets/Sprites/Presentation/DepartmentIcons/dept_patrol.png",
+      "iconCode": "PT",
+      "color": "#D1A24A",
+      "accent": "#342A1C",
+      "assetPath": "Assets/Resources/Departments/Patrol_Training.asset"
+    },
+    {
+      "departmentId": "Fraud",
+      "displayName": "Fraud",
+      "output": "Assets/Sprites/Presentation/DepartmentIcons/dept_fraud.png",
+      "iconCode": "FR",
+      "color": "#4E8E8A",
+      "accent": "#1D2A2B",
+      "assetPath": "Assets/Resources/Departments/Fraud.asset"
+    },
+    {
+      "departmentId": "MissingPersons",
+      "displayName": "Missing Persons",
+      "output": "Assets/Sprites/Presentation/DepartmentIcons/dept_missing_persons.png",
+      "iconCode": "MP",
+      "color": "#8B5C6A",
+      "accent": "#241A20",
+      "assetPath": "Assets/Resources/Departments/Missing_Persons.asset"
+    }
+  ],
+  "districtMarkers": [
+    {
+      "districtId": "DIST_OLD_QUARTER",
+      "displayName": "Old Quarter",
+      "sortOrder": 0,
+      "themeSummary": "Heritage estates, galleries, old apartment blocks, donor halls, and polished private interiors.",
+      "output": "Assets/Sprites/Presentation/DistrictMarkers/old_quarter.png",
+      "color": "#8F5D4A",
+      "accent": "#2A1D1A",
+      "iconCode": "OQ",
+      "glyph": "OLD"
+    },
+    {
+      "districtId": "DIST_CIVIC_CORE",
+      "displayName": "Civic Core",
+      "sortOrder": 1,
+      "themeSummary": "Banks, annexes, records floors, public offices, and precinct-adjacent administration.",
+      "output": "Assets/Sprites/Presentation/DistrictMarkers/civic_core.png",
+      "color": "#5F7F92",
+      "accent": "#1D2730",
+      "iconCode": "CC",
+      "glyph": "CIV"
+    },
+    {
+      "districtId": "DIST_MARKET_ROW",
+      "displayName": "Market Row",
+      "sortOrder": 2,
+      "themeSummary": "Cafes, markets, gyms, clubs, shelters, and high-footfall civilian spaces.",
+      "output": "Assets/Sprites/Presentation/DistrictMarkers/market_row.png",
+      "color": "#C58C3B",
+      "accent": "#3A2A18",
+      "iconCode": "MR",
+      "glyph": "MKT"
+    },
+    {
+      "districtId": "DIST_RIVERSIDE",
+      "displayName": "Riverside",
+      "sortOrder": 3,
+      "themeSummary": "Medical blocks, terminals, public transit edges, and marina-facing movement corridors.",
+      "output": "Assets/Sprites/Presentation/DistrictMarkers/riverside.png",
+      "color": "#4D7FA5",
+      "accent": "#1A2734",
+      "iconCode": "RV",
+      "glyph": "RIV"
+    },
+    {
+      "districtId": "DIST_SKYLINE",
+      "displayName": "Skyline",
+      "sortOrder": 4,
+      "themeSummary": "Corporate towers, service cores, and dense office infrastructure.",
+      "output": "Assets/Sprites/Presentation/DistrictMarkers/skyline.png",
+      "color": "#7073B8",
+      "accent": "#202244",
+      "iconCode": "SK",
+      "glyph": "SKY"
+    },
+    {
+      "districtId": "DIST_NORTH_QUAY",
+      "displayName": "North Quay",
+      "sortOrder": 5,
+      "themeSummary": "Storage yards, cold berths, piers, industrial archives, and off-hours logistics.",
+      "output": "Assets/Sprites/Presentation/DistrictMarkers/north_quay.png",
+      "color": "#5B7B6E",
+      "accent": "#1A2923",
+      "iconCode": "NQ",
+      "glyph": "NQ"
+    },
+    {
+      "districtId": "DIST_OUTER_REACH",
+      "displayName": "Outer Reach",
+      "sortOrder": 6,
+      "themeSummary": "Trailheads, edge-of-city estates, and secluded approach roads beyond the dense core.",
+      "output": "Assets/Sprites/Presentation/DistrictMarkers/outer_reach.png",
+      "color": "#7B8E4E",
+      "accent": "#243018",
+      "iconCode": "OR",
+      "glyph": "OUT"
+    }
+  ],
+  "locationNodeIcons": [
+    {
+      "archetypeId": "estate_private",
+      "label": "Estate / Private",
+      "output": "Assets/Sprites/Presentation/LocationNodes/estate_private.png",
+      "color": "#8F5D4A",
+      "accent": "#2A1D1A",
+      "iconCode": "EST",
+      "locationIds": [
+        "LOC_OLD_QUARTER_HALE_MANOR",
+        "LOC_OUTER_REACH_ORIN_GATEHOUSE"
+      ]
+    },
+    {
+      "archetypeId": "civic_secure",
+      "label": "Civic / Secure",
+      "output": "Assets/Sprites/Presentation/LocationNodes/civic_secure.png",
+      "color": "#5F7F92",
+      "accent": "#1D2730",
+      "iconCode": "CIV",
+      "locationIds": [
+        "LOC_CIVIC_CORE_ALDMORE_BANK",
+        "LOC_CIVIC_CORE_BRIAR_BENEFITS_ANNEX",
+        "LOC_CIVIC_CORE_ASTER_TRANSIT_TREASURY",
+        "LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT",
+        "LOC_NORTH_QUAY_CIVIL_ARCHIVE"
+      ]
+    },
+    {
+      "archetypeId": "culture_hospitality",
+      "label": "Culture / Hospitality",
+      "output": "Assets/Sprites/Presentation/LocationNodes/culture_hospitality.png",
+      "color": "#B07A56",
+      "accent": "#312118",
+      "iconCode": "CUL",
+      "locationIds": [
+        "LOC_OLD_QUARTER_CAFE_LUMIERE",
+        "LOC_OLD_QUARTER_ALDENE_GALLERY",
+        "LOC_OLD_QUARTER_LARKSPUR_CIVIC_HALL",
+        "LOC_OLD_QUARTER_BRASSLIGHT_GALLERY"
+      ]
+    },
+    {
+      "archetypeId": "medical_transit",
+      "label": "Medical / Transit",
+      "output": "Assets/Sprites/Presentation/LocationNodes/medical_transit.png",
+      "color": "#4D7FA5",
+      "accent": "#1A2734",
+      "iconCode": "TRN",
+      "locationIds": [
+        "LOC_RIVERSIDE_RIVERSIDE_MEDICAL",
+        "LOC_RIVERSIDE_CENTRAL_PLATFORM",
+        "LOC_RIVERSIDE_VESPER_TERMINAL"
+      ]
+    },
+    {
+      "archetypeId": "residential_indoor",
+      "label": "Residential / Indoor",
+      "output": "Assets/Sprites/Presentation/LocationNodes/residential_indoor.png",
+      "color": "#867267",
+      "accent": "#241D19",
+      "iconCode": "RES",
+      "locationIds": [
+        "LOC_OLD_QUARTER_APARTMENT_4B",
+        "LOC_MARKET_ROW_HARROW_STAIRWELL",
+        "LOC_MARKET_ROW_HEARTHLIGHT_HOSTEL"
+      ]
+    },
+    {
+      "archetypeId": "market_public",
+      "label": "Market / Public",
+      "output": "Assets/Sprites/Presentation/LocationNodes/market_public.png",
+      "color": "#C58C3B",
+      "accent": "#3A2A18",
+      "iconCode": "PUB",
+      "locationIds": [
+        "LOC_MARKET_ROW_PULSE_GYM",
+        "LOC_MARKET_ROW_ROOKMERE_NIGHT_MARKET",
+        "LOC_MARKET_ROW_LANTERN_SHELTER"
+      ]
+    },
+    {
+      "archetypeId": "corporate_highrise",
+      "label": "Corporate / Highrise",
+      "output": "Assets/Sprites/Presentation/LocationNodes/corporate_highrise.png",
+      "color": "#7073B8",
+      "accent": "#202244",
+      "iconCode": "COR",
+      "locationIds": [
+        "LOC_CIVIC_CORE_MARLOWE_PROCUREMENT_HUB",
+        "LOC_SKYLINE_HORIZON_BLOOM_TOWER",
+        "LOC_SKYLINE_MERCURY_PLAZA"
+      ]
+    },
+    {
+      "archetypeId": "industrial_logistics",
+      "label": "Industrial / Logistics",
+      "output": "Assets/Sprites/Presentation/LocationNodes/industrial_logistics.png",
+      "color": "#5B7B6E",
+      "accent": "#1A2923",
+      "iconCode": "IND",
+      "locationIds": [
+        "LOC_RIVERSIDE_NORTHGLASS_INTAKE_BAY",
+        "LOC_NORTH_QUAY_GREYHOOK_STORAGE",
+        "LOC_NORTH_QUAY_COLD_DOCK",
+        "LOC_NORTH_QUAY_SERVICE_PIER_19"
+      ]
+    },
+    {
+      "archetypeId": "media_press",
+      "label": "Media / Press",
+      "output": "Assets/Sprites/Presentation/LocationNodes/media_press.png",
+      "color": "#8A6FA8",
+      "accent": "#241C30",
+      "iconCode": "PRS",
+      "locationIds": [
+        "LOC_MARKET_ROW_COURIER_GAZETTE"
+      ]
+    },
+    {
+      "archetypeId": "nightlife_stage",
+      "label": "Nightlife / Stage",
+      "output": "Assets/Sprites/Presentation/LocationNodes/nightlife_stage.png",
+      "color": "#9C556D",
+      "accent": "#2E1821",
+      "iconCode": "STG",
+      "locationIds": [
+        "LOC_MARKET_ROW_BLUEBIRD_VENUE"
+      ]
+    },
+    {
+      "archetypeId": "outdoor_frontier",
+      "label": "Outdoor / Frontier",
+      "output": "Assets/Sprites/Presentation/LocationNodes/outdoor_frontier.png",
+      "color": "#7B8E4E",
+      "accent": "#243018",
+      "iconCode": "OUT",
+      "locationIds": [
+        "LOC_OUTER_REACH_PINEGLASS_TRAILHEAD"
+      ]
+    }
+  ],
+  "locations": [
+    {
+      "locationId": "LOC_OLD_QUARTER_HALE_MANOR",
+      "districtId": "DIST_OLD_QUARTER",
+      "displayName": "Hale Manor Study",
+      "launchCaseId": "C001",
+      "nodeArchetypeId": "estate_private",
+      "mapPosition": {
+        "x": 0.27,
+        "y": 0.25
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case001_study.png.jpg"
+    },
+    {
+      "locationId": "LOC_OLD_QUARTER_CAFE_LUMIERE",
+      "districtId": "DIST_OLD_QUARTER",
+      "displayName": "Cafe Lumiere",
+      "launchCaseId": "C003",
+      "nodeArchetypeId": "culture_hospitality",
+      "mapPosition": {
+        "x": 0.2,
+        "y": 0.22
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case003_cafe.jpg"
+    },
+    {
+      "locationId": "LOC_OLD_QUARTER_APARTMENT_4B",
+      "districtId": "DIST_OLD_QUARTER",
+      "displayName": "Apartment 4B",
+      "launchCaseId": "C007",
+      "nodeArchetypeId": "residential_indoor",
+      "mapPosition": {
+        "x": 0.35,
+        "y": 0.23
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case007_apartment.png"
+    },
+    {
+      "locationId": "LOC_OLD_QUARTER_ALDENE_GALLERY",
+      "districtId": "DIST_OLD_QUARTER",
+      "displayName": "Aldene Gallery",
+      "launchCaseId": "C010",
+      "nodeArchetypeId": "culture_hospitality",
+      "mapPosition": {
+        "x": 0.22,
+        "y": 0.33
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case010_gallery.png"
+    },
+    {
+      "locationId": "LOC_OLD_QUARTER_LARKSPUR_CIVIC_HALL",
+      "districtId": "DIST_OLD_QUARTER",
+      "displayName": "Larkspur Civic Hall",
+      "launchCaseId": "C011",
+      "nodeArchetypeId": "culture_hospitality",
+      "mapPosition": {
+        "x": 0.34,
+        "y": 0.33
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case011_donor_lounge.jpg"
+    },
+    {
+      "locationId": "LOC_OLD_QUARTER_BRASSLIGHT_GALLERY",
+      "districtId": "DIST_OLD_QUARTER",
+      "displayName": "Brasslight Gallery",
+      "launchCaseId": "C013",
+      "nodeArchetypeId": "culture_hospitality",
+      "mapPosition": {
+        "x": 0.27,
+        "y": 0.14
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case013_appraisal_room.jpg"
+    },
+    {
+      "locationId": "LOC_CIVIC_CORE_ALDMORE_BANK",
+      "districtId": "DIST_CIVIC_CORE",
+      "displayName": "Aldmore Bank Vault Wing",
+      "launchCaseId": "C002",
+      "nodeArchetypeId": "civic_secure",
+      "mapPosition": {
+        "x": 0.5,
+        "y": 0.28
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case002_bank.jpg"
+    },
+    {
+      "locationId": "LOC_CIVIC_CORE_BRIAR_BENEFITS_ANNEX",
+      "districtId": "DIST_CIVIC_CORE",
+      "displayName": "Briar Benefits Annex",
+      "launchCaseId": "C015",
+      "nodeArchetypeId": "civic_secure",
+      "mapPosition": {
+        "x": 0.43,
+        "y": 0.25
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case015_payroll_archive.jpg"
+    },
+    {
+      "locationId": "LOC_CIVIC_CORE_ASTER_TRANSIT_TREASURY",
+      "districtId": "DIST_CIVIC_CORE",
+      "displayName": "Aster Transit Treasury",
+      "launchCaseId": "C017",
+      "nodeArchetypeId": "civic_secure",
+      "mapPosition": {
+        "x": 0.58,
+        "y": 0.26
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case017_treasury_office.jpg"
+    },
+    {
+      "locationId": "LOC_CIVIC_CORE_MARLOWE_PROCUREMENT_HUB",
+      "districtId": "DIST_CIVIC_CORE",
+      "displayName": "Marlowe Procurement Hub",
+      "launchCaseId": "C018",
+      "nodeArchetypeId": "corporate_highrise",
+      "mapPosition": {
+        "x": 0.45,
+        "y": 0.36
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case018_conference_suite.jpg"
+    },
+    {
+      "locationId": "LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT",
+      "districtId": "DIST_CIVIC_CORE",
+      "displayName": "Crown Annex Records Vault",
+      "launchCaseId": "C020",
+      "nodeArchetypeId": "civic_secure",
+      "mapPosition": {
+        "x": 0.57,
+        "y": 0.36
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case020_records_vault.jpg"
+    },
+    {
+      "locationId": "LOC_MARKET_ROW_HARROW_STAIRWELL",
+      "districtId": "DIST_MARKET_ROW",
+      "displayName": "Harrow Court Stairwell",
+      "launchCaseId": "C005",
+      "nodeArchetypeId": "residential_indoor",
+      "mapPosition": {
+        "x": 0.34,
+        "y": 0.63
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case005_stairwell.png"
+    },
+    {
+      "locationId": "LOC_MARKET_ROW_PULSE_GYM",
+      "districtId": "DIST_MARKET_ROW",
+      "displayName": "Pulse Gym",
+      "launchCaseId": "C009",
+      "nodeArchetypeId": "market_public",
+      "mapPosition": {
+        "x": 0.27,
+        "y": 0.6
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case009_gym.png"
+    },
+    {
+      "locationId": "LOC_MARKET_ROW_ROOKMERE_NIGHT_MARKET",
+      "districtId": "DIST_MARKET_ROW",
+      "displayName": "Rookmere Night Market",
+      "launchCaseId": "C012",
+      "nodeArchetypeId": "market_public",
+      "mapPosition": {
+        "x": 0.42,
+        "y": 0.61
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case012_harbor_tea_kiosk.jpg"
+    },
+    {
+      "locationId": "LOC_MARKET_ROW_HEARTHLIGHT_HOSTEL",
+      "districtId": "DIST_MARKET_ROW",
+      "displayName": "Hearthlight Hostel",
+      "launchCaseId": "C022",
+      "nodeArchetypeId": "residential_indoor",
+      "mapPosition": {
+        "x": 0.29,
+        "y": 0.71
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case022_upper_hall.jpg"
+    },
+    {
+      "locationId": "LOC_MARKET_ROW_BLUEBIRD_VENUE",
+      "districtId": "DIST_MARKET_ROW",
+      "displayName": "Bluebird Basement Venue",
+      "launchCaseId": "C023",
+      "nodeArchetypeId": "nightlife_stage",
+      "mapPosition": {
+        "x": 0.41,
+        "y": 0.71
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case023_backstage.jpg"
+    },
+    {
+      "locationId": "LOC_MARKET_ROW_LANTERN_SHELTER",
+      "districtId": "DIST_MARKET_ROW",
+      "displayName": "Lantern Youth Shelter",
+      "launchCaseId": "C027",
+      "nodeArchetypeId": "market_public",
+      "mapPosition": {
+        "x": 0.34,
+        "y": 0.52
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case027_courtyard.jpg"
+    },
+    {
+      "locationId": "LOC_MARKET_ROW_COURIER_GAZETTE",
+      "districtId": "DIST_MARKET_ROW",
+      "displayName": "Courier Gazette Annex Desk",
+      "launchCaseId": "C029",
+      "nodeArchetypeId": "media_press",
+      "mapPosition": {
+        "x": 0.24,
+        "y": 0.75
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case029_annex_desk.jpg"
+    },
+    {
+      "locationId": "LOC_RIVERSIDE_RIVERSIDE_MEDICAL",
+      "districtId": "DIST_RIVERSIDE",
+      "displayName": "Riverside Medical Garage",
+      "launchCaseId": "C004",
+      "nodeArchetypeId": "medical_transit",
+      "mapPosition": {
+        "x": 0.72,
+        "y": 0.52
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case004_garage.png"
+    },
+    {
+      "locationId": "LOC_RIVERSIDE_CENTRAL_PLATFORM",
+      "districtId": "DIST_RIVERSIDE",
+      "displayName": "Central Platform",
+      "launchCaseId": "C008",
+      "nodeArchetypeId": "medical_transit",
+      "mapPosition": {
+        "x": 0.65,
+        "y": 0.49
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case008_platform.png"
+    },
+    {
+      "locationId": "LOC_RIVERSIDE_NORTHGLASS_INTAKE_BAY",
+      "districtId": "DIST_RIVERSIDE",
+      "displayName": "Northglass Intake Bay",
+      "launchCaseId": "C016",
+      "nodeArchetypeId": "industrial_logistics",
+      "mapPosition": {
+        "x": 0.8,
+        "y": 0.5
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case016_intake_bay.jpg"
+    },
+    {
+      "locationId": "LOC_RIVERSIDE_VESPER_TERMINAL",
+      "districtId": "DIST_RIVERSIDE",
+      "displayName": "Vesper Terminal",
+      "launchCaseId": "C021",
+      "nodeArchetypeId": "medical_transit",
+      "mapPosition": {
+        "x": 0.67,
+        "y": 0.6
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case021_route_six_platform.jpg"
+    },
+    {
+      "locationId": "LOC_SKYLINE_HORIZON_BLOOM_TOWER",
+      "districtId": "DIST_SKYLINE",
+      "displayName": "Horizon Bloom Fintech",
+      "launchCaseId": "C014",
+      "nodeArchetypeId": "corporate_highrise",
+      "mapPosition": {
+        "x": 0.74,
+        "y": 0.22
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case014_operations_pod.jpg"
+    },
+    {
+      "locationId": "LOC_SKYLINE_MERCURY_PLAZA",
+      "districtId": "DIST_SKYLINE",
+      "displayName": "Mercury Plaza Service Core",
+      "launchCaseId": "C025",
+      "nodeArchetypeId": "corporate_highrise",
+      "mapPosition": {
+        "x": 0.67,
+        "y": 0.19
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case025_service_core.jpg"
+    },
+    {
+      "locationId": "LOC_NORTH_QUAY_GREYHOOK_STORAGE",
+      "districtId": "DIST_NORTH_QUAY",
+      "displayName": "Greyhook Self Storage",
+      "launchCaseId": "C019",
+      "nodeArchetypeId": "industrial_logistics",
+      "mapPosition": {
+        "x": 0.78,
+        "y": 0.76
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case019_bay_14.jpg"
+    },
+    {
+      "locationId": "LOC_NORTH_QUAY_COLD_DOCK",
+      "districtId": "DIST_NORTH_QUAY",
+      "displayName": "North Quay Cold Dock",
+      "launchCaseId": "C026",
+      "nodeArchetypeId": "industrial_logistics",
+      "mapPosition": {
+        "x": 0.71,
+        "y": 0.73
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case026_locker_row.jpg"
+    },
+    {
+      "locationId": "LOC_NORTH_QUAY_SERVICE_PIER_19",
+      "districtId": "DIST_NORTH_QUAY",
+      "displayName": "Service Pier 19",
+      "launchCaseId": "C028",
+      "nodeArchetypeId": "industrial_logistics",
+      "mapPosition": {
+        "x": 0.86,
+        "y": 0.74
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case028_service_pier.jpg"
+    },
+    {
+      "locationId": "LOC_NORTH_QUAY_CIVIL_ARCHIVE",
+      "districtId": "DIST_NORTH_QUAY",
+      "displayName": "North Quay Civil Archive",
+      "launchCaseId": "C030",
+      "nodeArchetypeId": "civic_secure",
+      "mapPosition": {
+        "x": 0.73,
+        "y": 0.84
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case030_records_floor.jpg"
+    },
+    {
+      "locationId": "LOC_OUTER_REACH_ORIN_GATEHOUSE",
+      "districtId": "DIST_OUTER_REACH",
+      "displayName": "Orin Estate Gatehouse",
+      "launchCaseId": "C006",
+      "nodeArchetypeId": "estate_private",
+      "mapPosition": {
+        "x": 0.14,
+        "y": 0.58
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case006_doorstep.png"
+    },
+    {
+      "locationId": "LOC_OUTER_REACH_PINEGLASS_TRAILHEAD",
+      "districtId": "DIST_OUTER_REACH",
+      "displayName": "Pineglass Trailhead",
+      "launchCaseId": "C024",
+      "nodeArchetypeId": "outdoor_frontier",
+      "mapPosition": {
+        "x": 0.07,
+        "y": 0.55
+      },
+      "defaultBackgroundPath": "Assets/Sprites/Backgrounds/case024_trailhead.jpg"
+    }
+  ],
+  "suspectPortraits": [
+    {
+      "suspectId": "S011",
+      "displayName": "Mira Voss",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S011.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S011_mira_voss.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, an independent compliance consultant who moves easily between donor boards, galleries, and transport ledgers, traits suggested through expression and wardrobe: composed, observant, social engineer, financially fluent"
+    },
+    {
+      "suspectId": "S012",
+      "displayName": "Renata Bell",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S012.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S012_renata_bell.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, director of the larkspur civic hall donor program, traits suggested through expression and wardrobe: charismatic, defensive, detail selective"
+    },
+    {
+      "suspectId": "S013",
+      "displayName": "Owen Kade",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S013.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S013_owen_kade.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, a print broker and document finisher who handles boutique jobs for galleries, private estates, and anyone willing to pay for a convincing duplicate, traits suggested through expression and wardrobe: crafty, vain, risk tolerant"
+    },
+    {
+      "suspectId": "S014",
+      "displayName": "Lyle Mercer",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S014.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S014_lyle_mercer.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, a harbor-market logistics clerk who always has an explanation for missing stock, open lockers, and nighttime access pings, traits suggested through expression and wardrobe: evasive, practical, habitual liar"
+    },
+    {
+      "suspectId": "S015",
+      "displayName": "Priya Sorn",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S015.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S015_priya_sorn.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, operations lead at a boutique payment startup, traits suggested through expression and wardrobe: technical, controlled, image conscious"
+    },
+    {
+      "suspectId": "S016",
+      "displayName": "Martin Quill",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S016.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S016_martin_quill.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, payroll auditor for a public benefits annex, traits suggested through expression and wardrobe: methodical, cold, bureaucratic"
+    },
+    {
+      "suspectId": "S017",
+      "displayName": "Celia Drax",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S017.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S017_celia_drax.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, insurance adjuster known for dramatic field photos and selective timelines, traits suggested through expression and wardrobe: performative, calculating, unflappable"
+    },
+    {
+      "suspectId": "S018",
+      "displayName": "Tessa Rook",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S018.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S018_tessa_rook.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, a respected appraiser whose seal and opinion can make or break private sales, traits suggested through expression and wardrobe: polished, territorial, precise"
+    },
+    {
+      "suspectId": "S019",
+      "displayName": "Devin March",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S019.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S019_devin_march.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, treasury analyst for a transit rebate office, traits suggested through expression and wardrobe: cautious, organized, quietly opportunistic"
+    },
+    {
+      "suspectId": "S020",
+      "displayName": "Nyla Venn",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S020.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S020_nyla_venn.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, a junior lab assistant who disappears after leaving work with a transit screenshot on her phone and a habit of documenting everything, traits suggested through expression and wardrobe: careful, bright, routine driven"
+    },
+    {
+      "suspectId": "S021",
+      "displayName": "Jonah Vale",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S021.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S021_jonah_vale.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, manager of the hearthlight hostel, traits suggested through expression and wardrobe: guarded, tidy, reputation minded"
+    },
+    {
+      "suspectId": "S022",
+      "displayName": "Sera Bloom",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S022.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S022_sera_bloom.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, a club singer with a growing local following and a habit of slipping away from handlers the moment a room gets too loud, traits suggested through expression and wardrobe: restless, magnetic, secretive"
+    },
+    {
+      "suspectId": "S023",
+      "displayName": "Caleb Wren",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S023.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S023_caleb_wren.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, volunteer search coordinator who likes to be first on scene and first on camera, traits suggested through expression and wardrobe: outdoorsy, performative, impatient"
+    },
+    {
+      "suspectId": "S024",
+      "displayName": "Daria Flint",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S024.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S024_daria_flint.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, a building access technician who understands blind spots, maintenance excuses, and exactly how much most people trust a dead camera, traits suggested through expression and wardrobe: technical, dry, deflective"
+    },
+    {
+      "suspectId": "S025",
+      "displayName": "Silas Keene",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S025.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S025_silas_keene.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, dock foreman on the north quay cold berths, traits suggested through expression and wardrobe: hard edged, territorial, weathered"
+    },
+    {
+      "suspectId": "S026",
+      "displayName": "Tova Rell",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S026.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S026_tova_rell.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, counsellor at the lantern youth shelter, traits suggested through expression and wardrobe: protective, tired, morally flexible"
+    },
+    {
+      "suspectId": "S027",
+      "displayName": "Adrian Crowe",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S027.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S027_adrian_crowe.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, private security contractor who vanishes while tailing a dockside lead linked to mira's network, traits suggested through expression and wardrobe: disciplined, suspicious, field savvy"
+    },
+    {
+      "suspectId": "S028",
+      "displayName": "Vera Hale",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S028.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S028_vera_hale.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, local reporter who follows sealed memos, visitor slips, and copied routing tags long after everyone else stops asking questions, traits suggested through expression and wardrobe: persistent, incisive, fearless"
+    },
+    {
+      "suspectId": "S029",
+      "displayName": "Inez Farrow",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S029.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S029_inez_farrow.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, desk sergeant and records coordinator with just enough access to move files, pre-print routing slips, and hide the movement inside normal overnight workflow, traits suggested through expression and wardrobe: contained, disciplined, compartmentalized"
+    },
+    {
+      "suspectId": "S030",
+      "displayName": "Gideon Marsh",
+      "assetPath": "Assets/ScriptableObjects/Cases/Suspects/S030.asset",
+      "spritePath": "Assets/Sprites/Presentation/Suspects/S030_gideon_marsh.png",
+      "prompt": "dark moody detective dossier portrait, photorealistic, slightly desaturated colours, subtle film grain, cinematic lighting, bust portrait, neutral backdrop, no text, no UI, night archive supervisor for north quay civil archive, traits suggested through expression and wardrobe: anxious, procedural, pliant"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -17,6 +18,7 @@ namespace CasebookGame.Core
         [SerializeField] TMP_Text progressText;
         [SerializeField] TMP_Text promptText;
         [SerializeField] TMP_Text feedbackText;
+        [SerializeField] Button triggerButton;
         [SerializeField] Button[] responseButtons = new Button[0];
         [SerializeField] TMP_Text[] responseLabels = new TMP_Text[0];
         [SerializeField] float feedbackDurationSeconds = 0.75f;
@@ -29,10 +31,14 @@ namespace CasebookGame.Core
         [SerializeField] Color feedbackIncorrectColor = new Color(0.92f, 0.62f, 0.62f);
 
         readonly List<InterrogationNode> activeNodes = new();
+        readonly Dictionary<string, InterrogationNode> nodeLookup = new();
+        readonly HashSet<string> completedNodeIds = new();
 
+        CaseData preparedCase;
         Action completionCallback;
         int currentNodeIndex;
         bool transitionLocked;
+        InterrogationNode currentNode;
 
         void Awake()
         {
@@ -45,8 +51,21 @@ namespace CasebookGame.Core
                 responseButtons[i]?.onClick.AddListener(() => OnResponseSelected(capturedIndex));
             }
 
+            triggerButton?.onClick.AddListener(() =>
+            {
+                if (preparedCase != null)
+                    TryBegin(preparedCase, null);
+            });
+
             if (panel != null)
                 panel.SetActive(false);
+        }
+
+        public void PrepareCase(CaseData caseData)
+        {
+            preparedCase = caseData;
+            if (triggerButton != null)
+                triggerButton.gameObject.SetActive(caseData != null && caseData.interrogationNodes != null && caseData.interrogationNodes.Count > 0);
         }
 
         public bool TryBegin(CaseData caseData, Action onComplete)
@@ -55,10 +74,16 @@ namespace CasebookGame.Core
                 return false;
 
             activeNodes.Clear();
+            nodeLookup.Clear();
+            completedNodeIds.Clear();
             foreach (var node in caseData.interrogationNodes)
             {
                 if (node != null && IsNodeUnlocked(node))
+                {
                     activeNodes.Add(node);
+                    if (!string.IsNullOrWhiteSpace(node.nodeId))
+                        nodeLookup[node.nodeId] = node;
+                }
             }
 
             if (activeNodes.Count == 0)
@@ -66,6 +91,7 @@ namespace CasebookGame.Core
 
             completionCallback = onComplete;
             currentNodeIndex = 0;
+            currentNode = activeNodes[0];
             transitionLocked = false;
 
             if (panel != null)
@@ -130,11 +156,11 @@ namespace CasebookGame.Core
                 return;
             }
 
-            var node = activeNodes[currentNodeIndex];
+            var node = currentNode ?? activeNodes[currentNodeIndex];
             if (titleText != null)
                 titleText.text = "INTERROGATION";
             if (progressText != null)
-                progressText.text = $"QUESTION {currentNodeIndex + 1}/{activeNodes.Count}";
+                progressText.text = $"QUESTION {completedNodeIds.Count + 1}/{activeNodes.Count}";
             if (promptText != null)
                 promptText.text = node.promptText;
             if (feedbackText != null)
@@ -178,7 +204,7 @@ namespace CasebookGame.Core
         {
             transitionLocked = true;
 
-            var node = activeNodes[currentNodeIndex];
+            var node = currentNode ?? activeNodes[currentNodeIndex];
             bool isCorrect = responseIndex == node.correctResponseIndex;
 
             for (int i = 0; i < responseButtons.Length; i++)
@@ -207,9 +233,55 @@ namespace CasebookGame.Core
 
             yield return new WaitForSecondsRealtime(feedbackDurationSeconds);
 
-            currentNodeIndex++;
+            ApplyRewards(node);
+            completedNodeIds.Add(node.nodeId);
+            AdvanceToNextNode(node, isCorrect);
             transitionLocked = false;
             ShowCurrentNode();
+        }
+
+        void AdvanceToNextNode(InterrogationNode node, bool isCorrect)
+        {
+            string nextNodeId = isCorrect ? node.nextNodeIdOnCorrect : node.nextNodeIdOnWrong;
+            if (!string.IsNullOrWhiteSpace(nextNodeId)
+                && nodeLookup.TryGetValue(nextNodeId, out var branchedNode)
+                && !completedNodeIds.Contains(branchedNode.nodeId))
+            {
+                currentNode = branchedNode;
+                currentNodeIndex = Mathf.Max(0, activeNodes.IndexOf(branchedNode));
+                return;
+            }
+
+            currentNodeIndex++;
+            while (currentNodeIndex < activeNodes.Count)
+            {
+                var candidate = activeNodes[currentNodeIndex];
+                if (candidate != null && !completedNodeIds.Contains(candidate.nodeId))
+                {
+                    currentNode = candidate;
+                    return;
+                }
+
+                currentNodeIndex++;
+            }
+
+            currentNode = null;
+        }
+
+        static void ApplyRewards(InterrogationNode node)
+        {
+            if (node == null)
+                return;
+
+            var discovery = EvidenceDiscoverySystem.Instance;
+            if (discovery == null)
+                return;
+
+            foreach (var evidenceId in node.grantedEvidenceIds ?? Enumerable.Empty<string>())
+                discovery.GrantEvidenceById(evidenceId);
+
+            foreach (var tag in node.grantedTags ?? Enumerable.Empty<EvidenceTag>())
+                discovery.GrantTag(tag);
         }
 
         void Finish()
@@ -218,7 +290,10 @@ namespace CasebookGame.Core
                 panel.SetActive(false);
 
             activeNodes.Clear();
+            nodeLookup.Clear();
+            completedNodeIds.Clear();
             currentNodeIndex = 0;
+            currentNode = null;
             transitionLocked = false;
 
             var callback = completionCallback;

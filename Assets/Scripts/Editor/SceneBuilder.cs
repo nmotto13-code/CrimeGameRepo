@@ -68,6 +68,9 @@ namespace CasebookGame.Editor
             EnsureFolder("Assets/Scenes");
             EnsureFolder(PREFABS_PATH);
             ProgressionAssetBootstrapper.EnsureDefaultDepartmentAssets();
+            var precinctHubSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Presentation/Precinct/precinct_home_hub.png");
+            var departmentDeskSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Presentation/Precinct/precinct_department_board.png");
+            var cityMapSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Sprites/Presentation/CityMap/city_map_base.png");
 
             // Build prefabs first (referenced by CaseLoader)
             var evidenceCardPrefab = BuildEvidenceCardPrefab();
@@ -209,6 +212,10 @@ namespace CasebookGame.Editor
             var analyseBtn = MakeSimpleButton(sceneFoundBar, "AnalyseButton", "ANALYSE", new Color(0.20f, 0.65f, 0.40f));
             analyseBtn.SetActive(false);
             analyseBtn.AddComponent<LayoutElement>().preferredWidth = 170;
+
+            var interrogateBtn = MakeSimpleButton(sceneFoundBar, "InterrogateButton", "INTERROGATE", new Color(0.88f, 0.48f, 0.16f));
+            interrogateBtn.SetActive(false);
+            interrogateBtn.AddComponent<LayoutElement>().preferredWidth = 210;
 
             // ── Scene image — fills panel below counter bar ────────────
             var sceneImgGo = MakeImage(scenePanel, "SceneImage", new Color(0.12f, 0.10f, 0.18f));
@@ -545,7 +552,9 @@ namespace CasebookGame.Editor
             var homeScreenGo = new GameObject("HomeScreen");
             homeScreenGo.transform.SetParent(safeAreaRoot.transform, false);
             StretchFull(homeScreenGo);
-            homeScreenGo.AddComponent<Image>().color = new Color(0.05f, 0.05f, 0.09f, 1f);
+            var homeBg = homeScreenGo.AddComponent<Image>();
+            homeBg.color = precinctHubSprite != null ? new Color(1f, 1f, 1f, 0.34f) : new Color(0.05f, 0.05f, 0.09f, 1f);
+            homeBg.sprite = precinctHubSprite;
 
             var hsVLG = homeScreenGo.AddComponent<VerticalLayoutGroup>();
             hsVLG.childControlHeight    = true;
@@ -588,13 +597,52 @@ namespace CasebookGame.Editor
             hsEngineLabel.characterSpacing = 5f;
             hsEngineLabel.gameObject.AddComponent<LayoutElement>().preferredHeight = 36;
 
+            var hsStatusCard = new GameObject("StatusCard");
+            hsStatusCard.transform.SetParent(homeScreenGo.transform, false);
+            hsStatusCard.AddComponent<LayoutElement>().preferredHeight = 270;
+            hsStatusCard.AddComponent<Image>().color = new Color(0.11f, 0.11f, 0.17f, 0.96f);
+            var hsStatusVLG = hsStatusCard.AddComponent<VerticalLayoutGroup>();
+            hsStatusVLG.padding = new RectOffset(24, 24, 18, 18);
+            hsStatusVLG.spacing = 10;
+            hsStatusVLG.childControlHeight = true;
+            hsStatusVLG.childControlWidth = true;
+            hsStatusVLG.childForceExpandHeight = false;
+
+            var rankSummaryTxt = MakeText(hsStatusCard, "RankSummaryText", "Rank 1 | 0 XP", 26, FontStyles.Bold,
+                new Color(0.95f, 0.88f, 0.65f));
+            rankSummaryTxt.alignment = TextAlignmentOptions.TopLeft;
+
+            var streakSummaryTxt = MakeText(hsStatusCard, "StreakSummaryText", "Streak 0 | Stars 0", 20, FontStyles.Normal,
+                new Color(0.80f, 0.80f, 0.86f));
+            streakSummaryTxt.alignment = TextAlignmentOptions.TopLeft;
+
+            var activeDepartmentTxt = MakeText(hsStatusCard, "ActiveDepartmentText", "Patrol board active", 22, FontStyles.Bold,
+                new Color(0.90f, 0.72f, 0.28f));
+            activeDepartmentTxt.alignment = TextAlignmentOptions.TopLeft;
+
+            var dailyCaseTitleTxt = MakeText(hsStatusCard, "DailyCaseTitleText", "No daily case available", 28, FontStyles.Bold,
+                Color.white);
+            dailyCaseTitleTxt.alignment = TextAlignmentOptions.TopLeft;
+            dailyCaseTitleTxt.textWrappingMode = TextWrappingModes.Normal;
+
+            var dailyCaseStatusTxt = MakeText(hsStatusCard, "DailyCaseStatusText",
+                "Open the city map to work today's file.", 18, FontStyles.Normal, new Color(0.76f, 0.76f, 0.82f));
+            dailyCaseStatusTxt.alignment = TextAlignmentOptions.TopLeft;
+            dailyCaseStatusTxt.textWrappingMode = TextWrappingModes.Normal;
+
+            var arcTeaserTxt = MakeText(hsStatusCard, "ArcTeaserText",
+                "Follow department leads, uncover patterns, and connect recurring suspects.",
+                18, FontStyles.Italic, new Color(0.62f, 0.62f, 0.70f));
+            arcTeaserTxt.alignment = TextAlignmentOptions.TopLeft;
+            arcTeaserTxt.textWrappingMode = TextWrappingModes.Normal;
+
             // ── Mid spacer ──────────────────────────────────────────
             var hsMidSpacer = new GameObject("MidSpacer");
             hsMidSpacer.transform.SetParent(homeScreenGo.transform, false);
             hsMidSpacer.AddComponent<LayoutElement>().flexibleHeight = 1;
 
             // ── Investigate — primary CTA ────────────────────────────
-            var investigateBtn = MakeActionButton(homeScreenGo, "InvestigateBtn", "INVESTIGATE  →",
+            var investigateBtn = MakeActionButton(homeScreenGo, "InvestigateBtn", "OPEN CITY MAP  →",
                 new Color(0.92f, 0.52f, 0.08f), Vector2.zero, Vector2.zero);
             var invLE = investigateBtn.gameObject.AddComponent<LayoutElement>();
             invLE.preferredHeight = 90;
@@ -613,7 +661,7 @@ namespace CasebookGame.Editor
                 new Color(0.20f, 0.38f, 0.68f), Vector2.zero, Vector2.zero);
             viewProfileBtn.GetComponentInChildren<TextMeshProUGUI>().fontSize = 24;
 
-            var testCasesBtn = MakeActionButton(hsSecRowGo, "TestCasesBtn", "ALL CASES",
+            var testCasesBtn = MakeActionButton(hsSecRowGo, "TestCasesBtn", "DEPARTMENT DESK",
                 new Color(0.18f, 0.18f, 0.28f), Vector2.zero, Vector2.zero);
             testCasesBtn.GetComponentInChildren<TextMeshProUGUI>().fontSize = 24;
 
@@ -670,7 +718,9 @@ namespace CasebookGame.Editor
             var caseSelectGo = new GameObject("CaseSelectPanel");
             caseSelectGo.transform.SetParent(safeAreaRoot.transform, false);
             StretchFull(caseSelectGo);
-            caseSelectGo.AddComponent<Image>().color = new Color(0.06f, 0.06f, 0.10f, 0.98f);
+            var caseSelectBg = caseSelectGo.AddComponent<Image>();
+            caseSelectBg.color = departmentDeskSprite != null ? new Color(1f, 1f, 1f, 0.18f) : new Color(0.06f, 0.06f, 0.10f, 0.98f);
+            caseSelectBg.sprite = departmentDeskSprite;
             caseSelectGo.SetActive(false);
 
             // Header bar
@@ -688,21 +738,34 @@ namespace CasebookGame.Editor
             csHeaderHLG.padding  = new RectOffset(20, 20, 0, 0);
             csHeaderHLG.spacing  = 12;
 
-            var csTitleTxt = MakeText(csHeaderGo, "CSTitle", "SELECT A CASE", 36, FontStyles.Bold,
+            var csTitleTxt = MakeText(csHeaderGo, "CSTitle", "DEPARTMENT DESK", 36, FontStyles.Bold,
                 new Color(0.95f, 0.88f, 0.65f));
             csTitleTxt.alignment = TextAlignmentOptions.MidlineLeft;
             csTitleTxt.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
 
+            var csMapBtn = MakeActionButton(csHeaderGo, "MapBtn", "CITY MAP",
+                new Color(0.20f, 0.48f, 0.72f), Vector2.zero, Vector2.zero);
+            csMapBtn.gameObject.AddComponent<LayoutElement>().preferredWidth = 170;
+
             var csBackBtn = MakeActionButton(csHeaderGo, "BackBtn", "← BACK",
                 new Color(0.30f, 0.30f, 0.42f), Vector2.zero, Vector2.zero);
             csBackBtn.gameObject.AddComponent<LayoutElement>().preferredWidth = 140;
+
+            var csSubtitleTxt = MakeText(caseSelectGo, "CSSubtitle", "0/0 desks unlocked", 18, FontStyles.Normal,
+                new Color(0.78f, 0.78f, 0.84f));
+            var csSubtitleRT = csSubtitleTxt.GetComponent<RectTransform>();
+            csSubtitleRT.anchorMin = new Vector2(0f, 1f); csSubtitleRT.anchorMax = new Vector2(1f, 1f);
+            csSubtitleRT.pivot = new Vector2(0.5f, 1f);
+            csSubtitleRT.anchoredPosition = new Vector2(0f, -106f);
+            csSubtitleRT.sizeDelta = new Vector2(-40f, 28f);
+            csSubtitleTxt.alignment = TextAlignmentOptions.MidlineLeft;
 
             // Scroll view for case list
             var csScrollGo = new GameObject("CaseScrollView");
             csScrollGo.transform.SetParent(caseSelectGo.transform, false);
             var csScrollRT = csScrollGo.AddComponent<RectTransform>();
             csScrollRT.anchorMin = Vector2.zero; csScrollRT.anchorMax = Vector2.one;
-            csScrollRT.offsetMin = new Vector2(0, 0); csScrollRT.offsetMax = new Vector2(0, -100);
+            csScrollRT.offsetMin = new Vector2(0, 0); csScrollRT.offsetMax = new Vector2(0, -138);
             var csScroll = csScrollGo.AddComponent<ScrollRect>();
             csScroll.horizontal = false;
 
@@ -725,6 +788,183 @@ namespace CasebookGame.Editor
             var csCSF = csContentGo.AddComponent<ContentSizeFitter>();
             csCSF.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
             csScroll.content  = csContentRT;
+
+            var cityMapGo = new GameObject("CityMapPanel");
+            cityMapGo.transform.SetParent(safeAreaRoot.transform, false);
+            StretchFull(cityMapGo);
+            cityMapGo.AddComponent<Image>().color = new Color(0.05f, 0.06f, 0.10f, 0.98f);
+            cityMapGo.SetActive(false);
+
+            var cmHeaderGo = new GameObject("CMHeader");
+            cmHeaderGo.transform.SetParent(cityMapGo.transform, false);
+            var cmHeaderRT = cmHeaderGo.AddComponent<RectTransform>();
+            cmHeaderRT.anchorMin = new Vector2(0, 1); cmHeaderRT.anchorMax = new Vector2(1, 1);
+            cmHeaderRT.pivot = new Vector2(0.5f, 1f);
+            cmHeaderRT.anchoredPosition = Vector2.zero;
+            cmHeaderRT.sizeDelta = new Vector2(0, 110);
+            cmHeaderGo.AddComponent<Image>().color = new Color(0.10f, 0.12f, 0.18f);
+            var cmHeaderHLG = cmHeaderGo.AddComponent<HorizontalLayoutGroup>();
+            cmHeaderHLG.childControlHeight = true; cmHeaderHLG.childControlWidth = true;
+            cmHeaderHLG.childForceExpandHeight = true; cmHeaderHLG.childForceExpandWidth = false;
+            cmHeaderHLG.padding = new RectOffset(20, 20, 8, 8);
+            cmHeaderHLG.spacing = 12;
+
+            var cmTitleTxt = MakeText(cmHeaderGo, "CMTitle", "CITY MAP", 36, FontStyles.Bold,
+                new Color(0.95f, 0.88f, 0.65f));
+            cmTitleTxt.alignment = TextAlignmentOptions.MidlineLeft;
+            cmTitleTxt.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
+
+            var cmDeskBtn = MakeActionButton(cmHeaderGo, "DeskBtn", "DEPARTMENTS",
+                new Color(0.20f, 0.48f, 0.72f), Vector2.zero, Vector2.zero);
+            cmDeskBtn.gameObject.AddComponent<LayoutElement>().preferredWidth = 200;
+
+            var cmBackBtn = MakeActionButton(cmHeaderGo, "BackBtn", "← BACK",
+                new Color(0.30f, 0.30f, 0.42f), Vector2.zero, Vector2.zero);
+            cmBackBtn.gameObject.AddComponent<LayoutElement>().preferredWidth = 140;
+
+            var cmSummaryTxt = MakeText(cityMapGo, "CMSummary", "0/0 locations open across 0 departments", 22, FontStyles.Normal,
+                new Color(0.76f, 0.76f, 0.82f));
+            var cmSummaryRT = cmSummaryTxt.GetComponent<RectTransform>();
+            cmSummaryRT.anchorMin = new Vector2(0f, 1f); cmSummaryRT.anchorMax = new Vector2(1f, 1f);
+            cmSummaryRT.pivot = new Vector2(0.5f, 1f);
+            cmSummaryRT.anchoredPosition = new Vector2(0f, -118f);
+            cmSummaryRT.sizeDelta = new Vector2(-40f, 38f);
+            cmSummaryTxt.alignment = TextAlignmentOptions.MidlineLeft;
+
+            var cmMapFrame = new GameObject("MapFrame");
+            cmMapFrame.transform.SetParent(cityMapGo.transform, false);
+            var cmMapFrameRT = cmMapFrame.AddComponent<RectTransform>();
+            cmMapFrameRT.anchorMin = new Vector2(0.05f, 0.28f);
+            cmMapFrameRT.anchorMax = new Vector2(0.95f, 0.78f);
+            cmMapFrameRT.offsetMin = Vector2.zero;
+            cmMapFrameRT.offsetMax = Vector2.zero;
+            cmMapFrame.AddComponent<Image>().color = new Color(0.10f, 0.12f, 0.18f, 0.98f);
+
+            var cmMapRoot = new GameObject("MapRoot");
+            cmMapRoot.transform.SetParent(cmMapFrame.transform, false);
+            var cmMapRootRT = cmMapRoot.AddComponent<RectTransform>();
+            cmMapRootRT.anchorMin = new Vector2(0.04f, 0.06f);
+            cmMapRootRT.anchorMax = new Vector2(0.96f, 0.94f);
+            cmMapRootRT.offsetMin = Vector2.zero;
+            cmMapRootRT.offsetMax = Vector2.zero;
+
+            var cmMapBgGo = new GameObject("MapBackground");
+            cmMapBgGo.transform.SetParent(cmMapRoot.transform, false);
+            StretchFull(cmMapBgGo);
+            var cmMapBgImage = cmMapBgGo.AddComponent<Image>();
+            cmMapBgImage.sprite = cityMapSprite;
+            cmMapBgImage.color = cityMapSprite != null ? new Color(1f, 1f, 1f, 0.92f) : new Color(0.10f, 0.12f, 0.18f, 1f);
+            cmMapBgImage.preserveAspect = true;
+
+            var cmSelectionPanel = new GameObject("SelectionPanel");
+            cmSelectionPanel.transform.SetParent(cityMapGo.transform, false);
+            var cmSelectionRT = cmSelectionPanel.AddComponent<RectTransform>();
+            cmSelectionRT.anchorMin = new Vector2(0.05f, 0.19f);
+            cmSelectionRT.anchorMax = new Vector2(0.95f, 0.33f);
+            cmSelectionRT.offsetMin = Vector2.zero;
+            cmSelectionRT.offsetMax = Vector2.zero;
+            cmSelectionPanel.AddComponent<Image>().color = new Color(0.09f, 0.10f, 0.15f, 0.96f);
+
+            var cmSelectionHLG = cmSelectionPanel.AddComponent<HorizontalLayoutGroup>();
+            cmSelectionHLG.padding = new RectOffset(18, 18, 16, 16);
+            cmSelectionHLG.spacing = 16;
+            cmSelectionHLG.childControlHeight = true;
+            cmSelectionHLG.childControlWidth = true;
+            cmSelectionHLG.childForceExpandHeight = true;
+            cmSelectionHLG.childForceExpandWidth = false;
+
+            var cmSelectionIconFrame = new GameObject("IconFrame");
+            cmSelectionIconFrame.transform.SetParent(cmSelectionPanel.transform, false);
+            cmSelectionIconFrame.AddComponent<LayoutElement>().preferredWidth = 108;
+            cmSelectionIconFrame.AddComponent<Image>().color = new Color(0.16f, 0.18f, 0.26f, 1f);
+            var cmSelectionIcon = MakeImage(cmSelectionIconFrame, "Icon", Color.white);
+            StretchFull(cmSelectionIcon, new Vector2(12f, 12f));
+            var cmSelectionIconImage = cmSelectionIcon.GetComponent<Image>();
+            cmSelectionIconImage.preserveAspect = true;
+            cmSelectionIconImage.color = new Color(1f, 1f, 1f, 0f);
+
+            var cmSelectionCopy = new GameObject("Copy");
+            cmSelectionCopy.transform.SetParent(cmSelectionPanel.transform, false);
+            cmSelectionCopy.AddComponent<LayoutElement>().flexibleWidth = 1f;
+            var cmSelectionCopyVLG = cmSelectionCopy.AddComponent<VerticalLayoutGroup>();
+            cmSelectionCopyVLG.spacing = 4;
+            cmSelectionCopyVLG.childControlHeight = true;
+            cmSelectionCopyVLG.childControlWidth = true;
+            cmSelectionCopyVLG.childForceExpandHeight = false;
+            cmSelectionCopyVLG.childForceExpandWidth = true;
+
+            var cmDistrictTxt = MakeText(cmSelectionCopy, "DistrictText", "No location selected", 16, FontStyles.Bold,
+                new Color(0.90f, 0.72f, 0.28f));
+            cmDistrictTxt.alignment = TextAlignmentOptions.TopLeft;
+            var cmSelectionLocationTxt = MakeText(cmSelectionCopy, "LocationText", "Select a location", 28, FontStyles.Bold,
+                Color.white);
+            cmSelectionLocationTxt.alignment = TextAlignmentOptions.TopLeft;
+            cmSelectionLocationTxt.textWrappingMode = TextWrappingModes.Normal;
+            var cmSelectionCaseTxt = MakeText(cmSelectionCopy, "CaseText", string.Empty, 18, FontStyles.Normal,
+                new Color(0.76f, 0.78f, 0.84f));
+            cmSelectionCaseTxt.alignment = TextAlignmentOptions.TopLeft;
+            var cmSelectionBodyTxt = MakeText(cmSelectionCopy, "BodyText",
+                "Tap a city node to inspect the case file and launch path.", 16, FontStyles.Italic,
+                new Color(0.68f, 0.70f, 0.76f));
+            cmSelectionBodyTxt.alignment = TextAlignmentOptions.TopLeft;
+            cmSelectionBodyTxt.textWrappingMode = TextWrappingModes.Normal;
+
+            var cmSelectionActions = new GameObject("Actions");
+            cmSelectionActions.transform.SetParent(cmSelectionPanel.transform, false);
+            cmSelectionActions.AddComponent<LayoutElement>().preferredWidth = 220;
+            var cmSelectionActionsVLG = cmSelectionActions.AddComponent<VerticalLayoutGroup>();
+            cmSelectionActionsVLG.spacing = 10;
+            cmSelectionActionsVLG.childControlHeight = true;
+            cmSelectionActionsVLG.childControlWidth = true;
+            cmSelectionActionsVLG.childForceExpandHeight = false;
+            cmSelectionActionsVLG.childAlignment = TextAnchor.MiddleRight;
+
+            var cmSelectionStatusTxt = MakeText(cmSelectionActions, "StatusText", string.Empty, 16, FontStyles.Normal,
+                new Color(0.82f, 0.84f, 0.90f));
+            cmSelectionStatusTxt.alignment = TextAlignmentOptions.TopRight;
+            cmSelectionStatusTxt.textWrappingMode = TextWrappingModes.Normal;
+            cmSelectionStatusTxt.gameObject.AddComponent<LayoutElement>().preferredHeight = 56;
+
+            var cmLaunchBtn = MakeActionButton(cmSelectionActions, "LaunchBtn", "LAUNCH CASE",
+                new Color(0.92f, 0.52f, 0.08f), Vector2.zero, Vector2.zero);
+            cmLaunchBtn.gameObject.AddComponent<LayoutElement>().preferredHeight = 58;
+
+            var cmLegendPanel = new GameObject("LegendPanel");
+            cmLegendPanel.transform.SetParent(cityMapGo.transform, false);
+            var cmLegendRT = cmLegendPanel.AddComponent<RectTransform>();
+            cmLegendRT.anchorMin = new Vector2(0.05f, 0.04f);
+            cmLegendRT.anchorMax = new Vector2(0.95f, 0.17f);
+            cmLegendRT.offsetMin = Vector2.zero;
+            cmLegendRT.offsetMax = Vector2.zero;
+            cmLegendPanel.AddComponent<Image>().color = new Color(0.08f, 0.08f, 0.13f, 0.96f);
+            var cmLegendVLG = cmLegendPanel.AddComponent<VerticalLayoutGroup>();
+            cmLegendVLG.padding = new RectOffset(18, 18, 14, 14);
+            cmLegendVLG.spacing = 8;
+            cmLegendVLG.childControlHeight = true;
+            cmLegendVLG.childControlWidth = true;
+            cmLegendVLG.childForceExpandHeight = false;
+
+            var cmLegendLabel = MakeText(cmLegendPanel, "LegendLabel", "DISTRICT LEGEND", 20, FontStyles.Bold,
+                new Color(0.90f, 0.72f, 0.28f));
+            cmLegendLabel.alignment = TextAlignmentOptions.MidlineLeft;
+
+            var cmLegendContent = new GameObject("LegendContent");
+            cmLegendContent.transform.SetParent(cmLegendPanel.transform, false);
+            cmLegendContent.AddComponent<RectTransform>();
+            var cmLegendContentVLG = cmLegendContent.AddComponent<VerticalLayoutGroup>();
+            cmLegendContentVLG.spacing = 4;
+            cmLegendContentVLG.childControlHeight = true;
+            cmLegendContentVLG.childControlWidth = true;
+            cmLegendContentVLG.childForceExpandHeight = false;
+
+            var cmEmptyTxt = MakeText(cityMapGo, "CMEmpty", "No mapped cases available.", 24, FontStyles.Normal,
+                new Color(0.56f, 0.56f, 0.64f));
+            cmEmptyTxt.alignment = TextAlignmentOptions.Center;
+            var cmEmptyRT = cmEmptyTxt.GetComponent<RectTransform>();
+            cmEmptyRT.anchorMin = new Vector2(0.15f, 0.43f);
+            cmEmptyRT.anchorMax = new Vector2(0.85f, 0.57f);
+            cmEmptyRT.offsetMin = Vector2.zero;
+            cmEmptyRT.offsetMax = Vector2.zero;
 
             // ── Account Panel ──────────────────────────────────────────
             var accountGo = new GameObject("AccountPanel");
@@ -964,6 +1204,7 @@ namespace CasebookGame.Editor
 
             var homeCtrl    = homeScreenGo.AddComponent<HomeScreenController>();
             var caseSelCtrl = caseSelectGo.AddComponent<CaseSelectController>();
+            var cityMapCtrl = cityMapGo.AddComponent<CityMapScreenController>();
             var accountCtrl = accountGo.AddComponent<AccountScreenController>();
 
             // ── Wire serialized fields ─────────────────────────────────
@@ -1004,6 +1245,7 @@ namespace CasebookGame.Editor
                 so.FindProperty("progressText").objectReferenceValue = interrogationProgressTxt;
                 so.FindProperty("promptText").objectReferenceValue = interrogationPromptTxt;
                 so.FindProperty("feedbackText").objectReferenceValue = interrogationFeedbackTxt;
+                so.FindProperty("triggerButton").objectReferenceValue = interrogateBtn.GetComponent<Button>();
                 SetObjectArray(so, "responseButtons", responseABtn, responseBBtn, responseCBtn);
                 SetObjectArray(so, "responseLabels", responseATxt, responseBTxt, responseCTxt);
             });
@@ -1048,6 +1290,12 @@ namespace CasebookGame.Editor
                 so.FindProperty("investigateBtn").objectReferenceValue = investigateBtn;
                 so.FindProperty("viewProfileBtn").objectReferenceValue = viewProfileBtn;
                 so.FindProperty("testCasesBtn").objectReferenceValue   = testCasesBtn;
+                so.FindProperty("rankSummaryText").objectReferenceValue = rankSummaryTxt;
+                so.FindProperty("streakSummaryText").objectReferenceValue = streakSummaryTxt;
+                so.FindProperty("dailyCaseTitleText").objectReferenceValue = dailyCaseTitleTxt;
+                so.FindProperty("dailyCaseStatusText").objectReferenceValue = dailyCaseStatusTxt;
+                so.FindProperty("activeDepartmentText").objectReferenceValue = activeDepartmentTxt;
+                so.FindProperty("arcTeaserText").objectReferenceValue = arcTeaserTxt;
                 SetObjectArray(so, "caseJumpBtns", caseJumpBtns);
                 SetStringArray(so, "caseJumpIds",  caseJumpIds);
             });
@@ -1055,6 +1303,26 @@ namespace CasebookGame.Editor
             Wire(caseSelCtrl, so => {
                 so.FindProperty("listParent").objectReferenceValue = csContentGo.transform;
                 so.FindProperty("closeBtn").objectReferenceValue   = csBackBtn;
+                so.FindProperty("openMapBtn").objectReferenceValue = csMapBtn;
+                so.FindProperty("headerTitleText").objectReferenceValue = csTitleTxt;
+                so.FindProperty("headerSubtitleText").objectReferenceValue = csSubtitleTxt;
+            });
+
+            Wire(cityMapCtrl, so => {
+                so.FindProperty("mapRoot").objectReferenceValue = cmMapRootRT;
+                so.FindProperty("mapBackgroundImage").objectReferenceValue = cmMapBgImage;
+                so.FindProperty("legendParent").objectReferenceValue = cmLegendContent.transform;
+                so.FindProperty("summaryText").objectReferenceValue = cmSummaryTxt;
+                so.FindProperty("emptyStateText").objectReferenceValue = cmEmptyTxt;
+                so.FindProperty("selectionDistrictText").objectReferenceValue = cmDistrictTxt;
+                so.FindProperty("selectionLocationText").objectReferenceValue = cmSelectionLocationTxt;
+                so.FindProperty("selectionCaseText").objectReferenceValue = cmSelectionCaseTxt;
+                so.FindProperty("selectionBodyText").objectReferenceValue = cmSelectionBodyTxt;
+                so.FindProperty("selectionStatusText").objectReferenceValue = cmSelectionStatusTxt;
+                so.FindProperty("selectionIconImage").objectReferenceValue = cmSelectionIconImage;
+                so.FindProperty("launchCaseButton").objectReferenceValue = cmLaunchBtn;
+                so.FindProperty("closeBtn").objectReferenceValue = cmBackBtn;
+                so.FindProperty("departmentDeskBtn").objectReferenceValue = cmDeskBtn;
             });
 
             Wire(accountCtrl, so => {
@@ -1095,6 +1363,7 @@ namespace CasebookGame.Editor
             Wire(navMgr, so => {
                 so.FindProperty("homeScreen").objectReferenceValue      = homeCtrl;
                 so.FindProperty("caseSelectScreen").objectReferenceValue = caseSelCtrl;
+                so.FindProperty("cityMapScreen").objectReferenceValue = cityMapCtrl;
                 so.FindProperty("accountScreen").objectReferenceValue   = accountCtrl;
                 so.FindProperty("gameScreen").objectReferenceValue      = gameScreenCtrl;
                 so.FindProperty("inGameMenuScreen").objectReferenceValue = inGameMenuCtrl;

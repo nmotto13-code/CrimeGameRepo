@@ -12,18 +12,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_008
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 2
   caseId: Case_008
   title: Train Platform
   briefText: "Suspect Carl Duval says he boarded the 6:30 PM express to Alton and
     couldn't have been near the warehouse. Two TIME-tagged pieces of evidence tell
     a different story \u2014 use Timeline Snap on the board."
   sceneBackground: {fileID: 21300000, guid: 19a14b1d9fa32a140939758f57ce8d6a, type: 3}
+  departmentId: 0
+  districtId: DIST_RIVERSIDE
+  cityLocationId: LOC_RIVERSIDE_CENTRAL_PLATFORM
+  caseArcId: ARC_PATROL_CROSSROADS
+  arcBeatSummary: 'Promotes the city network into play: station timing, warehouse
+    geography, and public transit become a clean multi-location contradiction.'
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.4, y: 0.45}
     radius: 0.06
     evidenceId: E001
     hotspotLabel: Train Ticket
+  caseLocations:
+  - locationId: LOC_RIVERSIDE_CENTRAL_PLATFORM
+    displayName: Central Platform
+    sceneBackground: {fileID: 21300000, guid: 19a14b1d9fa32a140939758f57ce8d6a, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.4, y: 0.45}
+      radius: 0.06
+      evidenceId: E001
+      hotspotLabel: Train Ticket
+    entryText: Start at the station and let the player build the public-side timeline
+      first.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
+  - locationId: VISIT_C008_HARBOR_WAREHOUSE_APPROACH
+    displayName: Warehouse Approach
+    sceneBackground: {fileID: 21300000, guid: 19a14b1d9fa32a140939758f57ce8d6a, type: 3}
+    hotspots: []
+    entryText: Second visit grounds the impossible travel distance between the train
+      platform and the warehouse sensor hit.
+    visitOrder: 1
+    unlockEvidenceIds:
+    - E001
+    unlockTags: 0000000001000000
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 3eeae22bd8d683343918964dac4be342, type: 2}
   - {fileID: 11400000, guid: cb2951a2c1dbf7448abbcdc4205f4aa6, type: 2}
@@ -34,6 +68,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c10bb27181f62f4429005ac4ecf2c733, type: 2}
   - {fileID: 11400000, guid: 5bf723a4257ea0b4fb39ea475a0b5853, type: 2}
   - {fileID: 11400000, guid: be929e3c8dc1d3c4da3ea4ce2a5d2110, type: 2}
+  involvedSuspects: []
+  suspectSummaries:
+  - suspectId: 
+    displayName: Carl Duval
+    relevance: primary_claimant
+  - suspectId: 
+    displayName: Station Staff
+    relevance: supporting_witness
+  - suspectId: 
+    displayName: Carl's colleague
+    relevance: supporting_witness
+  interrogationNodes: []
+  interrogationMode: planned_optional
+  isInterrogationForwardCase: 1
+  interrogationFocusSummary: Carl Duval is a strong station-side interrogation suspect
+    because his confidence depends on public transit detail and bluff.
   contradictoryClaimId: CL001
   explanationText: "Carl claims he boarded the 6:30 PM train. The train departed
     at 6:31 PM, but the warehouse sensor triggered at 6:34 PM \u2014 3 minutes after
@@ -43,6 +93,8 @@ MonoBehaviour:
   primaryEvidenceIdB: E002
   basePoints: 500
   timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

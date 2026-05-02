@@ -20,6 +20,13 @@ MonoBehaviour:
     from both departments ties her desk to the leak, Mira's broker network, and the
     vanished case routes.
   sceneBackground: {fileID: 21300000, guid: 2a85a502d9ba0383a66fe33ba8ef93ca, type: 3}
+  departmentId: 7
+  districtId: DIST_NORTH_QUAY
+  cityLocationId: LOC_NORTH_QUAY_CIVIL_ARCHIVE
+  caseArcId: ARC_HOLLOW_DESK
+  arcBeatSummary: 'Missing Persons capstone: the internal leak is traced to Inez
+    Farrow''s desk, connecting the fraud brief chain and the rerouted witness cases
+    through one records-floor operator.'
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -46,6 +53,64 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C030_E005
     hotspotLabel: Transfer Tube Rack
+  caseLocations:
+  - locationId: LOC_NORTH_QUAY_CIVIL_ARCHIVE
+    displayName: Civil Archive Records Floor
+    sceneBackground: {fileID: 21300000, guid: 2a85a502d9ba0383a66fe33ba8ef93ca, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C030_E001
+      hotspotLabel: Recorder Shelf
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C030_E002
+      hotspotLabel: Desk Console
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C030_E003
+      hotspotLabel: Map Drawer
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C030_E004
+      hotspotLabel: Cleaning Cart Mirror
+    - hotspotId: H005
+      normalizedPosition: {x: 0.75, y: 0.4}
+      radius: 0.06
+      evidenceId: C030_E005
+      hotspotLabel: Transfer Tube Rack
+    entryText: Launch from the records desk and keep the player inside the institutional
+      center of the leak network.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
+  - locationId: VISIT_C030_ARCHIVE_CORRIDOR
+    displayName: Archive Corridor Mirror Line
+    sceneBackground: {fileID: 21300000, guid: 2a85a502d9ba0383a66fe33ba8ef93ca, type: 3}
+    hotspots: []
+    entryText: The corridor visit isolates the cleaning-cart reflection and supports
+      the first capstone interrogation beats.
+    visitOrder: 1
+    unlockEvidenceIds:
+    - C030_E001
+    unlockTags: 03000000
+    isRequiredForSolve: 1
+  - locationId: VISIT_C030_TRANSFER_TUBE_RACK
+    displayName: Transfer Tube Rack
+    sceneBackground: {fileID: 21300000, guid: 2a85a502d9ba0383a66fe33ba8ef93ca, type: 3}
+    hotspots: []
+    entryText: Final visit pays off the moved routing copies and makes the desk-side
+      leak operational rather than abstract.
+    visitOrder: 2
+    unlockEvidenceIds:
+    - C030_E004
+    unlockTags: 0500000009000000
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 31bfeb203e3631d4ea90306d2184a4c2, type: 2}
   - {fileID: 11400000, guid: e7a4b1a388b64cb4d8eaf909d8d46311, type: 2}
@@ -65,10 +130,28 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 95255e4bcc5af5f469c6020a378f71ac, type: 2}
   - {fileID: 11400000, guid: 2444cde7130f88c458b6ad0e4012fb02, type: 2}
   - {fileID: 11400000, guid: 40763f81f4e4def4fbcfe6dbee159dd2, type: 2}
+  suspectSummaries:
+  - suspectId: S029
+    displayName: Inez Farrow
+    relevance: primary_claimant
+  - suspectId: S028
+    displayName: Vera Hale
+    relevance: victim_context
+  - suspectId: S011
+    displayName: Mira Voss
+    relevance: recurring_person_of_interest
+  - suspectId: S030
+    displayName: Gideon Marsh
+    relevance: secondary_suspect
   interrogationNodes:
   - {fileID: 11400000, guid: bf83fc79291c0f34f83220ec24fa8eea, type: 2}
   - {fileID: 11400000, guid: 7c91f5c395f39db4a82cbad45eef0a06, type: 2}
   - {fileID: 11400000, guid: 0c17e321a387c5a47b47444a6b50ed92, type: 2}
+  interrogationMode: authored_present
+  isInterrogationForwardCase: 1
+  interrogationFocusSummary: Existing interrogation should remain the capstone payoff
+    for the deeper suspect flow and the clearest bridge between dossier, map, and
+    contradiction systems.
   contradictoryClaimId: C030_CL001
   explanationText: Inez says the floor stayed locked, but C030_E002 logs her credentials
     reopening the archive at 11:18 PM and C030_E004 shows her in the corridor mirror

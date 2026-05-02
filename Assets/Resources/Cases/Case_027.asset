@@ -20,6 +20,13 @@ MonoBehaviour:
     A search-routing slip appears to have been printed before the case even went
     public.
   sceneBackground: {fileID: 21300000, guid: e7be2ce4747cf76535756160f3306cf5, type: 3}
+  departmentId: 7
+  districtId: DIST_MARKET_ROW
+  cityLocationId: LOC_MARKET_ROW_LANTERN_SHELTER
+  caseArcId: ARC_HOLLOW_DESK
+  arcBeatSummary: 'First overt Missing Persons leak beat: a restricted routing slip
+    appears before the public filing, tying the witness chain to internal records
+    flow.'
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -41,6 +48,37 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C027_E005
     hotspotLabel: Bench Blanket
+  caseLocations:
+  - locationId: LOC_MARKET_ROW_LANTERN_SHELTER
+    displayName: Lantern Youth Shelter
+    sceneBackground: {fileID: 21300000, guid: e7be2ce4747cf76535756160f3306cf5, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C027_E001
+      hotspotLabel: Photo Booth Strip
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C027_E002
+      hotspotLabel: Sign-Out Desk
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C027_E004
+      hotspotLabel: Routing Tray
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C027_E005
+      hotspotLabel: Bench Blanket
+    entryText: Keep the shelter on one map node for now and let the booth reflection,
+      routing slip, and courtyard traces carry the escalation.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 1a9f5e3c547a354489dbf21822f113a9, type: 2}
   - {fileID: 11400000, guid: abb77cfb5f8150347928252ef2bbd405, type: 2}
@@ -54,7 +92,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a6ee076e6e9bdf242bd84332874ad4c2, type: 2}
   involvedSuspects:
   - {fileID: 11400000, guid: 9a3ed9c979a1c2740a344eaa764fb431, type: 2}
+  suspectSummaries:
+  - suspectId: S026
+    displayName: Tova Rell
+    relevance: primary_claimant
   interrogationNodes: []
+  interrogationMode: planned_optional
+  isInterrogationForwardCase: 1
+  interrogationFocusSummary: Tova Rell is a strong interrogation-forward suspect
+    because her lie is protective, not purely criminal, which suits the deeper suspect
+    flow.
   contradictoryClaimId: C027_CL001
   explanationText: Tova says the teen never returned, but C027_E001 places the missing
     teen back at the shelter after dark once the reflection is enhanced, and C027_E002

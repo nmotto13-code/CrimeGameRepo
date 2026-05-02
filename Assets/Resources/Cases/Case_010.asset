@@ -12,12 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_010
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 2
   caseId: Case_010
   title: Gallery Opening
   briefText: "Art dealer Simon Rowe says he spent the full evening at the Aldene
     Gallery opening. Three separate pieces of evidence each chip away at this alibi
     \u2014 converging on one impossible claim."
   sceneBackground: {fileID: 21300000, guid: 2e9d4cb992a2b60479b0d5bc59049700, type: 3}
+  departmentId: 0
+  districtId: DIST_OLD_QUARTER
+  cityLocationId: LOC_OLD_QUARTER_ALDENE_GALLERY
+  caseArcId: ARC_PATROL_CROSSROADS
+  arcBeatSummary: 'Patrol capstone that bridges into the later art and fraud network:
+    the gallery alibi breaks once the player compares it to the off-site target location.'
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.3, y: 0.5}
@@ -29,6 +36,38 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: E002
     hotspotLabel: Valet Ticket
+  caseLocations:
+  - locationId: LOC_OLD_QUARTER_ALDENE_GALLERY
+    displayName: Aldene Gallery
+    sceneBackground: {fileID: 21300000, guid: 2e9d4cb992a2b60479b0d5bc59049700, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.3, y: 0.5}
+      radius: 0.06
+      evidenceId: E001
+      hotspotLabel: Sign-In Desk
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.6}
+      radius: 0.06
+      evidenceId: E002
+      hotspotLabel: Valet Ticket
+    entryText: The gallery remains the launch node and social alibi stage for the
+      case.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
+  - locationId: VISIT_C010_HARLOW_WAREHOUSE
+    displayName: Harlow Storage Warehouse
+    sceneBackground: {fileID: 21300000, guid: 2e9d4cb992a2b60479b0d5bc59049700, type: 3}
+    hotspots: []
+    entryText: A second visit verifies the off-site theft target and pays off the
+      patrol arc's first sustained art-network thread.
+    visitOrder: 1
+    unlockEvidenceIds:
+    - E002
+    unlockTags: 0000000001000000
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: cfc6be5f33e37e849afe0c9bec5989ed, type: 2}
   - {fileID: 11400000, guid: 751e4754aef70ce48b158dfb33158df2, type: 2}
@@ -41,6 +80,23 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e48a93b38096ff4429b42575ea187857, type: 2}
   - {fileID: 11400000, guid: 2736e6e3dea05de48b920c8423058f2b, type: 2}
   - {fileID: 11400000, guid: f70acfb2dcd727148a43659bdbeced31, type: 2}
+  involvedSuspects: []
+  suspectSummaries:
+  - suspectId: 
+    displayName: Simon Rowe
+    relevance: primary_claimant
+  - suspectId: 
+    displayName: Cora Webb
+    relevance: supporting_witness
+  - suspectId: 
+    displayName: Detective Lam
+    relevance: investigator_voice
+  interrogationNodes: []
+  interrogationMode: planned_optional
+  isInterrogationForwardCase: 1
+  interrogationFocusSummary: Simon Rowe is a high-value optional interrogation case
+    because the art-world lie and disappearing public presence suit dossier-driven
+    pressure.
   contradictoryClaimId: CL001
   explanationText: "Simon claims he stayed all evening. His valet ticket shows his
     car left at 8:22 PM \u2014 nearly 3 hours before closing. Press photos confirm
@@ -51,6 +107,8 @@ MonoBehaviour:
   primaryEvidenceIdB: E005
   basePoints: 500
   timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

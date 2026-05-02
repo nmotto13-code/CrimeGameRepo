@@ -9,6 +9,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using CasebookGame.UI;
 
 namespace CasebookGame.Editor
 {
@@ -51,12 +52,16 @@ namespace CasebookGame.Editor
             var evaluator = Object.FindFirstObjectByType<ContradictionEvaluator>(FindObjectsInactive.Include);
             var resultsController = Object.FindFirstObjectByType<ResultsController>(FindObjectsInactive.Include);
             var gameManager = Object.FindFirstObjectByType<GameManager>(FindObjectsInactive.Include);
+            var cityMapScreen = Object.FindFirstObjectByType<CityMapScreenController>(FindObjectsInactive.Include);
+            var dossierScreen = Object.FindFirstObjectByType<DossierScreenController>(FindObjectsInactive.Include);
 
             if (caseLoader == null) report.Failures.Add("CaseLoader is missing from the built scene.");
             if (discoverySystem == null) report.Failures.Add("EvidenceDiscoverySystem is missing from the built scene.");
             if (evaluator == null) report.Failures.Add("ContradictionEvaluator is missing from the built scene.");
             if (resultsController == null) report.Failures.Add("ResultsController is missing from the built scene.");
             if (gameManager == null) report.Failures.Add("GameManager is missing from the built scene.");
+            if (cityMapScreen == null) report.Failures.Add("CityMapScreenController is missing from the built scene.");
+            if (dossierScreen == null) report.Failures.Add("DossierScreenController is missing from the built scene.");
             if (report.Failures.Count > 0)
                 return report;
 
@@ -116,10 +121,11 @@ namespace CasebookGame.Editor
                 report.Failures.Add($"{caseData.name}: caseId is blank.");
             if (string.IsNullOrWhiteSpace(caseData.title))
                 report.Failures.Add($"{caseData.caseId}: title is blank.");
-            if (caseData.sceneBackground == null)
-                report.Failures.Add($"{caseData.caseId}: sceneBackground is missing.");
-            if (caseData.hotspots == null || caseData.hotspots.Count == 0)
-                report.Failures.Add($"{caseData.caseId}: hotspots list is empty.");
+            var firstLocation = caseData.GetResolvedLocation(0);
+            if (firstLocation == null || firstLocation.sceneBackground == null)
+                report.Failures.Add($"{caseData.caseId}: resolved scene background is missing.");
+            if (firstLocation == null || firstLocation.hotspots == null || firstLocation.hotspots.Count == 0)
+                report.Failures.Add($"{caseData.caseId}: resolved hotspot list is empty.");
             if (caseData.evidence == null || caseData.evidence.Count == 0)
                 report.Failures.Add($"{caseData.caseId}: evidence list is empty.");
             if (caseData.claims == null || caseData.claims.Count == 0)
@@ -162,7 +168,10 @@ namespace CasebookGame.Editor
             if (!string.IsNullOrWhiteSpace(caseData.primaryEvidenceIdB) && !evidenceIds.Contains(caseData.primaryEvidenceIdB))
                 report.Failures.Add($"{caseData.caseId}: primaryEvidenceIdB '{caseData.primaryEvidenceIdB}' does not match case evidence.");
 
-            foreach (var hotspot in caseData.hotspots)
+            if (firstLocation == null || firstLocation.hotspots == null)
+                return;
+
+            foreach (var hotspot in firstLocation.hotspots)
             {
                 if (!evidenceIds.Contains(hotspot.evidenceId))
                     report.Failures.Add($"{caseData.caseId}: hotspot '{hotspot.hotspotId}' points at missing evidence '{hotspot.evidenceId}'.");
@@ -197,11 +206,12 @@ namespace CasebookGame.Editor
             evaluator.SetCase(caseData);
             discoverySystem.StartInvestigation(caseData);
 
-            if (sceneBackground.sprite != caseData.sceneBackground)
+            var expectedLocation = caseData.GetResolvedLocation(0);
+            if (sceneBackground.sprite != expectedLocation.sceneBackground)
                 report.Failures.Add($"{caseData.caseId}: background sprite was not applied to the scene.");
 
-            if (hotspotParent.childCount != caseData.hotspots.Count || hotspotParent.childCount <= 0)
-                report.Failures.Add($"{caseData.caseId}: expected {caseData.hotspots.Count} hotspots, found {hotspotParent.childCount}.");
+            if (hotspotParent.childCount != expectedLocation.hotspots.Count || hotspotParent.childCount <= 0)
+                report.Failures.Add($"{caseData.caseId}: expected {expectedLocation.hotspots.Count} hotspots, found {hotspotParent.childCount}.");
 
             if (claimsListParent.childCount != caseData.claims.Count || claimsListParent.childCount <= 0)
                 report.Failures.Add($"{caseData.caseId}: expected {caseData.claims.Count} claim cards, found {claimsListParent.childCount}.");

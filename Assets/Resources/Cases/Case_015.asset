@@ -19,6 +19,12 @@ MonoBehaviour:
     after noon. A ghost employee payout moved anyway, and the office trail is too
     tidy to be accidental.
   sceneBackground: {fileID: 21300000, guid: e51ac98cdf1d700c2e2ac54dc03447da, type: 3}
+  departmentId: 6
+  districtId: DIST_CIVIC_CORE
+  cityLocationId: LOC_CIVIC_CORE_BRIAR_BENEFITS_ANNEX
+  caseArcId: ARC_GLASS_LEDGER
+  arcBeatSummary: Shows the fraud network exploiting bureaucratic spaces and quietly
+    foreshadows records-side leakage before it becomes explicit.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -40,6 +46,37 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C015_E005
     hotspotLabel: Hallway Reflection
+  caseLocations:
+  - locationId: LOC_CIVIC_CORE_BRIAR_BENEFITS_ANNEX
+    displayName: Briar Benefits Annex
+    sceneBackground: {fileID: 21300000, guid: e51ac98cdf1d700c2e2ac54dc03447da, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C015_E001
+      hotspotLabel: Archive Terminal
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C015_E002
+      hotspotLabel: Archive Door
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C015_E003
+      hotspotLabel: Sync Dock
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C015_E005
+      hotspotLabel: Hallway Reflection
+    entryText: Anchor the case in one bureaucratic archive room where file movement
+      and after-hours edits feel procedural rather than cinematic.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 603f2329b3dfd5a4eafb68df91125610, type: 2}
   - {fileID: 11400000, guid: 0e3710b3eefa2844a9f306c122b2fb86, type: 2}
@@ -53,7 +90,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5e4728d4b8a2e51449ef90f87e5065a1, type: 2}
   involvedSuspects:
   - {fileID: 11400000, guid: da4c75c93c90aed4ebde30fa102204da, type: 2}
+  suspectSummaries:
+  - suspectId: S016
+    displayName: Martin Quill
+    relevance: primary_claimant
   interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: Archive movement and credentials do the work without
+    extra suspect branching.
   contradictoryClaimId: C015_CL001
   explanationText: Martin claims the file stayed untouched after noon, but C015_E001
     logs a 6:18 PM edit under his credentials and C015_E002 places his badge entering

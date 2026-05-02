@@ -12,18 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_007
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 2
   caseId: Case_007
   title: Neighbor Testimony
   briefText: "Neighbor Greta Lowe says she heard loud music from apartment 4B at
     10 PM \u2014 proving the resident was home. But the resident's smart speaker
     app log shows something different."
   sceneBackground: {fileID: 21300000, guid: 9d13895c64aae3142936b26865fb3784, type: 3}
+  departmentId: 0
+  districtId: DIST_OLD_QUARTER
+  cityLocationId: LOC_OLD_QUARTER_APARTMENT_4B
+  caseArcId: ARC_PATROL_CROSSROADS
+  arcBeatSummary: Brings patrol back indoors and turns unreliable testimony into
+    a suspect-relevance template for the dossier layer.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.5, y: 0.5}
     radius: 0.06
     evidenceId: E001
     hotspotLabel: Smart Speaker
+  caseLocations:
+  - locationId: LOC_OLD_QUARTER_APARTMENT_4B
+    displayName: Apartment 4B
+    sceneBackground: {fileID: 21300000, guid: 9d13895c64aae3142936b26865fb3784, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.5, y: 0.5}
+      radius: 0.06
+      evidenceId: E001
+      hotspotLabel: Smart Speaker
+    entryText: Keep this contradiction centered on one apartment stack so sound,
+      device logs, and witness memory stay tightly paired.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 5f4fe81a3f9e40e4f912dc187e256910, type: 2}
   - {fileID: 11400000, guid: d13e420c21d0f5e4a8b6dc8c220d22de, type: 2}
@@ -34,6 +57,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c7d5b246789b5540a2c367f472299c0, type: 2}
   - {fileID: 11400000, guid: 83704b5c518f1fd45b6df14d0aa65e94, type: 2}
   - {fileID: 11400000, guid: a9a858d41e7c31447be352794c165429, type: 2}
+  involvedSuspects: []
+  suspectSummaries:
+  - suspectId: 
+    displayName: Greta Lowe
+    relevance: witness
+  - suspectId: 
+    displayName: Omar Fitch
+    relevance: secondary_suspect
+  - suspectId: 
+    displayName: Building Super
+    relevance: supporting_witness
+  interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: Useful for dossier flavor, but not promoted to interrogation-forward
+    in this milestone.
   contradictoryClaimId: CL001
   explanationText: "Greta claims she heard music from 4B at 10 PM. But the smart
     speaker log shows audio stopped at 8:42 PM and the wifi log shows the resident's
@@ -43,6 +82,8 @@ MonoBehaviour:
   primaryEvidenceIdB: E002
   basePoints: 500
   timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

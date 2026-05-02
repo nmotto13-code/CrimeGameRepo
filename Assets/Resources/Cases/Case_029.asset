@@ -20,6 +20,12 @@ MonoBehaviour:
     and vehicle stills point straight to a service entrance tied to the same leak
     pattern.
   sceneBackground: {fileID: 21300000, guid: c8bff0eddafcee3ac8c16254e413a6f6, type: 3}
+  departmentId: 7
+  districtId: DIST_MARKET_ROW
+  cityLocationId: LOC_MARKET_ROW_COURIER_GAZETTE
+  caseArcId: ARC_HOLLOW_DESK
+  arcBeatSummary: Reporter Vera Hale's disappearance turns the leak from rumor into
+    urgent personal evidence and points directly at precinct-side service access.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -41,6 +47,48 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C029_E006
     hotspotLabel: Visitor Stub
+  caseLocations:
+  - locationId: LOC_MARKET_ROW_COURIER_GAZETTE
+    displayName: Courier Gazette Annex Desk
+    sceneBackground: {fileID: 21300000, guid: c8bff0eddafcee3ac8c16254e413a6f6, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C029_E001
+      hotspotLabel: Voicemail Phone
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C029_E002
+      hotspotLabel: Dash Cam Board
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C029_E005
+      hotspotLabel: Recorder Tray
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C029_E006
+      hotspotLabel: Visitor Stub
+    entryText: Launch from the newsroom-side desk so the player first reads Vera's
+      own investigative trail.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
+  - locationId: VISIT_C029_PRECINCT_ANNEX_SERVICE_RAMP
+    displayName: Precinct Annex Service Ramp
+    sceneBackground: {fileID: 21300000, guid: c8bff0eddafcee3ac8c16254e413a6f6, type: 3}
+    hotspots: []
+    entryText: The service-ramp follow-up confirms Vera physically reached the annex
+      and sharpens the transition into the final records-floor case.
+    visitOrder: 1
+    unlockEvidenceIds:
+    - C029_E001
+    unlockTags: 0100000005000000
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 90e4bb096a805ff4f825c924ec7028e8, type: 2}
   - {fileID: 11400000, guid: ab4845856b20a984a8d9978832d89316, type: 2}
@@ -56,7 +104,18 @@ MonoBehaviour:
   involvedSuspects:
   - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
   - {fileID: 11400000, guid: 95255e4bcc5af5f469c6020a378f71ac, type: 2}
+  suspectSummaries:
+  - suspectId: S028
+    displayName: Vera Hale
+    relevance: missing_person
+  - suspectId: S011
+    displayName: Mira Voss
+    relevance: recurring_person_of_interest
   interrogationNodes: []
+  interrogationMode: planned_optional
+  isInterrogationForwardCase: 1
+  interrogationFocusSummary: Editor Hal Renn and annex-side support staff are strong
+    optional interrogation targets before the capstone.
   contradictoryClaimId: C029_CL001
   explanationText: The editor says Vera never reached the annex, but C029_E002 shows
     her car at the annex loading bay once the glare is enhanced and C029_E006 matches

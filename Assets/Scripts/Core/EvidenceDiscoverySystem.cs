@@ -26,6 +26,7 @@ namespace CasebookGame.Core
 
         readonly List<HotspotController> activeHotspots = new();
         readonly HashSet<string> foundEvidenceIds = new();
+        readonly HashSet<EvidenceTag> grantedTags = new();
         readonly List<EvidenceData> foundEvidence = new();
 
         public IReadOnlyList<HotspotController> ActiveHotspots => activeHotspots;
@@ -51,6 +52,7 @@ namespace CasebookGame.Core
             foundCount    = 0;
             foundEvidenceIds.Clear();
             foundEvidence.Clear();
+            grantedTags.Clear();
 
             // Clear previous evidence tab cards
             if (evidenceTabParent)
@@ -119,6 +121,9 @@ namespace CasebookGame.Core
 
         public bool HasFoundTag(EvidenceTag tag)
         {
+            if (grantedTags.Contains(tag))
+                return true;
+
             foreach (var evidence in foundEvidence)
             {
                 if (evidence != null && evidence.HasTag(tag))
@@ -127,5 +132,26 @@ namespace CasebookGame.Core
 
             return false;
         }
+
+        public void GrantEvidenceById(string evidenceId)
+        {
+            if (string.IsNullOrWhiteSpace(evidenceId))
+                return;
+
+            var currentCase = GameManager.Instance?.CurrentCase;
+            if (currentCase?.evidence == null)
+                return;
+
+            foreach (var evidence in currentCase.evidence)
+            {
+                if (evidence != null && evidence.evidenceId == evidenceId)
+                {
+                    RegisterEvidenceFound(evidence);
+                    return;
+                }
+            }
+        }
+
+        public void GrantTag(EvidenceTag tag) => grantedTags.Add(tag);
     }
 }

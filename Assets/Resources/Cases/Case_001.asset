@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_001
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 2
   caseId: Case_001
   title: The Missing Watch
   briefText: "Victor Hale was found dead in his study at 11:45 PM. His antique pocket
@@ -19,6 +20,12 @@ MonoBehaviour:
     hour it froze on contradicts everything his assistant claims about that night.\n\nSearch
     the scene. Find the evidence. Expose the lie."
   sceneBackground: {fileID: 21300000, guid: e1b974c77f157db4486cc27937f8d6db, type: 3}
+  departmentId: 0
+  districtId: DIST_OLD_QUARTER
+  cityLocationId: LOC_OLD_QUARTER_HALE_MANOR
+  caseArcId: ARC_PATROL_FOUNDATIONS
+  arcBeatSummary: Introduces patrol-era time contradictions inside a private manor
+    and establishes the city's old-money side as a recurring backdrop.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.3, y: 0.6}
@@ -45,6 +52,42 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: E004
     hotspotLabel: Visitor Badge
+  caseLocations:
+  - locationId: LOC_OLD_QUARTER_HALE_MANOR
+    displayName: Hale Manor Study
+    sceneBackground: {fileID: 21300000, guid: e1b974c77f157db4486cc27937f8d6db, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.3, y: 0.6}
+      radius: 0.06
+      evidenceId: E002
+      hotspotLabel: Wall Clock
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.4}
+      radius: 0.06
+      evidenceId: E005
+      hotspotLabel: Watch Box
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.3}
+      radius: 0.06
+      evidenceId: E001
+      hotspotLabel: Coroner Report
+    - hotspotId: H004
+      normalizedPosition: {x: 0.65, y: 0.55}
+      radius: 0.06
+      evidenceId: E003
+      hotspotLabel: Security Log
+    - hotspotId: H005
+      normalizedPosition: {x: 0.2, y: 0.25}
+      radius: 0.06
+      evidenceId: E004
+      hotspotLabel: Visitor Badge
+    entryText: Work the study as a sealed high-society scene and teach the player
+      to read time, access, and object placement together.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: e68be79e9ce304540a94233ab7257971, type: 2}
   - {fileID: 11400000, guid: 17a49b7b06f1e474e8714d2f13c40354, type: 2}
@@ -55,6 +98,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4f8823fe2dd668145b825cee108f9c7a, type: 2}
   - {fileID: 11400000, guid: 43a3b318dd9649a40a5206f64f7ddbf2, type: 2}
   - {fileID: 11400000, guid: c155c1ef04fb05e4dbeff8f8ebbe0c0a, type: 2}
+  involvedSuspects: []
+  suspectSummaries:
+  - suspectId: 
+    displayName: Marcus Vane
+    relevance: primary_claimant
+  - suspectId: 
+    displayName: Eva Mercer
+    relevance: supporting_witness
+  - suspectId: 
+    displayName: Detective Frost
+    relevance: investigator_voice
+  interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: Legacy contradiction-first case. Dossier relevance is
+    present, but interrogation is not prioritized in this milestone.
   contradictoryClaimId: CL001
   explanationText: "Marcus Vane claims he was with Victor at midnight and left through
     the front door. But his own badge records show he exited at 10:15 PM \u2014 before
@@ -65,6 +124,8 @@ MonoBehaviour:
   primaryEvidenceIdB: E004
   basePoints: 500
   timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

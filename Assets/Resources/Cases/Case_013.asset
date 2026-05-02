@@ -19,6 +19,12 @@ MonoBehaviour:
     Tessa Rook says her seal never left the office safe. Mira Voss is again nearby,
     this time as a supposedly neutral consultant.
   sceneBackground: {fileID: 21300000, guid: cf9e67ed8c2a618b06ec165eb27bdd09, type: 3}
+  departmentId: 6
+  districtId: DIST_OLD_QUARTER
+  cityLocationId: LOC_OLD_QUARTER_BRASSLIGHT_GALLERY
+  caseArcId: ARC_GLASS_LEDGER
+  arcBeatSummary: Expands the Fraud arc into forged provenance and positions the
+    art trade as a bridge between patrol's gallery thread and Mira's network.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -40,6 +46,48 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C013_E005
     hotspotLabel: Packing Bench
+  caseLocations:
+  - locationId: LOC_OLD_QUARTER_BRASSLIGHT_GALLERY
+    displayName: Brasslight Gallery Appraisal Room
+    sceneBackground: {fileID: 21300000, guid: cf9e67ed8c2a618b06ec165eb27bdd09, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C013_E001
+      hotspotLabel: Certificate Table
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C013_E002
+      hotspotLabel: Seal Case Shelf
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C013_E003
+      hotspotLabel: Loading Alley Board
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C013_E005
+      hotspotLabel: Packing Bench
+    entryText: Lead from the appraisal room so the player first reads the seal and
+      certificate as a controlled forgery scene.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
+  - locationId: VISIT_C013_LOADING_ALLEY
+    displayName: Brasslight Loading Alley
+    sceneBackground: {fileID: 21300000, guid: cf9e67ed8c2a618b06ec165eb27bdd09, type: 3}
+    hotspots: []
+    entryText: The alley visit pays off the seal-case movement and turns provenance
+      fraud into a physical handoff problem.
+    visitOrder: 1
+    unlockEvidenceIds:
+    - C013_E002
+    unlockTags: 0500000002000000
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: f743364d1ddadb841aea78cf25265a61, type: 2}
   - {fileID: 11400000, guid: edd2a12ec3ba3974a864be14d7718003, type: 2}
@@ -55,7 +103,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
   - {fileID: 11400000, guid: 790d07ec3cba7784f96d00e256107c02, type: 2}
   - {fileID: 11400000, guid: 7723cce1cc0da03448433f5c5fa2a2d7, type: 2}
+  suspectSummaries:
+  - suspectId: S018
+    displayName: Tessa Rook
+    relevance: primary_claimant
+  - suspectId: S013
+    displayName: Owen Kade
+    relevance: secondary_suspect
+  - suspectId: S011
+    displayName: Mira Voss
+    relevance: recurring_person_of_interest
   interrogationNodes: []
+  interrogationMode: planned_optional
+  isInterrogationForwardCase: 1
+  interrogationFocusSummary: Tessa Rook and Owen Kade form a clean dossier-and-pressure
+    pair for early fraud interrogation upgrades.
   contradictoryClaimId: C013_CL001
   explanationText: Tessa says her seal never left the safe, yet C013_E002 shows the
     portable seal case was recently used and removed, and C013_E003 shows her carrying

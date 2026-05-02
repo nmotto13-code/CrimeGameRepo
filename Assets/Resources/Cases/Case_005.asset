@@ -12,18 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_005
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 2
   caseId: Case_005
   title: Stairwell Footprints
   briefText: "A witness claims they chased a suspect down an outdoor staircase during
     heavy rain. The forensics team found crisp, undisturbed dust prints \u2014 but
     it rained for 3 hours that evening."
   sceneBackground: {fileID: 21300000, guid: edadbc2d6c57e324db441e2e70e4e920, type: 3}
+  departmentId: 0
+  districtId: DIST_MARKET_ROW
+  cityLocationId: LOC_MARKET_ROW_HARROW_STAIRWELL
+  caseArcId: ARC_PATROL_FOUNDATIONS
+  arcBeatSummary: Uses weather, footwear, and witness testimony to teach physical
+    contradiction reading in a grittier civilian district.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.45, y: 0.6}
     radius: 0.06
     evidenceId: E002
     hotspotLabel: Footprints
+  caseLocations:
+  - locationId: LOC_MARKET_ROW_HARROW_STAIRWELL
+    displayName: Harrow Court Stairwell
+    sceneBackground: {fileID: 21300000, guid: edadbc2d6c57e324db441e2e70e4e920, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.45, y: 0.6}
+      radius: 0.06
+      evidenceId: E002
+      hotspotLabel: Footprints
+    entryText: Stay inside the stairwell footprint scene so weather and physical
+      trace logic remain tightly legible on mobile.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: dd2d45d74c7a8b849a5bdc2c990e2f38, type: 2}
   - {fileID: 11400000, guid: 99e534bb45290b94caf58c2a78957fd1, type: 2}
@@ -34,6 +57,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 96b9ceb05cb8e244caa670cc6aa89670, type: 2}
   - {fileID: 11400000, guid: 66a9b3998c0ef614eb4794c91773e724, type: 2}
   - {fileID: 11400000, guid: 8a3f3a6166063ab4aa9b8bdc0916ff09, type: 2}
+  involvedSuspects: []
+  suspectSummaries:
+  - suspectId: 
+    displayName: Petra Vance
+    relevance: witness
+  - suspectId: 
+    displayName: Dale Marsh
+    relevance: secondary_suspect
+  - suspectId: 
+    displayName: Detective Harlow
+    relevance: investigator_voice
+  interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: Best kept as an evidence-first scene-reading case.
   contradictoryClaimId: CL001
   explanationText: "Petra claims the chase happened at 7:30 PM in pouring rain. The
     staircase is uncovered \u2014 any prints made at 7:30 PM would have been washed
@@ -43,6 +81,8 @@ MonoBehaviour:
   primaryEvidenceIdB: E002
   basePoints: 500
   timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

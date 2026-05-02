@@ -14,8 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.DepartmentData
   departmentId: 6
   displayName: Fraud
-  requiredRank: 1
-  requiredStarsCount: 0
+  requiredRank: 4
+  requiredStarsCount: 12
+  summaryText: Financial contradictions, paper-trail pressure, and the first full
+    conspiracy desk.
+  unlockBlurb: Promotion to Fraud requires Rank 4 and 12 total stars from patrol
+    fieldwork.
+  arcLabel: Glass Ledger
+  mapIcon: {fileID: 21300000, guid: cd38ad1146d0dc3d83cd6f052231d246, type: 3}
+  themeColor: {r: 0.30588236, g: 0.5568628, b: 0.5411765, a: 1}
   caseIds:
   - Case_011
   - Case_012

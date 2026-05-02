@@ -12,12 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_003
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 2
   caseId: Case_003
   title: Coffee Shop Alibi
   briefText: "Art appraiser Theo Grant claims he was sipping espresso at Caf\xE9
     Lumi\xE8re when the Harwick Gallery was robbed at 3:10 PM. The caf\xE9 is 40
     minutes across town. His receipt tells a different story."
   sceneBackground: {fileID: 21300000, guid: d29747a2b884e8341ad26c0eb2ef2429, type: 3}
+  departmentId: 0
+  districtId: DIST_OLD_QUARTER
+  cityLocationId: LOC_OLD_QUARTER_CAFE_LUMIERE
+  caseArcId: ARC_PATROL_FOUNDATIONS
+  arcBeatSummary: 'First authored city-hop contradiction: the cafe alibi fails because
+    the player can compare it against the gallery side of town.'
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.4, y: 0.6}
@@ -29,6 +36,38 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: E002
     hotspotLabel: Alarm Panel
+  caseLocations:
+  - locationId: LOC_OLD_QUARTER_CAFE_LUMIERE
+    displayName: Cafe Lumiere
+    sceneBackground: {fileID: 21300000, guid: d29747a2b884e8341ad26c0eb2ef2429, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.4, y: 0.6}
+      radius: 0.06
+      evidenceId: E001
+      hotspotLabel: Receipt on Table
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.3}
+      radius: 0.06
+      evidenceId: E002
+      hotspotLabel: Alarm Panel
+    entryText: Start at the cafe and let the player collect the receipt and local
+      alibi texture before the contradiction widens.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
+  - locationId: VISIT_C003_HARWICK_GALLERY_SIDE_ENTRANCE
+    displayName: Harwick Gallery Side Entrance
+    sceneBackground: {fileID: 21300000, guid: d29747a2b884e8341ad26c0eb2ef2429, type: 3}
+    hotspots: []
+    entryText: Second visit verifies the gallery-side timing and reinforces the impossible
+      cross-town alibi.
+    visitOrder: 1
+    unlockEvidenceIds:
+    - E001
+    unlockTags: 00000000
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 0acad95ec9565e648906fd3a6bd4375e, type: 2}
   - {fileID: 11400000, guid: 62ca50f1ed6bafc4da6ce202ad54a380, type: 2}
@@ -39,6 +78,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 035b166e7aeeb8448b091cd820c45eae, type: 2}
   - {fileID: 11400000, guid: dc6cce4b0dcdbaa47a441c608323a8cc, type: 2}
   - {fileID: 11400000, guid: 51a706d2854556a449cd8200a2820432, type: 2}
+  involvedSuspects: []
+  suspectSummaries:
+  - suspectId: 
+    displayName: Theo Grant
+    relevance: primary_claimant
+  - suspectId: 
+    displayName: Barista Mei
+    relevance: supporting_witness
+  - suspectId: 
+    displayName: Detective Osei
+    relevance: investigator_voice
+  interrogationNodes: []
+  interrogationMode: planned_optional
+  isInterrogationForwardCase: 1
+  interrogationFocusSummary: Theo Grant is a strong early interrogation-forward suspect
+    because his confidence collapses under travel-time pressure.
   contradictoryClaimId: CL001
   explanationText: "Theo's receipt shows he paid at the caf\xE9 at 3:05 PM, yet the
     gallery alarm triggered at 3:08 PM \u2014 only 3 minutes later. The caf\xE9 is
@@ -48,6 +103,8 @@ MonoBehaviour:
   primaryEvidenceIdB: E003
   basePoints: 500
   timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

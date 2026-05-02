@@ -12,18 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_004
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 2
   caseId: Case_004
   title: Parking Garage Ticket
   briefText: Sasha Novak claims she drove her sedan to Riverside Medical at 1 PM
     for a checkup. The parking garage ticket and plate reader disagree with the medical
     center's lobby cam.
   sceneBackground: {fileID: 21300000, guid: 20ecefaab16e2d2499435efd9304218f, type: 3}
+  departmentId: 0
+  districtId: DIST_RIVERSIDE
+  cityLocationId: LOC_RIVERSIDE_RIVERSIDE_MEDICAL
+  caseArcId: ARC_PATROL_FOUNDATIONS
+  arcBeatSummary: Expands patrol into vehicle-placement contradictions while anchoring
+    the medical district on the city map.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.5, y: 0.55}
     radius: 0.06
     evidenceId: E001
     hotspotLabel: Parking Ticket
+  caseLocations:
+  - locationId: LOC_RIVERSIDE_RIVERSIDE_MEDICAL
+    displayName: Riverside Medical Garage
+    sceneBackground: {fileID: 21300000, guid: 20ecefaab16e2d2499435efd9304218f, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.5, y: 0.55}
+      radius: 0.06
+      evidenceId: E001
+      hotspotLabel: Parking Ticket
+    entryText: Keep the case concentrated around the garage and lobby-story contradiction
+      so the city map gains a clear Riverside hospital node.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: e6f39b55f39be2b4c8883b3d61c183d0, type: 2}
   - {fileID: 11400000, guid: 867b6979ce51d0f4a83eaae3ee719e16, type: 2}
@@ -34,6 +57,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a2cec00fbbc6e7c44916b14dee3b6ed5, type: 2}
   - {fileID: 11400000, guid: a41fec4961fe4664caf5d58709c95989, type: 2}
   - {fileID: 11400000, guid: 8489e0dd74213f4499f8a8e341de31a4, type: 2}
+  involvedSuspects: []
+  suspectSummaries:
+  - suspectId: 
+    displayName: Sasha Novak
+    relevance: primary_claimant
+  - suspectId: 
+    displayName: Dr. Rajan Patel
+    relevance: supporting_witness
+  - suspectId: 
+    displayName: Garage Attendant
+    relevance: supporting_witness
+  interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: The ticket and plate-reader contradiction reads cleanly
+    without added suspect pressure.
   contradictoryClaimId: CL001
   explanationText: "Sasha's card was charged at a fuel station 12 km east at 1:22
     PM, yet her car's plate shows it in the Riverside garage from 12:48\u20131:55
@@ -43,6 +82,8 @@ MonoBehaviour:
   primaryEvidenceIdB: E001
   basePoints: 500
   timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

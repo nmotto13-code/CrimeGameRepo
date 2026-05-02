@@ -19,6 +19,12 @@ MonoBehaviour:
     Priya Sorn says the approvals happened automatically overnight, but manual traces
     point back to her desk.
   sceneBackground: {fileID: 21300000, guid: e1776af90e55cf65c42f4ce02c3d1e9c, type: 3}
+  departmentId: 6
+  districtId: DIST_SKYLINE
+  cityLocationId: LOC_SKYLINE_HORIZON_BLOOM_TOWER
+  caseArcId: ARC_GLASS_LEDGER
+  arcBeatSummary: Pushes Fraud upward into tower-space and digital approvals, broadening
+    the department beyond paper without leaving its contradiction DNA.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -35,6 +41,32 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C014_E005
     hotspotLabel: Night Shift Sensor
+  caseLocations:
+  - locationId: LOC_SKYLINE_HORIZON_BLOOM_TOWER
+    displayName: Horizon Bloom Fintech
+    sceneBackground: {fileID: 21300000, guid: e1776af90e55cf65c42f4ce02c3d1e9c, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C014_E001
+      hotspotLabel: Admin Token Cradle
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C014_E002
+      hotspotLabel: Charging Shelf
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C014_E005
+      hotspotLabel: Night Shift Sensor
+    entryText: Keep the fintech case inside one operations floor to preserve its
+      tight device-versus-automation logic.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 537c450b40f8a154abd2b79fe818b7a8, type: 2}
   - {fileID: 11400000, guid: 7191939ae9a2cb547828c35b4a8e0a54, type: 2}
@@ -48,7 +80,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7839ac3ebb159da4c80f3226d2c9fe17, type: 2}
   involvedSuspects:
   - {fileID: 11400000, guid: 10818a9f26f758847989c3590ed8f772, type: 2}
+  suspectSummaries:
+  - suspectId: S015
+    displayName: Priya Sorn
+    relevance: primary_claimant
   interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: The operations-pod evidence trail is sufficient without
+    elevating Priya to interrogation-forward status this milestone.
   contradictoryClaimId: C014_CL001
   explanationText: Priya says the refunds ran automatically after her phone died,
     but C014_E001 shows manual token use from her workstation and C014_E002 proves

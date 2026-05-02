@@ -16,6 +16,12 @@ MonoBehaviour:
   displayName: Patrol (Training)
   requiredRank: 1
   requiredStarsCount: 0
+  summaryText: Foundational patrol files that teach the city, the departments, and
+    the contradiction engine.
+  unlockBlurb: Patrol is your starting board. Clear cases cleanly to earn promotions.
+  arcLabel: Patrol Foundations
+  mapIcon: {fileID: 21300000, guid: a8d1e4d6c011ca55a6a53ea7e36dd10b, type: 3}
+  themeColor: {r: 0.81960785, g: 0.63529414, b: 0.2901961, a: 1}
   caseIds:
   - Case_001
   - Case_002

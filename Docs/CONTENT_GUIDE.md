@@ -3,6 +3,11 @@
 ## Purpose
 Use this workflow to add or extend cases without breaking the existing shell, scene builder, or the first 10 playable cases.
 
+## Shared Progress
+- Every thread updates `Docs/WORKSTREAM_STATUS.md`.
+- Each thread edits only its own section plus the shared milestone summary when the milestone materially changes.
+- Integration decisions should read the status doc before assigning more work.
+
 ## Naming Rules
 - Case assets: `Case_0XX`
 - Evidence assets: `C0XX_E00X`
@@ -13,9 +18,18 @@ Use this workflow to add or extend cases without breaking the existing shell, sc
 
 ## New Case Workflow
 1. Create a new `CaseData` asset from `Casebook/Case Data`.
-2. Set `caseId`, title, brief, background, hotspot list, evidence list, claims list, contradiction ID, explanation, and tool overrides.
-3. Keep hotspot count in the default validator range: 3 to 5.
-4. Set `primaryEvidenceIdA` and `primaryEvidenceIdB` to the two evidence IDs that anchor the contradiction explanation.
+2. Set `caseId`, title, brief, department, district, city location, contradiction ID, explanation, and tool overrides.
+3. Author at least one `caseLocations` entry with background, hotspot list, and entry text.
+4. If `caseLocations` is left empty, runtime falls back to the legacy root `sceneBackground` and `hotspots`, but authored content should prefer explicit case visits.
+5. Set `primaryEvidenceIdA` and `primaryEvidenceIdB` to the two evidence IDs that anchor the contradiction explanation.
+6. Optional: set `caseArcId` and `arcBeatSummary` when the case participates in a longer narrative thread.
+7. Keep hotspot count in the default validator range: 3 to 5 across the authored case visits.
+
+## Department and City Workflow
+1. Cases should belong to a department desk and a city location, even if they still play as a single-location case.
+2. Prefer authored `districtId` and `cityLocationId` values over bootstrapper fallbacks.
+3. `CityLocationData` assets should carry the final display name and map position when content is ready.
+4. Use one map node per case for now unless a later milestone explicitly changes that rule.
 
 ## Evidence Workflow
 1. Create `EvidenceData` assets from `Casebook/Evidence Data`.
@@ -35,23 +49,28 @@ Use this workflow to add or extend cases without breaking the existing shell, sc
 
 ## Suspect Workflow
 1. Create `SuspectData` assets from `Casebook/Suspect Data`.
-2. Set `suspectId`, display name, portrait, bio, traits, associates, linked case IDs, credibility score, and notes.
-3. Link involved suspects on the case through `CaseData.involvedSuspects`.
-4. The in-game dossier screen reads only the suspects linked on the current case.
+2. Set `suspectId`, display name, portrait, bio, traits, associates, linked case IDs, credibility score, notes, role label, and status summary.
+3. Set `currentLocationId` when the suspect should read as anchored to a case visit or city location.
+4. Set `interrogationEntryNodeId` when the suspect is the owner of an interrogation sequence.
+5. Link involved suspects on the case through `CaseData.involvedSuspects`.
+6. The in-game dossier screen reads only the suspects linked on the current case.
 
 ## Interrogation Workflow
 1. Create `InterrogationNode` assets from `Casebook/Interrogation Node`.
-2. Fill `nodeId`, `promptText`, exactly 3 responses, and `correctResponseIndex`.
+2. Fill `nodeId`, `suspectId`, `promptText`, exactly 3 responses, and `correctResponseIndex`.
 3. Use `evidenceRequiredIds` to require specific found evidence before a node appears.
 4. Use `unlockConditionTags` when a node should depend on discovered evidence tags instead of a specific clue.
-5. Link nodes through `CaseData.interrogationNodes`.
-6. If a case has no interrogation nodes, it still goes straight to results with no regression path.
+5. Use `nextNodeIdOnCorrect` and `nextNodeIdOnWrong` for authored branching; leaving them blank keeps the legacy linear order.
+6. Use `grantedEvidenceIds` or `grantedTags` when interrogation should feed the solve path before final contradiction submission.
+7. Link nodes through `CaseData.interrogationNodes`.
+8. If a case has no interrogation nodes, it still goes straight to results with no regression path.
 
 ## Validation Workflow
 1. Run `Casebook -> Validate All Cases`.
 2. The validator always writes `Docs/validation-report.json`.
 3. Treat errors as block-merge issues.
 4. Treat warnings as author review items. Placeholder sprites and old schema versions should be resolved intentionally, not ignored.
+5. For new world-map content, fix blank `districtId`, `cityLocationId`, or case-visit issues before merge rather than relying permanently on fallback bootstrap data.
 
 ## Scene Workflow
 1. Run `Casebook -> Build Scene`.
@@ -68,10 +87,12 @@ Use this workflow to add or extend cases without breaking the existing shell, sc
 ## Schema Migration
 - Existing cases/assets without `schemaVersion` deserialize as `0`.
 - Run `Casebook -> Upgrade Case Schema` once after pulling this change set.
-- Version `1` is additive only:
+- Version `2` is additive only:
   `CaseData` gained `schemaVersion`, `involvedSuspects`, and `interrogationNodes`
   `EvidenceData` gained `schemaVersion` and `usesPlaceholderSprite`
   `ClaimData` gained `schemaVersion`
+- `CaseData` also gained world-placement and case-visit fields
+- `SuspectData` and `InterrogationNode` gained v2 presentation/branching fields
 - The first 10 cases remain valid without populating suspects or interrogation nodes.
 
 ## Deployment Handoff

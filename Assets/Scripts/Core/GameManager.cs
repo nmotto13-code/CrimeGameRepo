@@ -11,11 +11,15 @@ namespace CasebookGame.Core
         [Header("Case Roster")]
         public CaseData[] availableCases;
         public int currentCaseIndex = 0;
+        int currentLocationIndex = 0;
 
         public CaseData CurrentCase =>
             availableCases != null && availableCases.Length > 0
                 ? availableCases[currentCaseIndex]
                 : null;
+
+        public int CurrentLocationIndex => currentLocationIndex;
+        public CaseLocationData CurrentLocation => CurrentCase?.GetResolvedLocation(currentLocationIndex);
 
         void Awake()
         {
@@ -33,7 +37,11 @@ namespace CasebookGame.Core
             LoadCurrentCase();
         }
 
-        public void LoadCurrentCase() => CaseLoader.Instance?.LoadCase(CurrentCase);
+        public void LoadCurrentCase()
+        {
+            currentLocationIndex = 0;
+            CaseLoader.Instance?.LoadCase(CurrentCase);
+        }
 
         public void NextCase()
         {
@@ -48,6 +56,23 @@ namespace CasebookGame.Core
             if (index < 0 || index >= availableCases.Length) return;
             currentCaseIndex = index;
             LoadCurrentCase();
+        }
+
+        public void LoadCaseById(string caseId)
+        {
+            int index = IndexOfCase(caseId);
+            if (index >= 0)
+                LoadCaseByIndex(index);
+        }
+
+        public void SetCurrentLocationIndex(int index)
+        {
+            var caseData = CurrentCase;
+            if (caseData == null)
+                return;
+
+            currentLocationIndex = Mathf.Clamp(index, 0, caseData.GetResolvedLocationCount() - 1);
+            CaseLoader.Instance?.RefreshActiveLocation();
         }
 
         public int IndexOfCase(string caseId)

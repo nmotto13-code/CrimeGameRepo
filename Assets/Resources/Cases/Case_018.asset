@@ -19,6 +19,12 @@ MonoBehaviour:
     Mira Voss says she only reviewed public invoices, but one concealed clue suggests
     someone inside the bureau leaked restricted timing.
   sceneBackground: {fileID: 21300000, guid: ab1bcf5ab25face905f00d4784f9ae71, type: 3}
+  departmentId: 6
+  districtId: DIST_CIVIC_CORE
+  cityLocationId: LOC_CIVIC_CORE_MARLOWE_PROCUREMENT_HUB
+  caseArcId: ARC_GLASS_LEDGER
+  arcBeatSummary: 'First overt leak beat in Fraud: Mira''s timeline depends on restricted
+    knowledge that should never have left the department.'
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -45,6 +51,53 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C018_E006
     hotspotLabel: Brief Snapshot
+  caseLocations:
+  - locationId: LOC_CIVIC_CORE_MARLOWE_PROCUREMENT_HUB
+    displayName: Marlowe Procurement Hub
+    sceneBackground: {fileID: 21300000, guid: ab1bcf5ab25face905f00d4784f9ae71, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C018_E001
+      hotspotLabel: Invoice Packet
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C018_E002
+      hotspotLabel: Burner Tablet
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C018_E004
+      hotspotLabel: Recorder Tray
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C018_E005
+      hotspotLabel: Courier Envelope
+    - hotspotId: H005
+      normalizedPosition: {x: 0.75, y: 0.4}
+      radius: 0.06
+      evidenceId: C018_E006
+      hotspotLabel: Brief Snapshot
+    entryText: Lead from the conference suite and public invoice packet so the player
+      starts in the clean version of Mira's story.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
+  - locationId: VISIT_C018_PURGED_WAREHOUSE
+    displayName: Purged Warehouse Row
+    sceneBackground: {fileID: 21300000, guid: ab1bcf5ab25face905f00d4784f9ae71, type: 3}
+    hotspots: []
+    entryText: The warehouse-side verification visit turns abstract warning leaks
+      into visible preemptive movement.
+    visitOrder: 1
+    unlockEvidenceIds:
+    - C018_E002
+    unlockTags: 0800000005000000
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: c9c6f1daac44490478ac5e32bc9842c9, type: 2}
   - {fileID: 11400000, guid: cdeac8c675f6b954c975815d7eb6b2ea, type: 2}
@@ -59,7 +112,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 88d9de9967fa2fe4ab15e280f4351844, type: 2}
   involvedSuspects:
   - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
+  suspectSummaries:
+  - suspectId: S011
+    displayName: Mira Voss
+    relevance: primary_claimant
   interrogationNodes: []
+  interrogationMode: planned_optional
+  isInterrogationForwardCase: 1
+  interrogationFocusSummary: This is Mira Voss's first interrogation-priority case
+    because the restricted-brief lie works cleanly as suspect pressure.
   contradictoryClaimId: C018_CL001
   explanationText: Mira says she only saw public paperwork, but C018_E002 carries
     a private calendar reminder aligned to the warrant window and C018_E006 is a

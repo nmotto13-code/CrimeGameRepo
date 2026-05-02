@@ -19,6 +19,12 @@ MonoBehaviour:
     in one sealed batch. Serial gaps and parcel-weight records suggest a second run
     slipped out after the official post drop.
   sceneBackground: {fileID: 21300000, guid: 42d10577e374338356f8f7e739898ede, type: 3}
+  departmentId: 6
+  districtId: DIST_CIVIC_CORE
+  cityLocationId: LOC_CIVIC_CORE_ASTER_TRANSIT_TREASURY
+  caseArcId: ARC_GLASS_LEDGER
+  arcBeatSummary: Returns to paper flow and public funds, showing how the fraud arc
+    can sit inside ordinary treasury operations.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -40,6 +46,37 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C017_E004
     hotspotLabel: Sorter Tray
+  caseLocations:
+  - locationId: LOC_CIVIC_CORE_ASTER_TRANSIT_TREASURY
+    displayName: Aster Transit Treasury
+    sceneBackground: {fileID: 21300000, guid: 42d10577e374338356f8f7e739898ede, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C017_E001
+      hotspotLabel: Voucher Roll Drawer
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C017_E002
+      hotspotLabel: Mailroom Scale
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C017_E003
+      hotspotLabel: Dispatch Cage Camera
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C017_E004
+      hotspotLabel: Sorter Tray
+    entryText: One treasury room is enough to teach split-batch fraud without fragmenting
+      the player's paper trail.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 99432540cbf34af44aa97d8f318aec25, type: 2}
   - {fileID: 11400000, guid: f7ae9871ba2e7634db2a36caccfb8ff1, type: 2}
@@ -53,7 +90,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7bcd9545ed47f2d46a27ca07133c7215, type: 2}
   involvedSuspects:
   - {fileID: 11400000, guid: d1b6ccb667fbd8a41b5a32b4b36c9aa4, type: 2}
+  suspectSummaries:
+  - suspectId: S019
+    displayName: Devin March
+    relevance: primary_claimant
   interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: Serial gaps and parcel weights already give enough structure.
   contradictoryClaimId: C017_CL001
   explanationText: Devin says there was only one sealed mailing, but C017_E001 shows
     a missing serial span that could supply a second bundle and C017_E002 shows the

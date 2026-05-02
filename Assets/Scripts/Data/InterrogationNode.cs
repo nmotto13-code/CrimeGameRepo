@@ -11,6 +11,7 @@ namespace CasebookGame.Data
 
         [Header("Identity")]
         public string nodeId;
+        public string suspectId;
 
         [Header("Prompt")]
         [TextArea(3, 8)] public string promptText;
@@ -20,5 +21,13 @@ namespace CasebookGame.Data
         [Header("Unlocking")]
         public List<EvidenceTag> unlockConditionTags = new List<EvidenceTag>();
         public List<string> evidenceRequiredIds = new List<string>();
+
+        [Header("Branching")]
+        public string nextNodeIdOnCorrect;
+        public string nextNodeIdOnWrong;
+
+        [Header("Rewards")]
+        public List<string> grantedEvidenceIds = new List<string>();
+        public List<EvidenceTag> grantedTags = new List<EvidenceTag>();
     }
 }

@@ -125,10 +125,22 @@ namespace CasebookGame.Editor
             if (caseData.schemaVersion != CaseSchemaVersions.Current)
                 entry.warnings.Add($"Schema version is {caseData.schemaVersion}; expected {CaseSchemaVersions.Current}. Run Casebook/Upgrade Case Schema.");
 
-            if (caseData.sceneBackground == null)
+            if (string.IsNullOrWhiteSpace(caseData.districtId))
+                entry.warnings.Add("districtId is blank; bootstrapper fallback will be used until the case is resaved.");
+            if (string.IsNullOrWhiteSpace(caseData.cityLocationId))
+                entry.warnings.Add("cityLocationId is blank; bootstrapper fallback will be used until the case is resaved.");
+
+            var resolvedLocations = new List<CaseLocationData>();
+            int resolvedLocationCount = Mathf.Max(1, caseData.GetResolvedLocationCount());
+            for (int locationIndex = 0; locationIndex < resolvedLocationCount; locationIndex++)
+                resolvedLocations.Add(caseData.GetResolvedLocation(locationIndex));
+
+            if (resolvedLocations.All(location => location == null || location.sceneBackground == null))
                 entry.errors.Add("Background sprite is missing.");
 
-            int hotspotCount = caseData.hotspots?.Count ?? 0;
+            int hotspotCount = resolvedLocations
+                .Where(location => location != null && location.hotspots != null)
+                .Sum(location => location.hotspots.Count);
             if (hotspotCount < RequiredMinHotspotsPerCase)
             {
                 entry.errors.Add($"Hotspot count must be at least {RequiredMinHotspotsPerCase}.");
@@ -167,25 +179,44 @@ namespace CasebookGame.Editor
                     entry.warnings.Add($"Evidence {evidence.name} is using a placeholder sprite.");
             }
 
-            foreach (var hotspot in caseData.hotspots ?? new List<HotspotData>())
+            for (int locationIndex = 0; locationIndex < resolvedLocations.Count; locationIndex++)
             {
-                if (hotspot == null)
+                var location = resolvedLocations[locationIndex];
+                if (location == null)
                 {
-                    entry.errors.Add("Case contains a null hotspot entry.");
+                    entry.errors.Add($"Resolved case location {locationIndex} is null.");
                     continue;
                 }
 
-                if (hotspot.normalizedPosition.x < 0f || hotspot.normalizedPosition.x > 1f ||
-                    hotspot.normalizedPosition.y < 0f || hotspot.normalizedPosition.y > 1f)
+                if (string.IsNullOrWhiteSpace(location.locationId))
+                    entry.errors.Add($"Case location {locationIndex + 1} is missing locationId.");
+
+                if (string.IsNullOrWhiteSpace(location.displayName))
+                    entry.warnings.Add($"Case location {location.locationId} is missing displayName.");
+
+                if (location.sceneBackground == null)
+                    entry.errors.Add($"Case location {location.locationId} is missing a background sprite.");
+
+                foreach (var hotspot in location.hotspots ?? new List<HotspotData>())
                 {
-                    entry.errors.Add($"Hotspot {hotspot.hotspotId} is outside normalized bounds.");
+                    if (hotspot == null)
+                    {
+                        entry.errors.Add($"Case location {location.locationId} contains a null hotspot entry.");
+                        continue;
+                    }
+
+                    if (hotspot.normalizedPosition.x < 0f || hotspot.normalizedPosition.x > 1f ||
+                        hotspot.normalizedPosition.y < 0f || hotspot.normalizedPosition.y > 1f)
+                    {
+                        entry.errors.Add($"Hotspot {hotspot.hotspotId} is outside normalized bounds.");
+                    }
+
+                    if (hotspot.radius < 0f)
+                        entry.errors.Add($"Hotspot {hotspot.hotspotId} has a negative radius.");
+
+                    if (string.IsNullOrWhiteSpace(hotspot.evidenceId) || !evidenceById.ContainsKey(hotspot.evidenceId))
+                        entry.errors.Add($"Hotspot {hotspot.hotspotId} maps to unknown evidenceId '{hotspot.evidenceId}'.");
                 }
-
-                if (hotspot.radius < 0f)
-                    entry.errors.Add($"Hotspot {hotspot.hotspotId} has a negative radius.");
-
-                if (string.IsNullOrWhiteSpace(hotspot.evidenceId) || !evidenceById.ContainsKey(hotspot.evidenceId))
-                    entry.errors.Add($"Hotspot {hotspot.hotspotId} maps to unknown evidenceId '{hotspot.evidenceId}'.");
             }
 
             if (caseData.claims == null || caseData.claims.Count == 0)
@@ -264,6 +295,14 @@ namespace CasebookGame.Editor
                 if (string.IsNullOrWhiteSpace(node.nodeId) || !interrogationLookup.TryGetValue(node.nodeId, out var resolvedNode) || resolvedNode != node)
                     entry.errors.Add($"Interrogation node reference {node.name} does not resolve cleanly by nodeId.");
 
+                if (!string.IsNullOrWhiteSpace(node.suspectId))
+                {
+                    bool suspectExists = caseData.involvedSuspects != null && caseData.involvedSuspects.Any(suspect =>
+                        suspect != null && string.Equals(suspect.suspectId, node.suspectId, StringComparison.OrdinalIgnoreCase));
+                    if (!suspectExists)
+                        entry.errors.Add($"Interrogation node {node.name} references suspectId '{node.suspectId}' that is not linked on the case.");
+                }
+
                 if (node.responses == null || node.responses.Count != 3)
                     entry.errors.Add($"Interrogation node {node.name} must define exactly 3 responses.");
 
@@ -276,6 +315,19 @@ namespace CasebookGame.Editor
                         && !evidenceById.ContainsKey(evidenceId)
                         && !evidenceLookup.ContainsKey(evidenceId))
                         entry.errors.Add($"Interrogation node {node.name} references unknown evidenceId '{evidenceId}'.");
+                }
+
+                if (!string.IsNullOrWhiteSpace(node.nextNodeIdOnCorrect) && !interrogationLookup.ContainsKey(node.nextNodeIdOnCorrect))
+                    entry.errors.Add($"Interrogation node {node.name} has unknown nextNodeIdOnCorrect '{node.nextNodeIdOnCorrect}'.");
+                if (!string.IsNullOrWhiteSpace(node.nextNodeIdOnWrong) && !interrogationLookup.ContainsKey(node.nextNodeIdOnWrong))
+                    entry.errors.Add($"Interrogation node {node.name} has unknown nextNodeIdOnWrong '{node.nextNodeIdOnWrong}'.");
+
+                foreach (var grantedEvidenceId in node.grantedEvidenceIds ?? new List<string>())
+                {
+                    if (!string.IsNullOrWhiteSpace(grantedEvidenceId)
+                        && !evidenceById.ContainsKey(grantedEvidenceId)
+                        && !evidenceLookup.ContainsKey(grantedEvidenceId))
+                        entry.errors.Add($"Interrogation node {node.name} grants unknown evidenceId '{grantedEvidenceId}'.");
                 }
             }
 

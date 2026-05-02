@@ -50,6 +50,7 @@ namespace CasebookGame.Core
             SetupClaims(caseData);
             SetupHotspots(caseData);
             EvidenceDiscoverySystem.Instance?.StartInvestigation(caseData);
+            InterrogationFlowController.Instance?.PrepareCase(caseData);
             ToolsController.Instance?.InitializeTools(caseData.toolConfig);
 
             ContradictionEvaluator.Instance?.SetCase(caseData);
@@ -62,12 +63,24 @@ namespace CasebookGame.Core
                 UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(cRT);
         }
 
+        public void RefreshActiveLocation()
+        {
+            var caseData = GameManager.Instance?.CurrentCase;
+            if (caseData == null)
+                return;
+
+            SetupBackground(caseData);
+            SetupHotspots(caseData);
+        }
+
         void SetupBackground(CaseData d)
         {
             if (!sceneBackground) return;
-            if (d.sceneBackground)
+            var location = ResolveCurrentLocation(d);
+            var background = location?.sceneBackground != null ? location.sceneBackground : d.sceneBackground;
+            if (background)
             {
-                sceneBackground.sprite = d.sceneBackground;
+                sceneBackground.sprite = background;
                 sceneBackground.color  = Color.white;
                 // Hide the "no image" placeholder text when a real sprite is present
                 var placeholder = sceneBackground.transform.Find("NoImagePlaceholder");
@@ -108,7 +121,9 @@ namespace CasebookGame.Core
             if (!hotspotParent || !hotspotPrefab) return;
             ClearChildren(hotspotParent);
 
-            foreach (var hotspot in d.hotspots)
+            var location = ResolveCurrentLocation(d);
+            var hotspots = location?.hotspots ?? d.hotspots;
+            foreach (var hotspot in hotspots)
             {
                 var go = Instantiate(hotspotPrefab, hotspotParent);
                 var rt = go.GetComponent<RectTransform>();
@@ -123,6 +138,9 @@ namespace CasebookGame.Core
                 go.GetComponent<HotspotController>()?.Initialize(hotspot);
             }
         }
+
+        static CaseLocationData ResolveCurrentLocation(CaseData caseData) =>
+            GameManager.Instance?.CurrentLocation ?? caseData?.GetResolvedLocation(0);
 
         static void ClearChildren(Transform parent)
         {

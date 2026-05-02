@@ -12,6 +12,9 @@ namespace CasebookGame.UI
     {
         [SerializeField] Transform listParent;
         [SerializeField] Button closeBtn;
+        [SerializeField] Button openMapBtn;
+        [SerializeField] TMP_Text headerTitleText;
+        [SerializeField] TMP_Text headerSubtitleText;
 
         [SerializeField] Color rowColor = new Color(0.16f, 0.16f, 0.24f);
         [SerializeField] Color rowHoverColor = new Color(0.22f, 0.22f, 0.34f);
@@ -23,12 +26,15 @@ namespace CasebookGame.UI
             base.Awake();
             closeBtn?.onClick.AddListener(() =>
                 NavigationManager.Instance?.Pop(TransitionType.SlideRight));
+            openMapBtn?.onClick.AddListener(() =>
+                NavigationManager.Instance?.Push(ScreenId.CityMap, TransitionType.SlideLeft));
         }
 
         public override void OnScreenEnter()
         {
             gameObject.SetActive(true);
             Populate();
+            RefreshHeader();
         }
 
         void Populate()
@@ -76,7 +82,7 @@ namespace CasebookGame.UI
                     continue;
 
                 var lockStatus = ProgressionRules.GetDepartmentLockStatus(department, rank, totalStars);
-                CreateDepartmentHeader(font, lockStatus, overrideTitle: null);
+                CreateDepartmentHeader(font, lockStatus, null);
 
                 foreach (var caseData in departmentCases)
                 {
@@ -96,12 +102,36 @@ namespace CasebookGame.UI
                 }, "Unassigned Cases");
 
                 foreach (var caseData in unassignedCases)
-                    CreateCaseRow(caseData, caseIndexLookup[caseData.caseId], font, unlocked: true, lockReason: "Unlocked");
+                    CreateCaseRow(caseData, caseIndexLookup[caseData.caseId], font, true, "Unlocked");
             }
 
             Canvas.ForceUpdateCanvases();
             if (listParent is RectTransform listRT)
                 LayoutRebuilder.ForceRebuildLayoutImmediate(listRT);
+        }
+
+        void RefreshHeader()
+        {
+            if (headerTitleText != null)
+                headerTitleText.text = "DEPARTMENT DESK";
+
+            if (headerSubtitleText == null)
+                return;
+
+            var cases = GameManager.Instance?.availableCases ?? System.Array.Empty<CaseData>();
+            var departments = ProgressionRules.GetDepartments(cases);
+            int rank = PlayerProfile.GetRank();
+            int stars = PlayerProfile.GetTotalStars(cases);
+            int unlocked = departments.Count(d => d != null && ProgressionRules.IsDepartmentUnlocked(d, rank, stars));
+            var nextLocked = departments
+                .Where(d => d != null && !ProgressionRules.IsDepartmentUnlocked(d, rank, stars))
+                .OrderBy(d => d.requiredRank)
+                .ThenBy(d => d.requiredStarsCount)
+                .FirstOrDefault();
+
+            headerSubtitleText.text = nextLocked != null
+                ? $"{unlocked}/{departments.Count} desks unlocked | Next promotion: {nextLocked.displayName} at Rank {nextLocked.requiredRank} / {nextLocked.requiredStarsCount} stars"
+                : $"{unlocked}/{departments.Count} desks unlocked | Open the city map to launch fieldwork";
         }
 
         void CreateDepartmentHeader(TMP_FontAsset font, DepartmentLockStatus lockStatus, string overrideTitle)
@@ -110,20 +140,38 @@ namespace CasebookGame.UI
 
             var headerGo = new GameObject($"Department_{titleText}");
             headerGo.transform.SetParent(listParent, false);
-            headerGo.AddComponent<LayoutElement>().preferredHeight = 78;
+            headerGo.AddComponent<LayoutElement>().preferredHeight = 122;
             headerGo.AddComponent<Image>().color = lockStatus.IsUnlocked
                 ? new Color(0.20f, 0.16f, 0.10f)
                 : new Color(0.14f, 0.12f, 0.12f);
 
-            var layout = headerGo.AddComponent<HorizontalLayoutGroup>();
-            layout.padding = new RectOffset(18, 18, 14, 14);
-            layout.spacing = 12;
+            var layout = headerGo.AddComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(18, 18, 12, 12);
+            layout.spacing = 6;
             layout.childControlHeight = true;
             layout.childControlWidth = true;
-            layout.childForceExpandWidth = false;
+            layout.childForceExpandWidth = true;
+
+            var topRow = new GameObject("TopRow");
+            topRow.transform.SetParent(headerGo.transform, false);
+            var topLayout = topRow.AddComponent<HorizontalLayoutGroup>();
+            topLayout.spacing = 12;
+            topLayout.childControlHeight = true;
+            topLayout.childControlWidth = true;
+            topLayout.childForceExpandWidth = false;
+
+            if (lockStatus.Department?.mapIcon != null)
+            {
+                var iconGo = new GameObject("Icon");
+                iconGo.transform.SetParent(topRow.transform, false);
+                iconGo.AddComponent<LayoutElement>().preferredWidth = 44;
+                var icon = iconGo.AddComponent<Image>();
+                icon.sprite = lockStatus.Department.mapIcon;
+                icon.preserveAspect = true;
+            }
 
             var titleGo = new GameObject("Title");
-            titleGo.transform.SetParent(headerGo.transform, false);
+            titleGo.transform.SetParent(topRow.transform, false);
             var title = titleGo.AddComponent<TextMeshProUGUI>();
             if (font != null) title.font = font;
             title.fontSize = 28;
@@ -133,7 +181,7 @@ namespace CasebookGame.UI
             titleGo.AddComponent<LayoutElement>().flexibleWidth = 1;
 
             var requirementGo = new GameObject("Requirement");
-            requirementGo.transform.SetParent(headerGo.transform, false);
+            requirementGo.transform.SetParent(topRow.transform, false);
             var requirement = requirementGo.AddComponent<TextMeshProUGUI>();
             if (font != null) requirement.font = font;
             requirement.fontSize = 20;
@@ -141,13 +189,38 @@ namespace CasebookGame.UI
             requirement.color = lockStatus.IsUnlocked ? new Color(0.62f, 0.86f, 0.66f) : new Color(0.86f, 0.60f, 0.52f);
             requirement.text = lockStatus.RequirementText;
             requirementGo.AddComponent<LayoutElement>().preferredWidth = 360;
+
+            if (lockStatus.Department != null)
+            {
+                var summaryGo = new GameObject("Summary");
+                summaryGo.transform.SetParent(headerGo.transform, false);
+                var summary = summaryGo.AddComponent<TextMeshProUGUI>();
+                if (font != null) summary.font = font;
+                summary.fontSize = 18;
+                summary.color = new Color(0.78f, 0.78f, 0.82f);
+                summary.textWrappingMode = TextWrappingModes.Normal;
+                summary.text = string.IsNullOrWhiteSpace(lockStatus.Department.summaryText)
+                    ? "Open the city map to launch cases from this desk."
+                    : lockStatus.Department.summaryText;
+
+                var blurbGo = new GameObject("UnlockBlurb");
+                blurbGo.transform.SetParent(headerGo.transform, false);
+                var blurb = blurbGo.AddComponent<TextMeshProUGUI>();
+                if (font != null) blurb.font = font;
+                blurb.fontSize = 16;
+                blurb.color = lockStatus.IsUnlocked ? new Color(0.66f, 0.84f, 0.70f) : new Color(0.86f, 0.72f, 0.66f);
+                blurb.textWrappingMode = TextWrappingModes.Normal;
+                blurb.text = lockStatus.IsUnlocked
+                    ? $"Arc: {lockStatus.Department.arcLabel}"
+                    : lockStatus.Department.unlockBlurb;
+            }
         }
 
         void CreateCaseRow(CaseData caseData, int index, TMP_FontAsset font, bool unlocked, string lockReason)
         {
             var rowGo = new GameObject($"CaseRow_{caseData.caseId}");
             rowGo.transform.SetParent(listParent, false);
-            rowGo.AddComponent<LayoutElement>().preferredHeight = 124;
+            rowGo.AddComponent<LayoutElement>().preferredHeight = 132;
 
             var rowImg = rowGo.AddComponent<Image>();
             rowImg.color = unlocked ? rowColor : new Color(0.12f, 0.12f, 0.16f);
@@ -199,9 +272,18 @@ namespace CasebookGame.UI
             briefText.overflowMode = TextOverflowModes.Ellipsis;
             briefText.text = GetBriefPreview(caseData);
 
+            var flowGo = new GameObject("Flow");
+            flowGo.transform.SetParent(leftGo.transform, false);
+            var flowText = flowGo.AddComponent<TextMeshProUGUI>();
+            if (font != null) flowText.font = font;
+            flowText.fontSize = 16;
+            flowText.color = unlocked ? new Color(0.86f, 0.82f, 0.68f) : new Color(0.64f, 0.62f, 0.62f);
+            flowText.textWrappingMode = TextWrappingModes.Normal;
+            flowText.text = BuildFlowSummary(caseData);
+
             var rightGo = new GameObject("Right");
             rightGo.transform.SetParent(rowGo.transform, false);
-            rightGo.AddComponent<LayoutElement>().preferredWidth = 240;
+            rightGo.AddComponent<LayoutElement>().preferredWidth = 260;
             var rightLayout = rightGo.AddComponent<VerticalLayoutGroup>();
             rightLayout.childControlHeight = true;
             rightLayout.childControlWidth = true;
@@ -218,15 +300,25 @@ namespace CasebookGame.UI
             stars.color = Color.white;
             stars.text = BuildStars(PlayerProfile.GetCaseStars(caseData.caseId));
 
+            var locationGo = new GameObject("Location");
+            locationGo.transform.SetParent(rightGo.transform, false);
+            var location = locationGo.AddComponent<TextMeshProUGUI>();
+            if (font != null) location.font = font;
+            location.fontSize = 16;
+            location.alignment = TextAlignmentOptions.Right;
+            location.color = new Color(0.86f, 0.82f, 0.68f);
+            location.text = caseData.GetResolvedLocation(0)?.displayName ?? "Launch via city map";
+
             var statusGo = new GameObject("Status");
             statusGo.transform.SetParent(rightGo.transform, false);
             var status = statusGo.AddComponent<TextMeshProUGUI>();
             if (font != null) status.font = font;
             status.fontSize = 18;
+            status.textWrappingMode = TextWrappingModes.Normal;
             status.alignment = TextAlignmentOptions.Right;
             status.color = unlocked ? new Color(0.62f, 0.86f, 0.66f) : new Color(0.86f, 0.60f, 0.52f);
             status.text = unlocked
-                ? $"{PlayerProfile.GetCaseBestScore(caseData.caseId):N0} pts"
+                ? BuildLaunchStatus(caseData)
                 : lockReason;
         }
 
@@ -238,6 +330,27 @@ namespace CasebookGame.UI
             return caseData.briefText.Length > 78
                 ? caseData.briefText[..78] + "..."
                 : caseData.briefText;
+        }
+
+        static string BuildFlowSummary(CaseData caseData)
+        {
+            string suspectSummary = caseData.HasSuspectPresentation()
+                ? $"{caseData.suspectSummaries.Count} suspect lead(s)"
+                : "Scene-only contradiction";
+            string interrogationSummary = caseData.HasInterrogationPresentation()
+                ? (caseData.interrogationNodes.Count > 0 ? "interrogation ready" : "interrogation-forward")
+                : "evidence-first";
+            return $"{suspectSummary} • {interrogationSummary}";
+        }
+
+        static string BuildLaunchStatus(CaseData caseData)
+        {
+            int bestScore = PlayerProfile.GetCaseBestScore(caseData.caseId);
+            string scoreText = bestScore > 0 ? $"{bestScore:N0} pts" : "Unplayed";
+            string locationText = caseData.GetResolvedLocationCount() > 1
+                ? $"{caseData.GetResolvedLocationCount()} visit route"
+                : "Single location";
+            return $"{scoreText} • {locationText}";
         }
 
         static string BuildStars(int stars)

@@ -42,25 +42,42 @@ namespace CasebookGame.UI
             foreach (Transform child in listParent)
                 Destroy(child.gameObject);
 
-            var suspects = GameManager.Instance?.CurrentCase?.involvedSuspects
+            var currentCase = GameManager.Instance?.CurrentCase;
+            var suspects = currentCase?.involvedSuspects
                 ?.Where(s => s != null)
                 .ToList() ?? new List<SuspectData>();
+            var summaries = currentCase?.suspectSummaries
+                ?.Where(summary => summary != null && !string.IsNullOrWhiteSpace(summary.displayName))
+                .ToList() ?? new List<CaseSuspectSummary>();
+
+            var matchedSummaryKeys = new HashSet<string>();
 
             if (emptyStateText != null)
-                emptyStateText.gameObject.SetActive(suspects.Count == 0);
+                emptyStateText.gameObject.SetActive(suspects.Count == 0 && summaries.Count == 0);
 
-            if (suspects.Count == 0)
+            if (suspects.Count == 0 && summaries.Count == 0)
                 return;
 
             foreach (var suspect in suspects)
-                CreateSuspectCard(suspect);
+            {
+                var summary = FindMatchingSummary(suspect, summaries, matchedSummaryKeys);
+                CreateSuspectCard(suspect, summary);
+            }
+
+            foreach (var summary in summaries)
+            {
+                if (matchedSummaryKeys.Contains(BuildSummaryKey(summary)))
+                    continue;
+
+                CreateSummaryCard(summary);
+            }
 
             Canvas.ForceUpdateCanvases();
             if (listParent is RectTransform rectTransform)
                 LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
         }
 
-        void CreateSuspectCard(SuspectData suspect)
+        void CreateSuspectCard(SuspectData suspect, CaseSuspectSummary summaryEntry)
         {
             var card = new GameObject($"Suspect_{suspect.suspectId}");
             card.transform.SetParent(listParent, false);
@@ -142,6 +159,10 @@ namespace CasebookGame.UI
             var nameText = CreateText(summary, "Name", suspect.displayName, 32, FontStyles.Bold, Color.white);
             nameText.gameObject.AddComponent<LayoutElement>().preferredHeight = 46;
 
+            var roleStatus = CreateText(summary, "RoleStatus", BuildRoleStatus(suspect, summaryEntry), 18, FontStyles.Bold,
+                new Color(0.76f, 0.76f, 0.82f));
+            roleStatus.gameObject.AddComponent<LayoutElement>().preferredHeight = 28;
+
             var credibilityText = CreateText(summary, "Credibility",
                 $"Credibility {Mathf.RoundToInt(suspect.credibilityScore)}/100", 20, FontStyles.Bold, accentColor);
             credibilityText.gameObject.AddComponent<LayoutElement>().preferredHeight = 30;
@@ -181,6 +202,10 @@ namespace CasebookGame.UI
             CreateText(details, "LinkedCasesValue", BuildListText(suspect.linkedCaseIds), 20, FontStyles.Normal, Color.white)
                 .textWrappingMode = TextWrappingModes.Normal;
 
+            CreateText(details, "CurrentLocationLabel", "Current Location", 18, FontStyles.Bold, accentColor);
+            CreateText(details, "CurrentLocationValue", string.IsNullOrWhiteSpace(suspect.currentLocationId) ? "Unconfirmed." : suspect.currentLocationId,
+                20, FontStyles.Normal, Color.white).textWrappingMode = TextWrappingModes.Normal;
+
             CreateText(details, "NotesLabel", "Notes", 18, FontStyles.Bold, accentColor);
             var notesText = CreateText(details, "NotesValue", string.IsNullOrWhiteSpace(suspect.notes) ? "No notes recorded." : suspect.notes,
                 20, FontStyles.Normal, Color.white);
@@ -192,6 +217,98 @@ namespace CasebookGame.UI
                 if (listParent is RectTransform rectTransform)
                     LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
             });
+        }
+
+        void CreateSummaryCard(CaseSuspectSummary summary)
+        {
+            var card = new GameObject($"Summary_{BuildSummaryKey(summary)}");
+            card.transform.SetParent(listParent, false);
+            card.AddComponent<RectTransform>();
+            card.AddComponent<Image>().color = cardColor;
+            card.AddComponent<LayoutElement>().flexibleWidth = 1f;
+
+            var layout = card.AddComponent<HorizontalLayoutGroup>();
+            layout.padding = new RectOffset(18, 18, 18, 18);
+            layout.spacing = 16;
+            layout.childControlHeight = true;
+            layout.childControlWidth = true;
+            layout.childForceExpandHeight = false;
+            layout.childForceExpandWidth = false;
+
+            var portraitFrame = new GameObject("PortraitFrame");
+            portraitFrame.transform.SetParent(card.transform, false);
+            portraitFrame.AddComponent<RectTransform>();
+            portraitFrame.AddComponent<Image>().color = portraitFallbackColor;
+            portraitFrame.AddComponent<LayoutElement>().preferredWidth = 96;
+
+            var initials = new GameObject("Initials");
+            initials.transform.SetParent(portraitFrame.transform, false);
+            var initialsText = initials.AddComponent<TextMeshProUGUI>();
+            initialsText.text = BuildInitials(summary.displayName);
+            initialsText.fontSize = 30;
+            initialsText.fontStyle = FontStyles.Bold;
+            initialsText.alignment = TextAlignmentOptions.Center;
+            initialsText.color = accentColor;
+            var initialsRT = initials.GetComponent<RectTransform>();
+            initialsRT.anchorMin = Vector2.zero;
+            initialsRT.anchorMax = Vector2.one;
+            initialsRT.offsetMin = Vector2.zero;
+            initialsRT.offsetMax = Vector2.zero;
+
+            var copy = new GameObject("Copy");
+            copy.transform.SetParent(card.transform, false);
+            copy.AddComponent<RectTransform>();
+            copy.AddComponent<LayoutElement>().flexibleWidth = 1f;
+
+            var copyLayout = copy.AddComponent<VerticalLayoutGroup>();
+            copyLayout.spacing = 8;
+            copyLayout.childControlHeight = true;
+            copyLayout.childControlWidth = true;
+            copyLayout.childForceExpandHeight = false;
+            copyLayout.childForceExpandWidth = true;
+
+            CreateText(copy, "Name", summary.displayName, 28, FontStyles.Bold, Color.white);
+            CreateText(copy, "Role", HumanizeRelevance(summary.relevance), 18, FontStyles.Bold, accentColor);
+            var notes = CreateText(copy, "Notes", "Recorded from the active case file. Full portrait dossier unlocks when authored suspect assets are present.", 18, FontStyles.Italic, new Color(0.74f, 0.74f, 0.80f));
+            notes.textWrappingMode = TextWrappingModes.Normal;
+        }
+
+        static CaseSuspectSummary FindMatchingSummary(
+            SuspectData suspect,
+            IEnumerable<CaseSuspectSummary> summaries,
+            ISet<string> matchedKeys)
+        {
+            foreach (var summary in summaries)
+            {
+                if (summary == null)
+                    continue;
+
+                if (!string.IsNullOrWhiteSpace(summary.suspectId)
+                    && string.Equals(summary.suspectId, suspect.suspectId, System.StringComparison.OrdinalIgnoreCase))
+                {
+                    matchedKeys.Add(BuildSummaryKey(summary));
+                    return summary;
+                }
+
+                if (!string.IsNullOrWhiteSpace(summary.displayName)
+                    && string.Equals(summary.displayName, suspect.displayName, System.StringComparison.OrdinalIgnoreCase))
+                {
+                    matchedKeys.Add(BuildSummaryKey(summary));
+                    return summary;
+                }
+            }
+
+            return null;
+        }
+
+        static string BuildSummaryKey(CaseSuspectSummary summary)
+        {
+            if (summary == null)
+                return string.Empty;
+
+            return !string.IsNullOrWhiteSpace(summary.suspectId)
+                ? summary.suspectId
+                : summary.displayName ?? string.Empty;
         }
 
         static TextMeshProUGUI CreateText(GameObject parent, string name, string value, float size,
@@ -230,6 +347,29 @@ namespace CasebookGame.UI
                 .Where(associate => associate != null)
                 .Select(associate => string.IsNullOrWhiteSpace(associate.displayName) ? associate.suspectId : associate.displayName);
             return BuildListText(names);
+        }
+
+        static string BuildRoleStatus(SuspectData suspect, CaseSuspectSummary summary)
+        {
+            var parts = new List<string>();
+            if (!string.IsNullOrWhiteSpace(suspect.roleLabel))
+                parts.Add(suspect.roleLabel);
+            if (!string.IsNullOrWhiteSpace(suspect.statusSummary))
+                parts.Add(suspect.statusSummary);
+            if (summary != null && !string.IsNullOrWhiteSpace(summary.relevance))
+                parts.Add(HumanizeRelevance(summary.relevance));
+            return parts.Count == 0 ? "Role unconfirmed" : string.Join(" | ", parts);
+        }
+
+        static string HumanizeRelevance(string relevance)
+        {
+            if (string.IsNullOrWhiteSpace(relevance))
+                return "Case lead";
+
+            return relevance
+                .Replace("_", " ")
+                .Replace("poi", "POI")
+                .ToUpperInvariant();
         }
     }
 }

@@ -19,6 +19,12 @@ MonoBehaviour:
     says he was already on a supply run before the register reopened for the late
     crowd. The till tape and roadside proof do not match that story.
   sceneBackground: {fileID: 21300000, guid: b45d60677d16018b950bfb0ae9b15ea4, type: 3}
+  departmentId: 6
+  districtId: DIST_MARKET_ROW
+  cityLocationId: LOC_MARKET_ROW_ROOKMERE_NIGHT_MARKET
+  caseArcId: ARC_GLASS_LEDGER
+  arcBeatSummary: Shows Fraud operating in a rougher civilian venue and reintroduces
+    Lyle Mercer as a reusable liar inside the ledger-cleaning ecosystem.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -40,6 +46,37 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C012_E005
     hotspotLabel: Deposit Rail
+  caseLocations:
+  - locationId: LOC_MARKET_ROW_ROOKMERE_NIGHT_MARKET
+    displayName: Rookmere Night Market
+    sceneBackground: {fileID: 21300000, guid: b45d60677d16018b950bfb0ae9b15ea4, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C012_E001
+      hotspotLabel: Till Drawer
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C012_E002
+      hotspotLabel: Fuel Wallet
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C012_E003
+      hotspotLabel: Hand-Off Hook
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C012_E005
+      hotspotLabel: Deposit Rail
+    entryText: The market kiosk should stay single-location so the late reopen and
+      cash handoff remain immediate.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 7f64c3c812a18d24c891f3bb4459c274, type: 2}
   - {fileID: 11400000, guid: 80b4b074481c9534eb51e3a29956b400, type: 2}
@@ -53,7 +90,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f984cfde6a544d046bc17ba9e9871a81, type: 2}
   involvedSuspects:
   - {fileID: 11400000, guid: a0b4d5a9479e29842ac7859cdbab9731, type: 2}
+  suspectSummaries:
+  - suspectId: S014
+    displayName: Lyle Mercer
+    relevance: primary_claimant
   interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: Retain the till-and-receipt emphasis without extra interrogation
+    scaffolding.
   contradictoryClaimId: C012_CL001
   explanationText: Lyle says he was already away on a supply run, but C012_E001 shows
     the kiosk reopened at 9:18 PM and C012_E002 places his fuel stop at 9:41 PM.

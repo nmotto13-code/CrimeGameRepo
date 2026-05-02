@@ -6,7 +6,7 @@ using CasebookGame.UI;
 
 namespace CasebookGame.Core
 {
-    public enum ScreenId { Home, CaseSelect, Account, Game, InGameMenu, Dossier }
+    public enum ScreenId { Home, CaseSelect, CityMap, Account, Game, InGameMenu, Dossier }
     public enum TransitionType { None, SlideLeft, SlideRight, FadeUp }
 
     public class NavigationManager : MonoBehaviour
@@ -15,6 +15,7 @@ namespace CasebookGame.Core
 
         [SerializeField] BaseScreen   homeScreen;
         [SerializeField] BaseScreen   caseSelectScreen;
+        [SerializeField] BaseScreen   cityMapScreen;
         [SerializeField] BaseScreen   accountScreen;
         [SerializeField] BaseScreen   gameScreen;
         [SerializeField] BaseScreen   inGameMenuScreen;
@@ -300,6 +301,7 @@ namespace CasebookGame.Core
         {
             ScreenId.Home       => homeScreen,
             ScreenId.CaseSelect => caseSelectScreen,
+            ScreenId.CityMap    => cityMapScreen,
             ScreenId.Account    => accountScreen,
             ScreenId.Game       => gameScreen,
             ScreenId.InGameMenu => inGameMenuScreen,

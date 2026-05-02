@@ -15,7 +15,7 @@ MonoBehaviour:
   schemaVersion: 1
   suspectId: S018
   displayName: Tessa Rook
-  portraitSprite: {fileID: 0}
+  portraitSprite: {fileID: 21300000, guid: 85916f5ca7af6075d6dfc90c1a135148, type: 3}
   bio: A respected appraiser whose seal and opinion can make or break private sales.
     She has learned how to weaponize that reputation.
   traits:

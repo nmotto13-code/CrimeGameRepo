@@ -19,6 +19,12 @@ MonoBehaviour:
     every donor receipt was printed before she left at 7 PM, but the late paper trail
     says otherwise. Mira Voss appears as the outside compliance reviewer.
   sceneBackground: {fileID: 21300000, guid: 40d34d7fa92d53259b9e94eff1bf22d3, type: 3}
+  departmentId: 6
+  districtId: DIST_OLD_QUARTER
+  cityLocationId: LOC_OLD_QUARTER_LARKSPUR_CIVIC_HALL
+  caseArcId: ARC_GLASS_LEDGER
+  arcBeatSummary: Opens Fraud with duplicate paper trails and introduces Mira Voss
+    as a polished outside fixer orbiting donor money.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -40,6 +46,37 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C011_E004
     hotspotLabel: Garage Ticket Tray
+  caseLocations:
+  - locationId: LOC_OLD_QUARTER_LARKSPUR_CIVIC_HALL
+    displayName: Larkspur Civic Hall
+    sceneBackground: {fileID: 21300000, guid: 40d34d7fa92d53259b9e94eff1bf22d3, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C011_E001
+      hotspotLabel: Donor Desk
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C011_E002
+      hotspotLabel: Office Printer
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C011_E003
+      hotspotLabel: Service Hall Photo Board
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C011_E004
+      hotspotLabel: Garage Ticket Tray
+    entryText: Hold the opening fraud case inside one donor-hall scene so players
+      can learn the department's dense document reads cleanly.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 1a383b6ead9467d4181822eb3dea8460, type: 2}
   - {fileID: 11400000, guid: c7dc0f5cee89cd24da1bd4c4d24c2df1, type: 2}
@@ -54,7 +91,18 @@ MonoBehaviour:
   involvedSuspects:
   - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
   - {fileID: 11400000, guid: 5ba7b12cb4196f24a9d8bf6300bc4d90, type: 2}
+  suspectSummaries:
+  - suspectId: S012
+    displayName: Renata Bell
+    relevance: primary_claimant
+  - suspectId: S011
+    displayName: Mira Voss
+    relevance: recurring_person_of_interest
   interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: Use dossier presence for Renata and Mira, but keep the
+    case as a document-first onboarding beat.
   contradictoryClaimId: C011_CL001
   explanationText: Renata's alibi fails because C011_E001 shows the duplicate receipts
     were printed in a second batch at 8:12 PM, while C011_E004 logs her car leaving

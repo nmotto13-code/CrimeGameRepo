@@ -1,0 +1,1260 @@
+{
+  "schemaVersion": 1,
+  "milestoneId": "casebook_v2_precinct_map_deeper_suspect_flow",
+  "sourceNotes": {
+    "caseIdFormat": "Matrix case IDs use C001-C030. Runtime assets remain Case_001-Case_030 and are mirrored in assetCaseId.",
+    "unlockEvidenceReferenceFormat": "caseLocations.unlockEvidenceIds use globally unique evidence stems such as C003_E001. Integration should down-map to local runtime evidence IDs if writing directly into CaseLocationData.",
+    "legacySuspectPolicy": "Cases C001-C010 use authored display-name suspect relevance only. This thread does not create new patrol-era SuspectData assets."
+  },
+  "departments": [
+    {
+      "departmentId": "Patrol",
+      "displayName": "Patrol",
+      "departmentAssetName": "Patrol_Training",
+      "caseIds": ["C001", "C002", "C003", "C004", "C005", "C006", "C007", "C008", "C009", "C010"]
+    },
+    {
+      "departmentId": "Fraud",
+      "displayName": "Fraud",
+      "departmentAssetName": "Fraud",
+      "caseIds": ["C011", "C012", "C013", "C014", "C015", "C016", "C017", "C018", "C019", "C020"]
+    },
+    {
+      "departmentId": "MissingPersons",
+      "displayName": "Missing Persons",
+      "departmentAssetName": "Missing_Persons",
+      "caseIds": ["C021", "C022", "C023", "C024", "C025", "C026", "C027", "C028", "C029", "C030"]
+    }
+  ],
+  "districts": [
+    {
+      "districtId": "DIST_OLD_QUARTER",
+      "displayName": "Old Quarter",
+      "sortOrder": 0,
+      "themeSummary": "Heritage estates, galleries, old apartment blocks, donor halls, and polished private interiors."
+    },
+    {
+      "districtId": "DIST_CIVIC_CORE",
+      "displayName": "Civic Core",
+      "sortOrder": 1,
+      "themeSummary": "Banks, annexes, records floors, public offices, and precinct-adjacent administration."
+    },
+    {
+      "districtId": "DIST_MARKET_ROW",
+      "displayName": "Market Row",
+      "sortOrder": 2,
+      "themeSummary": "Cafes, markets, gyms, clubs, shelters, and high-footfall civilian spaces."
+    },
+    {
+      "districtId": "DIST_RIVERSIDE",
+      "displayName": "Riverside",
+      "sortOrder": 3,
+      "themeSummary": "Medical blocks, terminals, public transit edges, and marina-facing movement corridors."
+    },
+    {
+      "districtId": "DIST_SKYLINE",
+      "displayName": "Skyline",
+      "sortOrder": 4,
+      "themeSummary": "Corporate towers, service cores, and dense office infrastructure."
+    },
+    {
+      "districtId": "DIST_NORTH_QUAY",
+      "displayName": "North Quay",
+      "sortOrder": 5,
+      "themeSummary": "Storage yards, cold berths, piers, industrial archives, and off-hours logistics."
+    },
+    {
+      "districtId": "DIST_OUTER_REACH",
+      "displayName": "Outer Reach",
+      "sortOrder": 6,
+      "themeSummary": "Trailheads, edge-of-city estates, and secluded approach roads beyond the dense core."
+    }
+  ],
+  "caseArcs": [
+    {
+      "caseArcId": "ARC_PATROL_FOUNDATIONS",
+      "displayName": "Patrol Foundations",
+      "caseIds": ["C001", "C002", "C003", "C004", "C005"],
+      "arcSummary": "Early patrol cases teach time, access, and physical contradiction reading inside contained city spaces."
+    },
+    {
+      "caseArcId": "ARC_PATROL_CROSSROADS",
+      "displayName": "Patrol Crossroads",
+      "caseIds": ["C006", "C007", "C008", "C009", "C010"],
+      "arcSummary": "Patrol cases widen into cross-town movement, public networks, and the art-theft thread that later feeds Fraud."
+    },
+    {
+      "caseArcId": "ARC_GLASS_LEDGER",
+      "displayName": "Glass Ledger",
+      "caseIds": ["C011", "C012", "C013", "C014", "C015", "C016", "C017", "C018", "C019", "C020"],
+      "arcSummary": "A fraud-cleanup network led by Mira Voss rewrites paper trails while an internal leak feeds it restricted timing."
+    },
+    {
+      "caseArcId": "ARC_HOLLOW_DESK",
+      "displayName": "The Hollow Desk",
+      "caseIds": ["C021", "C022", "C023", "C024", "C025", "C026", "C027", "C028", "C029", "C030"],
+      "arcSummary": "Missing-person cases tighten around rerouted witnesses, dockside handoffs, and the records-desk leak behind the disappearances."
+    }
+  ],
+  "cityLocations": [
+    { "locationId": "LOC_OLD_QUARTER_HALE_MANOR", "districtId": "DIST_OLD_QUARTER", "displayName": "Hale Manor Study", "launchCaseId": "C001" },
+    { "locationId": "LOC_CIVIC_CORE_ALDMORE_BANK", "districtId": "DIST_CIVIC_CORE", "displayName": "Aldmore Bank Vault Wing", "launchCaseId": "C002" },
+    { "locationId": "LOC_OLD_QUARTER_CAFE_LUMIERE", "districtId": "DIST_OLD_QUARTER", "displayName": "Cafe Lumiere", "launchCaseId": "C003" },
+    { "locationId": "LOC_RIVERSIDE_RIVERSIDE_MEDICAL", "districtId": "DIST_RIVERSIDE", "displayName": "Riverside Medical Garage", "launchCaseId": "C004" },
+    { "locationId": "LOC_MARKET_ROW_HARROW_STAIRWELL", "districtId": "DIST_MARKET_ROW", "displayName": "Harrow Court Stairwell", "launchCaseId": "C005" },
+    { "locationId": "LOC_OUTER_REACH_ORIN_GATEHOUSE", "districtId": "DIST_OUTER_REACH", "displayName": "Orin Estate Gatehouse", "launchCaseId": "C006" },
+    { "locationId": "LOC_OLD_QUARTER_APARTMENT_4B", "districtId": "DIST_OLD_QUARTER", "displayName": "Apartment 4B", "launchCaseId": "C007" },
+    { "locationId": "LOC_RIVERSIDE_CENTRAL_PLATFORM", "districtId": "DIST_RIVERSIDE", "displayName": "Central Platform", "launchCaseId": "C008" },
+    { "locationId": "LOC_MARKET_ROW_PULSE_GYM", "districtId": "DIST_MARKET_ROW", "displayName": "Pulse Gym", "launchCaseId": "C009" },
+    { "locationId": "LOC_OLD_QUARTER_ALDENE_GALLERY", "districtId": "DIST_OLD_QUARTER", "displayName": "Aldene Gallery", "launchCaseId": "C010" },
+    { "locationId": "LOC_OLD_QUARTER_LARKSPUR_CIVIC_HALL", "districtId": "DIST_OLD_QUARTER", "displayName": "Larkspur Civic Hall", "launchCaseId": "C011" },
+    { "locationId": "LOC_MARKET_ROW_ROOKMERE_NIGHT_MARKET", "districtId": "DIST_MARKET_ROW", "displayName": "Rookmere Night Market", "launchCaseId": "C012" },
+    { "locationId": "LOC_OLD_QUARTER_BRASSLIGHT_GALLERY", "districtId": "DIST_OLD_QUARTER", "displayName": "Brasslight Gallery", "launchCaseId": "C013" },
+    { "locationId": "LOC_SKYLINE_HORIZON_BLOOM_TOWER", "districtId": "DIST_SKYLINE", "displayName": "Horizon Bloom Fintech", "launchCaseId": "C014" },
+    { "locationId": "LOC_CIVIC_CORE_BRIAR_BENEFITS_ANNEX", "districtId": "DIST_CIVIC_CORE", "displayName": "Briar Benefits Annex", "launchCaseId": "C015" },
+    { "locationId": "LOC_RIVERSIDE_NORTHGLASS_INTAKE_BAY", "districtId": "DIST_RIVERSIDE", "displayName": "Northglass Intake Bay", "launchCaseId": "C016" },
+    { "locationId": "LOC_CIVIC_CORE_ASTER_TRANSIT_TREASURY", "districtId": "DIST_CIVIC_CORE", "displayName": "Aster Transit Treasury", "launchCaseId": "C017" },
+    { "locationId": "LOC_CIVIC_CORE_MARLOWE_PROCUREMENT_HUB", "districtId": "DIST_CIVIC_CORE", "displayName": "Marlowe Procurement Hub", "launchCaseId": "C018" },
+    { "locationId": "LOC_NORTH_QUAY_GREYHOOK_STORAGE", "districtId": "DIST_NORTH_QUAY", "displayName": "Greyhook Self Storage", "launchCaseId": "C019" },
+    { "locationId": "LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT", "districtId": "DIST_CIVIC_CORE", "displayName": "Crown Annex Records Vault", "launchCaseId": "C020" },
+    { "locationId": "LOC_RIVERSIDE_VESPER_TERMINAL", "districtId": "DIST_RIVERSIDE", "displayName": "Vesper Terminal", "launchCaseId": "C021" },
+    { "locationId": "LOC_MARKET_ROW_HEARTHLIGHT_HOSTEL", "districtId": "DIST_MARKET_ROW", "displayName": "Hearthlight Hostel", "launchCaseId": "C022" },
+    { "locationId": "LOC_MARKET_ROW_BLUEBIRD_VENUE", "districtId": "DIST_MARKET_ROW", "displayName": "Bluebird Basement Venue", "launchCaseId": "C023" },
+    { "locationId": "LOC_OUTER_REACH_PINEGLASS_TRAILHEAD", "districtId": "DIST_OUTER_REACH", "displayName": "Pineglass Trailhead", "launchCaseId": "C024" },
+    { "locationId": "LOC_SKYLINE_MERCURY_PLAZA", "districtId": "DIST_SKYLINE", "displayName": "Mercury Plaza Service Core", "launchCaseId": "C025" },
+    { "locationId": "LOC_NORTH_QUAY_COLD_DOCK", "districtId": "DIST_NORTH_QUAY", "displayName": "North Quay Cold Dock", "launchCaseId": "C026" },
+    { "locationId": "LOC_MARKET_ROW_LANTERN_SHELTER", "districtId": "DIST_MARKET_ROW", "displayName": "Lantern Youth Shelter", "launchCaseId": "C027" },
+    { "locationId": "LOC_NORTH_QUAY_SERVICE_PIER_19", "districtId": "DIST_NORTH_QUAY", "displayName": "Service Pier 19", "launchCaseId": "C028" },
+    { "locationId": "LOC_MARKET_ROW_COURIER_GAZETTE", "districtId": "DIST_MARKET_ROW", "displayName": "Courier Gazette Annex Desk", "launchCaseId": "C029" },
+    { "locationId": "LOC_NORTH_QUAY_CIVIL_ARCHIVE", "districtId": "DIST_NORTH_QUAY", "displayName": "North Quay Civil Archive", "launchCaseId": "C030" }
+  ],
+  "interrogationForwardCaseIds": ["C003", "C008", "C010", "C013", "C018", "C020", "C023", "C027", "C029", "C030"],
+  "singleLocationCaseIds": ["C001", "C002", "C004", "C005", "C006", "C007", "C009", "C011", "C012", "C014", "C015", "C016", "C017", "C019", "C021", "C022", "C025", "C027", "C028"],
+  "multiLocationCaseIds": ["C003", "C008", "C010", "C013", "C018", "C020", "C023", "C024", "C026", "C029", "C030"],
+  "cases": [
+    {
+      "caseId": "C001",
+      "assetCaseId": "Case_001",
+      "title": "The Missing Watch",
+      "departmentId": "Patrol",
+      "districtId": "DIST_OLD_QUARTER",
+      "cityLocationId": "LOC_OLD_QUARTER_HALE_MANOR",
+      "caseArcId": "ARC_PATROL_FOUNDATIONS",
+      "arcBeatSummary": "Introduces patrol-era time contradictions inside a private manor and establishes the city's old-money side as a recurring backdrop.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Legacy contradiction-first case. Dossier relevance is present, but interrogation is not prioritized in this milestone."
+      },
+      "suspectRelevance": [
+        { "displayName": "Marcus Vane", "relevance": "primary_claimant" },
+        { "displayName": "Eva Mercer", "relevance": "supporting_witness" },
+        { "displayName": "Detective Frost", "relevance": "investigator_voice" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_OLD_QUARTER_HALE_MANOR",
+          "displayName": "Hale Manor Study",
+          "entryText": "Work the study as a sealed high-society scene and teach the player to read time, access, and object placement together.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C002",
+      "assetCaseId": "Case_002",
+      "title": "Locked Room Receipt",
+      "departmentId": "Patrol",
+      "districtId": "DIST_CIVIC_CORE",
+      "cityLocationId": "LOC_CIVIC_CORE_ALDMORE_BANK",
+      "caseArcId": "ARC_PATROL_FOUNDATIONS",
+      "arcBeatSummary": "Moves patrol into controlled institutional access logic and places an early bank case inside the Civic Core.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Remains a pure access-log contradiction case."
+      },
+      "suspectRelevance": [
+        { "displayName": "Lena Park", "relevance": "primary_claimant" },
+        { "displayName": "Desmond Ault", "relevance": "secondary_suspect" },
+        { "displayName": "Iris Tan", "relevance": "witness" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_CIVIC_CORE_ALDMORE_BANK",
+          "displayName": "Aldmore Bank Vault Wing",
+          "entryText": "Keep the player in one controlled bank space where badge, biometric, and vault timing tell the full story.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C003",
+      "assetCaseId": "Case_003",
+      "title": "Coffee Shop Alibi",
+      "departmentId": "Patrol",
+      "districtId": "DIST_OLD_QUARTER",
+      "cityLocationId": "LOC_OLD_QUARTER_CAFE_LUMIERE",
+      "caseArcId": "ARC_PATROL_FOUNDATIONS",
+      "arcBeatSummary": "First authored city-hop contradiction: the cafe alibi fails because the player can compare it against the gallery side of town.",
+      "locationMode": "multi_location",
+      "interrogationUsage": {
+        "mode": "planned_optional",
+        "isMilestoneForwardCase": true,
+        "focus": "Theo Grant is a strong early interrogation-forward suspect because his confidence collapses under travel-time pressure."
+      },
+      "suspectRelevance": [
+        { "displayName": "Theo Grant", "relevance": "primary_claimant" },
+        { "displayName": "Barista Mei", "relevance": "supporting_witness" },
+        { "displayName": "Detective Osei", "relevance": "investigator_voice" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_OLD_QUARTER_CAFE_LUMIERE",
+          "displayName": "Cafe Lumiere",
+          "entryText": "Start at the cafe and let the player collect the receipt and local alibi texture before the contradiction widens.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        },
+        {
+          "locationId": "VISIT_C003_HARWICK_GALLERY_SIDE_ENTRANCE",
+          "displayName": "Harwick Gallery Side Entrance",
+          "entryText": "Second visit verifies the gallery-side timing and reinforces the impossible cross-town alibi.",
+          "visitOrder": 1,
+          "unlockEvidenceIds": ["C003_E001"],
+          "unlockTags": ["TIME"],
+          "isRequiredForSolve": true,
+          "visitRole": "cross_check_verification",
+          "authoringMode": "author_new_visit"
+        }
+      ]
+    },
+    {
+      "caseId": "C004",
+      "assetCaseId": "Case_004",
+      "title": "Parking Garage Ticket",
+      "departmentId": "Patrol",
+      "districtId": "DIST_RIVERSIDE",
+      "cityLocationId": "LOC_RIVERSIDE_RIVERSIDE_MEDICAL",
+      "caseArcId": "ARC_PATROL_FOUNDATIONS",
+      "arcBeatSummary": "Expands patrol into vehicle-placement contradictions while anchoring the medical district on the city map.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "The ticket and plate-reader contradiction reads cleanly without added suspect pressure."
+      },
+      "suspectRelevance": [
+        { "displayName": "Sasha Novak", "relevance": "primary_claimant" },
+        { "displayName": "Dr. Rajan Patel", "relevance": "supporting_witness" },
+        { "displayName": "Garage Attendant", "relevance": "supporting_witness" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_RIVERSIDE_RIVERSIDE_MEDICAL",
+          "displayName": "Riverside Medical Garage",
+          "entryText": "Keep the case concentrated around the garage and lobby-story contradiction so the city map gains a clear Riverside hospital node.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C005",
+      "assetCaseId": "Case_005",
+      "title": "Stairwell Footprints",
+      "departmentId": "Patrol",
+      "districtId": "DIST_MARKET_ROW",
+      "cityLocationId": "LOC_MARKET_ROW_HARROW_STAIRWELL",
+      "caseArcId": "ARC_PATROL_FOUNDATIONS",
+      "arcBeatSummary": "Uses weather, footwear, and witness testimony to teach physical contradiction reading in a grittier civilian district.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Best kept as an evidence-first scene-reading case."
+      },
+      "suspectRelevance": [
+        { "displayName": "Petra Vance", "relevance": "witness" },
+        { "displayName": "Dale Marsh", "relevance": "secondary_suspect" },
+        { "displayName": "Detective Harlow", "relevance": "investigator_voice" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_MARKET_ROW_HARROW_STAIRWELL",
+          "displayName": "Harrow Court Stairwell",
+          "entryText": "Stay inside the stairwell footprint scene so weather and physical trace logic remain tightly legible on mobile.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C006",
+      "assetCaseId": "Case_006",
+      "title": "Delivery Window",
+      "departmentId": "Patrol",
+      "districtId": "DIST_OUTER_REACH",
+      "cityLocationId": "LOC_OUTER_REACH_ORIN_GATEHOUSE",
+      "caseArcId": "ARC_PATROL_CROSSROADS",
+      "arcBeatSummary": "Begins the second patrol arc by pushing the player onto route-order reasoning at the city's edge.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Route contradiction is clear enough without converting it into a suspect-pressure stop."
+      },
+      "suspectRelevance": [
+        { "displayName": "Felix Dunn", "relevance": "primary_claimant" },
+        { "displayName": "Rosaline Orin", "relevance": "witness" },
+        { "displayName": "Dispatch Manager", "relevance": "supporting_witness" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_OUTER_REACH_ORIN_GATEHOUSE",
+          "displayName": "Orin Estate Gatehouse",
+          "entryText": "Use the estate gate as the anchor scene and let off-screen route evidence do the rest.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C007",
+      "assetCaseId": "Case_007",
+      "title": "Neighbor Testimony",
+      "departmentId": "Patrol",
+      "districtId": "DIST_OLD_QUARTER",
+      "cityLocationId": "LOC_OLD_QUARTER_APARTMENT_4B",
+      "caseArcId": "ARC_PATROL_CROSSROADS",
+      "arcBeatSummary": "Brings patrol back indoors and turns unreliable testimony into a suspect-relevance template for the dossier layer.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Useful for dossier flavor, but not promoted to interrogation-forward in this milestone."
+      },
+      "suspectRelevance": [
+        { "displayName": "Greta Lowe", "relevance": "witness" },
+        { "displayName": "Omar Fitch", "relevance": "secondary_suspect" },
+        { "displayName": "Building Super", "relevance": "supporting_witness" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_OLD_QUARTER_APARTMENT_4B",
+          "displayName": "Apartment 4B",
+          "entryText": "Keep this contradiction centered on one apartment stack so sound, device logs, and witness memory stay tightly paired.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C008",
+      "assetCaseId": "Case_008",
+      "title": "Train Platform",
+      "departmentId": "Patrol",
+      "districtId": "DIST_RIVERSIDE",
+      "cityLocationId": "LOC_RIVERSIDE_CENTRAL_PLATFORM",
+      "caseArcId": "ARC_PATROL_CROSSROADS",
+      "arcBeatSummary": "Promotes the city network into play: station timing, warehouse geography, and public transit become a clean multi-location contradiction.",
+      "locationMode": "multi_location",
+      "interrogationUsage": {
+        "mode": "planned_optional",
+        "isMilestoneForwardCase": true,
+        "focus": "Carl Duval is a strong station-side interrogation suspect because his confidence depends on public transit detail and bluff."
+      },
+      "suspectRelevance": [
+        { "displayName": "Carl Duval", "relevance": "primary_claimant" },
+        { "displayName": "Station Staff", "relevance": "supporting_witness" },
+        { "displayName": "Carl's colleague", "relevance": "supporting_witness" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_RIVERSIDE_CENTRAL_PLATFORM",
+          "displayName": "Central Platform",
+          "entryText": "Start at the station and let the player build the public-side timeline first.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        },
+        {
+          "locationId": "VISIT_C008_HARBOR_WAREHOUSE_APPROACH",
+          "displayName": "Warehouse Approach",
+          "entryText": "Second visit grounds the impossible travel distance between the train platform and the warehouse sensor hit.",
+          "visitOrder": 1,
+          "unlockEvidenceIds": ["C008_E001"],
+          "unlockTags": ["TIME", "LOCATION"],
+          "isRequiredForSolve": true,
+          "visitRole": "cross_check_verification",
+          "authoringMode": "author_new_visit"
+        }
+      ]
+    },
+    {
+      "caseId": "C009",
+      "assetCaseId": "Case_009",
+      "title": "Gym Keycard",
+      "departmentId": "Patrol",
+      "districtId": "DIST_MARKET_ROW",
+      "cityLocationId": "LOC_MARKET_ROW_PULSE_GYM",
+      "caseArcId": "ARC_PATROL_CROSSROADS",
+      "arcBeatSummary": "Keeps patrol in a civilian venue while showing how schedule systems and back-corridor access reinforce one another.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Remains a clean access-and-attendance contradiction."
+      },
+      "suspectRelevance": [
+        { "displayName": "Nadia Clare", "relevance": "primary_claimant" },
+        { "displayName": "Gym Manager", "relevance": "supporting_witness" },
+        { "displayName": "Another Trainer", "relevance": "supporting_witness" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_MARKET_ROW_PULSE_GYM",
+          "displayName": "Pulse Gym",
+          "entryText": "Use one gym node and let booking, studio, and staff corridor evidence tell the contradiction without additional travel.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C010",
+      "assetCaseId": "Case_010",
+      "title": "Gallery Opening",
+      "departmentId": "Patrol",
+      "districtId": "DIST_OLD_QUARTER",
+      "cityLocationId": "LOC_OLD_QUARTER_ALDENE_GALLERY",
+      "caseArcId": "ARC_PATROL_CROSSROADS",
+      "arcBeatSummary": "Patrol capstone that bridges into the later art and fraud network: the gallery alibi breaks once the player compares it to the off-site target location.",
+      "locationMode": "multi_location",
+      "interrogationUsage": {
+        "mode": "planned_optional",
+        "isMilestoneForwardCase": true,
+        "focus": "Simon Rowe is a high-value optional interrogation case because the art-world lie and disappearing public presence suit dossier-driven pressure."
+      },
+      "suspectRelevance": [
+        { "displayName": "Simon Rowe", "relevance": "primary_claimant" },
+        { "displayName": "Cora Webb", "relevance": "supporting_witness" },
+        { "displayName": "Detective Lam", "relevance": "investigator_voice" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_OLD_QUARTER_ALDENE_GALLERY",
+          "displayName": "Aldene Gallery",
+          "entryText": "The gallery remains the launch node and social alibi stage for the case.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        },
+        {
+          "locationId": "VISIT_C010_HARLOW_WAREHOUSE",
+          "displayName": "Harlow Storage Warehouse",
+          "entryText": "A second visit verifies the off-site theft target and pays off the patrol arc's first sustained art-network thread.",
+          "visitOrder": 1,
+          "unlockEvidenceIds": ["C010_E002"],
+          "unlockTags": ["TIME", "LOCATION"],
+          "isRequiredForSolve": true,
+          "visitRole": "cross_check_verification",
+          "authoringMode": "author_new_visit"
+        }
+      ]
+    },
+    {
+      "caseId": "C011",
+      "assetCaseId": "Case_011",
+      "title": "After-Hours Receipts",
+      "departmentId": "Fraud",
+      "districtId": "DIST_OLD_QUARTER",
+      "cityLocationId": "LOC_OLD_QUARTER_LARKSPUR_CIVIC_HALL",
+      "caseArcId": "ARC_GLASS_LEDGER",
+      "arcBeatSummary": "Opens Fraud with duplicate paper trails and introduces Mira Voss as a polished outside fixer orbiting donor money.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Use dossier presence for Renata and Mira, but keep the case as a document-first onboarding beat."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S012", "displayName": "Renata Bell", "relevance": "primary_claimant" },
+        { "suspectId": "S011", "displayName": "Mira Voss", "relevance": "recurring_person_of_interest" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_OLD_QUARTER_LARKSPUR_CIVIC_HALL",
+          "displayName": "Larkspur Civic Hall",
+          "entryText": "Hold the opening fraud case inside one donor-hall scene so players can learn the department's dense document reads cleanly.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C012",
+      "assetCaseId": "Case_012",
+      "title": "Kiosk Closeout",
+      "departmentId": "Fraud",
+      "districtId": "DIST_MARKET_ROW",
+      "cityLocationId": "LOC_MARKET_ROW_ROOKMERE_NIGHT_MARKET",
+      "caseArcId": "ARC_GLASS_LEDGER",
+      "arcBeatSummary": "Shows Fraud operating in a rougher civilian venue and reintroduces Lyle Mercer as a reusable liar inside the ledger-cleaning ecosystem.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Retain the till-and-receipt emphasis without extra interrogation scaffolding."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S014", "displayName": "Lyle Mercer", "relevance": "primary_claimant" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_MARKET_ROW_ROOKMERE_NIGHT_MARKET",
+          "displayName": "Rookmere Night Market",
+          "entryText": "The market kiosk should stay single-location so the late reopen and cash handoff remain immediate.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C013",
+      "assetCaseId": "Case_013",
+      "title": "False Provenance",
+      "departmentId": "Fraud",
+      "districtId": "DIST_OLD_QUARTER",
+      "cityLocationId": "LOC_OLD_QUARTER_BRASSLIGHT_GALLERY",
+      "caseArcId": "ARC_GLASS_LEDGER",
+      "arcBeatSummary": "Expands the Fraud arc into forged provenance and positions the art trade as a bridge between patrol's gallery thread and Mira's network.",
+      "locationMode": "multi_location",
+      "interrogationUsage": {
+        "mode": "planned_optional",
+        "isMilestoneForwardCase": true,
+        "focus": "Tessa Rook and Owen Kade form a clean dossier-and-pressure pair for early fraud interrogation upgrades."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S018", "displayName": "Tessa Rook", "relevance": "primary_claimant" },
+        { "suspectId": "S013", "displayName": "Owen Kade", "relevance": "secondary_suspect" },
+        { "suspectId": "S011", "displayName": "Mira Voss", "relevance": "recurring_person_of_interest" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_OLD_QUARTER_BRASSLIGHT_GALLERY",
+          "displayName": "Brasslight Gallery Appraisal Room",
+          "entryText": "Lead from the appraisal room so the player first reads the seal and certificate as a controlled forgery scene.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        },
+        {
+          "locationId": "VISIT_C013_LOADING_ALLEY",
+          "displayName": "Brasslight Loading Alley",
+          "entryText": "The alley visit pays off the seal-case movement and turns provenance fraud into a physical handoff problem.",
+          "visitOrder": 1,
+          "unlockEvidenceIds": ["C013_E002"],
+          "unlockTags": ["ACCESS", "OBJECT"],
+          "isRequiredForSolve": true,
+          "visitRole": "cross_check_verification",
+          "authoringMode": "author_new_visit"
+        }
+      ]
+    },
+    {
+      "caseId": "C014",
+      "assetCaseId": "Case_014",
+      "title": "Refund Loop",
+      "departmentId": "Fraud",
+      "districtId": "DIST_SKYLINE",
+      "cityLocationId": "LOC_SKYLINE_HORIZON_BLOOM_TOWER",
+      "caseArcId": "ARC_GLASS_LEDGER",
+      "arcBeatSummary": "Pushes Fraud upward into tower-space and digital approvals, broadening the department beyond paper without leaving its contradiction DNA.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "The operations-pod evidence trail is sufficient without elevating Priya to interrogation-forward status this milestone."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S015", "displayName": "Priya Sorn", "relevance": "primary_claimant" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_SKYLINE_HORIZON_BLOOM_TOWER",
+          "displayName": "Horizon Bloom Fintech",
+          "entryText": "Keep the fintech case inside one operations floor to preserve its tight device-versus-automation logic.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C015",
+      "assetCaseId": "Case_015",
+      "title": "Ghost Severance",
+      "departmentId": "Fraud",
+      "districtId": "DIST_CIVIC_CORE",
+      "cityLocationId": "LOC_CIVIC_CORE_BRIAR_BENEFITS_ANNEX",
+      "caseArcId": "ARC_GLASS_LEDGER",
+      "arcBeatSummary": "Shows the fraud network exploiting bureaucratic spaces and quietly foreshadows records-side leakage before it becomes explicit.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Archive movement and credentials do the work without extra suspect branching."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S016", "displayName": "Martin Quill", "relevance": "primary_claimant" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_CIVIC_CORE_BRIAR_BENEFITS_ANNEX",
+          "displayName": "Briar Benefits Annex",
+          "entryText": "Anchor the case in one bureaucratic archive room where file movement and after-hours edits feel procedural rather than cinematic.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C016",
+      "assetCaseId": "Case_016",
+      "title": "Dry Claim",
+      "departmentId": "Fraud",
+      "districtId": "DIST_RIVERSIDE",
+      "cityLocationId": "LOC_RIVERSIDE_NORTHGLASS_INTAKE_BAY",
+      "caseArcId": "ARC_GLASS_LEDGER",
+      "arcBeatSummary": "Broadens Fraud into staged physical loss claims while keeping the contradiction legible through material condition, not paperwork alone.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "A physical-claims case that should stay evidence-forward."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S017", "displayName": "Celia Drax", "relevance": "primary_claimant" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_RIVERSIDE_NORTHGLASS_INTAKE_BAY",
+          "displayName": "Northglass Intake Bay",
+          "entryText": "Keep the flood-claim contradiction in one intake bay so dry-vs-wet evidence remains visually immediate.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C017",
+      "assetCaseId": "Case_017",
+      "title": "Split Batch",
+      "departmentId": "Fraud",
+      "districtId": "DIST_CIVIC_CORE",
+      "cityLocationId": "LOC_CIVIC_CORE_ASTER_TRANSIT_TREASURY",
+      "caseArcId": "ARC_GLASS_LEDGER",
+      "arcBeatSummary": "Returns to paper flow and public funds, showing how the fraud arc can sit inside ordinary treasury operations.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Serial gaps and parcel weights already give enough structure."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S019", "displayName": "Devin March", "relevance": "primary_claimant" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_CIVIC_CORE_ASTER_TRANSIT_TREASURY",
+          "displayName": "Aster Transit Treasury",
+          "entryText": "One treasury room is enough to teach split-batch fraud without fragmenting the player's paper trail.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C018",
+      "assetCaseId": "Case_018",
+      "title": "Restricted Preview",
+      "departmentId": "Fraud",
+      "districtId": "DIST_CIVIC_CORE",
+      "cityLocationId": "LOC_CIVIC_CORE_MARLOWE_PROCUREMENT_HUB",
+      "caseArcId": "ARC_GLASS_LEDGER",
+      "arcBeatSummary": "First overt leak beat in Fraud: Mira's timeline depends on restricted knowledge that should never have left the department.",
+      "locationMode": "multi_location",
+      "interrogationUsage": {
+        "mode": "planned_optional",
+        "isMilestoneForwardCase": true,
+        "focus": "This is Mira Voss's first interrogation-priority case because the restricted-brief lie works cleanly as suspect pressure."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S011", "displayName": "Mira Voss", "relevance": "primary_claimant" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_CIVIC_CORE_MARLOWE_PROCUREMENT_HUB",
+          "displayName": "Marlowe Procurement Hub",
+          "entryText": "Lead from the conference suite and public invoice packet so the player starts in the clean version of Mira's story.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        },
+        {
+          "locationId": "VISIT_C018_PURGED_WAREHOUSE",
+          "displayName": "Purged Warehouse Row",
+          "entryText": "The warehouse-side verification visit turns abstract warning leaks into visible preemptive movement.",
+          "visitOrder": 1,
+          "unlockEvidenceIds": ["C018_E002"],
+          "unlockTags": ["DIGITAL", "ACCESS"],
+          "isRequiredForSolve": true,
+          "visitRole": "cross_check_verification",
+          "authoringMode": "author_new_visit"
+        }
+      ]
+    },
+    {
+      "caseId": "C019",
+      "assetCaseId": "Case_019",
+      "title": "Warehouse Float",
+      "departmentId": "Fraud",
+      "districtId": "DIST_NORTH_QUAY",
+      "cityLocationId": "LOC_NORTH_QUAY_GREYHOOK_STORAGE",
+      "caseArcId": "ARC_GLASS_LEDGER",
+      "arcBeatSummary": "Brings the ledger-cleaning scheme into industrial collateral space and reconnects Lyle Mercer to the wider network.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Use dossier relevance for Mira and Lyle, but keep the storage-locker scene self-contained."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S014", "displayName": "Lyle Mercer", "relevance": "primary_claimant" },
+        { "suspectId": "S011", "displayName": "Mira Voss", "relevance": "recurring_person_of_interest" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_NORTH_QUAY_GREYHOOK_STORAGE",
+          "displayName": "Greyhook Self Storage",
+          "entryText": "Treat Bay 14 as a contained fraud bunker so the player reads the lock, access log, and collateral sleeve in one flow.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C020",
+      "assetCaseId": "Case_020",
+      "title": "The Glass Ledger",
+      "departmentId": "Fraud",
+      "districtId": "DIST_CIVIC_CORE",
+      "cityLocationId": "LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT",
+      "caseArcId": "ARC_GLASS_LEDGER",
+      "arcBeatSummary": "Fraud capstone: Mira stops being a rumor and becomes the exposed fixer who physically moved the original ledger through a compromised annex route.",
+      "locationMode": "multi_location",
+      "interrogationUsage": {
+        "mode": "authored_present",
+        "isMilestoneForwardCase": true,
+        "focus": "Existing interrogation chain should remain the department's first fully authored suspect-pressure payoff."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S011", "displayName": "Mira Voss", "relevance": "primary_claimant" },
+        { "suspectId": "S012", "displayName": "Renata Bell", "relevance": "secondary_connection" },
+        { "suspectId": "S013", "displayName": "Owen Kade", "relevance": "secondary_connection" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT",
+          "displayName": "Crown Annex Records Vault",
+          "entryText": "The vault floor is the capstone launch node and should feel like the clean institutional heart of the fraud conspiracy.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        },
+        {
+          "locationId": "VISIT_C020_FREIGHT_ELEVATOR",
+          "displayName": "Annex Freight Elevator",
+          "entryText": "The second visit isolates Mira's physical movement through the annex and sharpens the capstone contradiction.",
+          "visitOrder": 1,
+          "unlockEvidenceIds": ["C020_E001"],
+          "unlockTags": ["ACCESS", "PHYSICAL"],
+          "isRequiredForSolve": true,
+          "visitRole": "capstone_reveal",
+          "authoringMode": "author_new_visit"
+        }
+      ]
+    },
+    {
+      "caseId": "C021",
+      "assetCaseId": "Case_021",
+      "title": "Last Stop Window",
+      "departmentId": "MissingPersons",
+      "districtId": "DIST_RIVERSIDE",
+      "cityLocationId": "LOC_RIVERSIDE_VESPER_TERMINAL",
+      "caseArcId": "ARC_HOLLOW_DESK",
+      "arcBeatSummary": "Opens Missing Persons with a transit-side disappearance and immediately teaches Enhance as a location-truth tool.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Start the department with map-and-location reasoning before adding more suspect pressure."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S020", "displayName": "Nyla Venn", "relevance": "missing_person" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_RIVERSIDE_VESPER_TERMINAL",
+          "displayName": "Vesper Terminal",
+          "entryText": "The terminal should stay one authored node so players learn the Missing Persons map shell without an immediate second hop.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C022",
+      "assetCaseId": "Case_022",
+      "title": "Room 3B",
+      "departmentId": "MissingPersons",
+      "districtId": "DIST_MARKET_ROW",
+      "cityLocationId": "LOC_MARKET_ROW_HEARTHLIGHT_HOSTEL",
+      "caseArcId": "ARC_HOLLOW_DESK",
+      "arcBeatSummary": "Moves the department into temporary housing and keycard chronology, emphasizing who re-entered a supposedly empty room.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "The room-return lie is strong enough without additional interrogation flow."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S021", "displayName": "Jonah Vale", "relevance": "primary_claimant" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_MARKET_ROW_HEARTHLIGHT_HOSTEL",
+          "displayName": "Hearthlight Hostel",
+          "entryText": "Keep the hostel case inside one building node so the player's first missing-persons indoor chronology is easy to parse.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C023",
+      "assetCaseId": "Case_023",
+      "title": "Bluebird Encore",
+      "departmentId": "MissingPersons",
+      "districtId": "DIST_MARKET_ROW",
+      "cityLocationId": "LOC_MARKET_ROW_BLUEBIRD_VENUE",
+      "caseArcId": "ARC_HOLLOW_DESK",
+      "arcBeatSummary": "First nightlife disappearance in the arc and the first missing-person beat to visibly reconnect with Mira Voss.",
+      "locationMode": "multi_location",
+      "interrogationUsage": {
+        "mode": "planned_optional",
+        "isMilestoneForwardCase": true,
+        "focus": "Promoter and backstage-witness pressure are strong candidates, with Mira as the wider dossier hook."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S022", "displayName": "Sera Bloom", "relevance": "missing_person" },
+        { "suspectId": "S011", "displayName": "Mira Voss", "relevance": "recurring_person_of_interest" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_MARKET_ROW_BLUEBIRD_VENUE",
+          "displayName": "Bluebird Backstage",
+          "entryText": "Start backstage so the player's first read is a performance-space departure lie.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        },
+        {
+          "locationId": "VISIT_C023_MARINA_RAMP",
+          "displayName": "Marina Ramp",
+          "entryText": "The marina-side follow-up confirms Sera left toward the water and carries Mira's shadow into the missing-persons arc.",
+          "visitOrder": 1,
+          "unlockEvidenceIds": ["C023_E001"],
+          "unlockTags": ["LOCATION", "PERSON"],
+          "isRequiredForSolve": true,
+          "visitRole": "cross_check_verification",
+          "authoringMode": "author_new_visit"
+        }
+      ]
+    },
+    {
+      "caseId": "C024",
+      "assetCaseId": "Case_024",
+      "title": "False Dawn Search",
+      "departmentId": "MissingPersons",
+      "districtId": "DIST_OUTER_REACH",
+      "cityLocationId": "LOC_OUTER_REACH_PINEGLASS_TRAILHEAD",
+      "caseArcId": "ARC_HOLLOW_DESK",
+      "arcBeatSummary": "Uses field-search optics to show how a missing-person narrative can be manipulated before the official timeline begins.",
+      "locationMode": "multi_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Map travel matters here more than suspect questioning."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S023", "displayName": "Caleb Wren", "relevance": "primary_claimant" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_OUTER_REACH_PINEGLASS_TRAILHEAD",
+          "displayName": "Pineglass Trailhead",
+          "entryText": "The trailhead remains the public-facing search node where the official story is staged.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        },
+        {
+          "locationId": "VISIT_C024_RIDGE_OVERLOOK",
+          "displayName": "Ridge Overlook",
+          "entryText": "A second field visit pays off the predawn movement and makes the fake search window feel spatially real.",
+          "visitOrder": 1,
+          "unlockEvidenceIds": ["C024_E001"],
+          "unlockTags": ["TIME", "LOCATION"],
+          "isRequiredForSolve": true,
+          "visitRole": "cross_check_verification",
+          "authoringMode": "author_new_visit"
+        }
+      ]
+    },
+    {
+      "caseId": "C025",
+      "assetCaseId": "Case_025",
+      "title": "Stairwell Five",
+      "departmentId": "MissingPersons",
+      "districtId": "DIST_SKYLINE",
+      "cityLocationId": "LOC_SKYLINE_MERCURY_PLAZA",
+      "caseArcId": "ARC_HOLLOW_DESK",
+      "arcBeatSummary": "Brings Missing Persons into an office tower and emphasizes Enhance as a truth tool for dead-screen surveillance.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "The reflected-badge reveal should land as an evidence moment, not an interrogation beat."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S024", "displayName": "Daria Flint", "relevance": "primary_claimant" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_SKYLINE_MERCURY_PLAZA",
+          "displayName": "Mercury Plaza Service Core",
+          "entryText": "One service-core node is enough to keep the dead-camera reflection trick sharp and mobile-friendly.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C026",
+      "assetCaseId": "Case_026",
+      "title": "Cold Berth",
+      "departmentId": "MissingPersons",
+      "districtId": "DIST_NORTH_QUAY",
+      "cityLocationId": "LOC_NORTH_QUAY_COLD_DOCK",
+      "caseArcId": "ARC_HOLLOW_DESK",
+      "arcBeatSummary": "Shifts the arc onto the cold docks and shows the missing-person trail moving from locker row into a deeper industrial berth system.",
+      "locationMode": "multi_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "Dockside sequence and berth routing matter more than added suspect questioning."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S025", "displayName": "Silas Keene", "relevance": "primary_claimant" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_NORTH_QUAY_COLD_DOCK",
+          "displayName": "Cold Dock Locker Row",
+          "entryText": "The locker row is the public-facing dock node and the first place the disappearance is falsely contained.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        },
+        {
+          "locationId": "VISIT_C026_BERTH_9C",
+          "displayName": "Berth 9C",
+          "entryText": "The deeper berth visit pays off the enhanced cargo tag and makes the dockside abduction route tangible.",
+          "visitOrder": 1,
+          "unlockEvidenceIds": ["C026_E001"],
+          "unlockTags": ["LOCATION", "ACCESS"],
+          "isRequiredForSolve": true,
+          "visitRole": "cross_check_verification",
+          "authoringMode": "author_new_visit"
+        }
+      ]
+    },
+    {
+      "caseId": "C027",
+      "assetCaseId": "Case_027",
+      "title": "Quiet Shelter",
+      "departmentId": "MissingPersons",
+      "districtId": "DIST_MARKET_ROW",
+      "cityLocationId": "LOC_MARKET_ROW_LANTERN_SHELTER",
+      "caseArcId": "ARC_HOLLOW_DESK",
+      "arcBeatSummary": "First overt Missing Persons leak beat: a restricted routing slip appears before the public filing, tying the witness chain to internal records flow.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "planned_optional",
+        "isMilestoneForwardCase": true,
+        "focus": "Tova Rell is a strong interrogation-forward suspect because her lie is protective, not purely criminal, which suits the deeper suspect flow."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S026", "displayName": "Tova Rell", "relevance": "primary_claimant" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_MARKET_ROW_LANTERN_SHELTER",
+          "displayName": "Lantern Youth Shelter",
+          "entryText": "Keep the shelter on one map node for now and let the booth reflection, routing slip, and courtyard traces carry the escalation.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C028",
+      "assetCaseId": "Case_028",
+      "title": "Pier 19 Shadow",
+      "departmentId": "MissingPersons",
+      "districtId": "DIST_NORTH_QUAY",
+      "cityLocationId": "LOC_NORTH_QUAY_SERVICE_PIER_19",
+      "caseArcId": "ARC_HOLLOW_DESK",
+      "arcBeatSummary": "Turns the arc back toward Mira's dockside network and shows a missing-person trail crossing into controlled industrial access.",
+      "locationMode": "single_location",
+      "interrogationUsage": {
+        "mode": "none",
+        "isMilestoneForwardCase": false,
+        "focus": "The pier override and barge hint play better as map-and-route evidence than as a first-pass interrogation scene."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S027", "displayName": "Adrian Crowe", "relevance": "missing_person" },
+        { "suspectId": "S011", "displayName": "Mira Voss", "relevance": "recurring_person_of_interest" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_NORTH_QUAY_SERVICE_PIER_19",
+          "displayName": "Service Pier 19",
+          "entryText": "Use one pier node for now so the override reader, radio, and rain-smeared camera remain tightly linked.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        }
+      ]
+    },
+    {
+      "caseId": "C029",
+      "assetCaseId": "Case_029",
+      "title": "Silent Draft",
+      "departmentId": "MissingPersons",
+      "districtId": "DIST_MARKET_ROW",
+      "cityLocationId": "LOC_MARKET_ROW_COURIER_GAZETTE",
+      "caseArcId": "ARC_HOLLOW_DESK",
+      "arcBeatSummary": "Reporter Vera Hale's disappearance turns the leak from rumor into urgent personal evidence and points directly at precinct-side service access.",
+      "locationMode": "multi_location",
+      "interrogationUsage": {
+        "mode": "planned_optional",
+        "isMilestoneForwardCase": true,
+        "focus": "Editor Hal Renn and annex-side support staff are strong optional interrogation targets before the capstone."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S028", "displayName": "Vera Hale", "relevance": "missing_person" },
+        { "suspectId": "S011", "displayName": "Mira Voss", "relevance": "recurring_person_of_interest" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_MARKET_ROW_COURIER_GAZETTE",
+          "displayName": "Courier Gazette Annex Desk",
+          "entryText": "Launch from the newsroom-side desk so the player first reads Vera's own investigative trail.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        },
+        {
+          "locationId": "VISIT_C029_PRECINCT_ANNEX_SERVICE_RAMP",
+          "displayName": "Precinct Annex Service Ramp",
+          "entryText": "The service-ramp follow-up confirms Vera physically reached the annex and sharpens the transition into the final records-floor case.",
+          "visitOrder": 1,
+          "unlockEvidenceIds": ["C029_E001"],
+          "unlockTags": ["LOCATION", "ACCESS"],
+          "isRequiredForSolve": true,
+          "visitRole": "cross_check_verification",
+          "authoringMode": "author_new_visit"
+        }
+      ]
+    },
+    {
+      "caseId": "C030",
+      "assetCaseId": "Case_030",
+      "title": "The Hollow Desk",
+      "departmentId": "MissingPersons",
+      "districtId": "DIST_NORTH_QUAY",
+      "cityLocationId": "LOC_NORTH_QUAY_CIVIL_ARCHIVE",
+      "caseArcId": "ARC_HOLLOW_DESK",
+      "arcBeatSummary": "Missing Persons capstone: the internal leak is traced to Inez Farrow's desk, connecting the fraud brief chain and the rerouted witness cases through one records-floor operator.",
+      "locationMode": "multi_location",
+      "interrogationUsage": {
+        "mode": "authored_present",
+        "isMilestoneForwardCase": true,
+        "focus": "Existing interrogation should remain the capstone payoff for the deeper suspect flow and the clearest bridge between dossier, map, and contradiction systems."
+      },
+      "suspectRelevance": [
+        { "suspectId": "S029", "displayName": "Inez Farrow", "relevance": "primary_claimant" },
+        { "suspectId": "S028", "displayName": "Vera Hale", "relevance": "victim_context" },
+        { "suspectId": "S011", "displayName": "Mira Voss", "relevance": "recurring_person_of_interest" },
+        { "suspectId": "S030", "displayName": "Gideon Marsh", "relevance": "secondary_suspect" }
+      ],
+      "caseLocations": [
+        {
+          "locationId": "LOC_NORTH_QUAY_CIVIL_ARCHIVE",
+          "displayName": "Civil Archive Records Floor",
+          "entryText": "Launch from the records desk and keep the player inside the institutional center of the leak network.",
+          "visitOrder": 0,
+          "unlockEvidenceIds": [],
+          "unlockTags": [],
+          "isRequiredForSolve": true,
+          "visitRole": "primary_scene",
+          "authoringMode": "reuse_legacy_root"
+        },
+        {
+          "locationId": "VISIT_C030_ARCHIVE_CORRIDOR",
+          "displayName": "Archive Corridor Mirror Line",
+          "entryText": "The corridor visit isolates the cleaning-cart reflection and supports the first capstone interrogation beats.",
+          "visitOrder": 1,
+          "unlockEvidenceIds": ["C030_E001"],
+          "unlockTags": ["PERSON"],
+          "isRequiredForSolve": true,
+          "visitRole": "interrogation_setup",
+          "authoringMode": "author_new_visit"
+        },
+        {
+          "locationId": "VISIT_C030_TRANSFER_TUBE_RACK",
+          "displayName": "Transfer Tube Rack",
+          "entryText": "Final visit pays off the moved routing copies and makes the desk-side leak operational rather than abstract.",
+          "visitOrder": 2,
+          "unlockEvidenceIds": ["C030_E004"],
+          "unlockTags": ["ACCESS", "PHYSICAL"],
+          "isRequiredForSolve": true,
+          "visitRole": "capstone_reveal",
+          "authoringMode": "author_new_visit"
+        }
+      ]
+    }
+  ]
+}

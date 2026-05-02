@@ -19,6 +19,12 @@ MonoBehaviour:
     lead linked to Mira Voss. A supervisor says Adrian's badge never cleared the
     pier, but enhance pulls a barge insignia from a rain-smeared frame.
   sceneBackground: {fileID: 21300000, guid: ec29e6bd27aa1f0645ba3021c7ca8f7b, type: 3}
+  departmentId: 7
+  districtId: DIST_NORTH_QUAY
+  cityLocationId: LOC_NORTH_QUAY_SERVICE_PIER_19
+  caseArcId: ARC_HOLLOW_DESK
+  arcBeatSummary: Turns the arc back toward Mira's dockside network and shows a missing-person
+    trail crossing into controlled industrial access.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -40,6 +46,37 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C028_E005
     hotspotLabel: Schedule Rail
+  caseLocations:
+  - locationId: LOC_NORTH_QUAY_SERVICE_PIER_19
+    displayName: Service Pier 19
+    sceneBackground: {fileID: 21300000, guid: ec29e6bd27aa1f0645ba3021c7ca8f7b, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C028_E001
+      hotspotLabel: Pier Camera
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C028_E002
+      hotspotLabel: Turnstile Reader
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C028_E003
+      hotspotLabel: Radio Locker
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C028_E005
+      hotspotLabel: Schedule Rail
+    entryText: Use one pier node for now so the override reader, radio, and rain-smeared
+      camera remain tightly linked.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 309e8f078f52ae649828e64830aaa491, type: 2}
   - {fileID: 11400000, guid: ecf721c5d4cf6214fb7c56a05c510be2, type: 2}
@@ -54,7 +91,18 @@ MonoBehaviour:
   involvedSuspects:
   - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
   - {fileID: 11400000, guid: f5595b2e868325f4380bcc096b29b0c9, type: 2}
+  suspectSummaries:
+  - suspectId: S027
+    displayName: Adrian Crowe
+    relevance: missing_person
+  - suspectId: S011
+    displayName: Mira Voss
+    relevance: recurring_person_of_interest
   interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: The pier override and barge hint play better as map-and-route
+    evidence than as a first-pass interrogation scene.
   contradictoryClaimId: C028_CL001
   explanationText: The supervisor says Adrian never reached the pier, but C028_E001
     shows Adrian on the pier once the rain-smeared frame is enhanced, and C028_E002

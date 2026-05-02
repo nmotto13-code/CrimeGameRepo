@@ -20,6 +20,12 @@ MonoBehaviour:
     The annex trail finally exposes her real role and escalates the still-unseen
     internal leak.
   sceneBackground: {fileID: 21300000, guid: 7ee71db89f0b05179000e3cf096e4aa5, type: 3}
+  departmentId: 6
+  districtId: DIST_CIVIC_CORE
+  cityLocationId: LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT
+  caseArcId: ARC_GLASS_LEDGER
+  arcBeatSummary: 'Fraud capstone: Mira stops being a rumor and becomes the exposed
+    fixer who physically moved the original ledger through a compromised annex route.'
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -46,6 +52,53 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C020_E006
     hotspotLabel: Seal Fragment Tray
+  caseLocations:
+  - locationId: LOC_CIVIC_CORE_CROWN_ANNEX_RECORDS_VAULT
+    displayName: Crown Annex Records Vault
+    sceneBackground: {fileID: 21300000, guid: 7ee71db89f0b05179000e3cf096e4aa5, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C020_E001
+      hotspotLabel: Courier Lockbox
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C020_E002
+      hotspotLabel: Visitor Pass Desk
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C020_E003
+      hotspotLabel: Ledger Shelf
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C020_E004
+      hotspotLabel: Freight Elevator Monitor
+    - hotspotId: H005
+      normalizedPosition: {x: 0.75, y: 0.4}
+      radius: 0.06
+      evidenceId: C020_E006
+      hotspotLabel: Seal Fragment Tray
+    entryText: The vault floor is the capstone launch node and should feel like the
+      clean institutional heart of the fraud conspiracy.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
+  - locationId: VISIT_C020_FREIGHT_ELEVATOR
+    displayName: Annex Freight Elevator
+    sceneBackground: {fileID: 21300000, guid: 7ee71db89f0b05179000e3cf096e4aa5, type: 3}
+    hotspots: []
+    entryText: The second visit isolates Mira's physical movement through the annex
+      and sharpens the capstone contradiction.
+    visitOrder: 1
+    unlockEvidenceIds:
+    - C020_E001
+    unlockTags: 0500000009000000
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 712a0429e1dcb2d49b16ad5255435ba9, type: 2}
   - {fileID: 11400000, guid: 137ec4dfe737ae3489edc2ec7d6ce76b, type: 2}
@@ -64,9 +117,23 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4bc950c96ffd0cf41941ca3ddccc6b86, type: 2}
   - {fileID: 11400000, guid: 5ba7b12cb4196f24a9d8bf6300bc4d90, type: 2}
   - {fileID: 11400000, guid: 790d07ec3cba7784f96d00e256107c02, type: 2}
+  suspectSummaries:
+  - suspectId: S011
+    displayName: Mira Voss
+    relevance: primary_claimant
+  - suspectId: S012
+    displayName: Renata Bell
+    relevance: secondary_connection
+  - suspectId: S013
+    displayName: Owen Kade
+    relevance: secondary_connection
   interrogationNodes:
   - {fileID: 11400000, guid: 9efd3c577ebe8a44f88b11e503e66826, type: 2}
   - {fileID: 11400000, guid: adf7b64bd9a3b9e489b78b06ac18520f, type: 2}
+  interrogationMode: authored_present
+  isInterrogationForwardCase: 1
+  interrogationFocusSummary: Existing interrogation chain should remain the department's
+    first fully authored suspect-pressure payoff.
   contradictoryClaimId: C020_CL001
   explanationText: Mira's denial collapses because C020_E004 places her inside the
     annex carrying the narrow lockbox, and C020_E006 matches the broken archive seal

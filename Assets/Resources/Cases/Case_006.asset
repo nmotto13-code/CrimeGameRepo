@@ -12,18 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_006
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 2
   caseId: Case_006
   title: Delivery Window
   briefText: A courier claims he delivered a package to the Orin estate between 2
     and 4 PM. The estate owner says no one arrived. Enhance the delivery photo for
     the hidden timestamp.
   sceneBackground: {fileID: 21300000, guid: 9f85f74bccb6e264f9215c4f397fbbbd, type: 3}
+  departmentId: 0
+  districtId: DIST_OUTER_REACH
+  cityLocationId: LOC_OUTER_REACH_ORIN_GATEHOUSE
+  caseArcId: ARC_PATROL_CROSSROADS
+  arcBeatSummary: Begins the second patrol arc by pushing the player onto route-order
+    reasoning at the city's edge.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.5, y: 0.4}
     radius: 0.06
     evidenceId: E001
     hotspotLabel: Delivery Photo
+  caseLocations:
+  - locationId: LOC_OUTER_REACH_ORIN_GATEHOUSE
+    displayName: Orin Estate Gatehouse
+    sceneBackground: {fileID: 21300000, guid: 9f85f74bccb6e264f9215c4f397fbbbd, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.5, y: 0.4}
+      radius: 0.06
+      evidenceId: E001
+      hotspotLabel: Delivery Photo
+    entryText: Use the estate gate as the anchor scene and let off-screen route evidence
+      do the rest.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 5de7257b552c3b74abca54003de0a327, type: 2}
   - {fileID: 11400000, guid: 81465ce29594ebb43aa37b6fcda9086b, type: 2}
@@ -34,6 +57,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fe7d7774c41179d4ca11af313203f702, type: 2}
   - {fileID: 11400000, guid: 4e0eec5b88547f9418efbe2a3ddec254, type: 2}
   - {fileID: 11400000, guid: 75725d94519a899418ec169e46ea4aeb, type: 2}
+  involvedSuspects: []
+  suspectSummaries:
+  - suspectId: 
+    displayName: Felix Dunn
+    relevance: primary_claimant
+  - suspectId: 
+    displayName: Rosaline Orin
+    relevance: witness
+  - suspectId: 
+    displayName: Dispatch Manager
+    relevance: supporting_witness
+  interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: Route contradiction is clear enough without converting
+    it into a suspect-pressure stop.
   contradictoryClaimId: CL001
   explanationText: "Felix claims he arrived at 3:15 PM, but his previous stop (#10)
     was signed at 4:48 PM. He hadn't even reached the previous stop yet at 3:15 PM.
@@ -43,6 +82,8 @@ MonoBehaviour:
   primaryEvidenceIdB: E001
   basePoints: 500
   timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

@@ -15,7 +15,7 @@ MonoBehaviour:
   schemaVersion: 1
   suspectId: S017
   displayName: Celia Drax
-  portraitSprite: {fileID: 0}
+  portraitSprite: {fileID: 21300000, guid: 3cdeac533c2cd640d4e7749248aa0b16, type: 3}
   bio: Insurance adjuster known for dramatic field photos and selective timelines.
     Treats visual evidence as something to compose, not preserve.
   traits:

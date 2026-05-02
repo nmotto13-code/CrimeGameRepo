@@ -15,7 +15,7 @@ MonoBehaviour:
   schemaVersion: 1
   suspectId: S013
   displayName: Owen Kade
-  portraitSprite: {fileID: 0}
+  portraitSprite: {fileID: 21300000, guid: c35b5b2e2b1c02d89848cdaac64cdda2, type: 3}
   bio: A print broker and document finisher who handles boutique jobs for galleries,
     private estates, and anyone willing to pay for a convincing duplicate.
   traits:

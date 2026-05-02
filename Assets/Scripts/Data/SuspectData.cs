@@ -13,6 +13,10 @@ namespace CasebookGame.Data
         public string suspectId;
         public string displayName;
         public Sprite portraitSprite;
+        public string roleLabel;
+        [TextArea(1, 3)] public string statusSummary;
+        public string currentLocationId;
+        public string interrogationEntryNodeId;
 
         [Header("Profile")]
         [TextArea(3, 8)] public string bio;

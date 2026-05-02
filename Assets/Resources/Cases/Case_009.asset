@@ -12,18 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7c155647233b64387abc662da4439a, type: 3}
   m_Name: Case_009
   m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CaseData
+  schemaVersion: 2
   caseId: Case_009
   title: Gym Keycard
   briefText: Fitness instructor Nadia Clare claims she was teaching a 7 PM spin class
     when a client's locker was raided. The gym's keycard system and class booking
     log disagree.
   sceneBackground: {fileID: 21300000, guid: 5d39b50713daf434d8cd2912997a87eb, type: 3}
+  departmentId: 0
+  districtId: DIST_MARKET_ROW
+  cityLocationId: LOC_MARKET_ROW_PULSE_GYM
+  caseArcId: ARC_PATROL_CROSSROADS
+  arcBeatSummary: Keeps patrol in a civilian venue while showing how schedule systems
+    and back-corridor access reinforce one another.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.5, y: 0.5}
     radius: 0.06
     evidenceId: E002
     hotspotLabel: Keycard Panel
+  caseLocations:
+  - locationId: LOC_MARKET_ROW_PULSE_GYM
+    displayName: Pulse Gym
+    sceneBackground: {fileID: 21300000, guid: 5d39b50713daf434d8cd2912997a87eb, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.5, y: 0.5}
+      radius: 0.06
+      evidenceId: E002
+      hotspotLabel: Keycard Panel
+    entryText: Use one gym node and let booking, studio, and staff corridor evidence
+      tell the contradiction without additional travel.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 5134eb42705b3d6458a5b69eee9f3c6a, type: 2}
   - {fileID: 11400000, guid: 8166d1101712a004fab6d6307e39e4ce, type: 2}
@@ -34,6 +57,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3651560843e4e374b8607fd0983af66e, type: 2}
   - {fileID: 11400000, guid: e485fd95b5dc57745afa5e24bc4d6184, type: 2}
   - {fileID: 11400000, guid: d90a8d81fcc0bf04097cc2e0b388c494, type: 2}
+  involvedSuspects: []
+  suspectSummaries:
+  - suspectId: 
+    displayName: Nadia Clare
+    relevance: primary_claimant
+  - suspectId: 
+    displayName: Gym Manager
+    relevance: supporting_witness
+  - suspectId: 
+    displayName: Another Trainer
+    relevance: supporting_witness
+  interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: Remains a clean access-and-attendance contradiction.
   contradictoryClaimId: CL001
   explanationText: "Nadia claims she taught a class at 7 PM, but her own booking
     system shows she cancelled it at 6:52 PM. Studio cameras show the room empty
@@ -43,6 +81,8 @@ MonoBehaviour:
   primaryEvidenceIdB: E003
   basePoints: 500
   timeLimitSeconds: 0
+  thirdStarRequirement: 0
+  thirdStarParSeconds: 0
   toolConfig:
     crossCheckCharges: 2
     enhanceCooldownSeconds: 12

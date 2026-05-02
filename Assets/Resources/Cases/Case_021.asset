@@ -19,6 +19,12 @@ MonoBehaviour:
     she boarded the last Route Six bus, but the transit screenshot on her phone looks
     less trustworthy once it is enhanced.
   sceneBackground: {fileID: 21300000, guid: 32027a59150a4124536a93f1889ec794, type: 3}
+  departmentId: 7
+  districtId: DIST_RIVERSIDE
+  cityLocationId: LOC_RIVERSIDE_VESPER_TERMINAL
+  caseArcId: ARC_HOLLOW_DESK
+  arcBeatSummary: Opens Missing Persons with a transit-side disappearance and immediately
+    teaches Enhance as a location-truth tool.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -35,6 +41,32 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C021_E003
     hotspotLabel: Shelter Glass
+  caseLocations:
+  - locationId: LOC_RIVERSIDE_VESPER_TERMINAL
+    displayName: Vesper Terminal
+    sceneBackground: {fileID: 21300000, guid: 32027a59150a4124536a93f1889ec794, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C021_E001
+      hotspotLabel: Phone Screenshot
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C021_E002
+      hotspotLabel: Platform Camera
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C021_E003
+      hotspotLabel: Shelter Glass
+    entryText: The terminal should stay one authored node so players learn the Missing
+      Persons map shell without an immediate second hop.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: f2e2973e3415c18419dc3e6b4ef21d20, type: 2}
   - {fileID: 11400000, guid: a858ca5d5eec35847a4e02b3559659f2, type: 2}
@@ -48,7 +80,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d426a1b0ccbb60745a288731c76025a0, type: 2}
   involvedSuspects:
   - {fileID: 11400000, guid: eeaf40a3f6898d040b9d6a0d2160e599, type: 2}
+  suspectSummaries:
+  - suspectId: S020
+    displayName: Nyla Venn
+    relevance: missing_person
   interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: Start the department with map-and-location reasoning
+    before adding more suspect pressure.
   contradictoryClaimId: C021_CL001
   explanationText: The dispatcher claims Nyla boarded the bus, but C021_E001 is an
     older cached screenshot reused from the previous night and C021_E002 shows the

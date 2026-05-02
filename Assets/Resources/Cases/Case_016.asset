@@ -19,6 +19,12 @@ MonoBehaviour:
     She says the damage photos were taken after a warehouse burst pipe, but the physical
     condition of the packing says the story was staged.
   sceneBackground: {fileID: 21300000, guid: 9f851b5a955f277ebae72c61261fe649, type: 3}
+  departmentId: 6
+  districtId: DIST_RIVERSIDE
+  cityLocationId: LOC_RIVERSIDE_NORTHGLASS_INTAKE_BAY
+  caseArcId: ARC_GLASS_LEDGER
+  arcBeatSummary: Broadens Fraud into staged physical loss claims while keeping the
+    contradiction legible through material condition, not paperwork alone.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -35,6 +41,32 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C016_E003
     hotspotLabel: Packing Bench
+  caseLocations:
+  - locationId: LOC_RIVERSIDE_NORTHGLASS_INTAKE_BAY
+    displayName: Northglass Intake Bay
+    sceneBackground: {fileID: 21300000, guid: 9f851b5a955f277ebae72c61261fe649, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C016_E001
+      hotspotLabel: Photo Lightbox
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C016_E002
+      hotspotLabel: Pump Cabinet
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C016_E003
+      hotspotLabel: Packing Bench
+    entryText: Keep the flood-claim contradiction in one intake bay so dry-vs-wet
+      evidence remains visually immediate.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 10bc63ae1bccece40ab7bda55eb84f4e, type: 2}
   - {fileID: 11400000, guid: 9c41c6be33f087e43b98e1a0f616e045, type: 2}
@@ -48,7 +80,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5678c7c187a74734092bdd51341077c4, type: 2}
   involvedSuspects:
   - {fileID: 11400000, guid: 54ed845ce99cb294084863798f4b61dc, type: 2}
+  suspectSummaries:
+  - suspectId: S017
+    displayName: Celia Drax
+    relevance: primary_claimant
   interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: A physical-claims case that should stay evidence-forward.
   contradictoryClaimId: C016_CL001
   explanationText: Celia says she documented real flood damage that night, but C016_E002
     shows the pipe burst happened the next morning and C016_E003 proves the crate

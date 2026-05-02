@@ -19,6 +19,12 @@ MonoBehaviour:
     row on the night he vanished. Frosted cargo tags and berth pings say the route
     continued much farther into the dock.
   sceneBackground: {fileID: 21300000, guid: af3ac725d773548c45c408cae7cc1a5e, type: 3}
+  departmentId: 7
+  districtId: DIST_NORTH_QUAY
+  cityLocationId: LOC_NORTH_QUAY_COLD_DOCK
+  caseArcId: ARC_HOLLOW_DESK
+  arcBeatSummary: Shifts the arc onto the cold docks and shows the missing-person
+    trail moving from locker row into a deeper industrial berth system.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -40,6 +46,48 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C026_E004
     hotspotLabel: Forklift Sheet
+  caseLocations:
+  - locationId: LOC_NORTH_QUAY_COLD_DOCK
+    displayName: Cold Dock Locker Row
+    sceneBackground: {fileID: 21300000, guid: af3ac725d773548c45c408cae7cc1a5e, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C026_E001
+      hotspotLabel: Cargo Tag
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C026_E002
+      hotspotLabel: Locker Row Photo
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C026_E003
+      hotspotLabel: Bracelet Reader
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C026_E004
+      hotspotLabel: Forklift Sheet
+    entryText: The locker row is the public-facing dock node and the first place
+      the disappearance is falsely contained.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
+  - locationId: VISIT_C026_BERTH_9C
+    displayName: Berth 9C
+    sceneBackground: {fileID: 21300000, guid: af3ac725d773548c45c408cae7cc1a5e, type: 3}
+    hotspots: []
+    entryText: The deeper berth visit pays off the enhanced cargo tag and makes the
+      dockside abduction route tangible.
+    visitOrder: 1
+    unlockEvidenceIds:
+    - C026_E001
+    unlockTags: 0100000005000000
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: ae3007afc8d0e2047be8742e595fabe4, type: 2}
   - {fileID: 11400000, guid: d704bf39974440546935ac3159473ce3, type: 2}
@@ -53,7 +101,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c9899f5bce8ae814dafab5fe15e9738e, type: 2}
   involvedSuspects:
   - {fileID: 11400000, guid: 83b33ed6ddd0a7b4cba96d836dfab6c2, type: 2}
+  suspectSummaries:
+  - suspectId: S025
+    displayName: Silas Keene
+    relevance: primary_claimant
   interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: Dockside sequence and berth routing matter more than
+    added suspect questioning.
   contradictoryClaimId: C026_CL001
   explanationText: Silas says Tomas never went beyond locker row, but C026_E001 reveals
     berth 9C once the frost is enhanced and C026_E003 records Tomas's bracelet pinging

@@ -19,6 +19,12 @@ MonoBehaviour:
     the emergency stairwell camera was dead all night, but the dark screen itself
     holds a reflection worth enhancing.
   sceneBackground: {fileID: 21300000, guid: ca526b3b196b71f7bfaea16e27208297, type: 3}
+  departmentId: 7
+  districtId: DIST_SKYLINE
+  cityLocationId: LOC_SKYLINE_MERCURY_PLAZA
+  caseArcId: ARC_HOLLOW_DESK
+  arcBeatSummary: Brings Missing Persons into an office tower and emphasizes Enhance
+    as a truth tool for dead-screen surveillance.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -35,6 +41,32 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C025_E003
     hotspotLabel: Elevator Panel
+  caseLocations:
+  - locationId: LOC_SKYLINE_MERCURY_PLAZA
+    displayName: Mercury Plaza Service Core
+    sceneBackground: {fileID: 21300000, guid: ca526b3b196b71f7bfaea16e27208297, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C025_E001
+      hotspotLabel: Dead Monitor
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C025_E002
+      hotspotLabel: Maintenance Ring
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C025_E003
+      hotspotLabel: Elevator Panel
+    entryText: One service-core node is enough to keep the dead-camera reflection
+      trick sharp and mobile-friendly.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 419fac939f1d91a4aafa96b8547942aa, type: 2}
   - {fileID: 11400000, guid: 09862bc22d760b949af7cffc278fede2, type: 2}
@@ -48,7 +80,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aab74c25d98dd4c4caf84ce434c7f9bb, type: 2}
   involvedSuspects:
   - {fileID: 11400000, guid: f0929c242d1628741a78678004b3a9b8, type: 2}
+  suspectSummaries:
+  - suspectId: S024
+    displayName: Daria Flint
+    relevance: primary_claimant
   interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: The reflected-badge reveal should land as an evidence
+    moment, not an interrogation beat.
   contradictoryClaimId: C025_CL001
   explanationText: Daria says the dead camera proves nothing, but C025_E001 hides
     her reflected badge and timestamp once enhanced, and C025_E003 shows a maintenance

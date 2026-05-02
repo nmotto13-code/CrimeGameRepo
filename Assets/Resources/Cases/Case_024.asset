@@ -19,6 +19,12 @@ MonoBehaviour:
     found nothing earlier. Enhanced drone stills and gate data show vehicle activity
     on the trail hours before the official start.
   sceneBackground: {fileID: 21300000, guid: 13b770d93b18207ad5a1d7ef110ef626, type: 3}
+  departmentId: 7
+  districtId: DIST_OUTER_REACH
+  cityLocationId: LOC_OUTER_REACH_PINEGLASS_TRAILHEAD
+  caseArcId: ARC_HOLLOW_DESK
+  arcBeatSummary: Uses field-search optics to show how a missing-person narrative
+    can be manipulated before the official timeline begins.
   hotspots:
   - hotspotId: H001
     normalizedPosition: {x: 0.25, y: 0.65}
@@ -40,6 +46,48 @@ MonoBehaviour:
     radius: 0.06
     evidenceId: C024_E003
     hotspotLabel: Bench Thermos
+  caseLocations:
+  - locationId: LOC_OUTER_REACH_PINEGLASS_TRAILHEAD
+    displayName: Pineglass Trailhead
+    sceneBackground: {fileID: 21300000, guid: 13b770d93b18207ad5a1d7ef110ef626, type: 3}
+    hotspots:
+    - hotspotId: H001
+      normalizedPosition: {x: 0.25, y: 0.65}
+      radius: 0.06
+      evidenceId: C024_E001
+      hotspotLabel: Drone Case
+    - hotspotId: H002
+      normalizedPosition: {x: 0.7, y: 0.7}
+      radius: 0.06
+      evidenceId: C024_E002
+      hotspotLabel: Grid Map
+    - hotspotId: H003
+      normalizedPosition: {x: 0.5, y: 0.35}
+      radius: 0.06
+      evidenceId: C024_E004
+      hotspotLabel: Trail Gate
+    - hotspotId: H004
+      normalizedPosition: {x: 0.2, y: 0.3}
+      radius: 0.06
+      evidenceId: C024_E003
+      hotspotLabel: Bench Thermos
+    entryText: The trailhead remains the public-facing search node where the official
+      story is staged.
+    visitOrder: 0
+    unlockEvidenceIds: []
+    unlockTags: 
+    isRequiredForSolve: 1
+  - locationId: VISIT_C024_RIDGE_OVERLOOK
+    displayName: Ridge Overlook
+    sceneBackground: {fileID: 21300000, guid: 13b770d93b18207ad5a1d7ef110ef626, type: 3}
+    hotspots: []
+    entryText: A second field visit pays off the predawn movement and makes the fake
+      search window feel spatially real.
+    visitOrder: 1
+    unlockEvidenceIds:
+    - C024_E001
+    unlockTags: 0000000001000000
+    isRequiredForSolve: 1
   evidence:
   - {fileID: 11400000, guid: 02800f934467f834aa6c7eb6469e597c, type: 2}
   - {fileID: 11400000, guid: a17f34f5a514c0145a848c8b6be7f0a7, type: 2}
@@ -53,7 +101,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 68cfa704abec6044aa9d1cfc7aceeb79, type: 2}
   involvedSuspects:
   - {fileID: 11400000, guid: 1549db9413256e644a5167e8aaa8e8a5, type: 2}
+  suspectSummaries:
+  - suspectId: S023
+    displayName: Caleb Wren
+    relevance: primary_claimant
   interrogationNodes: []
+  interrogationMode: none
+  isInterrogationForwardCase: 0
+  interrogationFocusSummary: Map travel matters here more than suspect questioning.
   contradictoryClaimId: C024_CL001
   explanationText: Caleb says the search began at sunrise, but C024_E001 already
     shows his truck at the trailhead in predawn light and C024_E004 logs the gate

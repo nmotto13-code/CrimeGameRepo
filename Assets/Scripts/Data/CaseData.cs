@@ -3,6 +3,14 @@ using UnityEngine;
 
 namespace CasebookGame.Data
 {
+    [System.Serializable]
+    public class CaseSuspectSummary
+    {
+        public string suspectId;
+        public string displayName;
+        public string relevance;
+    }
+
     [CreateAssetMenu(fileName = "New Case", menuName = "Casebook/Case Data")]
     public class CaseData : ScriptableObject
     {
@@ -15,8 +23,18 @@ namespace CasebookGame.Data
         [TextArea(3, 8)] public string briefText;
         public Sprite sceneBackground;
 
+        [Header("World Placement")]
+        public DepartmentId departmentId = DepartmentId.Patrol;
+        public string districtId;
+        public string cityLocationId;
+        public string caseArcId;
+        [TextArea(2, 5)] public string arcBeatSummary;
+
         [Header("Hotspots")]
         public List<HotspotData> hotspots = new List<HotspotData>();
+
+        [Header("Case Visits")]
+        public List<CaseLocationData> caseLocations = new List<CaseLocationData>();
 
         [Header("Evidence (4-7 items)")]
         public List<EvidenceData> evidence = new List<EvidenceData>();
@@ -26,9 +44,13 @@ namespace CasebookGame.Data
 
         [Header("Suspects")]
         public List<SuspectData> involvedSuspects = new List<SuspectData>();
+        public List<CaseSuspectSummary> suspectSummaries = new List<CaseSuspectSummary>();
 
         [Header("Interrogation")]
         public List<InterrogationNode> interrogationNodes = new List<InterrogationNode>();
+        public string interrogationMode;
+        public bool isInterrogationForwardCase;
+        [TextArea(2, 5)] public string interrogationFocusSummary;
 
         [Header("Solution")]
         public string contradictoryClaimId;
@@ -51,5 +73,61 @@ namespace CasebookGame.Data
 
         public float GetThirdStarParSeconds() =>
             thirdStarParSeconds > 0f ? thirdStarParSeconds : timeLimitSeconds;
+
+        public int GetResolvedLocationCount() =>
+            caseLocations != null && caseLocations.Count > 0 ? caseLocations.Count : 1;
+
+        public bool HasSuspectPresentation() =>
+            (involvedSuspects != null && involvedSuspects.Count > 0)
+            || (suspectSummaries != null && suspectSummaries.Count > 0);
+
+        public bool HasInterrogationPresentation() =>
+            (interrogationNodes != null && interrogationNodes.Count > 0)
+            || isInterrogationForwardCase
+            || !string.IsNullOrWhiteSpace(interrogationMode);
+
+        public CaseLocationData GetResolvedLocation(int index = 0)
+        {
+            if (caseLocations != null && caseLocations.Count > 0)
+            {
+                int clampedIndex = Mathf.Clamp(index, 0, caseLocations.Count - 1);
+                return caseLocations[clampedIndex];
+            }
+
+            return new CaseLocationData
+            {
+                locationId = string.IsNullOrWhiteSpace(cityLocationId) ? caseId : cityLocationId,
+                displayName = string.IsNullOrWhiteSpace(title) ? caseId : title,
+                sceneBackground = sceneBackground,
+                hotspots = CloneHotspots(hotspots),
+                entryText = briefText,
+                visitOrder = 0,
+                isRequiredForSolve = true
+            };
+        }
+
+        static List<HotspotData> CloneHotspots(List<HotspotData> source)
+        {
+            var clone = new List<HotspotData>();
+            if (source == null)
+                return clone;
+
+            foreach (var hotspot in source)
+            {
+                if (hotspot == null)
+                    continue;
+
+                clone.Add(new HotspotData
+                {
+                    hotspotId = hotspot.hotspotId,
+                    normalizedPosition = hotspot.normalizedPosition,
+                    radius = hotspot.radius,
+                    evidenceId = hotspot.evidenceId,
+                    hotspotLabel = hotspot.hotspotLabel
+                });
+            }
+
+            return clone;
+        }
     }
 }
