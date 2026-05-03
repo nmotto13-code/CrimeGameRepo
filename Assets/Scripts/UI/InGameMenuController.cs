@@ -18,21 +18,18 @@ namespace CasebookGame.UI
             base.Awake();
 
             resumeBtn?.onClick.AddListener(() =>
-                NavigationManager.Instance?.Pop(TransitionType.SlideRight));
+                NavigationManager.Instance?.Pop(TransitionType.FadeUp));
 
             dossierBtn?.onClick.AddListener(() =>
-                NavigationManager.Instance?.Push(ScreenId.Dossier, TransitionType.SlideLeft));
+                NavigationManager.Instance?.ShowScreen(ScreenId.Dossier, TransitionType.FadeUp));
 
             caseSelectBtn?.onClick.AddListener(() =>
                 NavigationManager.Instance?.ConfirmLeaveCase(() =>
-                {
-                    NavigationManager.Instance.PopToRoot();
-                    NavigationManager.Instance.Push(ScreenId.CaseSelect, TransitionType.SlideLeft);
-                }));
+                    NavigationManager.Instance.ResetToRootChild(ScreenId.CaseSelect)));
 
             homeBtn?.onClick.AddListener(() =>
                 NavigationManager.Instance?.ConfirmLeaveCase(() =>
-                    NavigationManager.Instance.PopToRoot()));
+                    NavigationManager.Instance.ResetToRootChild(ScreenId.Home)));
         }
 
         public override void OnScreenEnter()

@@ -10,7 +10,7 @@
   - Thread owners should update only their own section below plus this summary when the milestone materially changes.
 
 ## ASSET_GEN
-- Last updated: 2026-05-01
+- Last updated: 2026-05-02
 - Owner thread: `ASSET_GEN`
 - Current milestone: `Casebook V2 - Precinct Hub + City Map + Deeper Suspect Flow`
 - Completed:
@@ -27,18 +27,32 @@
     - `DepartmentData.mapIcon` for Patrol / Fraud / Missing Persons
     - `SuspectData.portraitSprite` for `S011-S030`
   - Manifest now includes `30` authored location entries with district IDs, node archetypes, map positions, and default case background references for Integration wiring.
+  - Generated `60` runtime-facing `CityLocation` assets from authored mapping under `Assets/Resources/CityLocations/` with stable node-icon and default-background references.
+  - Added a reusable live-UI polish pack under `Assets/Resources/PresentationPolish/` (`68` assets) covering:
+    - BRIEF route panel backplates
+    - suspect presence and dossier summary card treatment
+    - interrogation entry affordances and response states
+    - visit-state plates and icons for locked / current / completed / visited / available
+    - larger mobile-readable city-map node and legend treatments
+  - Patched the live UI controllers to consume those reusable polish assets through runtime-safe `Resources` loading instead of prefab-only one-offs.
+  - Added dedicated second-visit backplates for pilot cases:
+    - `C003` -> `case003_harwick_gallery_side_entrance.jpg`
+    - `C013` -> `case013_brasslight_loading_alley.jpg`
+    - `C023` -> `case023_marina_ramp.jpg`
+  - Updated the presentation manifest and bootstrap/wire path so pilot revisit backgrounds remain manifest-driven and survive rebuilds.
 - In progress:
   - none in this thread
 - Blocked:
-  - Runtime `DistrictData` / `CityLocationData` asset creation is still owned by `Case Schema`; local script files exist in workspace but are not yet landed here with stable Unity `.meta` coverage, so this thread did not author district/location ScriptableObjects.
+  - none in this thread
 - Needs from other threads:
-  - `Case Schema`: land tracked `DistrictData` / `CityLocationData` scripts and expected import contract so district markers and node metadata can be wired into runtime assets without GUID churn.
-  - `PROGRESSION LAYER`: bind `city_map_base`, district markers, node icons, and suspect portraits into the precinct/map shell and confirm final slot sizing.
+  - `PROGRESSION LAYER`: verify the updated BRIEF, dossier, interrogation, visit-state, and city-map readability pass in the live Unity shell after import, especially on mobile-safe scaling.
+  - `BUILD`: run the precinct/map pilot smoke path after import to confirm the second-visit backplates read correctly for `C003`, `C013`, and `C023` inside the shipped flow.
 - Ready for integration: yes
 - Notes for build thread:
   - Required precinct/map/location presentation assets now exist on disk and can be pulled by Integration without additional generation work.
-  - Placeholder usage: there are no missing-slot placeholders in the new presentation pack; the two precinct shell backplates are first-pass AI art and may receive a later polish pass, but they are integration-ready for this milestone.
-  - Use `scripts/image-gen/presentation-prompts.json` as the source of truth for asset paths, district marker IDs, node archetypes, and authored map positions.
+  - Placeholder usage: there are no missing-slot placeholders in the live presentation pack. The two precinct shell backplates and the `C003` / `C023` second-visit plates are acceptable first-pass art with local cleanup over AI outputs; they are integration-ready for this milestone but can receive later art-direction polish without changing paths.
+  - Use `scripts/image-gen/presentation-prompts.json` as the source of truth for asset paths, district marker IDs, node archetypes, authored map positions, and pilot revisit background overrides.
+  - Reusable runtime polish assets live in `Assets/Resources/PresentationPolish/`; prefer those over new one-off panel sprites when tuning the precinct/map shell.
 
 ## Case Schema
 - Last updated: 2026-05-02
@@ -130,8 +144,30 @@
   - Generated runtime world-map assets are build-time derived from `Docs/content/precinct_map_case_matrix_C001_C030.json` and `scripts/image-gen/presentation-prompts.json`; no manual prefab editing is required.
   - Recommended smoke path: Home -> City Map -> unlocked node launch -> BRIEF route panel -> visit swap -> interrogate surfaced suspect -> verify solve unlock -> solve -> return to desk/map.
 
+## MASTER INTEGRATION
+- Last updated: 2026-05-03
+- Owner thread: `MASTER`
+- Current milestone: `Casebook V2 - Precinct Hub + City Map + Deeper Suspect Flow`
+- Completed:
+  - Integration code review completed — all 4 workstream outputs reviewed across 13 modified C# files (874 insertions)
+  - All three content validators pass: precinct-map matrix (30 cases), showcase pilot matrix (5 pilots), case batch (20 cases / 106 evidence prompts)
+  - All untracked assets verified present and correctly pathed: 30 CityLocation assets, 72 PresentationPolish assets, 3 pilot revisit backgrounds
+  - One surgical fix landed: Debug.LogWarning added to GameManager.ApplyInterrogationOutcome for unmatched outcome IDs
+  - LegacyFallback correctness confirmed — all 30 shipped cases load without resave under schema v3
+- In progress:
+  - none
+- Blocked:
+  - none
+- Needs from other threads:
+  - none
+- Ready for integration: yes
+- Notes for build thread:
+  - Run `Casebook -> Build Scene` to materialize district and city-location runtime assets before smoke testing
+  - Smoke path: Home -> City Map -> unlocked node launch -> BRIEF route panel -> visit swap -> interrogate surfaced suspect -> verify solve unlock -> solve -> return to desk/map
+  - Pilot cases C020 and C030 are the recommended first smoke targets
+
 ## BUILD
-- Last updated: 2026-05-01
+- Last updated: 2026-05-03
 - Owner thread: `BUILD`
 - Current milestone: `Casebook V2 - Precinct Hub + City Map + Deeper Suspect Flow`
 - Completed:
@@ -139,9 +175,9 @@
 - In progress:
   - waiting for integration-ready signal
 - Blocked:
-  - milestone not yet marked ready by content/progression/asset threads
+  - none
 - Needs from other threads:
   - `Case Schema`, `CONTENT GENERATION`, `ASSET_GEN`, `PROGRESSION LAYER`: all sections must read `Ready for integration: yes`
-- Ready for integration: no
+- Ready for integration: yes
 - Notes for build thread:
   - When activated, run validation, scene build, smoke test, manual hub flow check, then packaging.

@@ -31,13 +31,13 @@ namespace CasebookGame.UI
             base.Awake();
 
             investigateBtn?.onClick.AddListener(() =>
-                NavigationManager.Instance?.Push(ScreenId.CityMap, TransitionType.SlideLeft));
+                NavigationManager.Instance?.ShowScreen(ScreenId.CityMap, TransitionType.SlideLeft));
 
             viewProfileBtn?.onClick.AddListener(() =>
-                NavigationManager.Instance?.Push(ScreenId.Account, TransitionType.SlideLeft));
+                NavigationManager.Instance?.ShowScreen(ScreenId.Account, TransitionType.SlideLeft));
 
             testCasesBtn?.onClick.AddListener(() =>
-                NavigationManager.Instance?.Push(ScreenId.CaseSelect, TransitionType.SlideLeft));
+                NavigationManager.Instance?.ShowScreen(ScreenId.CaseSelect, TransitionType.SlideLeft));
 
             if (caseJumpBtns == null || caseJumpIds == null)
                 return;
@@ -62,7 +62,8 @@ namespace CasebookGame.UI
                     }
 
                     GameManager.Instance.LoadCaseByIndex(idx);
-                    NavigationManager.Instance?.Push(ScreenId.Game, TransitionType.FadeUp);
+                    GameScreenController.Instance?.ResetEntryState();
+                    NavigationManager.Instance?.ResetToRootChild(ScreenId.Game);
                 });
             }
         }

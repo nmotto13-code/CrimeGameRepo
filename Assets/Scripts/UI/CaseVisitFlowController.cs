@@ -25,6 +25,7 @@ namespace CasebookGame.UI
         readonly Color lockedColor = new Color(0.26f, 0.28f, 0.34f);
         readonly Color neutralColor = new Color(0.14f, 0.16f, 0.22f);
         readonly List<Button> visitButtons = new();
+        bool polishApplied;
 
         void OnEnable()
         {
@@ -63,6 +64,8 @@ namespace CasebookGame.UI
             var currentLocation = gameManager?.CurrentLocation;
             if (caseData == null || currentLocation == null)
                 return;
+
+            ApplyPolish();
 
             if (currentLocationText != null)
                 currentLocationText.text = currentLocation.displayName;
@@ -109,10 +112,11 @@ namespace CasebookGame.UI
                 var buttonGo = new GameObject($"Visit_{location.locationId}");
                 buttonGo.transform.SetParent(visitButtonParent, false);
                 buttonGo.AddComponent<RectTransform>();
-                buttonGo.AddComponent<LayoutElement>().preferredHeight = 84;
+                buttonGo.AddComponent<LayoutElement>().preferredHeight = 78;
 
                 var background = buttonGo.AddComponent<Image>();
                 background.color = ResolveVisitColor(isCurrent, canVisit, completed, visited);
+                PresentationPolishCatalog.ApplySprite(background, ResolveVisitPlateKey(isCurrent, canVisit, completed, visited), Color.white);
 
                 var button = buttonGo.AddComponent<Button>();
                 button.targetGraphic = background;
@@ -126,7 +130,7 @@ namespace CasebookGame.UI
                 var label = new GameObject("Label");
                 label.transform.SetParent(buttonGo.transform, false);
                 var labelText = label.AddComponent<TextMeshProUGUI>();
-                labelText.alignment = TextAlignmentOptions.Center;
+                labelText.alignment = TextAlignmentOptions.MidlineLeft;
                 labelText.textWrappingMode = TextWrappingModes.Normal;
                 labelText.fontSize = 18;
                 labelText.fontStyle = FontStyles.Bold;
@@ -136,8 +140,36 @@ namespace CasebookGame.UI
                 var labelRT = labelText.rectTransform;
                 labelRT.anchorMin = Vector2.zero;
                 labelRT.anchorMax = Vector2.one;
-                labelRT.offsetMin = new Vector2(12f, 8f);
-                labelRT.offsetMax = new Vector2(-12f, -8f);
+                labelRT.offsetMin = new Vector2(170f, 12f);
+                labelRT.offsetMax = new Vector2(-48f, -12f);
+
+                PresentationPolishCatalog.EnsureChildImage(
+                    buttonGo.transform,
+                    "StateIcon",
+                    ResolveVisitIconKey(isCurrent, canVisit, completed, visited),
+                    new Vector2(0f, 0f),
+                    new Vector2(0f, 1f),
+                    new Vector2(34f, 34f),
+                    new Vector2(130f, -34f),
+                    Color.white);
+
+                bool interrogationReady = isCurrent
+                    && gameManager.GetCurrentLocationSuspectPresence().Any(presence =>
+                        presence != null
+                        && !string.IsNullOrWhiteSpace(presence.interrogationEntryNodeId)
+                        && InterrogationFlowController.Instance != null
+                        && InterrogationFlowController.Instance.IsEntryNodeAvailable(presence.interrogationEntryNodeId));
+                var badge = PresentationPolishCatalog.EnsureChildImage(
+                    buttonGo.transform,
+                    "QuestionReadyBadge",
+                    "Interrogation/interrogation_ready_badge",
+                    new Vector2(1f, 0f),
+                    new Vector2(1f, 1f),
+                    new Vector2(-112f, 16f),
+                    new Vector2(-24f, -72f),
+                    Color.white);
+                if (badge != null)
+                    badge.gameObject.SetActive(interrogationReady);
 
                 visitButtons.Add(button);
             }
@@ -149,6 +181,7 @@ namespace CasebookGame.UI
                 return;
 
             leadActionButton.onClick.RemoveAllListeners();
+            var currentLocation = gameManager.CurrentLocation;
 
             var availablePresence = gameManager.GetCurrentLocationSuspectPresence()
                 .FirstOrDefault(presence =>
@@ -162,9 +195,37 @@ namespace CasebookGame.UI
                 leadActionButton.gameObject.SetActive(true);
                 if (leadActionLabel != null)
                     leadActionLabel.text = $"QUESTION {gameManager.GetSuspectDisplayName(availablePresence.suspectId).ToUpperInvariant()}";
+                SetLeadActionIconActive(true);
 
                 leadActionButton.onClick.AddListener(() =>
                     InterrogationFlowController.Instance?.TryBegin(caseData, availablePresence.interrogationEntryNodeId, null));
+                return;
+            }
+
+            if (gameManager.IsCaseReadyForSolve())
+            {
+                leadActionButton.gameObject.SetActive(true);
+                if (leadActionLabel != null)
+                    leadActionLabel.text = "OPEN SOLVE BOARD";
+                SetLeadActionIconActive(false);
+
+                leadActionButton.onClick.AddListener(() =>
+                    TabController.Instance?.SwitchToTab(3));
+                return;
+            }
+
+            if (currentLocation != null
+                && currentLocation.hotspots != null
+                && currentLocation.hotspots.Count > 0
+                && !gameManager.HasCompletedLocation(currentLocation.locationId))
+            {
+                leadActionButton.gameObject.SetActive(true);
+                if (leadActionLabel != null)
+                    leadActionLabel.text = "SEARCH CURRENT SCENE";
+                SetLeadActionIconActive(false);
+
+                leadActionButton.onClick.AddListener(() =>
+                    TabController.Instance?.SwitchToTab(1));
                 return;
             }
 
@@ -172,13 +233,15 @@ namespace CasebookGame.UI
             {
                 leadActionButton.gameObject.SetActive(true);
                 if (leadActionLabel != null)
-                    leadActionLabel.text = "OPEN DOSSIER";
+                    leadActionLabel.text = "REVIEW DOSSIER";
+                SetLeadActionIconActive(false);
 
                 leadActionButton.onClick.AddListener(() =>
-                    NavigationManager.Instance?.Push(ScreenId.Dossier, TransitionType.SlideLeft));
+                    NavigationManager.Instance?.ShowScreen(ScreenId.Dossier, TransitionType.FadeUp));
                 return;
             }
 
+            SetLeadActionIconActive(false);
             leadActionButton.gameObject.SetActive(false);
         }
 
@@ -206,7 +269,7 @@ namespace CasebookGame.UI
             if (caseData.visitFlowMode == CaseVisitFlowMode.LegacyFallback && totalLocations <= 1)
                 return "Single-scene case file. Follow the contradiction loop and use the dossier when suspect pressure appears.";
 
-            return $"Visit {gameManager.CurrentLocationIndex + 1}/{totalLocations} | {openCount} open | {visitedCount} visited | {completedCount} cleared";
+            return $"Current stop {gameManager.CurrentLocationIndex + 1} of {totalLocations}. {openCount} route lead(s) open, {visitedCount} visited, {completedCount} cleared.";
         }
 
         static string BuildSuspectSummary(GameManager gameManager, CaseData caseData)
@@ -251,6 +314,82 @@ namespace CasebookGame.UI
             if (visited)
                 return neutralColor;
             return availableColor;
+        }
+
+        void ApplyPolish()
+        {
+            if (polishApplied)
+                return;
+
+            polishApplied = true;
+
+            PresentationPolishCatalog.ApplyTextPlate(currentLocationText, "Panels/current_location_plate",
+                new Color(1f, 0.92f, 0.72f), new Vector4(26f, 18f, 18f, 18f));
+            PresentationPolishCatalog.ApplyTextPlate(routeSummaryText, "Panels/route_summary_plate",
+                new Color(0.88f, 0.90f, 0.96f), new Vector4(26f, 18f, 18f, 18f));
+            PresentationPolishCatalog.ApplyTextPlate(suspectPresenceText, "Panels/suspect_presence_plate",
+                new Color(0.95f, 0.95f, 0.98f), new Vector4(26f, 18f, 18f, 18f));
+            PresentationPolishCatalog.ApplyTextPlate(solveGateText, "Panels/solve_gate_plate",
+                new Color(0.84f, 0.92f, 0.96f), new Vector4(26f, 18f, 18f, 18f));
+            PresentationPolishCatalog.ApplyTextPlate(sceneHintText, "Panels/scene_hint_plate",
+                new Color(0.82f, 0.84f, 0.90f), new Vector4(26f, 18f, 18f, 18f));
+
+            if (visitButtonParent != null && visitButtonParent.TryGetComponent<Image>(out var listImage))
+                PresentationPolishCatalog.ApplySprite(listImage, "Panels/visit_list_plate", Color.white);
+
+            if (leadActionButton?.targetGraphic is Image leadImage)
+                PresentationPolishCatalog.ApplySprite(leadImage, "Panels/lead_action_plate", Color.white);
+
+            if (leadActionLabel != null)
+            {
+                leadActionLabel.color = new Color(0.10f, 0.08f, 0.06f);
+                leadActionLabel.margin = new Vector4(88f, 12f, 24f, 12f);
+            }
+
+            var leadIcon = PresentationPolishCatalog.EnsureChildImage(
+                leadActionButton != null ? leadActionButton.transform : null,
+                "LeadActionIcon",
+                "Interrogation/interrogation_ready_badge",
+                new Vector2(0f, 0f),
+                new Vector2(0f, 1f),
+                new Vector2(18f, 14f),
+                new Vector2(74f, -14f),
+                new Color(0.16f, 0.12f, 0.08f));
+            if (leadIcon != null)
+                leadIcon.gameObject.SetActive(true);
+        }
+
+        void SetLeadActionIconActive(bool isActive)
+        {
+            var icon = leadActionButton != null ? leadActionButton.transform.Find("LeadActionIcon") : null;
+            if (icon != null)
+                icon.gameObject.SetActive(isActive);
+        }
+
+        static string ResolveVisitPlateKey(bool isCurrent, bool canVisit, bool completed, bool visited)
+        {
+            if (isCurrent)
+                return "VisitState/visit_current_plate";
+            if (!canVisit)
+                return "VisitState/visit_locked_plate";
+            if (completed)
+                return "VisitState/visit_completed_plate";
+            if (visited)
+                return "VisitState/visit_visited_plate";
+            return "VisitState/visit_available_plate";
+        }
+
+        static string ResolveVisitIconKey(bool isCurrent, bool canVisit, bool completed, bool visited)
+        {
+            if (isCurrent)
+                return "VisitState/state_current";
+            if (!canVisit)
+                return "VisitState/state_locked";
+            if (completed)
+                return "VisitState/state_completed";
+            if (visited)
+                return "VisitState/state_visited";
+            return "VisitState/state_available";
         }
     }
 }

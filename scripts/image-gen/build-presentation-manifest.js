@@ -197,6 +197,33 @@ const locationNodeIcons = Object.entries(nodeArchetypes).map(([id, config]) => (
   locationIds: locationEntries.filter(location => location.nodeArchetypeId === id).map(location => location.locationId),
 }));
 
+const pilotVisitBackgrounds = [
+  {
+    caseAssetId: 'Case_003',
+    locationId: 'VISIT_C003_HARWICK_GALLERY_SIDE_ENTRANCE',
+    displayName: 'Harwick Gallery Side Entrance',
+    output: 'Assets/Sprites/Backgrounds/case003_harwick_gallery_side_entrance.jpg',
+    size: '1024x1792',
+    prompt: 'dark atmospheric detective game location, photorealistic, slightly desaturated, cinematic wide shot, no people visible, no text or UI elements, 9:16 portrait, narrow rear courtyard stair for an upscale gallery building at blue-hour dusk, rain-dark stone steps, brass handrail, plain unmarked service door, old buzzer panel, security light reflections, quiet street tension, evidence-friendly negative space, blank walls only, no signage, no painted lettering, no letterforms, no numbers',
+  },
+  {
+    caseAssetId: 'Case_013',
+    locationId: 'VISIT_C013_LOADING_ALLEY',
+    displayName: 'Brasslight Loading Alley',
+    output: 'Assets/Sprites/Backgrounds/case013_brasslight_loading_alley.jpg',
+    size: '1024x1792',
+    prompt: 'dark atmospheric detective game location, photorealistic, slightly desaturated, cinematic wide shot, no people visible, no text or UI elements, 9:16 portrait, upscale gallery loading alley at night, wet cobblestones, rolling cargo case tracks, steel service door, stacked crates under sodium lamps, narrow service corridor mood, polished but illicit atmosphere, negative space for hotspots',
+  },
+  {
+    caseAssetId: 'Case_023',
+    locationId: 'VISIT_C023_MARINA_RAMP',
+    displayName: 'Marina Ramp',
+    output: 'Assets/Sprites/Backgrounds/case023_marina_ramp.jpg',
+    size: '1024x1792',
+    prompt: 'dark atmospheric detective game location, photorealistic, slightly desaturated, cinematic wide shot, no people visible, no text or UI elements, 9:16 portrait, unmarked marina service ramp after midnight, slick concrete, black water, mooring posts, low dock lights, damp cargo scuffs and loose rope only, distant skyline glow, noir missing-person tension, clear space for interactive hotspots, plain dock surface, no painted dock labels, no numbering, no letterforms, no signage',
+  },
+];
+
 const artEntries = [
   {
     id: 'precinct_home_hub',
@@ -226,6 +253,13 @@ const artEntries = [
     size: '1024x1024',
     prompt: entry.prompt,
   })),
+  ...pilotVisitBackgrounds.map(entry => ({
+    id: entry.locationId,
+    category: 'visit_background',
+    output: entry.output,
+    size: entry.size,
+    prompt: entry.prompt,
+  })),
 ];
 
 const manifest = {
@@ -235,8 +269,8 @@ const manifest = {
     'Docs/content/suspects_C011_C030.json',
   ],
   notes: [
-    'DistrictData and CityLocationData runtime asset creation is intentionally excluded here because those script files are currently untracked and have no stable Unity .meta GUIDs in this thread.',
-    'Integration can consume this manifest to wire district markers, node icons, map positions, and default backgrounds once the schema thread lands tracked district/location scripts.',
+    'This manifest is the source of truth for precinct shell art, district markers, city location assets, and pilot second-visit background overrides.',
+    'ProgressionAssetBootstrapper and wire-presentation.js both consume these paths, so regenerated art should be added here instead of patched directly into case assets.',
   ],
   artEntries,
   departmentIcons,
@@ -244,6 +278,7 @@ const manifest = {
   locationNodeIcons,
   locations: locationEntries,
   suspectPortraits,
+  caseVisitBackgrounds: pilotVisitBackgrounds,
 };
 
 fs.writeFileSync(outputPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');

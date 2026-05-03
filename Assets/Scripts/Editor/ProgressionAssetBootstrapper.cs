@@ -74,6 +74,9 @@ namespace CasebookGame.Editor
             var manifestDistricts = (manifest.districtMarkers ?? Array.Empty<PresentationDistrictEntry>())
                 .Where(entry => entry != null && !string.IsNullOrWhiteSpace(entry.districtId))
                 .ToDictionary(entry => entry.districtId, entry => entry, StringComparer.OrdinalIgnoreCase);
+            var manifestVisitBackgrounds = (manifest.caseVisitBackgrounds ?? Array.Empty<PresentationCaseVisitBackgroundEntry>())
+                .Where(entry => entry != null && !string.IsNullOrWhiteSpace(entry.locationId))
+                .ToDictionary(entry => entry.locationId, entry => entry, StringComparer.OrdinalIgnoreCase);
 
             var locationIconPaths = BuildLocationIconLookup(manifest.locationNodeIcons ?? Array.Empty<PresentationNodeIconEntry>());
             var arcLookup = (matrix.caseArcs ?? Array.Empty<PrecinctCaseArcEntry>())
@@ -95,7 +98,7 @@ namespace CasebookGame.Editor
                 if (!matrixCases.TryGetValue(pair.Key, out var matrixCase))
                     continue;
 
-                ApplyCaseMetadata(pair.Value, matrixCase, manifestLocations);
+                ApplyCaseMetadata(pair.Value, matrixCase, manifestLocations, manifestVisitBackgrounds);
                 MergeInvolvedSuspects(pair.Value, matrixCase);
                 ApplyPilotVisitFlowOverrides(pair.Value);
                 EditorUtility.SetDirty(pair.Value);
@@ -204,7 +207,8 @@ namespace CasebookGame.Editor
         static void ApplyCaseMetadata(
             CaseData caseData,
             PrecinctCaseEntry matrixCase,
-            IReadOnlyDictionary<string, PresentationCityLocationEntry> manifestLocations)
+            IReadOnlyDictionary<string, PresentationCityLocationEntry> manifestLocations,
+            IReadOnlyDictionary<string, PresentationCaseVisitBackgroundEntry> manifestVisitBackgrounds)
         {
             caseData.departmentId = ParseDepartmentId(matrixCase.departmentId);
             caseData.districtId = matrixCase.districtId;
@@ -230,13 +234,14 @@ namespace CasebookGame.Editor
                 })
                 .ToList();
 
-            caseData.caseLocations = BuildCaseLocations(caseData, matrixCase, manifestLocations);
+            caseData.caseLocations = BuildCaseLocations(caseData, matrixCase, manifestLocations, manifestVisitBackgrounds);
         }
 
         static List<CaseLocationData> BuildCaseLocations(
             CaseData caseData,
             PrecinctCaseEntry matrixCase,
-            IReadOnlyDictionary<string, PresentationCityLocationEntry> manifestLocations)
+            IReadOnlyDictionary<string, PresentationCityLocationEntry> manifestLocations,
+            IReadOnlyDictionary<string, PresentationCaseVisitBackgroundEntry> manifestVisitBackgrounds)
         {
             var existingPrimary = caseData.caseLocations != null && caseData.caseLocations.Count > 0
                 ? caseData.caseLocations[0]
@@ -260,7 +265,7 @@ namespace CasebookGame.Editor
                 {
                     locationId = sourceLocation.locationId,
                     displayName = sourceLocation.displayName,
-                    sceneBackground = ResolveLocationBackground(caseData, existingPrimary, sourceLocation, manifestLocations, isPrimary),
+                    sceneBackground = ResolveLocationBackground(caseData, existingPrimary, sourceLocation, manifestLocations, manifestVisitBackgrounds, isPrimary),
                     hotspots = isPrimary
                         ? CloneHotspots(existingPrimary?.hotspots?.Count > 0 ? existingPrimary.hotspots : caseData.hotspots)
                         : new List<HotspotData>(),
@@ -296,10 +301,18 @@ namespace CasebookGame.Editor
             CaseLocationData existingPrimary,
             PrecinctCaseLocationEntry sourceLocation,
             IReadOnlyDictionary<string, PresentationCityLocationEntry> manifestLocations,
+            IReadOnlyDictionary<string, PresentationCaseVisitBackgroundEntry> manifestVisitBackgrounds,
             bool isPrimary)
         {
             if (isPrimary)
                 return existingPrimary?.sceneBackground ?? caseData.sceneBackground;
+
+            if (sourceLocation != null
+                && manifestVisitBackgrounds != null
+                && manifestVisitBackgrounds.TryGetValue(sourceLocation.locationId, out var visitBackground))
+            {
+                return LoadSprite(visitBackground.output) ?? caseData.sceneBackground;
+            }
 
             if (manifestLocations.TryGetValue(sourceLocation.locationId, out var manifestLocation))
                 return LoadSprite(manifestLocation.defaultBackgroundPath) ?? caseData.sceneBackground;
@@ -1104,6 +1117,7 @@ namespace CasebookGame.Editor
             public PresentationDistrictEntry[] districtMarkers;
             public PresentationNodeIconEntry[] locationNodeIcons;
             public PresentationCityLocationEntry[] cityLocations;
+            public PresentationCaseVisitBackgroundEntry[] caseVisitBackgrounds;
         }
 
         [Serializable]
@@ -1139,6 +1153,15 @@ namespace CasebookGame.Editor
             public string nodeArchetypeId;
             public PresentationPoint mapPosition;
             public string defaultBackgroundPath;
+        }
+
+        [Serializable]
+        sealed class PresentationCaseVisitBackgroundEntry
+        {
+            public string caseAssetId;
+            public string locationId;
+            public string displayName;
+            public string output;
         }
 
         [Serializable]

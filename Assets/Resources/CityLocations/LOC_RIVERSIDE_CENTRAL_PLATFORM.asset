@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b7801013862b348a1d5cac47ff3004, type: 3}
+  m_Name: LOC_RIVERSIDE_CENTRAL_PLATFORM
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CityLocationData
+  locationId: "LOC_RIVERSIDE_CENTRAL_PLATFORM"
+  districtId: "DIST_RIVERSIDE"
+  displayName: "Central Platform"
+  mapPosition: {x: 0.650, y: 0.490}
+  nodeIcon: {fileID: 21300000, guid: 98c4d7a4d59f2c441f675d7e402bc29b, type: 3}
+  defaultBackground: {fileID: 21300000, guid: 19a14b1d9fa32a140939758f57ce8d6a, type: 3}

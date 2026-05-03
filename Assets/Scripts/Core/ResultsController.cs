@@ -26,17 +26,15 @@ namespace CasebookGame.Core
             {
                 Hide();
                 GameManager.Instance.NextCase();
-                NavigationManager.Instance?.PopToRootImmediate();
                 GameScreenController.Instance?.ResetEntryState();
-                NavigationManager.Instance?.Push(ScreenId.Game, TransitionType.None);
+                NavigationManager.Instance?.ResetToRootChild(ScreenId.Game);
             });
             retryButton?.onClick.AddListener(() =>
             {
                 Hide();
                 GameManager.Instance.RetryCase();
-                NavigationManager.Instance?.PopToRootImmediate();
                 GameScreenController.Instance?.ResetEntryState();
-                NavigationManager.Instance?.Push(ScreenId.Game, TransitionType.None);
+                NavigationManager.Instance?.ResetToRootChild(ScreenId.Game);
             });
         }
 

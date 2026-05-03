@@ -6,6 +6,8 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '../..');
 const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, 'presentation-prompts.json'), 'utf8'));
+const cityLocationScriptGuid = fs.readFileSync(path.join(repoRoot, 'Assets/Scripts/Data/CityLocationData.cs.meta'), 'utf8')
+  .match(/^guid: ([a-f0-9]{32})/m)?.[1] ?? null;
 
 function newGuid() {
   return crypto.randomBytes(16).toString('hex');
@@ -145,6 +147,18 @@ TextureImporter:
 `;
 }
 
+function makeNativeAssetMeta(guid) {
+  return `fileFormatVersion: 2
+guid: ${guid}
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+`;
+}
+
 function ensureMeta(assetRelativePath) {
   const absPath = path.join(repoRoot, assetRelativePath);
   if (!fs.existsSync(absPath)) {
@@ -159,6 +173,24 @@ function ensureMeta(assetRelativePath) {
   if (!guid) {
     guid = newGuid();
     fs.writeFileSync(metaPath, makeMeta(guid), 'utf8');
+  }
+  return guid;
+}
+
+function ensureNativeAssetMeta(assetRelativePath) {
+  const absPath = path.join(repoRoot, assetRelativePath);
+  if (!fs.existsSync(absPath)) {
+    return null;
+  }
+
+  const metaPath = `${absPath}.meta`;
+  let guid = null;
+  if (fs.existsSync(metaPath)) {
+    guid = fs.readFileSync(metaPath, 'utf8').match(/^guid: ([a-f0-9]{32})/m)?.[1] ?? null;
+  }
+  if (!guid) {
+    guid = newGuid();
+    fs.writeFileSync(metaPath, makeNativeAssetMeta(guid), 'utf8');
   }
   return guid;
 }
@@ -193,6 +225,86 @@ function patchField(assetRelativePath, fieldName, guid) {
   return true;
 }
 
+function yamlString(value) {
+  return JSON.stringify(value ?? '');
+}
+
+function buildLocationIconLookup() {
+  const lookup = new Map();
+  for (const entry of manifest.locationNodeIcons ?? []) {
+    const iconPath = entry.output;
+    for (const locationId of entry.locationIds ?? []) {
+      if (locationId) {
+        lookup.set(locationId, iconPath);
+      }
+    }
+  }
+  return lookup;
+}
+
+function upsertCityLocationAsset(entry, nodeIconGuid, backgroundGuid) {
+  if (!cityLocationScriptGuid) {
+    console.log('  Missing CityLocationData.cs.meta guid; cannot create CityLocation assets.');
+    return;
+  }
+
+  const assetRelativePath = `Assets/Resources/CityLocations/${entry.locationId}.asset`;
+  const absPath = path.join(repoRoot, assetRelativePath);
+  fs.mkdirSync(path.dirname(absPath), { recursive: true });
+
+  const content = `%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ${cityLocationScriptGuid}, type: 3}
+  m_Name: ${entry.locationId}
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CityLocationData
+  locationId: ${yamlString(entry.locationId)}
+  districtId: ${yamlString(entry.districtId)}
+  displayName: ${yamlString(entry.displayName)}
+  mapPosition: {x: ${Number(entry.mapPosition?.x ?? 0.5).toFixed(3)}, y: ${Number(entry.mapPosition?.y ?? 0.5).toFixed(3)}}
+  nodeIcon: ${nodeIconGuid ? `{fileID: 21300000, guid: ${nodeIconGuid}, type: 3}` : '{fileID: 0}'}
+  defaultBackground: ${backgroundGuid ? `{fileID: 21300000, guid: ${backgroundGuid}, type: 3}` : '{fileID: 0}'}
+`;
+
+  fs.writeFileSync(absPath, content, 'utf8');
+  ensureNativeAssetMeta(assetRelativePath);
+}
+
+function patchCaseVisitBackground(caseVisitEntry, backgroundGuid) {
+  if (!backgroundGuid || !caseVisitEntry?.caseAssetId || !caseVisitEntry.locationId) {
+    return false;
+  }
+
+  const assetRelativePath = `Assets/Resources/Cases/${caseVisitEntry.caseAssetId}.asset`;
+  const absPath = path.join(repoRoot, assetRelativePath);
+  if (!fs.existsSync(absPath)) {
+    console.log(`  Missing case asset for visit background: ${assetRelativePath}`);
+    return false;
+  }
+
+  const content = fs.readFileSync(absPath, 'utf8');
+  const escapedLocationId = caseVisitEntry.locationId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const blockPattern = new RegExp(`(- locationId: ${escapedLocationId}\\n\\s+displayName: .*\\n\\s+sceneBackground: )\\{fileID: [^}]+\\}`, 'm');
+  const replacement = `$1{fileID: 21300000, guid: ${backgroundGuid}, type: 3}`;
+  const updated = content.replace(blockPattern, replacement);
+
+  if (updated !== content) {
+    fs.writeFileSync(absPath, updated, 'utf8');
+    return true;
+  }
+
+  console.log(`  Could not patch visit background for ${caseVisitEntry.locationId}`);
+  return false;
+}
+
 for (const department of manifest.departmentIcons) {
   const guid = ensureMeta(department.output);
   if (!guid) {
@@ -215,4 +327,38 @@ for (const asset of [...manifest.artEntries, ...manifest.districtMarkers, ...man
   ensureMeta(asset.output);
 }
 
-console.log('Presentation assets wired for tracked department and suspect sprite fields.');
+const locationIconLookup = buildLocationIconLookup();
+for (const location of manifest.locations ?? []) {
+  const nodeIconPath = locationIconLookup.get(location.locationId) ?? null;
+  const nodeIconGuid = nodeIconPath ? ensureMeta(nodeIconPath) : null;
+  const backgroundGuid = location.defaultBackgroundPath ? ensureMeta(location.defaultBackgroundPath) : null;
+  upsertCityLocationAsset(location, nodeIconGuid, backgroundGuid);
+}
+
+for (const visitBackground of manifest.caseVisitBackgrounds ?? []) {
+  const backgroundGuid = ensureMeta(visitBackground.output);
+  if (!backgroundGuid) {
+    console.log(`  Missing visit background: ${visitBackground.output}`);
+    continue;
+  }
+  patchCaseVisitBackground(visitBackground, backgroundGuid);
+}
+
+function ensureFolderMetas(dirRelativePath) {
+  const absDir = path.join(repoRoot, dirRelativePath);
+  if (!fs.existsSync(absDir)) {
+    return;
+  }
+  for (const name of fs.readdirSync(absDir, { withFileTypes: true })) {
+    const childRelative = path.posix.join(dirRelativePath.replace(/\\/g, '/'), name.name);
+    if (name.isDirectory()) {
+      ensureFolderMetas(childRelative);
+    } else if (/\.(png|jpg|jpeg)$/i.test(name.name)) {
+      ensureMeta(childRelative);
+    }
+  }
+}
+
+ensureFolderMetas('Assets/Resources/PresentationPolish');
+
+console.log('Presentation assets wired for department, suspect, city-location, and pilot visit background fields.');

@@ -33,6 +33,7 @@ namespace CasebookGame.Core
         readonly List<InterrogationNode> activeNodes = new();
         readonly Dictionary<string, InterrogationNode> nodeLookup = new();
         readonly HashSet<string> completedNodeIds = new();
+        bool polishApplied;
 
         CaseData preparedCase;
         Action completionCallback;
@@ -44,6 +45,8 @@ namespace CasebookGame.Core
         {
             if (Instance != null && Instance != this) { Destroy(gameObject); return; }
             Instance = this;
+
+            ApplyPolish();
 
             for (int i = 0; i < responseButtons.Length; i++)
             {
@@ -191,6 +194,8 @@ namespace CasebookGame.Core
 
         void ShowCurrentNode()
         {
+            ApplyPolish();
+
             if (currentNodeIndex < 0 || currentNodeIndex >= activeNodes.Count)
             {
                 Finish();
@@ -218,7 +223,7 @@ namespace CasebookGame.Core
 
                 button.gameObject.SetActive(true);
                 button.interactable = true;
-                SetButtonColor(button, neutralButtonColor);
+                SetButtonVisual(button, neutralButtonColor, "Panels/interrogation_response_plate");
 
                 if (i < responseLabels.Length && responseLabels[i] != null)
                     responseLabels[i].text = GetResponseText(node, i);
@@ -257,11 +262,11 @@ namespace CasebookGame.Core
                 button.interactable = false;
 
                 if (i == node.correctResponseIndex)
-                    SetButtonColor(button, correctButtonColor);
+                    SetButtonVisual(button, correctButtonColor, "Panels/interrogation_response_success");
                 else if (i == responseIndex)
-                    SetButtonColor(button, incorrectButtonColor);
+                    SetButtonVisual(button, incorrectButtonColor, "Panels/interrogation_response_failure");
                 else
-                    SetButtonColor(button, neutralButtonColor);
+                    SetButtonVisual(button, neutralButtonColor, "Panels/interrogation_response_plate");
             }
 
             if (feedbackText != null)
@@ -345,10 +350,52 @@ namespace CasebookGame.Core
             callback?.Invoke();
         }
 
-        static void SetButtonColor(Button button, Color color)
+        void ApplyPolish()
+        {
+            if (polishApplied)
+                return;
+
+            polishApplied = true;
+
+            PresentationPolishCatalog.ApplyTextPlate(promptText, "Panels/interrogation_prompt_plate",
+                new Color(0.92f, 0.94f, 0.98f), new Vector4(24f, 20f, 20f, 20f));
+            PresentationPolishCatalog.ApplyTextPlate(feedbackText, "Panels/interrogation_feedback_plate",
+                new Color(0.88f, 0.90f, 0.94f), new Vector4(24f, 18f, 18f, 18f));
+
+            if (triggerButton?.targetGraphic is Image triggerImage)
+                PresentationPolishCatalog.ApplySprite(triggerImage, "Panels/interrogation_trigger_plate", Color.white);
+
+            PresentationPolishCatalog.EnsureChildImage(
+                triggerButton != null ? triggerButton.transform : null,
+                "TriggerBadge",
+                "Interrogation/interrogation_ready_badge",
+                new Vector2(0f, 0f),
+                new Vector2(0f, 1f),
+                new Vector2(18f, 10f),
+                new Vector2(68f, -10f),
+                new Color(0.16f, 0.12f, 0.08f));
+
+            for (int i = 0; i < responseButtons.Length; i++)
+            {
+                if (responseButtons[i]?.targetGraphic is Image image)
+                    PresentationPolishCatalog.ApplySprite(image, "Panels/interrogation_response_plate", Color.white);
+
+                if (i < responseLabels.Length && responseLabels[i] != null)
+                {
+                    responseLabels[i].margin = new Vector4(24f, 14f, 24f, 14f);
+                    responseLabels[i].color = Color.white;
+                }
+            }
+        }
+
+        static void SetButtonVisual(Button button, Color color, string resourceKey)
         {
             if (button?.targetGraphic is Graphic graphic)
+            {
                 graphic.color = color;
+                if (graphic is Image image)
+                    PresentationPolishCatalog.ApplySprite(image, resourceKey, Color.white);
+            }
         }
     }
 }

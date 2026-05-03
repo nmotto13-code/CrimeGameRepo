@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b7801013862b348a1d5cac47ff3004, type: 3}
+  m_Name: LOC_MARKET_ROW_BLUEBIRD_VENUE
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CityLocationData
+  locationId: "LOC_MARKET_ROW_BLUEBIRD_VENUE"
+  districtId: "DIST_MARKET_ROW"
+  displayName: "Bluebird Basement Venue"
+  mapPosition: {x: 0.410, y: 0.710}
+  nodeIcon: {fileID: 21300000, guid: c88da96a30811f0ca819f8ee693ccb14, type: 3}
+  defaultBackground: {fileID: 21300000, guid: 2ec955dd05d13343f039dbe0d448ac81, type: 3}

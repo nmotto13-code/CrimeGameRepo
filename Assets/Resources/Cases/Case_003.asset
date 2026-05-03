@@ -73,7 +73,7 @@ MonoBehaviour:
     isRequiredForSolve: 1
   - locationId: VISIT_C003_HARWICK_GALLERY_SIDE_ENTRANCE
     displayName: Harwick Gallery Side Entrance
-    sceneBackground: {fileID: 21300000, guid: d29747a2b884e8341ad26c0eb2ef2429, type: 3}
+    sceneBackground: {fileID: 21300000, guid: d7f9a0e11cf020947d6d46079ec6b5a7, type: 3}
     hotspots: []
     entryText: Second visit verifies the gallery-side timing and reinforces the impossible
       cross-town alibi.

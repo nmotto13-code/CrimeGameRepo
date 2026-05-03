@@ -35,6 +35,7 @@ namespace CasebookGame.UI
 
         readonly List<MapNodeInfo> nodeInfos = new();
         MapNodeInfo selectedNode;
+        bool polishApplied;
 
         public override ScreenId ScreenId => ScreenId.CityMap;
 
@@ -44,10 +45,7 @@ namespace CasebookGame.UI
 
             closeBtn?.onClick.AddListener(() => NavigationManager.Instance?.Pop(TransitionType.SlideRight));
             departmentDeskBtn?.onClick.AddListener(() =>
-            {
-                NavigationManager.Instance?.Pop(TransitionType.SlideRight);
-                NavigationManager.Instance?.Push(ScreenId.CaseSelect, TransitionType.SlideLeft);
-            });
+                NavigationManager.Instance?.ShowScreen(ScreenId.CaseSelect, TransitionType.SlideLeft));
             launchCaseButton?.onClick.AddListener(LaunchSelectedCase);
         }
 
@@ -61,6 +59,8 @@ namespace CasebookGame.UI
         {
             if (mapRoot == null)
                 return;
+
+            ApplyPolish();
 
             nodeInfos.Clear();
             selectedNode = null;
@@ -161,11 +161,14 @@ namespace CasebookGame.UI
             rt.anchorMin = nodeInfo.Location?.mapPosition ?? new Vector2(0.5f, 0.5f);
             rt.anchorMax = rt.anchorMin;
             rt.pivot = new Vector2(0.5f, 0.5f);
-            rt.sizeDelta = new Vector2(94f, 94f);
+            rt.sizeDelta = new Vector2(116f, 116f);
             rt.anchoredPosition = Vector2.zero;
 
             var background = buttonGo.AddComponent<Image>();
             background.color = nodeInfo.IsUnlocked ? new Color(0.12f, 0.15f, 0.22f, 0.92f) : new Color(0.12f, 0.10f, 0.12f, 0.92f);
+            PresentationPolishCatalog.ApplySprite(background,
+                nodeInfo.IsUnlocked ? "Map/node_unlocked_plate" : "Map/node_locked_plate",
+                Color.white);
 
             var button = buttonGo.AddComponent<Button>();
             button.targetGraphic = background;
@@ -179,8 +182,8 @@ namespace CasebookGame.UI
             var iconFrame = new GameObject("IconFrame");
             iconFrame.transform.SetParent(buttonGo.transform, false);
             var iconFrameRT = iconFrame.AddComponent<RectTransform>();
-            iconFrameRT.anchorMin = new Vector2(0.12f, 0.22f);
-            iconFrameRT.anchorMax = new Vector2(0.88f, 0.88f);
+            iconFrameRT.anchorMin = new Vector2(0.12f, 0.18f);
+            iconFrameRT.anchorMax = new Vector2(0.88f, 0.82f);
             iconFrameRT.offsetMin = Vector2.zero;
             iconFrameRT.offsetMax = Vector2.zero;
             var iconFrameImage = iconFrame.AddComponent<Image>();
@@ -201,12 +204,12 @@ namespace CasebookGame.UI
             var label = CreateText(buttonGo.transform, "Label", BuildNodeLabel(nodeInfo), 16, FontStyles.Bold, Color.white);
             var labelRT = label.rectTransform;
             labelRT.anchorMin = new Vector2(0f, 0f);
-            labelRT.anchorMax = new Vector2(1f, 0.22f);
-            labelRT.offsetMin = new Vector2(4f, 0f);
-            labelRT.offsetMax = new Vector2(-4f, -2f);
+            labelRT.anchorMax = new Vector2(1f, 0.24f);
+            labelRT.offsetMin = new Vector2(6f, 2f);
+            labelRT.offsetMax = new Vector2(-6f, -2f);
             label.alignment = TextAlignmentOptions.Center;
             label.enableAutoSizing = true;
-            label.fontSizeMin = 10;
+            label.fontSizeMin = 9;
             label.fontSizeMax = 16;
 
             if (nodeInfo.Stars > 0)
@@ -242,6 +245,7 @@ namespace CasebookGame.UI
             }
 
             nodeInfo.Button = button;
+            nodeInfo.BackgroundImage = background;
             nodeInfo.IconFrame = iconFrameImage;
             nodeInfo.IconImage = iconImage;
         }
@@ -269,6 +273,7 @@ namespace CasebookGame.UI
 
             var background = markerGo.AddComponent<Image>();
             background.color = new Color(first.District.accentColor.r, first.District.accentColor.g, first.District.accentColor.b, 0.86f);
+            PresentationPolishCatalog.ApplySprite(background, "Panels/map_legend_plate", new Color(1f, 1f, 1f, 0.95f));
 
             if (first.District.mapIcon != null)
             {
@@ -308,8 +313,11 @@ namespace CasebookGame.UI
             var rowGo = new GameObject($"Legend_{districtName}");
             rowGo.transform.SetParent(legendParent, false);
             rowGo.AddComponent<LayoutElement>().preferredHeight = 34;
+            var rowImage = rowGo.AddComponent<Image>();
+            PresentationPolishCatalog.ApplySprite(rowImage, "Panels/map_legend_plate", new Color(1f, 1f, 1f, 0.94f));
 
             var rowLayout = rowGo.AddComponent<HorizontalLayoutGroup>();
+            rowLayout.padding = new RectOffset(12, 12, 4, 4);
             rowLayout.spacing = 10;
             rowLayout.childControlHeight = true;
             rowLayout.childControlWidth = false;
@@ -394,7 +402,7 @@ namespace CasebookGame.UI
 
             GameManager.Instance?.LoadCaseByIndex(selectedNode.CaseIndex);
             GameScreenController.Instance?.ResetEntryState();
-            NavigationManager.Instance?.Push(ScreenId.Game, TransitionType.FadeUp);
+            NavigationManager.Instance?.ResetToRootChild(ScreenId.Game);
         }
 
         void SyncNodeSelectionVisuals()
@@ -405,6 +413,17 @@ namespace CasebookGame.UI
                     continue;
 
                 bool isSelected = ReferenceEquals(nodeInfo, selectedNode);
+                if (nodeInfo.BackgroundImage != null)
+                {
+                    PresentationPolishCatalog.ApplySprite(
+                        nodeInfo.BackgroundImage,
+                        isSelected
+                            ? "Map/node_selected_plate"
+                            : nodeInfo.IsUnlocked
+                                ? "Map/node_unlocked_plate"
+                                : "Map/node_locked_plate",
+                        Color.white);
+                }
                 nodeInfo.IconFrame.color = isSelected
                     ? selectedOutlineColor
                     : nodeInfo.IsUnlocked
@@ -451,7 +470,22 @@ namespace CasebookGame.UI
         static string BuildNodeLabel(MapNodeInfo nodeInfo)
         {
             string title = nodeInfo.Location?.displayName ?? nodeInfo.Case.title;
-            return title.Length > 12 ? title[..12].ToUpperInvariant() : title.ToUpperInvariant();
+            if (string.IsNullOrWhiteSpace(title))
+                return "CASE";
+
+            if (title.Length <= 16)
+                return title.ToUpperInvariant();
+
+            var words = title.Split(' ');
+            if (words.Length >= 2)
+            {
+                string first = words[0].ToUpperInvariant();
+                string second = string.Join(" ", words.Skip(1));
+                second = second.Length > 12 ? second[..12] : second;
+                return $"{first}\n{second.ToUpperInvariant()}";
+            }
+
+            return title[..16].ToUpperInvariant();
         }
 
         static string BuildStars(int stars)
@@ -500,6 +534,30 @@ namespace CasebookGame.UI
                 Destroy(parent.GetChild(i).gameObject);
         }
 
+        void ApplyPolish()
+        {
+            if (polishApplied)
+                return;
+
+            polishApplied = true;
+
+            PresentationPolishCatalog.ApplyTextPlate(summaryText, "Panels/map_selection_plate",
+                new Color(0.88f, 0.90f, 0.96f), new Vector4(22f, 16f, 16f, 16f));
+            PresentationPolishCatalog.ApplyTextPlate(selectionDistrictText, "Panels/map_selection_plate",
+                new Color(0.96f, 0.92f, 0.78f), new Vector4(22f, 18f, 18f, 18f));
+            PresentationPolishCatalog.ApplyTextPlate(selectionLocationText, "Panels/map_selection_plate",
+                Color.white, new Vector4(22f, 18f, 18f, 18f));
+            PresentationPolishCatalog.ApplyTextPlate(selectionBodyText, "Panels/map_selection_plate",
+                new Color(0.88f, 0.90f, 0.96f), new Vector4(22f, 18f, 18f, 18f));
+            PresentationPolishCatalog.ApplyTextPlate(selectionStatusText, "Panels/map_selection_plate",
+                new Color(0.90f, 0.84f, 0.70f), new Vector4(22f, 18f, 18f, 18f));
+            PresentationPolishCatalog.ApplyTextPlate(emptyStateText, "Panels/map_selection_plate",
+                new Color(0.88f, 0.90f, 0.96f), new Vector4(22f, 18f, 18f, 18f));
+
+            if (mapBackgroundImage != null)
+                mapBackgroundImage.color = Color.white;
+        }
+
         sealed class MapNodeInfo
         {
             public CaseData Case;
@@ -512,6 +570,7 @@ namespace CasebookGame.UI
             public bool IsDailyCase;
             public int Stars;
             public Button Button;
+            public Image BackgroundImage;
             public Image IconFrame;
             public Image IconImage;
         }

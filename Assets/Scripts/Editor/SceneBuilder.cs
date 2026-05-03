@@ -174,14 +174,14 @@ namespace CasebookGame.Editor
                 new Color(0.78f, 0.78f, 0.84f));
             routeSummaryText.textWrappingMode = TextWrappingModes.Normal;
             routeSummaryText.alignment = TextAlignmentOptions.TopLeft;
-            routeSummaryText.gameObject.AddComponent<LayoutElement>().preferredHeight = 40;
+            routeSummaryText.gameObject.AddComponent<LayoutElement>().preferredHeight = 52;
 
             var visitButtonListGo = new GameObject("VisitButtonList");
             visitButtonListGo.transform.SetParent(briefContent.transform, false);
             visitButtonListGo.AddComponent<RectTransform>();
             visitButtonListGo.AddComponent<Image>().color = new Color(0.10f, 0.10f, 0.18f);
             var visitButtonListLE = visitButtonListGo.AddComponent<LayoutElement>();
-            visitButtonListLE.preferredHeight = 300;
+            visitButtonListLE.preferredHeight = 264;
             visitButtonListLE.flexibleWidth = 1;
             var visitButtonListVlg = visitButtonListGo.AddComponent<VerticalLayoutGroup>();
             visitButtonListVlg.childControlHeight = true;
@@ -196,19 +196,19 @@ namespace CasebookGame.Editor
                 new Color(0.90f, 0.90f, 0.94f));
             suspectPresenceText.textWrappingMode = TextWrappingModes.Normal;
             suspectPresenceText.alignment = TextAlignmentOptions.TopLeft;
-            suspectPresenceText.gameObject.AddComponent<LayoutElement>().preferredHeight = 132;
+            suspectPresenceText.gameObject.AddComponent<LayoutElement>().preferredHeight = 112;
 
             var solveGateText = MakeText(briefContent, "SolveGateText", "Solve gate status", 19, FontStyles.Italic,
                 new Color(0.76f, 0.84f, 0.92f));
             solveGateText.textWrappingMode = TextWrappingModes.Normal;
             solveGateText.alignment = TextAlignmentOptions.TopLeft;
-            solveGateText.gameObject.AddComponent<LayoutElement>().preferredHeight = 60;
+            solveGateText.gameObject.AddComponent<LayoutElement>().preferredHeight = 72;
 
             var sceneHintText = MakeText(briefContent, "SceneHintText", "Scene hint", 18, FontStyles.Normal,
                 new Color(0.62f, 0.62f, 0.70f));
             sceneHintText.textWrappingMode = TextWrappingModes.Normal;
             sceneHintText.alignment = TextAlignmentOptions.TopLeft;
-            sceneHintText.gameObject.AddComponent<LayoutElement>().preferredHeight = 48;
+            sceneHintText.gameObject.AddComponent<LayoutElement>().preferredHeight = 58;
 
             var leadActionGo = MakeSimpleButton(briefContent, "LeadActionButton", "OPEN DOSSIER", new Color(0.92f, 0.52f, 0.08f));
             var leadActionLE = leadActionGo.AddComponent<LayoutElement>();
@@ -222,7 +222,7 @@ namespace CasebookGame.Editor
             briefBodyText.textWrappingMode = TextWrappingModes.Normal;
             briefBodyText.alignment        = TextAlignmentOptions.TopLeft;
             var briefBodyLE = briefBodyText.gameObject.AddComponent<LayoutElement>();
-            briefBodyLE.preferredHeight = 360;
+            briefBodyLE.preferredHeight = 300;
             briefBodyLE.flexibleWidth   = 1;
 
             // ── Scene panel — crime scene background + hotspots ────────

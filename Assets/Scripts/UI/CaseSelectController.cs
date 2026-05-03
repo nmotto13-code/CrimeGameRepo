@@ -27,7 +27,7 @@ namespace CasebookGame.UI
             closeBtn?.onClick.AddListener(() =>
                 NavigationManager.Instance?.Pop(TransitionType.SlideRight));
             openMapBtn?.onClick.AddListener(() =>
-                NavigationManager.Instance?.Push(ScreenId.CityMap, TransitionType.SlideLeft));
+                NavigationManager.Instance?.ShowScreen(ScreenId.CityMap, TransitionType.SlideLeft));
         }
 
         public override void OnScreenEnter()
@@ -364,10 +364,9 @@ namespace CasebookGame.UI
 
         void SelectCase(CaseData caseData, int index)
         {
-            NavigationManager.Instance?.PopToRootImmediate();
             GameManager.Instance?.LoadCaseByIndex(index);
             GameScreenController.Instance?.ResetEntryState();
-            NavigationManager.Instance?.Push(ScreenId.Game, TransitionType.FadeUp);
+            NavigationManager.Instance?.ResetToRootChild(ScreenId.Game);
         }
     }
 }

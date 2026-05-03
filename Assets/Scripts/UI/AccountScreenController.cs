@@ -421,10 +421,9 @@ namespace CasebookGame.UI
             if (index < 0)
                 return;
 
-            NavigationManager.Instance?.PopToRootImmediate();
             GameManager.Instance?.LoadCaseByIndex(index);
             GameScreenController.Instance?.ResetEntryState();
-            NavigationManager.Instance?.Push(ScreenId.Game, TransitionType.FadeUp);
+            NavigationManager.Instance?.ResetToRootChild(ScreenId.Game);
         }
 
         static string BuildStars(int stars)

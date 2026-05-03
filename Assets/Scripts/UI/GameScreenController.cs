@@ -17,7 +17,7 @@ namespace CasebookGame.UI
             base.Awake();
             Instance = this;
             hamburgerBtn?.onClick.AddListener(() =>
-                NavigationManager.Instance?.Push(ScreenId.InGameMenu, TransitionType.SlideLeft));
+                NavigationManager.Instance?.ShowScreen(ScreenId.InGameMenu, TransitionType.FadeUp));
         }
 
         bool _hasEntered;

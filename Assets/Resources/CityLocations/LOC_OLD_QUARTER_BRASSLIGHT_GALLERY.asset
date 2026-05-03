@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b7801013862b348a1d5cac47ff3004, type: 3}
+  m_Name: LOC_OLD_QUARTER_BRASSLIGHT_GALLERY
+  m_EditorClassIdentifier: Assembly-CSharp::CasebookGame.Data.CityLocationData
+  locationId: "LOC_OLD_QUARTER_BRASSLIGHT_GALLERY"
+  districtId: "DIST_OLD_QUARTER"
+  displayName: "Brasslight Gallery"
+  mapPosition: {x: 0.270, y: 0.140}
+  nodeIcon: {fileID: 21300000, guid: 49db5d5d08a590800f9a83fb35edf4ee, type: 3}
+  defaultBackground: {fileID: 21300000, guid: cf9e67ed8c2a618b06ec165eb27bdd09, type: 3}

@@ -93,7 +93,7 @@ MonoBehaviour:
     isRequiredForSolve: 1
   - locationId: VISIT_C013_LOADING_ALLEY
     displayName: Brasslight Loading Alley
-    sceneBackground: {fileID: 21300000, guid: cf9e67ed8c2a618b06ec165eb27bdd09, type: 3}
+    sceneBackground: {fileID: 21300000, guid: aae61b96aa244f00c613f865233ccf60, type: 3}
     hotspots: []
     entryText: The alley visit pays off the seal-case movement and turns provenance
       fraud into a physical handoff problem.

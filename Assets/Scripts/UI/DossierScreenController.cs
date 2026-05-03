@@ -19,13 +19,14 @@ namespace CasebookGame.UI
         readonly Color detailColor = new Color(0.10f, 0.10f, 0.16f, 1f);
         readonly Color accentColor = new Color(0.90f, 0.72f, 0.28f, 1f);
         readonly Color portraitFallbackColor = new Color(0.22f, 0.24f, 0.32f, 1f);
+        bool polishApplied;
 
         public override ScreenId ScreenId => ScreenId.Dossier;
 
         protected override void Awake()
         {
             base.Awake();
-            closeBtn?.onClick.AddListener(() => NavigationManager.Instance?.Pop(TransitionType.SlideRight));
+            closeBtn?.onClick.AddListener(() => NavigationManager.Instance?.Pop(TransitionType.FadeUp));
         }
 
         public override void OnScreenEnter()
@@ -38,6 +39,8 @@ namespace CasebookGame.UI
         {
             if (listParent == null)
                 return;
+
+            ApplyPolish();
 
             foreach (Transform child in listParent)
                 Destroy(child.gameObject);
@@ -82,7 +85,9 @@ namespace CasebookGame.UI
             var card = new GameObject($"Suspect_{suspect.suspectId}");
             card.transform.SetParent(listParent, false);
             card.AddComponent<RectTransform>();
-            card.AddComponent<Image>().color = cardColor;
+            var cardImage = card.AddComponent<Image>();
+            cardImage.color = cardColor;
+            PresentationPolishCatalog.ApplySprite(cardImage, "Panels/dossier_card_plate", Color.white);
             card.AddComponent<LayoutElement>().flexibleWidth = 1f;
 
             var layout = card.AddComponent<VerticalLayoutGroup>();
@@ -97,6 +102,7 @@ namespace CasebookGame.UI
             header.AddComponent<RectTransform>();
             var headerImage = header.AddComponent<Image>();
             headerImage.color = headerColor;
+            PresentationPolishCatalog.ApplySprite(headerImage, "Panels/dossier_header_plate", Color.white);
             var headerButton = header.AddComponent<Button>();
             headerButton.targetGraphic = headerImage;
             header.AddComponent<LayoutElement>().preferredHeight = 220;
@@ -112,7 +118,9 @@ namespace CasebookGame.UI
             var portraitFrame = new GameObject("PortraitFrame");
             portraitFrame.transform.SetParent(header.transform, false);
             portraitFrame.AddComponent<RectTransform>();
-            portraitFrame.AddComponent<Image>().color = portraitFallbackColor;
+            var portraitFrameImage = portraitFrame.AddComponent<Image>();
+            portraitFrameImage.color = portraitFallbackColor;
+            PresentationPolishCatalog.ApplySprite(portraitFrameImage, "Panels/portrait_frame_plate", Color.white);
             portraitFrame.AddComponent<LayoutElement>().preferredWidth = 120;
 
             var portrait = new GameObject("Portrait");
@@ -179,7 +187,9 @@ namespace CasebookGame.UI
             var details = new GameObject("Details");
             details.transform.SetParent(card.transform, false);
             details.AddComponent<RectTransform>();
-            details.AddComponent<Image>().color = detailColor;
+            var detailsImage = details.AddComponent<Image>();
+            detailsImage.color = detailColor;
+            PresentationPolishCatalog.ApplySprite(detailsImage, "Panels/dossier_detail_plate", Color.white);
             details.SetActive(false);
 
             var detailsLayout = details.AddComponent<VerticalLayoutGroup>();
@@ -224,7 +234,9 @@ namespace CasebookGame.UI
             var card = new GameObject($"Summary_{BuildSummaryKey(summary)}");
             card.transform.SetParent(listParent, false);
             card.AddComponent<RectTransform>();
-            card.AddComponent<Image>().color = cardColor;
+            var cardImage = card.AddComponent<Image>();
+            cardImage.color = cardColor;
+            PresentationPolishCatalog.ApplySprite(cardImage, "Panels/dossier_summary_plate", Color.white);
             card.AddComponent<LayoutElement>().flexibleWidth = 1f;
 
             var layout = card.AddComponent<HorizontalLayoutGroup>();
@@ -238,7 +250,9 @@ namespace CasebookGame.UI
             var portraitFrame = new GameObject("PortraitFrame");
             portraitFrame.transform.SetParent(card.transform, false);
             portraitFrame.AddComponent<RectTransform>();
-            portraitFrame.AddComponent<Image>().color = portraitFallbackColor;
+            var portraitFrameImage = portraitFrame.AddComponent<Image>();
+            portraitFrameImage.color = portraitFallbackColor;
+            PresentationPolishCatalog.ApplySprite(portraitFrameImage, "Panels/portrait_frame_plate", Color.white);
             portraitFrame.AddComponent<LayoutElement>().preferredWidth = 96;
 
             var initials = new GameObject("Initials");
@@ -370,6 +384,16 @@ namespace CasebookGame.UI
                 .Replace("_", " ")
                 .Replace("poi", "POI")
                 .ToUpperInvariant();
+        }
+
+        void ApplyPolish()
+        {
+            if (polishApplied)
+                return;
+
+            polishApplied = true;
+            PresentationPolishCatalog.ApplyTextPlate(emptyStateText, "Panels/dossier_summary_plate",
+                new Color(0.88f, 0.90f, 0.96f), new Vector4(24f, 20f, 20f, 20f));
         }
     }
 }

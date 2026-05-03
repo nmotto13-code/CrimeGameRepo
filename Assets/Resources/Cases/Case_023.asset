@@ -93,7 +93,7 @@ MonoBehaviour:
     isRequiredForSolve: 1
   - locationId: VISIT_C023_MARINA_RAMP
     displayName: Marina Ramp
-    sceneBackground: {fileID: 21300000, guid: 2ec955dd05d13343f039dbe0d448ac81, type: 3}
+    sceneBackground: {fileID: 21300000, guid: 245ecd52ac268c5783f0b4c483954f6a, type: 3}
     hotspots: []
     entryText: The marina-side follow-up confirms Sera left toward the water and
       carries Mira's shadow into the missing-persons arc.
