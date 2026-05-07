@@ -1,0 +1,24 @@
+{
+  "env": {
+    "CLAUDE_CODE_USE_POWERSHELL_TOOL": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\blued\\\\OneDrive\\\\Desktop\\\\CrimeGame\" -Force)",
+      "Bash(Select-Object Name, FullName, PSIsContainer)",
+      "Bash(Format-Table -AutoSize)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\blued\\\\OneDrive\\\\Desktop\\\\CrimeGame\" -Force | Select-Object Name, @{Name=\"IsDir\"; Expression={$_.PSIsContainer}} | Format-Table -AutoSize)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\blued\\\\OneDrive\\\\Desktop\\\\CrimeGame\\\\scripts\" -Recurse -Force -File | ForEach-Object { $_.FullName } | Sort-Object)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\blued\\\\OneDrive\\\\Desktop\\\\CrimeGame\\\\Assets\\\\Scripts\" -Recurse -Force -File | ForEach-Object { $_.FullName } | Sort-Object)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\blued\\\\OneDrive\\\\Desktop\\\\CrimeGame\\\\scripts\" -Directory | ForEach-Object { $_.Name })",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\blued\\\\OneDrive\\\\Desktop\\\\CrimeGame\\\\Assets\\\\Resources\" -Recurse -File | Where-Object { $_.Extension -eq \".json\" -or $_.Extension -eq \".asset\" -or $_.Extension -eq \".yaml\" -or $_.Extension -eq \".yml\" } | ForEach-Object { $_.FullName } | Sort-Object)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\blued\\\\OneDrive\\\\Desktop\\\\CrimeGame\\\\.claude\" -Recurse -Force | ForEach-Object { $_.FullName } | Sort-Object)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\blued\\\\OneDrive\\\\Desktop\\\\CrimeGame\\\\scripts\\\\content\" -Recurse -File | Where-Object { $_.Extension -in @\\(\".mjs\", \".js\", \".ts\"\\) } | ForEach-Object { $_.Name } | Sort-Object)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\blued\\\\OneDrive\\\\Desktop\\\\CrimeGame\\\\scripts\\\\deploy\" -File | Where-Object { $_.Extension -ne \".json\" } | ForEach-Object { $_.Name } | Sort-Object)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\blued\\\\OneDrive\\\\Desktop\\\\CrimeGame\\\\scripts\\\\image-gen\" -File | Where-Object { $_.Extension -in @\\(\".js\", \".mjs\", \".ts\", \".json\", \".md\"\\) } | ForEach-Object { $_.Name } | Sort-Object)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\blued\\\\OneDrive\\\\Desktop\\\\CrimeGame\\\\Assets\\\\ScriptableObjects\" -Recurse -File | Where-Object { $_.Extension -eq \".asset\" } | ForEach-Object { $_.FullName } | Sort-Object)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\blued\\\\OneDrive\\\\Desktop\\\\CrimeGame\\\\Assets\\\\Scenes\" -File | ForEach-Object { $_.Name })",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\blued\\\\OneDrive\\\\Desktop\\\\CrimeGame\\\\Assets\\\\Prefabs\" -File -Recurse | ForEach-Object { $_.Name } | Sort-Object)"
+    ]
+  }
+}

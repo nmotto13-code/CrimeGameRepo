@@ -266,7 +266,10 @@ namespace CasebookGame.Core
 
             var outcome = caseData.GetInterrogationOutcome(outcomeId);
             if (outcome == null)
+            {
+                Debug.LogWarning($"[GameManager] ApplyInterrogationOutcome: no outcome found for id '{outcomeId}' in case '{currentCase?.caseId}'");
                 return false;
+            }
 
             earnedInterrogationOutcomeIds.Add(outcomeId);
             NotifyCaseProgressAdvanced();
