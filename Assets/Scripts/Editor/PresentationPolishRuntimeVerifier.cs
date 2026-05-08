@@ -476,7 +476,7 @@ namespace CasebookGame.Editor
                     && responseButtons[currentNode.correctResponseIndex] != null)
                 {
                     responseButtons[currentNode.correctResponseIndex].onClick.Invoke();
-                    double waitSeconds = GetField<float>(interrogation, "feedbackDurationSeconds") + 0.20d;
+                    double waitSeconds = GetValueField<float>(interrogation, "feedbackDurationSeconds") + 0.20d;
                     Wait(waitSeconds);
                     return true;
                 }

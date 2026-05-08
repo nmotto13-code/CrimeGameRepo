@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using CasebookGame.Data;
+using CasebookGame.UI;
 
 namespace CasebookGame.Core
 {
